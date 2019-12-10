@@ -304,6 +304,12 @@
             "style" : {
             	"navigationBarTitleText": "编制收货地址"
             }
+        },{
+            "path" : "pages/regest/regest",
+            "style": {
+            	"navigationStyle": "custom",
+            	"navigationBarTitleText": "注册成为会员"
+            }
         }
     ],
 	"globalStyle": {
