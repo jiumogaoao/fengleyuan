@@ -71,7 +71,7 @@
 					<text>退款/售后</text>
 				</view>
 			</view> -->
-			<image src="https://www.paradisebee.com/pomo3.png" class="promoD"></image>
+			<image src="https://www.paradisebee.com/pomo4.png" class="promoD"></image>
 			<!-- 订单 -->
 			<view class="order-section">
 				<view class="order-item" @click="navTo('/pages/income/income')">
@@ -359,8 +359,8 @@
 	.promoD{
 		margin-top: 20rpx;
 		margin: auto;
-		width: 680rpx;
-		height:212rpx;
+		width: 684rpx;
+		height:235rpx;
 	}
 	.order-section{
 		@extend %section;

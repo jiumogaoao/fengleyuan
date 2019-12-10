@@ -93,7 +93,9 @@
 				uni.navigateBack();
 			},
 			toRegist(){
-				this.$api.msg('去注册');
+				uni.navigateTo({
+					url:'/pages/regest/regest'
+				})
 			},
 			toLogin(){
 				let _this=this;

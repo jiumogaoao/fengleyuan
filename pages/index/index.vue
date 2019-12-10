@@ -27,9 +27,9 @@
 		</view>
 		<!-- 分类 -->
 		<view class="cate-section">
-			<view class="cate-item" @click="yijiayou">
+			<view class="cate-item">
 				<image src="/static/temp/c3.png"></image>
-				<text>易加油</text>
+				<text>环球美食</text>
 			</view>
 			<view class="cate-item">
 				<image src="/static/temp/c5.png"></image>
@@ -43,14 +43,14 @@
 				<image src="/static/temp/c7.png"></image>
 				<text>家居厨卫</text>
 			</view>
-			<view class="cate-item">
+			<view class="cate-item" @click="yijiayou">
 				<image src="/static/temp/c8.png"></image>
-				<text>速食生鲜</text>
+				<text>易加油</text>
 			</view>
 		</view>
 		
 		<view class="ad-1">
-			<image src="https://www.paradisebee.com/pomo4.png" mode="scaleToFill"></image>
+			<image src="https://www.paradisebee.com/pomo3.png" mode="scaleToFill"></image>
 		</view>
 		
 		<!-- 秒杀楼层 -->
@@ -647,19 +647,17 @@
 		}
 		/* 原图标颜色太深,不想改图了,所以加了透明度 */
 		image {
-			width: 88upx;
-			height: 88upx;
+			width: 108upx;
+			height: 108upx;
 			margin-bottom: 14upx;
 			border-radius: 50%;
 			opacity: .7;
-			box-shadow: 4upx 4upx 20upx rgba(250, 67, 106, 0.3);
 		}
 	}
 	.ad-1{
-		width: 100%;
-		height: 250upx;
-		padding: 0 25rpx;
-		background: #fff;
+		width:724rpx;
+		height: 245rpx;
+		margin: auto;
 		image{
 			width:100%;
 			height: 100%; 

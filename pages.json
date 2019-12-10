@@ -308,7 +308,8 @@
             "path" : "pages/regest/regest",
             "style": {
             	"navigationStyle": "custom",
-            	"navigationBarTitleText": "注册成为会员"
+            	"navigationBarTitleText": "注册成为会员",
+				"backgroundColor":"#ffae30"
             }
         }
     ],
@@ -320,7 +321,7 @@
 	},
 	"tabBar": {
 		"color": "#C0C4CC",
-		"selectedColor": "#fa436a",
+		"selectedColor": "#DD8D45",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{

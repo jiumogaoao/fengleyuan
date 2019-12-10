@@ -1,16 +1,18 @@
 <template>
 	<view class="page">
-		<image class="bg" src="/static/shareBG.png"></image>
+		<image class="bg" src="https://www.paradisebee.com/static/shareBG.png"></image>
 		<view class="regestFrame">
 			<view class="title">手机注册</view>
-			<view class="code">邀请码<text>{{id}}</text></view>
 			<view class="inputList">
 				<view class="inputPoint">
 					<input placeholder="请输入手机号" v-model="phone"/>
 				</view>
 				<view class="inputPoint">
-					<input placeholder="请输入邮箱" v-model="email"/>
+					<input placeholder="请输入邀请码" v-model="id"/>
 				</view>
+<!-- 				<view class="inputPoint">
+					<input placeholder="请输入邮箱" v-model="email"/>
+				</view> -->
 				<view class="inputPoint">
 					<input placeholder="请输入6-16位密码" v-model="password" :password="!showPassword"/>
 					<image class="icon" src="/static/regestIcon1.png" v-if="showPassword" @click="togglePassword"></image>
@@ -37,16 +39,13 @@
 		data() {
 			return {
 				phone:'',
-				email:'',
+				email:'chm'+(new Date().getTime()),
 				password:'',
 				code:'',
 				id:'',
 				nextTime:0,
 				showPassword:false
 			};
-		},
-		onLoad(props){
-			this.id = props.id||''
 		},
 		methods:{
 			go(url){
@@ -73,6 +72,7 @@
 						}
 			},
 			emailCheck(){
+				return true;
 				if(!this.email.length){
 					uni.showToast({
 						title:'请输入邮箱',
@@ -132,7 +132,7 @@
 								icon:'none'
 							})
 							uni.navigateTo({
-								url:'/pages/download/download'
+								url:'/pages/index/index'
 							})
 						}else{
 							uni.showToast({
@@ -176,8 +176,11 @@
 
 <style lang="scss">
 	.page{
-		position: relative;
-		height: 100%;
+		position: fixed;
+		top:0;
+		left: 0;
+		width:750rpx;
+		bottom:0;
 		background-color: #ffae30;
 		.bg{
 			width:750rpx;
@@ -185,7 +188,7 @@
 		}
 		.regestFrame{
 			position: absolute;
-			top:533rpx;
+			top:433rpx;
 			left:67rpx;
 			width:611rpx;
 			background-color: #fff;
