@@ -15,12 +15,6 @@
 					<view class="getcode" @click="getCode" v-else>获取验证码</view>
 				</view>
 			</view>
-			<view class="inputFrame">
-				<view class="label">邀请码</view>
-				<view class="inputSubFrame">
-					<input placeholder="请输入您的邀请码" v-model="id"/>
-				</view>
-			</view>
 			<view class="button" @click="next">下一步</view>
 		</view>
 		<view class="step" v-if="step==2" key="2">
@@ -36,11 +30,12 @@
 					<input placeholder="请再次输入您的密码" v-model="password2"/>
 				</view>
 			</view>
-			<view class="button" @click="regest">立即注册</view>
-			<view class="agreement">
-				<image src="/static/regestIcon2.png"></image>
-				<view class="des">我已阅读并同意<text class="yellow" @click="go('/pages/agreement/agreement')">{{agreement}}</text>与<text class="yellow" @click="go('/pages/policy/policy')">{{policy}}</text></view>
-			</view>
+			<view class="button" @click="regest">确认重置</view>
+		</view>
+		<view class="step" v-if="step==3" key="3">
+			<image src="/static/resetSuccess.png" class="successIcon"></image>
+			<view class="dsc">密码重置成功</view>
+			<view class="button" @click="go('/pages/public/login')">立即登录</view>
 		</view>
 		<image src="/static/regestBottom.png" class="regestBottom"></image>
 	</view> 
@@ -67,31 +62,14 @@
 		methods:{
 			next(){
 				let _this=this
-				if(_this.phoneCheck()&&_this.idCheck()&&_this.codeCheck()){
+				if(_this.phoneCheck()&&_this.codeCheck()){
 					this.step=2
 				}
 			},
 			go(url){
-				if(url.indexOf('index')!=-1||url.indexOf('category')!=-1||url.indexOf('user')!=-1){
-					uni.switchTab({
-					    url
-					})
-				}else{
-					uni.navigateTo({
-						url
-					})
-				}
-			},
-			idCheck(){
-				if(!this.id.length){
-					uni.showToast({
-						title:'请输入邀请码',
-						icon:'none'
-					})
-					return false;
-				}else{
-					return true;
-				}
+				uni.navigateTo({
+					url
+				})
 			},
 			phoneCheck(){
 				if(!this.phone.length){
@@ -186,40 +164,23 @@
 			},
 			regest(){
 				let _this=this
-				if(_this.phoneCheck()&&_this.idCheck()&&_this.passwordCheck()&&_this.codeCheck()){
-					postFetch('index.php/index/login/register',{phone:_this.phone,email:_this.email,password:_this.password,checkNum:_this.code,invitation_code:_this.id},false,function(res){
-						console.log('regestCallback',res)
-						debugger;
-						if(res.data.status==200){
-							uni.showToast({
-								title:'注册成功',
-								icon:'none'
-							})
-							res.data.user.avatar=res.data.user.userpic
-							_this.$store.dispatch("userST/setLogon",res.data.user)
-							var pages = getCurrentPages();
-							if((pages[pages.length - 2]).route!='pages/public/login'){
-								_this.go('/'+(pages[pages.length - 2]).route)
-							}else if(pages.length>2&&(pages[pages.length - 3]).route!='pages/public/login'){
-								_this.go('/'+(pages[pages.length - 3]).route)
-							}else{
-								_this.go('/pages/index/index')
-							}
-							
-						}else{
+				if(_this.phoneCheck()&&_this.passwordCheck()&&_this.password2Check()&&_this.codeCheck()){
+					postFetch('index.php/index/login/psw_reset',{phone:_this.phone,password:_this.password,checkNum:_this.code},false,function(res){
+						if(res.data.status!=200){
 							uni.showToast({
 								title:res.data.msg,
 								icon:'none'
 							})
+						}else{
+							_this.step=3
 						}
-						
 					})
 				}
 			},
 			getCode(){
 				let _this=this
 				if(this.phoneCheck()){
-					postFetch('index.php/index/login/sms',{phone:_this.phone,psw_reset:0},false,function(res){
+					postFetch('index.php/index/login/sms',{phone:_this.phone,psw_reset:1},false,function(res){
 						if(res.data.status!=200){
 							uni.showToast({
 								title:res.data.msg,
@@ -293,6 +254,21 @@
 						flex-shrink: 0;
 					}
 				}
+			}
+			.successIcon{
+				width:250rpx;
+				height:250rpx;
+				display: block;
+				margin: auto;
+				margin-top: 63rpx;
+			}
+			.dsc{
+				font-size:29rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(51,51,51,1);
+				text-align: center;
+				margin-top: 39rpx;
 			}
 			.button{
 				background:rgba(250,197,35,1);

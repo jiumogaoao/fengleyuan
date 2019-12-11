@@ -1,45 +1,5 @@
 <template>
 	<view>
-		<view class="top">
-			<view class="topTop">
-				<view class="topLeft">
-					<view class="title">账户乐币余额</view>
-					<view class="bigMoney">0</view>
-				</view>
-				<view class="topRight">
-					<view class="iconfont">&#xe62a;</view>
-					<view class="detail" @click="go('/pages/income/incomeList')">账单明细</view>
-				</view>
-			</view>
-			<view class="topBottom">
-				<view class="item">
-					<view class="title">累计获得蜜糖</view>
-					<view class="money">0</view>
-				</view>
-				<view class="item">
-					<view class="title">未结算蜜糖</view>
-					<view class="money">0</view>
-				</view>
-				<view class="item">
-					<view class="title">月均获得蜜糖</view>
-					<view class="money">0</view>
-				</view>
-			</view>
-		</view>
-		<view class="bar">
-			<view class="item" @click="changeState(0)">
-				<view class="title">每日</view>
-				<view class="line" v-if="state==0"></view>
-			</view>
-			<view class="item" @click="changeState(1)">
-				<view class="title">每周</view>
-				<view class="line" v-if="state==1"></view>
-			</view>
-			<view class="item" style="border-right: 0;" @click="changeState(2)">
-				<view class="title">每月</view>
-				<view class="line" v-if="state==2"></view>
-			</view>
-		</view>
 		<block v-if="state==0">
 			<view class="listHead">
 				<view class="item" style="margin-left: 57rpx;">
@@ -81,89 +41,63 @@
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
-			<view class="listFoot"></view>
-		</block>
-		<block v-if="state==1">
-			<view class="listHead">
-				<view class="item" style="margin-left: 57rpx;">
-					<view class="iconfont">&#xe697;</view>
-					<view class="title">日期</view>
-				</view>
-				<view class="item" style="margin-left: 292rpx;">
-					<view class="iconfont">&#xe606;</view>
-					<view class="title">累计获得</view>
-				</view>
-			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">10-02至10-09</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">10-02至10-09</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">10-02至10-09</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">10-02至10-09</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">10-02至10-09</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFoot"></view>
-		</block>
-		<block v-if="state==2">
-			<view class="listHead">
-				<view class="item" style="margin-left: 57rpx;">
-					<view class="iconfont">&#xe697;</view>
-					<view class="title">日期</view>
-				</view>
-				<view class="item" style="margin-left: 292rpx;">
-					<view class="iconfont">&#xe606;</view>
-					<view class="title">累计获得</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">2019年10月</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">2019年10月</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">2019年10月</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">2019年10月</view>
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
 			<view class="listFrame">
 				<view class="list">
-					<view class="date">2019年10月</view>
+					<view class="date">10-25</view>
+					<view class="money">12.34蜜糖</view>
+				</view>
+			</view>
+			<view class="listFrame">
+				<view class="list">
+					<view class="date">10-25</view>
 					<view class="money">12.34蜜糖</view>
 				</view>
 			</view>
@@ -182,11 +116,6 @@
 		methods:{
 			changeState(num){
 				this.state = num
-			},
-			go(url){
-				uni.navigateTo({
-					url
-				})
 			}
 		}
 	}
@@ -342,3 +271,4 @@
 		margin: auto;
 	}
 </style>
+

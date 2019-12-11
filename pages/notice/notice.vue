@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="notice-item">
+		<!-- <view class="notice-item">
 			<text class="time">11:30</text>
 			<view class="content">
 				<text class="title">新品上市，全场满199减50</text>
@@ -48,7 +48,7 @@
 					<text class="more-icon yticon icon-you"></text>
 				</view>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 

@@ -26,7 +26,7 @@
 					<input 
 						type="mobile" 
 						value="" 
-						placeholder="8-18位不含特殊字符的数字、字母组合"
+						placeholder="5~10位大小写英文或数字"
 						placeholder-class="input-empty"
 						maxlength="20"
 						password 
@@ -37,7 +37,7 @@
 				</view>
 			</view>
 			<button class="confirm-btn" @click="toLogin" :disabled="logining">登录</button>
-			<view class="forget-section">
+			<view class="forget-section" @click="toReset">
 				忘记密码?
 			</view>
 		</view>
@@ -65,6 +65,11 @@
 			
 		},
 		methods: {
+			toReset(){
+				uni.navigateTo({
+					url:"/pages/reset/reset"
+				})
+			},
 			mobileCheck(){
 				if(!this.mobile.length){
 					uni.showToast({
@@ -114,8 +119,7 @@
 					}})
 				}
 			}
-		},
-
+		}
 	}
 </script>
 

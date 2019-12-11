@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="page">
 		<view class="top">
 			<view class="topTop">
 				<view class="compass">
@@ -9,21 +9,21 @@
 				<view class="user">
 					<image src="/static/f0.png" class="avatar"></image>
 					<view class="userInfo">
-						<view class="userName">用户A1234</view>
-						<view class="userPhone">186****0380</view>
+						<view class="userName">{{nickname}}</view>
+						<view class="userPhone">{{phone}}</view>
 					</view>
 				</view>
 			</view>
 			<view class="topBottom">
-				<view class="item hl">
+				<view :class="{item:1,hl:step==0}" @click="changeStep(0)">
 					<view class="number">4</view>
 					<view class="title">直属粉丝</view>
 				</view>
-				<view class="item">
+				<view :class="{item:1,hl:step==1}" @click="changeStep(1)">
 					<view class="number">32</view>
 					<view class="title">二代粉丝</view>
 				</view>
-				<view class="item">
+				<view :class="{item:1,hl:step==2}" @click="changeStep(2)">
 					<view class="number">108</view>
 					<view class="title">二代以后粉丝</view>
 				</view>
@@ -34,51 +34,57 @@
 				<view class="title"><image src="/static/ft0.png"></image>粉丝信息</view>
 			</view>
 			<view class="item">
-				<view class="title"><image src="/static/ft1.png"></image>累积获得乐币</view>
+				<view class="title"><image src="/static/ft1.png"></image>累积获得蜜糖</view>
 			</view>
 			<view class="item">
 				<view class="title"><image src="/static/ft2.png"></image>关系</view>
 			</view>
 		</view>
-		<view class="listFrame">
-			<view class="list">
-				<view class="fans">
-					<image src="/static/f1.png" class="avatar"></image>
-					<view class="fansInfo">
-						<view class="fansName">用户A1234</view>
-						<view class="fansPhone">130****6687</view>
+		<block v-if="step==0">
+			<view class="listFrame">
+				<view class="list">
+					<view class="fans">
+						<image src="/static/f1.png" class="avatar"></image>
+						<view class="fansInfo">
+							<view class="fansName">用户A1234</view>
+							<view class="fansPhone">130****6687</view>
+						</view>
 					</view>
+					<view class="number">1234.56</view>
+					<view class="relation">直属粉丝</view>
 				</view>
-				<view class="number">1234.56</view>
-				<view class="relation">直属粉丝</view>
 			</view>
-		</view>
-		<view class="listFrame">
-			<view class="list">
-				<view class="fans">
-					<image src="/static/f1.png" class="avatar"></image>
-					<view class="fansInfo">
-						<view class="fansName">用户A45678</view>
-						<view class="fansPhone">130****5411</view>
+		</block>
+		<block v-if="step==1">
+			<view class="listFrame">
+				<view class="list">
+					<view class="fans">
+						<image src="/static/f1.png" class="avatar"></image>
+						<view class="fansInfo">
+							<view class="fansName">用户A45678</view>
+							<view class="fansPhone">130****5411</view>
+						</view>
 					</view>
+					<view class="number">754.14</view>
+					<view class="relation">二代粉丝</view>
 				</view>
-				<view class="number">754.14</view>
-				<view class="relation">二代粉丝</view>
 			</view>
-		</view>
-		<view class="listFrame">
-			<view class="list">
-				<view class="fans">
-					<image src="/static/f1.png" class="avatar"></image>
-					<view class="fansInfo">
-						<view class="fansName">开心第一</view>
-						<view class="fansPhone">130****1234</view>
+		</block>
+		<block v-if="step==2">
+			<view class="listFrame">
+				<view class="list">
+					<view class="fans">
+						<image src="/static/f1.png" class="avatar"></image>
+						<view class="fansInfo">
+							<view class="fansName">开心第一</view>
+							<view class="fansPhone">130****1234</view>
+						</view>
 					</view>
+					<view class="number">5477.12</view>
+					<view class="relation">二代以后粉丝</view>
 				</view>
-				<view class="number">5477.12</view>
-				<view class="relation">二代以后粉丝</view>
 			</view>
-		</view>
+		</block>
 	</view>
 </template>
 
@@ -86,25 +92,34 @@
 	export default {
 		data() {
 			return {
-				
+				step:0
 			};
+		},
+		methods:{
+			changeStep(num){
+				this.step = num
+			}
+		},
+		computed:{
+			phone(){return this.$store.state.userST.phone},
+			nickname(){return this.$store.state.userST.nickname}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	page{
+	page,.page{
 		background-color: #f7f7f7;
 	}
 	.top{
 		width: 750rpx;
-		height: 380rpx;
+		height: 422rpx;
 		background-image: linear-gradient(to top right, #494949, #15171D);
 		display: flex;
 		justify-content:space-between;
 		align-items: center;
 		flex-direction: column;
-		padding-top: 60rpx;
+		padding-top: 120rpx;
 		.topTop{
 			width: 100%;
 			padding-top: 20rpx;
@@ -204,31 +219,40 @@
 				align-items: center;
 				width: 301rpx;
 				.avatar{
-					width:79rpx;
-					height:79rpx;
-					border-radius: 79rpx;
+					width:80rpx;
+					height:80rpx;
+					border-radius: 80rpx;
 				}
 				.fansInfo{
 					margin-left: 10rpx;
 				}
 				.fansName{
-					font-size: 19rpx;
-					color: #333333;
+					font-size:20rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(51,51,51,1);
 				}
 				.fansPhone{
-					font-size: 16rpx;
-					color: #ccc;
-					margin-top: 14rpx;
+					font-size:20rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(51,51,51,1);
+					opacity:0.7;
+					margin-top: 20rpx;
 				}
 			}
 			.number{
-				font-size: 19rpx;
-				color: #333;
+				font-size:24rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(51,51,51,1);
 				width: 222rpx;
 			}
 			.relation{
-				font-size: 23rpx;
-				color: #333;
+				font-size:24rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(51,51,51,1);
 			}
 		}
 	}

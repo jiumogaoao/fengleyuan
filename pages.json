@@ -13,7 +13,7 @@
 						"searchInput": {
 							"backgroundColor": "rgba(231, 231, 231,.7)",
 							"borderRadius": "16px",
-							"placeholder": "请输入地址 如：大钟寺",
+							"placeholder": "请输入商品名称如：毛衣",
 							"disabled": true,
 							"placeholderColor": "#606266"
 						},
@@ -234,11 +234,26 @@
         ,{
             "path" : "pages/income/income",
             "style" : {
+				"backgroundColor":"#f6f6f6",
 				"app-plus": {
 					"titleNView": {
 						"type":"float",
 						"titleText":"收益",
-						"titleSize":27,
+						"titleSize":18,
+						"titleColor":"#fff",
+						"backgroundColor":"rgba(0,0,0,0)"
+						}
+				}
+			}
+        },{
+            "path" : "pages/income/incomeList",
+            "style" : {
+				"backgroundColor":"#f6f6f6",
+				"app-plus": {
+					"titleNView": {
+						"type":"float",
+						"titleText":"收益明细",
+						"titleSize":18,
 						"titleColor":"#fff",
 						"backgroundColor":"rgba(0,0,0,0)"
 						}
@@ -248,22 +263,23 @@
         ,{
             "path" : "pages/fans/fans",
             "style" : {
+				"backgroundColor":"#f7f7f7",
 				"app-plus": {
 					"titleNView": {
 						"type":"float",
 						"titleText":"团队粉丝",
-						"titleSize":27,
+						"titleSize":16,
 						"titleColor":"#fff",
 						"backgroundColor":"rgba(0,0,0,0)",
 						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text": "\ue612",
-								"fontSize": 24,
-								"color": "#fff",
-								"navigationBarTextStyle": "black",
-								"background": "rgba(0,0,0,0)"
-							}
+							// {
+							// 	"fontSrc": "/static/iconfont/iconfont.ttf",
+							// 	"text": "\ue612",
+							// 	"fontSize": 24,
+							// 	"color": "#fff",
+							// 	"navigationBarTextStyle": "black",
+							// 	"background": "rgba(0,0,0,0)"
+							// }
 						]
 						}
 				}
@@ -307,10 +323,19 @@
         },{
             "path" : "pages/regest/regest",
             "style": {
-            	"navigationStyle": "custom",
-            	"navigationBarTitleText": "注册成为会员",
-				"backgroundColor":"#ffae30"
+            	"navigationBarTitleText": "新用户注册"
             }
+        }
+        ,{
+            "path" : "pages/reset/reset",
+            "style" : {
+				"navigationBarTitleText": "重置密码"
+			}
+        },{
+            "path" : "pages/follow/follow",
+            "style" : {
+				"navigationBarTitleText": "我的收藏"
+			}
         }
     ],
 	"globalStyle": {

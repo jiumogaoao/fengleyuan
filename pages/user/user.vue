@@ -7,9 +7,12 @@
 				<view class="portrait-box">
 					<image class="portrait" :src="avatar || '/static/missing-face.png'"></image>
 				</view>
-				<view class="info-box">
+				<view class="info-box" v-if="nickname">
 					<text class="username">{{nickname || '游客'}}</text>
 					<view class="code">邀请码：{{invitation||'暂无'}}</view>
+				</view>
+				<view class="info-box" v-else @click="go('/pages/public/login')">
+					<text class="toLogon">点击登陆账号</text>
 				</view>
 			</view>
 			<view class="vip-card-box">
@@ -40,7 +43,7 @@
 			
 			<view class="tj-sction">
 				<view class="tj-item" @click="navTo('/pages/account/account')">
-					<text class="num">128.8</text>
+					<text class="num">0</text>
 					<text>余额</text>
 				</view>
 				<view class="tj-item">
@@ -48,8 +51,8 @@
 					<text>优惠券</text>
 				</view>
 				<view class="tj-item">
-					<text class="num">20</text>
-					<text>积分</text>
+					<text class="num">0</text>
+					<text>蜜糖</text>
 				</view>
 			</view>
 			<!-- 订单 -->
@@ -71,7 +74,7 @@
 					<text>退款/售后</text>
 				</view>
 			</view> -->
-			<image src="https://www.paradisebee.com/pomo4.png" class="promoD"></image>
+			<image src="https://www.paradisebee.com/pomo4.png" class="promoD" @click="go('/pages/vip/vip')"></image>
 			<!-- 订单 -->
 			<view class="order-section">
 				<view class="order-item" @click="navTo('/pages/income/income')">
@@ -102,9 +105,9 @@
 				</scroll-view>
 				<!-- <list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="我的钱包" tips="您的会员还有3天过期"></list-cell> -->
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/address')"></list-cell>
-				<list-cell icon="icon-share" iconColor="#9789f7" title="分享" tips="邀请好友赢10万大礼" @eventClick="navTo('/pages/share/share')"></list-cell>
+				<list-cell icon="icon-share" iconColor="#9789f7" title="分享" tips="邀请好友分享快乐" @eventClick="navTo('/pages/share/share')"></list-cell>
 				<!-- <list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="晒单" tips="晒单抢红包"></list-cell> -->
-				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏"></list-cell>
+				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="navTo('/pages/follow/follow')"></list-cell>
 				<list-cell icon="icon-shezhi1" iconColor="#e07472" title="设置" border="" @eventClick="navTo('/pages/set/set')"></list-cell>
 			</view>
 		</view>
@@ -129,6 +132,9 @@
 				moving: false,
 				historyList:uni.getStorageSync('productHistory')||[]
 			}
+		},
+		onShow(){
+			this.historyList=uni.getStorageSync('productHistory')||[]
 		},
 		onLoad(){
 		},
@@ -170,6 +176,11 @@
 			},
 		},
         methods: {
+			go(url){
+				uni.navigateTo({
+					url
+				})  
+			},
 			popOut(url){
 				plus.runtime.openURL(url)
 			},
@@ -265,7 +276,7 @@
 		.portrait{
 			width: 130upx;
 			height: 130upx;
-			border:5upx solid #fff;
+			/* border:5upx solid #fff; */
 			border-radius: 50%;
 		}
 		.username{
@@ -277,6 +288,14 @@
 			font-size: $font-lg - 6upx;
 			color: $font-color-dark;
 			margin-left: 20upx;
+			margin-top: 20rpx;
+		}
+		.toLogon{
+			font-size:33rpx;
+			font-family:PingFang SC;
+			font-weight:bold;
+			color:rgba(255,255,255,1);
+			margin-left: 20rpx;
 		}
 	}
 
