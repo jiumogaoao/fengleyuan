@@ -95,7 +95,7 @@
 			color: #fff;
 			position: absolute;
 			left: 20rpx;
-			top:40px;
+			top:var(--status-bar-height);
 		}
 		.buttonFrame{
 			position: absolute;

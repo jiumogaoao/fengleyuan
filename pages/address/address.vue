@@ -1,6 +1,6 @@
 <template>
 	<view class="content b-t">
-		<view class="listFrame">
+		<view class="listFrame" v-if="addressList.length">
 			<view class="list b-b" v-for="(item, index) in addressList" :key="index" @click="checkAddress(item)">
 				<view class="wrapper">
 					<view class="address-box">
@@ -12,9 +12,10 @@
 						<text class="mobile">{{item.mobile}}</text>
 					</view>
 				</view>
-				<image class="bianji" @click.stop="addAddress('edit', item)" src="/static/editPlace.png"></image>
+				<image class="bianji" @click.stop="addAddress('edit', index)" src="/static/editPlace.png"></image>
 			</view>
 		</view>
+		<image v-else src="/static/empty.png" class="noData"></image>
 		<!-- <text style="display:block;padding: 16upx 30upx 10upx;lihe-height: 1.6;color: #fa436a;font-size: 24upx;">
 			重要：添加和修改地址回调仅增加了一条数据做演示，实际开发中将回调改为请求后端接口刷新一下列表即可
 		</text> -->
@@ -55,6 +56,9 @@
 			console.log(option.source);
 			this.source = option.source;
 		},
+		onShow(){
+			this.addressList=uni.getStorageSync('addressList')||[]
+		},
 		methods: {
 			//选择地址
 			checkAddress(item){
@@ -64,9 +68,9 @@
 					uni.navigateBack()
 				}
 			},
-			addAddress(type, item){
+			addAddress(type, index){
 				uni.navigateTo({
-					url: `/pages/address/addressManage?type=${type}&data=${JSON.stringify(item)}`
+					url: `/pages/address/addressManage?type=${type}&id=${index}`
 				})
 			},
 			//添加或修改成功之后回调
@@ -86,6 +90,16 @@
 	}
 	.content{
 		position: relative;
+	}
+	.b-t:after{
+		border: 0 !important;
+	}
+	.noData{
+		width:129rpx;
+		height: 181rpx;
+		display: block;
+		margin:auto;
+		margin-top: 273rpx;
 	}
 	.listFrame{
 		margin-top: 19rpx;

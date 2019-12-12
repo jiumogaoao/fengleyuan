@@ -453,7 +453,9 @@
 		// #ifndef MP
 		// 标题栏input搜索框点击
 		onNavigationBarSearchInputClicked: async function(e) {
-			this.$api.msg('点击了搜索框');
+			uni.navigateTo({
+				url:'/pages/search/search'
+			})
 		},
 		onTabItemTap(t){
 			console.log(t);

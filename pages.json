@@ -348,7 +348,33 @@
 				"navigationBarTitleText": "没有网络",
 				"navigationStyle":"custom"
 			}
-        }
+        },{
+			"path": "pages/search/search",
+			"style": {
+				// #ifdef MP 
+				"navigationBarTitleText": "搜索",
+				//"navigationStyle": "custom",
+				// #endif 
+				"app-plus": {
+					"titleNView": {
+						"searchInput": {
+							"backgroundColor": "rgba(231, 231, 231,.7)",
+							"borderRadius": "16px",
+							"placeholder": "请输入商品名称,如：毛衣",
+							"disabled": false,
+							"placeholderColor": "#606266"
+						},
+						"buttons": [{
+								"text": "搜索",
+								"fontSize": 16,
+								"color": "#333",
+								"background": "transparent"
+							}
+						]
+					}
+				}
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

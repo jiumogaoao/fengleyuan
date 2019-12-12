@@ -39,6 +39,8 @@
 		},
 		data() {
 			return {
+				manageType:'',
+				manageId:'',
 				addressData: {
 					name: '',
 					mobile: '',
@@ -57,11 +59,13 @@
 		onLoad(option){
 			let title = '新增收货地址';
 			if(option.type==='edit'){
+				
 				title = '编辑收货地址'
 				
-				this.addressData = JSON.parse(option.data)
+				this.addressData = uni.getStorageSync('addressList')[option.id]
 			}
 			this.manageType = option.type;
+			this.manageId = option.id;
 			uni.setNavigationBarTitle({
 				title
 			})
@@ -158,9 +162,16 @@
 			//提交
 			confirm(){
 				let data = this.addressData;
-				if(nameCheck()&&mobileCheck()&&provinceCheck()&&cityCheck()&&areaCheck()&&addressCheck()){
+				if(this.nameCheck()&&this.mobileCheck()&&this.provinceCheck()&&this.cityCheck()&&this.areaCheck()&&this.addressCheck()){
 					//this.$api.prePage()获取上一页实例，可直接调用上页所有数据和方法，在App.vue定义
-					this.$api.prePage().refreshList(data, this.manageType);
+					let d=uni.getStorageSync('addressList')||[]
+					if(this.manageType==='edit'){
+						d[this.manageId]=data
+					}else{
+						d.push(data)
+					}
+					// this.$api.prePage().refreshList(data, this.manageType);
+					uni.setStorageSync('addressList',d)
 					this.$api.msg(`地址${this.manageType=='edit' ? '修改': '添加'}成功`);
 					setTimeout(()=>{
 						uni.navigateBack()
@@ -175,6 +186,9 @@
 	page{
 		background: $page-color-base;
 		padding-top: 16upx;
+	}
+	.b-t:after{
+		border: 0 !important;
 	}
 	.list{
 		width:750rpx;
