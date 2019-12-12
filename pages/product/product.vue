@@ -13,22 +13,31 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		
+		<view class="headFoot">
+			<view class="text">现在升级VIP，最高可<text>赚{{vip}}元</text></view>
+			<view class="button">
+				<image class="icon" src="/static/productIcon01.png"></image>
+				<view class="label">立即升级</view>
+			</view>
+		</view>
 		<view class="introduce-section">
-			<text class="title">{{product_name}}</text>
+			<text class="title"><image src="/static/productIcon03.png" class="titleIcon"></image> {{product_name}}</text>
+			
+		</view>
+		<view class="priceFrame">
 			<view class="price-box">
+				<text class="priceLabel">券后价</text>
 				<text class="price-tip">¥</text>
-				<text class="price">{{commodity_price}}</text>
-				<!-- <text class="m-price">¥488</text>
-				<text class="coupon-tip">7折</text> -->
+				<text class="price">{{post_coupon}}</text>
+				<text class="m-price">¥{{commodity_price}}</text>
+				<!-- <text class="coupon-tip">7折</text> -->
 			</view>
 			<view class="bot-row">
-				<text>销量: {{sales_volume}}</text>
+				<text>预估收益: {{estimate}}</text>
 				<!-- <text>库存: 4690</text>
 				<text>浏览量: 768</text> -->
 			</view>
 		</view>
-		
 		<!--  分享 -->
 		<!-- <view class="share-section" @click="share">
 			<view class="share-icon">
@@ -43,8 +52,23 @@
 			</view>
 			
 		</view> -->
-		
-		<view class="c-list">
+		<view class="couponFrame">
+			<image class="couponBG" src="/static/productIcon06.png"></image>
+			<view class="left">
+				<view class="price-tip">￥</view>
+				<view class="price">{{coupon_face_value}}</view>
+				<view class="name">优惠券</view>
+			</view>
+			<view class="button" @click="popOut(coupon_link)">立即领取</view>
+		</view>
+		<view class="shopFrame">
+			<view class="left">
+				<image class="shopIcon" src="/static/productIcon03.png"></image>
+				<view class="shopTitle">{{shop_name}}</view>
+			</view>
+			<view class="right" @click="popOut(pro_url)">进入店铺</view>
+		</view>
+		<!-- <view class="c-list"> -->
 			<!-- <view class="c-row b-b" @click="toggleSpec">
 				<text class="tit">购买类型</text>
 				<view class="con">
@@ -54,11 +78,11 @@
 				</view>
 				<text class="yticon icon-you"></text>
 			</view> -->
-			<view class="c-row b-b" @click="popOut(coupon_link)">
+			<!-- <view class="c-row b-b" @click="popOut(coupon_link)">
 				<text class="tit">优惠券</text>
 				<text class="con t-r red">领取优惠券</text>
 				<text class="yticon icon-you"></text>
-			</view>
+			</view> -->
 <!-- 			<view class="c-row b-b">
 				<text class="tit">促销活动</text>
 				<view class="con-list">
@@ -75,7 +99,7 @@
 					<text>假一赔十 ·</text>
 				</view>
 			</view> -->
-		</view>
+		<!-- </view> -->
 		
 		<!-- 评价 -->
 		<!-- <view class="eva-section">
@@ -107,22 +131,23 @@
 		
 		<!-- 底部操作菜单 -->
 		<view class="page-bottom">
-			<navigator url="/pages/index/index" open-type="switchTab" class="p-b-btn">
-				<text class="yticon icon-xiatubiao--copy"></text>
-				<text>首页</text>
-			</navigator>
-			<!-- <navigator url="/pages/cart/cart" open-type="switchTab" class="p-b-btn">
-				<text class="yticon icon-gouwuche"></text>
-				<text>购物车</text>
-			</navigator> -->
-			<view class="p-b-btn" :class="{active: favorite}" @click="toFavorite">
-				<text class="yticon icon-shoucang"></text>
-				<text>收藏</text>
+			<view class="bottomPoint">
+				<image src="/static/productIcon05.png" class="buttomIcon"></image>
+				<view class="bottomLabel">猜你喜欢</view>
 			</view>
-			
-			<view class="action-btn-group">
-				<button type="primary" class=" action-btn no-border buy-now-btn" @click="popOut(pro_url)">立即购买</button>
-				<!-- <button type="primary" class=" action-btn no-border add-cart-btn">加入购物车</button> -->
+			<view class="bottomPoint">
+				<image src="/static/productIcon04.png" class="buttomIcon"></image>
+				<view class="bottomLabel">收藏</view>
+			</view>
+			<view class="bottomButtonFrame">
+				<view class="left">
+					<view class="title">分享</view>
+					<view class="dsc">赚<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>14.28</view>
+				</view>
+				<view class="right">
+					<view class="title">购买</view>
+					<view class="dsc">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>64.81</view>
+				</view>
 			</view>
 		</view>
 		
@@ -188,6 +213,9 @@
 				id:'',
 				commodity_price: 0,
 				coupon_face_value: 0,
+				estimate:0,
+				post_coupon:0,
+				vip:0,
 				coupon_link: "",
 				header_img: "",
 				pro_url: "",
@@ -195,7 +223,7 @@
 				sales_volume: "",
 				specClass: 'none',
 				specSelected:[],
-				
+				shop_name:'',
 				favorite: true,
 				shareList: [],
 				imgList: [
@@ -288,13 +316,18 @@
 			postFetch('index.php/index/index/product_center',{id:this.id},false,function(res){
 				_this.id=res.data[0].id
 				_this.commodity_price=res.data[0].commodity_price
-				_this.coupon_face_value=res.data[0].coupon_face_value
+				_this.coupon_face_value=res.data.coupon_face_value
 				_this.coupon_link=res.data[0].coupon_link
 				_this.header_img=res.data[0].header_img
 				_this.pro_url=res.data[0].pro_url
 				_this.product_name=res.data[0].product_name
 				_this.sales_volume=res.data[0].sales_volume
-				if(uni.getStorageSync('productHistory')){
+				_this.shop_name=res.data[0].shop_name
+				_this.estimate=res.data.estimate
+				_this.post_coupon=res.data.post_coupon
+				_this.vip=res.data.vip
+				console.log(uni.getStorageSync('productHistory'),typeof(uni.getStorageSync('productHistory')))
+				if(uni.getStorageSync('productHistory') && Array.isArray(uni.getStorageSync('productHistory'))){
 					uni.setStorageSync('productHistory',[res.data[0],...uni.getStorageSync('productHistory')])
 				}else{
 					uni.setStorageSync('productHistory',[res.data[0]])
@@ -407,34 +440,100 @@
 		}
 		
 	}
-	
+	.headFoot{
+		width: 750rpx;
+		height: 58rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		.text{
+			flex-grow: 1;
+			padding: 17rpx 42rpx;
+			background-color: #FCEEC7;
+			font-size:24rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(49,33,8,1);
+		}
+		.button{
+			flex-shrink: 0;
+			width: 154rpx;
+			height: 58rpx;
+			background-color: #FFD476;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			.icon{
+				width:25rpx;
+				height: 24rpx;
+				margin-right: 10rpx;
+			}
+			.label{
+				font-size:21rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(49,33,8,1);
+			}
+		}
+	}
 	/* 标题简介 */
 	.introduce-section{
 		background: #fff;
 		padding: 20upx 30upx;
-		
 		.title{
-			font-size: 32upx;
-			color: $font-color-dark;
-			height: 50upx;
-			line-height: 50upx;
+			font-size:29rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(51,51,51,1);
+			height: 71rpx;
+			line-height: 1.5;
+			.titleIcon{
+				width:28rpx;
+				height:28rpx;
+				margin-right: 10rpx;
+			}
 		}
+		
+	}
+	.priceFrame{
+		width: 750rpx;
+		padding: 0 28rpx;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 34rpx;
 		.price-box{
 			display:flex;
 			align-items:baseline;
-			height: 64upx;
-			padding: 10upx 0;
-			font-size: 26upx;
-			color:$uni-color-primary;
-		}
-		.price{
-			font-size: $font-lg + 2upx;
-		}
-		.m-price{
+			.priceLabel{
+				font-size:24rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(228,70,84,1);
+			}
+			.price-tip{
+				font-size:33rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(219,0,27,1);
+			}
+			.price{
+				font-size:50rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(219,0,27,1);
+			}
+			.m-price{
 			margin:0 12upx;
-			color: $font-color-light;
+			font-size:21px;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(167,166,166,1);
 			text-decoration: line-through;
+			}
 		}
+		
+		
 		.coupon-tip{
 			align-items: center;
 			padding: 4upx 10upx;
@@ -446,14 +545,93 @@
 			transform: translateY(-4upx); 
 		}
 		.bot-row{
-			display:flex;
-			align-items:center;
-			height: 50upx;
-			font-size: $font-sm;
-			color: $font-color-light;
-			text{
-				flex: 1;
+			width:186rpx;
+			height:37rpx;
+			background-color: #FFE0A5;
+			font-size:24rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(49,33,8,1);
+			text-align: center;
+			line-height: 37rpx;
+		}
+	}
+	.couponFrame{
+		width:715rpx;
+		height:173rpx;
+		margin: auto;
+		margin-top: 45rpx;
+		position: relative;
+		.couponBG{
+			width:715rpx;
+			height:173rpx;
+		}
+		.left{
+			position: absolute;
+			top:37rpx;
+			left: 60rpx;
+			display: flex;
+			align-items: baseline;
+			.price-tip{
+				font-size:33rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(249,22,60,1);
+				position: relative;
+				top:-80rpx;
 			}
+			.price{
+				font-size:115rpx;
+				font-family:Adobe Heiti Std;
+				font-weight:normal;
+				color:rgba(249,22,60,1);
+			}
+			.name{
+				font-size:35rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(249,22,60,1);
+				margin-left: 10rpx;
+			}
+		}
+		.button{
+			font-size:28rpx;
+			font-family:PingFang SC;
+			font-weight:bold;
+			color:rgba(210,26,56,1);
+			position: absolute;
+			top:76rpx;
+			right:48rpx;
+		}
+	}
+	.shopFrame{
+		width:750rpx;
+		height:80rpx;
+		padding:28rpx 42rpx;
+		display:flex;
+		align-items:center;
+		justify-content:space-between;
+		margin-top:16rpx;
+		.left{
+			display: flex;
+			align-items: center;
+			.shopIcon{
+				width:40rpx;
+				height:40rpx;
+				margin-right: 11rpx;
+			}
+			.shopTitle{
+				font-size:28rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(51,51,51,1);
+			}
+		}
+		.right{
+			font-size:25rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(228,24,87,1);
 		}
 	}
 	/* 分享 */
@@ -811,62 +989,63 @@
 		background: rgba(255,255,255,.9);
 		box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
 		border-radius: 16upx;
-		
-		.p-b-btn{
+		padding: 0 22rpx;
+		.bottomPoint{
 			display:flex;
-			flex-direction: column;
-			align-items: center;
+			flex-direction:column;
 			justify-content: center;
-			font-size: $font-sm;
-			color: $font-color-base;
-			width: 96upx;
-			height: 80upx;
-			.yticon{
-				font-size: 40upx;
-				line-height: 48upx;
-				color: $font-color-light;
+			align-items: center;
+			.buttomIcon{
+				width:40rpx;
+				height:40rpx;
 			}
-			&.active, &.active .yticon{
-				color: $uni-color-primary;
-			}
-			.icon-fenxiang2{
-				font-size: 42upx;
-				transform: translateY(-2upx);
-			}
-			.icon-shoucang{
-				font-size: 46upx;
+			.bottomLabel{
+				font-size:22rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(96,98,102,1);
+				margin-top: 5rpx;
 			}
 		}
-		.action-btn-group{
+		.bottomButtonFrame{
+			width:417rpx;
+			height: 75rpx;
 			display: flex;
-			height: 76upx;
-			border-radius: 100px;
-			overflow: hidden;
-			box-shadow: 0 20upx 40upx -16upx #fa436a;
-			box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
-			background: linear-gradient(to right, #ffac30,#fa436a,#F56C6C);
-			margin-left: 20upx;
-			position:relative;
-			&:after{
-				content: '';
-				position:absolute;
-				top: 50%;
-				right: 50%;
-				transform: translateY(-50%);
-				height: 28upx;
-				width: 0;
-				border-right: 1px solid rgba(255,255,255,.5);
-			}
-			.action-btn{
-				display:flex;
-				align-items: center;
+			.left{
+				width:208rpx;
+				height:75rpx;
+				background:rgba(45,45,45,1);
+				border-radius:37rpx 0rpx 0rpx 38rpx;
+				display: flex;
+				flex-direction: column;
 				justify-content: center;
-				width: 180upx;
-				height: 100%;
-				font-size: $font-base ;
-				padding: 0;
-				border-radius: 0;
-				background: transparent;
+				align-items: center;
+			}
+			.right{
+				width:208rpx;
+				height:75rpx;
+				background:linear-gradient(-90deg,rgba(150,12,0,1) 0%,rgba(226,41,39,1) 100%);
+				border-radius:0rpx 37rpx 38rpx 0rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.title{
+				font-size:28rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(241,241,241,1);
+			}
+			.dsc{
+				font-size:21rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(241,241,241,1);
+				.bottomButtonIcon{
+					width:22rpx;
+					height: 22rpx;
+				}
 			}
 		}
 	}

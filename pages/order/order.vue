@@ -4,9 +4,9 @@
 			<uniNav left-icon="back" class="uniNav">
 				<view class="navTabBar">
 					<view :class="{navTab:1,hl:type==0}">商城收益</view>
-					<view :class="{navTab:1,hl:type==1}">自营收益</view>
+					<!-- <view :class="{navTab:1,hl:type==1}">自营收益</view> -->
 				</view>
-				<image slot="right" src="/static/orderType.png" @click="toggleOption"></image>
+				<!-- <image slot="right" src="/static/orderType.png" @click="toggleOption"></image> -->
 			</uniNav>
 			<view class="navbar">
 				<view 
@@ -62,7 +62,7 @@
 					<empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty>
 					
 					<!-- 订单列表 -->
-					<view class="orderItem">
+					<!-- <view class="orderItem">
 						<view class="orderTop">
 							<view class="mall">聚划算</view>
 							<view class="time">下单时间：2019.10.17 15:50:31</view>
@@ -129,7 +129,7 @@
 					 			</view>
 					 		</view>
 					 	</view>
-					 </view>
+					 </view> -->
 					<uni-load-more :status="tabItem.loadingType"></uni-load-more>
 					
 				</scroll-view>
@@ -325,7 +325,7 @@
 			justify-content: space-between;
 			align-items: center;
 			.navTab{
-				width:168rpx;
+				width:100%;
 				height:53rpx;
 				background:rgba(250,197,35,0);
 				border-radius:26rpx;

@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="list-cell b-b m-t" @click="navTo('个人资料')" hover-class="cell-hover" :hover-stay-time="50">
+		<!-- <view class="list-cell b-b m-t" @click="navTo('个人资料')" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">个人资料</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
@@ -11,7 +11,7 @@
 		<view class="list-cell" @click="navTo('实名认证')" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">实名认证</text>
 			<text class="cell-more yticon icon-you"></text>
-		</view>
+		</view> -->
 		
 		<view class="list-cell m-t">
 			<text class="cell-tit">消息推送</text>
@@ -47,18 +47,19 @@
 			};
 		},
 		methods:{
-			...mapMutations(['userST/logout']),
+			
 
 			navTo(url){
 				this.$api.msg(`跳转到${url}`);
 			},
 			//退出登录
 			toLogout(){
+				let _this = this;
 				uni.showModal({
 				    content: '确定要退出登录么',
 				    success: (e)=>{
 				    	if(e.confirm){
-				    		this.logout();
+				    		_this.$store.dispatch('userST/logout')
 				    		setTimeout(()=>{
 				    			uni.navigateBack();
 				    		}, 200)

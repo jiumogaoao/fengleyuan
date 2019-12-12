@@ -26,6 +26,9 @@ export default {
 		state.phone = ''
 		state.nickname = ''
 		state.user_tooken = ''
+		state.invitation = ''
+		state.avatar = ''
+		uni.setStorageSync('userInfo',state);
 	}
   },
   actions:{
@@ -47,6 +50,9 @@ export default {
 	},
 	setLogon(context,data){
 		context.commit('login',data)
+	},
+	logout(context,data){
+		context.commit('logout')
 	}
   }
 }

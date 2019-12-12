@@ -1,21 +1,23 @@
 <template>
 	<view class="content b-t">
-		<view class="list b-b" v-for="(item, index) in addressList" :key="index" @click="checkAddress(item)">
-			<view class="wrapper">
-				<view class="address-box">
-					<text v-if="item.default" class="tag">默认</text>
-					<text class="address">{{item.addressName}} {{item.area}}</text>
+		<view class="listFrame">
+			<view class="list b-b" v-for="(item, index) in addressList" :key="index" @click="checkAddress(item)">
+				<view class="wrapper">
+					<view class="address-box">
+						<text v-if="item.default" class="tag">默认</text>
+						<text class="address">{{item.addressName}} {{item.area}}</text>
+					</view>
+					<view class="u-box">
+						<text class="name">{{item.name}}</text>
+						<text class="mobile">{{item.mobile}}</text>
+					</view>
 				</view>
-				<view class="u-box">
-					<text class="name">{{item.name}}</text>
-					<text class="mobile">{{item.mobile}}</text>
-				</view>
+				<text class="yticon icon-bianji" @click.stop="addAddress('edit', item)"></text>
 			</view>
-			<text class="yticon icon-bianji" @click.stop="addAddress('edit', item)"></text>
 		</view>
-		<text style="display:block;padding: 16upx 30upx 10upx;lihe-height: 1.6;color: #fa436a;font-size: 24upx;">
+		<!-- <text style="display:block;padding: 16upx 30upx 10upx;lihe-height: 1.6;color: #fa436a;font-size: 24upx;">
 			重要：添加和修改地址回调仅增加了一条数据做演示，实际开发中将回调改为请求后端接口刷新一下列表即可
-		</text>
+		</text> -->
 		
 		<button class="add-btn" @click="addAddress('add')">新增地址</button>
 	</view>
@@ -81,12 +83,19 @@
 	.content{
 		position: relative;
 	}
+	.listFrame{
+		margin-top: 19rpx;
+		width: 750rpx;
+		background-color: #fff;
+		padding: 0 18rpx 0 47rpx;
+	}
 	.list{
+		width:100%;
 		display: flex;
 		align-items: center;
-		padding: 20upx 30upx;;
-		background: #fff;
-		position: relative;
+		height: 111rpx;
+		justify-content: space-between;
+		border-bottom: 1px solid rgba(241,242,246,1);
 	}
 	.wrapper{
 		display: flex;
@@ -97,26 +106,29 @@
 		display: flex;
 		align-items: center;
 		.tag{
-			font-size: 24upx;
-			color: $base-color;
-			margin-right: 10upx;
-			background: #fffafb;
-			border: 1px solid #ffb4c7;
-			border-radius: 4upx;
-			padding: 4upx 10upx;
-			line-height: 1;
+			width:56rpx;
+			height:28rpx;
+			background:rgba(250,197,35,1);
+			font-size:20rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(255,255,255,1);
+			line-height: 28rpx;
+			text-align: center;
+			margin-right: 20rpx;
 		}
 		.address{
-			font-size: 30upx;
-			color: $font-color-dark;
+			font-size:26rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(34,34,34,1); 
 		}
 	}
 	.u-box{
-		font-size: 28upx;
-		color: $font-color-light;
-		margin-top: 16upx;
+		margin-top: 19rpx;
 		.name{
-			margin-right: 30upx;
+			margin-right: 22upx;
+			
 		}
 	}
 	.icon-bianji{
@@ -129,20 +141,16 @@
 	}
 	
 	.add-btn{
-		position: fixed;
-		left: 30upx;
-		right: 30upx;
-		bottom: 16upx;
-		z-index: 95;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 690upx;
-		height: 80upx;
-		font-size: 32upx;
-		color: #fff;
-		background-color: $base-color;
-		border-radius: 10upx;
-		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);		
+		width:625rpx;
+		height:83rpx;
+		background:linear-gradient(-90deg,rgba(221,141,69,1) 0%,rgba(250,197,35,1) 99%);
+		border-radius:42rpx;
+		font-size:42rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
+		line-height: 83rpx;
+		text-align: center;
+		margin-top: 273rpx;
 	}
 </style>
