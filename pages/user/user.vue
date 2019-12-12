@@ -74,7 +74,7 @@
 					<text>退款/售后</text>
 				</view>
 			</view> -->
-			<image src="https://www.paradisebee.com/pomo4.png" class="promoD" @click="go('/pages/vip/vip')"></image>
+			<image src="https://www.paradisebee.com/pomo4.png" class="promoD" @click="navTo('/pages/vip/vip')"></image>
 			<!-- 订单 -->
 			<view class="order-section">
 				<view class="order-item" @click="navTo('/pages/income/income')">

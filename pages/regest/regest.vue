@@ -4,7 +4,7 @@
 			<view class="inputFrame">
 				<view class="label">手机号码</view>
 				<view class="inputSubFrame">
-					<input placeholder="请输入手机号码" v-model="phone"/>
+					<input placeholder="请输入手机号码" v-model="phone" type="number"/>
 				</view>
 			</view>
 			<view class="inputFrame">
@@ -27,13 +27,13 @@
 			<view class="inputFrame">
 				<view class="label">密码</view>
 				<view class="inputSubFrame">
-					<input placeholder="5~10位大小写英文或数字" v-model="password"/>
+					<input placeholder="5~10位大小写英文或数字" v-model="password" password="true"/>
 				</view>
 			</view>
 			<view class="inputFrame">
 				<view class="label">确认密码</view>
 				<view class="inputSubFrame">
-					<input placeholder="请再次输入您的密码" v-model="password2"/>
+					<input placeholder="请再次输入您的密码" v-model="password2" password="true"/>
 				</view>
 			</view>
 			<view class="button" @click="regest">立即注册</view>

@@ -2,13 +2,13 @@
 	<view class="frame">
 		<image src="/static/vip.png" mode="widthFix" class="bg"></image>
 		<view class="buttonFrame">
-			<view class="button" style="background-color: #FF930C;margin-right:20rpx;" @click="togglePop">
+			<view class="button" style="background-color: #F4301A;margin-right:20rpx;" @click="go('/pages/share/share')">
+				<image class="icon" src="/static/shareIcon1.png"></image>
+				<view class="text">邀请粉丝</view>
+			</view>
+			<view class="button" style="background-color: #FF930C;" @click="togglePop">
 				<image class="icon" src="/static/shareIcon0.png"></image>
 				<view class="text">升级VIP</view>
-			</view>
-			<view class="button" style="background-color: #F4301A;" @click="go('/pages/share/share')">
-				<image class="icon" src="/static/shareIcon1.png"></image>
-				<view class="text">分享海报</view>
 			</view>
 		</view>
 		<view class="pop" v-if="pop">
@@ -58,7 +58,10 @@
 		},
 		methods:{
 			togglePop(){
-				this.pop = !this.pop
+				uni.navigateTo({
+					url:"/pages/product/list"
+				})
+				//this.pop = !this.pop
 			},
 			go(url){
 				uni.navigateTo({

@@ -1,279 +1,6 @@
 <template>
 	<view class="container">
-		<!-- 小程序头部兼容 -->
-		<!-- #ifdef MP -->
-		<view class="mp-search-box">
-			<input class="ser-input" type="text" value="输入关键字搜索" disabled />
-		</view>
-		<!-- #endif -->
-		<!-- <navBarCP class="navBarCP" :style="{backgroundColor:'#DD8D45'}"/> -->
-		<!-- 头部轮播 -->
-		<view class="carousel-section">
-			<!-- 标题栏和状态栏占位符 -->
-			<view class="titleNview-placing"></view>
-			<!-- 背景色区域 -->
-			<view class="titleNview-background" :style="{backgroundColor:'#'+(titleNViewBackground||'DD8D45')}"></view>
-			<swiper class="carousel" circular @change="swiperChange">
-				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
-					<image :src="item.banner_url" @click="bannerClick(item.url,item.type)"/>
-				</swiper-item>
-			</swiper>
-			<!-- 自定义swiper指示器 -->
-			<view class="swiper-dots">
-				<text class="num">{{swiperCurrent+1}}</text>
-				<text class="sign">/</text>
-				<text class="num">{{swiperLength}}</text>
-			</view>
-		</view>
-		<!-- 分类 -->
-		<view class="cate-section">
-			<view class="cate-item">
-				<image src="/static/temp/c3.png"></image>
-				<text>环球美食</text>
-			</view>
-			<view class="cate-item">
-				<image src="/static/temp/c5.png"></image>
-				<text>个护美妆</text>
-			</view>
-			<view class="cate-item">
-				<image src="/static/temp/c6.png"></image>
-				<text>营养保健</text>
-			</view>
-			<view class="cate-item">
-				<image src="/static/temp/c7.png"></image>
-				<text>家居厨卫</text>
-			</view>
-			<view class="cate-item" @click="yijiayou">
-				<image src="/static/temp/c8.png"></image>
-				<text>优惠加油</text>
-			</view>
-		</view>
-		
-		<view class="ad-1" @click="navTo('/pages/vip/vip')">
-			<image src="https://www.paradisebee.com/pomo3.png" mode="scaleToFill"></image>
-		</view>
-		
-		<!-- 秒杀楼层 -->
-		<!-- <view class="seckill-section m-t">
-			<view class="s-header">
-				<image class="s-img" src="/static/temp/secskill-img.jpg" mode="widthFix"></image>
-				<text class="tip">8点场</text>
-				<text class="hour timer">07</text>
-				<text class="minute timer">13</text>
-				<text class="second timer">55</text>
-				<text class="yticon icon-you"></text>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view 
-						v-for="(item, index) in goodsList" :key="index"
-						class="floor-item"
-						@click="navToDetailPage(item.title)"
-					>
-						<image :src="item.image" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view> -->
-		<!-- <view class="pomoFrame">
-			<view class="pomp1">
-				<view class="left">
-					<view class="leftTop">
-						<view class="title">自营商城</view>
-						<view class="dsc">更多好货任你选</view>
-					</view>
-					<view class="leftBottom">
-						<image class="picL" src="/static/a0.png"></image>
-						<image class="picL" src="/static/a1.png"></image>
-					</view>
-				</view>
-				<view class="right">
-					<view class="rightTop">
-						<view class="rightTopLeft">
-							<view class="title">品牌好货</view>
-							<view class="dsc">品牌精选热销好货</view>
-						</view>
-						<image class="picL" src="/static/a2.png"/>
-					</view>
-					<view class="rightTop">
-						<view class="rightTopLeft">
-							<view class="title">今日爆款</view>
-							<view class="dsc">精选今日爆款榜单</view>
-						</view>
-						<image class="picL" src="/static/a3.png"/>
-					</view>
-				</view>
-			</view>
-			<view class="pomp2">
-				<view class="item">
-					<view class="top">
-						<view class="title">0元购</view>
-						<view class="dsc">蜜蜂天堂独家福利</view>
-					</view>
-					<image class="picS" src="/static/a4.png"/>
-				</view>
-				<view class="item">
-			
-						<view class="title">信用卡</view>
-						<view class="dsc">办卡享更多优惠</view>
-			
-					<image class="picS" src="/static/a5.png"/>
-				</view>
-				<view class="item" style="border: 0;">
-				
-						<view class="title">限时秒杀</view>
-						<view class="dsc">每日更新 全网最低价</view>
-			
-					<image class="picS" src="/static/a6.png"/>
-				</view>
-			</view>
-		</view> -->
-		
-		<!-- 团购楼层 -->
-<!-- 		<view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
-			<view class="tit-box">
-				<text class="tit">精品团购</text>
-				<text class="tit2">Boutique Group Buying</text>
-			</view>
-			<text class="yticon icon-you"></text>
-		</view>
-		<view class="group-section">
-			<swiper class="g-swiper" :duration="500">
-				<swiper-item
-					class="g-swiper-item"
-					v-for="(item, index) in goodsList" :key="index"
-					v-if="index%2 === 0"
-					@click="navToDetailPage(item)"
-				>
-					<view class="g-item left">
-						<image :src="item.image" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{item.title}}</text>
-							<view class="price-box">
-								<text class="price">￥{{item.price}}</text> 
-								<text class="m-price">￥188</text> 
-							</view>
-							
-							<view class="pro-box">
-							  	<view class="progress-box">
-							  		<progress percent="72" activeColor="#fa436a" active stroke-width="6" />
-							  	</view>
-								<text>6人成团</text>
-							</view>
-						</view>
-						            
-					</view>
-					<view class="g-item right">
-						<image :src="goodsList[index+1].image" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{goodsList[index+1].title}}</text>
-							<view class="price-box">
-								<text class="price">￥{{goodsList[index+1].price}}</text> 
-								<text class="m-price">￥188</text> 
-							</view>
-							<view class="pro-box">
-							  	<view class="progress-box">
-							  		<progress percent="72" activeColor="#fa436a" active stroke-width="6" />
-							  	</view>
-								<text>10人成团</text>
-							</view>
-						</view>
-					</view>
-				</swiper-item>
-
-			</swiper>
-		</view> -->
-		
-		
-		
-		<!-- 分类推荐楼层 -->
-		<!-- <view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
-			<view class="tit-box">
-				<text class="tit">分类精选</text>
-				<text class="tit2">Competitive Products For You</text>
-			</view>
-			<text class="yticon icon-you"></text>
-		</view>
-		<view class="hot-floor">
-			<view class="floor-img-box">
-				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409398864&di=4a12763adccf229133fb85193b7cc08f&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201703%2F19%2F20170319150032_MNwmn.jpeg" mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view 
-						v-for="(item, index) in goodsList" :key="index"
-						class="floor-item"
-						@click="navToDetailPage(item)"
-					>
-						<image :src="item.image" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-					<view class="more">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<view class="hot-floor">
-			<view class="floor-img-box">
-				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409984228&di=dee176242038c2d545b7690b303d65ea&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F5ef4da9f17faaf4612f0d5046f4161e556e9bbcfdb5b-rHjf00_fw658" mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view 
-						v-for="(item, index) in goodsList" :key="index"
-						class="floor-item"
-						@click="navToDetailPage(item)"
-					>
-						<image :src="item.image3" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-					<view class="more">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<view class="hot-floor">
-			<view class="floor-img-box">
-				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409794730&di=12b840ec4f5748ef06880b85ff63e34e&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01dc03589ed568a8012060c82ac03c.jpg%40900w_1l_2o_100sh.jpg" mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view 
-						v-for="(item, index) in goodsList" :key="index"
-						class="floor-item"
-						@click="navToDetailPage(item)"
-					>
-						<image :src="item.image2" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-					<view class="more">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view> -->
-
-		<!-- 猜你喜欢 -->
-		<view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
-			<view class="tit-box">
-				<text class="tit">猜你喜欢</text>
-				<text class="tit2">Guess You Like It</text>
-			</view>
-			<text class="yticon icon-you"></text>
-		</view>
+		<view class="titleNview-placing"></view>
 		
 		<view class="guess-section">
 			<view 
@@ -288,12 +15,7 @@
 				<text class="price">￥{{item.commodity_price}}</text>
 			</view>
 		</view>
-		
-		<modalCP title="用户协议及隐私政策" cancelText="不同意" confirmText="同意" class="modalCP" @confirm="rulaComfirm" @cancel="rulaCancel" v-if="showFirstPOP">
-			<view class="p">感谢您信任并使用蜜蜂天堂</view>
-			<view class="p">我们非常重视您的个人信息和隐私保护，为了更好的保障您的个人权益，在您使用我们的产品前，请您认真阅读<text class="link" @click="go('/pages/agreement/agreement')">《用户协议》</text>和<text class="link" @click="go('/pages/policy/policy')">《隐私政策》</text>的全部内容，同意并接受全部条款后开始使用我们的产品和服务。</view>
-			<view class="p">若选择不同意，将无法使用我们的产品和服务，并退出应用。</view>
-		</modalCP>
+
 	</view>
 </template>
 
@@ -322,22 +44,18 @@
 		},
 		onShow(){
 			let _this = this;
-			if(!uni.getStorageSync('firstIn')){
-				this.showFirstPOP=true
-			}
+
 			uni.getLocation({
 			    type: 'gcj02',
 			    success: function (res) {
 					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:res.latitude||null,
 								longitude:res.longitude||null},false,function(res){
-									_this.swiperLength=res.data.banner.length
 						_this.$set(_this,'carouselList',res.data.banner)
 						_this.$set(_this,'goodsList2',res.data.product)
 					})
 				},
 				fail:function(){
 					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null},false,function(res){
-						_this.swiperLength=res.data.banner.length
 						_this.$set(_this,'carouselList',res.data.banner)
 						_this.$set(_this,'goodsList2',res.data.product)
 					})
@@ -346,17 +64,9 @@
 			
 		},
 		onLoad() {
-			this.loadData();
+			// this.loadData();
 		},
 		methods: {
-			navTo(url){
-				if(!this.hasLogin){
-					url = '/pages/public/login';
-				}
-				uni.navigateTo({  
-					url
-				})  
-			}, 
 			yijiayou(){
 				let _this = this;
 				console.log('yijiayouClick')
@@ -439,7 +149,7 @@
 			swiperChange(e) {
 				const index = e.detail.current;
 				this.swiperCurrent = index;
-				this.titleNViewBackground = this.carouselList[index].colo;
+				this.titleNViewBackground = this.carouselList[index].background;
 			},
 			//详情页
 			navToDetailPage(item) {

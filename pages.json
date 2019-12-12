@@ -13,7 +13,7 @@
 						"searchInput": {
 							"backgroundColor": "rgba(231, 231, 231,.7)",
 							"borderRadius": "16px",
-							"placeholder": "请输入商品名称如：毛衣",
+							"placeholder": "请输入商品名称,如：毛衣",
 							"disabled": true,
 							"placeholderColor": "#606266"
 						},
@@ -336,6 +336,11 @@
             "path" : "pages/follow/follow",
             "style" : {
 				"navigationBarTitleText": "我的收藏"
+			}
+        },{
+            "path" : "pages/shelf/shelf",
+            "style" : {
+				"navigationBarTitleText": "商品列表"
 			}
         }
     ],
