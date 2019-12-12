@@ -12,18 +12,18 @@
 			<!-- 标题栏和状态栏占位符 -->
 			<view class="titleNview-placing"></view>
 			<!-- 背景色区域 -->
-			<view class="titleNview-background" :style="{backgroundColor:'#DD8D45'}"></view>
+			<view class="titleNview-background" :style="{backgroundColor:'#'+(titleNViewBackground||'DD8D45')}"></view>
 			<swiper class="carousel" circular @change="swiperChange">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
 					<image :src="item.banner_url" @click="bannerClick(item.url,item.type)"/>
 				</swiper-item>
 			</swiper>
 			<!-- 自定义swiper指示器 -->
-<!-- 			<view class="swiper-dots">
+			<view class="swiper-dots">
 				<text class="num">{{swiperCurrent+1}}</text>
 				<text class="sign">/</text>
 				<text class="num">{{swiperLength}}</text>
-			</view> -->
+			</view>
 		</view>
 		<!-- 分类 -->
 		<view class="cate-section">
@@ -330,12 +330,14 @@
 			    success: function (res) {
 					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:res.latitude||null,
 								longitude:res.longitude||null},false,function(res){
+									_this.swiperLength=res.data.banner.length
 						_this.$set(_this,'carouselList',res.data.banner)
 						_this.$set(_this,'goodsList2',res.data.product)
 					})
 				},
 				fail:function(){
 					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null},false,function(res){
+						_this.swiperLength=res.data.banner.length
 						_this.$set(_this,'carouselList',res.data.banner)
 						_this.$set(_this,'goodsList2',res.data.product)
 					})
@@ -429,7 +431,7 @@
 			swiperChange(e) {
 				const index = e.detail.current;
 				this.swiperCurrent = index;
-				this.titleNViewBackground = this.carouselList[index].background;
+				this.titleNViewBackground = this.carouselList[index].colo;
 			},
 			//详情页
 			navToDetailPage(item) {

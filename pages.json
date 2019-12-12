@@ -125,6 +125,7 @@
 		}, {
 			"path": "pages/order/createOrder",
 			"style": {
+				"backgroundColor": "#f5f6f8",
 				"navigationBarTitleText": "确认订单"
 			}
 		}, {
