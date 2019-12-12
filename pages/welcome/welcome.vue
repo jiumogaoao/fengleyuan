@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<swiper class="swiper" circular :indicator-dots="true" :autoplay="true">
+		<swiper class="swiper" :indicator-dots="true" :autoplay="true">
 			<swiper-item class="carousel-item">
 				<image src="/static/welcome0.png"  mode="widthFix" key="1"/>
 			</swiper-item>

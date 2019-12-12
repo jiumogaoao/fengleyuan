@@ -278,7 +278,7 @@
         ,{
             "path" : "pages/policy/policy",
             "style" : {
-            	"navigationBarTitleText": "法律条款"
+            	"navigationBarTitleText": "隐私条款"
             }
         }
         ,{
