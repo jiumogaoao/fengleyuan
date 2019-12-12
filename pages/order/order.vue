@@ -1,7 +1,10 @@
 <template>
 	<view class="content">
+		<view class="noMessage" style="top:154rpx;">
+			<image src="/static/empty.png"/>
+		</view>
 		<view class="zhanwei"></view>
-			<uniNav left-icon="back" class="uniNav">
+			<uniNav left-icon="back" class="uniNav" @clickLeft="back">
 				<view class="navTabBar">
 					<view :class="{navTab:1,hl:type==0}">商城收益</view>
 					<!-- <view :class="{navTab:1,hl:type==1}">自营收益</view> -->
@@ -130,7 +133,7 @@
 					 		</view>
 					 	</view>
 					 </view> -->
-					<uni-load-more :status="tabItem.loadingType"></uni-load-more>
+					<!-- <uni-load-more :status="tabItem.loadingType"></uni-load-more> -->
 					
 				</scroll-view>
 			</swiper-item>
@@ -200,6 +203,9 @@
 		},
 		 
 		methods: {
+			back(){
+				uni.navigateBack()
+			},
 			toggleOption(){
 				this.showOption = !this.showOption
 			},

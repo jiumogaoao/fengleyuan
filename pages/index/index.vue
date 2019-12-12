@@ -27,21 +27,21 @@
 		</view>
 		<!-- 分类 -->
 		<view class="cate-section">
-			<view class="cate-item">
+			<view class="cate-item" @click="go('/pages/product/list')">
 				<image src="/static/temp/c3.png"></image>
-				<text>环球美食</text>
+				<text>实时热销</text>
 			</view>
-			<view class="cate-item">
+			<view class="cate-item" @click="go('/pages/product/list')">
 				<image src="/static/temp/c5.png"></image>
-				<text>个护美妆</text>
+				<text>网红新品</text>
 			</view>
-			<view class="cate-item">
+			<view class="cate-item" @click="go('/pages/product/list')">
 				<image src="/static/temp/c6.png"></image>
-				<text>营养保健</text>
+				<text>巨优惠</text>
 			</view>
-			<view class="cate-item">
+			<view class="cate-item" @click="go('/pages/product/list')">
 				<image src="/static/temp/c7.png"></image>
-				<text>家居厨卫</text>
+				<text>高佣专区</text>
 			</view>
 			<view class="cate-item" @click="yijiayou">
 				<image src="/static/temp/c8.png"></image>

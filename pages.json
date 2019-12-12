@@ -342,6 +342,12 @@
             "style" : {
 				"navigationBarTitleText": "商品列表"
 			}
+        },{
+            "path" : "pages/noNetwork/noNetwork",
+            "style" : {
+				"navigationBarTitleText": "没有网络",
+				"navigationStyle":"custom"
+			}
         }
     ],
 	"globalStyle": {

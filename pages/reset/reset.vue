@@ -229,6 +229,9 @@
 				margin: auto;
 				margin-top: 69rpx;
 				padding: 21rpx 33rpx;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
 				.label{
 					font-size:25rpx;
 					font-family:PingFang SC;
@@ -239,7 +242,7 @@
 					width:100%;
 					display: flex;
 					align-items: center;
-					margin-top: 28rpx;
+					
 					input{
 						flex-grow: 1;
 						font-size:29rpx;

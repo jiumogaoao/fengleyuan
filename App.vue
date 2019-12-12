@@ -2,14 +2,12 @@
 	/**
 	 * vuex管理登陆状态，具体可以参考官方登陆模板示例
 	 */
-	import {
-		mapMutations
-	} from 'vuex';
 	export default {
-		methods: {
-			...mapMutations(['userST/login'])
+		data:{
+			noNetwork:false
 		},
 		onLaunch: function() {
+			let _this=this;
 			let userInfo = uni.getStorageSync('userInfo') || '';
 			if(userInfo.user_tooken){
 				//更新登陆状态
@@ -31,6 +29,20 @@
 					url: '/pages/welcomeDefault/welcomeDefault'
 				})
 			}
+			let noN = setInterval(function(){
+				uni.getNetworkType({
+				    success: function (res) {
+						if(res.networkType=='none'){
+							_this.noNetwork=true
+						}else{
+							_this.noNetwork=false;
+						}
+				    },
+					fail:function(){
+						_this.noNetwork=true
+					}
+				});
+			},800)
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -38,6 +50,18 @@
 		onHide: function() {
 			console.log('App Hide')
 		},
+		watch:{
+			noNetwork(val){
+				console.log('nonetwork',val)
+				if(val){
+					uni.navigateTo({
+						url:'/pages/noNetwork/noNetwork'
+					})
+				}else{
+					uni.navigateBack()
+				}
+			}
+		}
 	}
 </script>
 
@@ -63,7 +87,7 @@
 		font-family: iconfont;
 		font-weight: normal;
 		font-style: normal;
-		src: url('~@/static/iconfont/iconfont.ttf') format('truetype');
+		src: url('~@/static/iconfont.ttf') format('truetype');
 	}
 	
 	.yticon {
@@ -480,4 +504,18 @@
 		color: #999999;
 	}
 	uni-view{box-sizing: border-box;}
+	.noMessage{
+		position: fixed;
+		top:0;
+		left: 0;
+		right:0;
+		bottom:0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		image{
+			width:129rpx;
+			height: 181rpx;
+		}
+	}
 </style>

@@ -1,5 +1,8 @@
 <template>
 	<view class="page">
+		<view class="noMessage" style="top:524rpx;">
+			<image src="/static/empty.png"/>
+		</view>
 		<view class="top">
 			<view class="topTop">
 				<view class="compass">
@@ -16,15 +19,15 @@
 			</view>
 			<view class="topBottom">
 				<view :class="{item:1,hl:step==0}" @click="changeStep(0)">
-					<view class="number">4</view>
+					<view class="number">0</view>
 					<view class="title">直属粉丝</view>
 				</view>
 				<view :class="{item:1,hl:step==1}" @click="changeStep(1)">
-					<view class="number">32</view>
+					<view class="number">0</view>
 					<view class="title">二代粉丝</view>
 				</view>
 				<view :class="{item:1,hl:step==2}" @click="changeStep(2)">
-					<view class="number">108</view>
+					<view class="number">0</view>
 					<view class="title">二代以后粉丝</view>
 				</view>
 			</view>
@@ -40,7 +43,7 @@
 				<view class="title"><image src="/static/ft2.png"></image>关系</view>
 			</view>
 		</view>
-		<block v-if="step==0">
+		<!-- <block v-if="step==0">
 			<view class="listFrame">
 				<view class="list">
 					<view class="fans">
@@ -84,7 +87,7 @@
 					<view class="relation">二代以后粉丝</view>
 				</view>
 			</view>
-		</block>
+		</block> -->
 	</view>
 </template>
 

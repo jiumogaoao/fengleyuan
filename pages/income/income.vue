@@ -14,15 +14,15 @@
 			<view class="topBottom">
 				<view class="item">
 					<view class="title">累计获得蜜糖</view>
-					<view class="money">0</view>
+					<view class="money">- -</view>
 				</view>
 				<view class="item">
 					<view class="title">未结算蜜糖</view>
-					<view class="money">0</view>
+					<view class="money">- -</view>
 				</view>
 				<view class="item">
 					<view class="title">月均获得蜜糖</view>
-					<view class="money">0</view>
+					<view class="money">- -</view>
 				</view>
 			</view>
 		</view>
@@ -40,7 +40,10 @@
 				<view class="line" v-if="state==2"></view>
 			</view>
 		</view>
-		<block v-if="state==0">
+		<view class="noMessage" style="top:462rpx;">
+			<image src="/static/empty.png"/>
+		</view>
+		<!-- <block v-if="state==0">
 			<view class="listHead">
 				<view class="item" style="margin-left: 57rpx;">
 					<view class="iconfont">&#xe697;</view>
@@ -168,7 +171,7 @@
 				</view>
 			</view>
 			<view class="listFoot"></view>
-		</block>
+		</block> -->
 	</view>
 </template>
 

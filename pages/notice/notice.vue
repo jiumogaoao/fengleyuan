@@ -1,5 +1,8 @@
 <template>
 	<view>
+		<view class="noMessage">
+			<image src="/static/empty.png"/>
+		</view>
 		<!-- <view class="notice-item">
 			<text class="time">11:30</text>
 			<view class="content">

@@ -1,6 +1,7 @@
 <template>
 	<view class="frame">
 		<image src="/static/vip.png" mode="widthFix" class="bg"></image>
+		<view class="iconfont" @click="back">&#xe63d;</view>
 		<view class="buttonFrame">
 			<view class="button" style="background-color: #F4301A;margin-right:20rpx;" @click="go('/pages/share/share')">
 				<image class="icon" src="/static/shareIcon1.png"></image>
@@ -63,6 +64,9 @@
 				})
 				//this.pop = !this.pop
 			},
+			back(){
+				uni.navigateBack()
+			},
 			go(url){
 				uni.navigateTo({
 					url
@@ -85,6 +89,13 @@
 		position: relative;
 		.bg{
 			width:750rpx;
+		}
+		.iconfont{
+			font-size: 26rpx;
+			color: #fff;
+			position: absolute;
+			left: 20rpx;
+			top:40px;
 		}
 		.buttonFrame{
 			position: absolute;

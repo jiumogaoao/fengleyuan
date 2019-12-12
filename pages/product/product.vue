@@ -131,12 +131,12 @@
 		
 		<!-- 底部操作菜单 -->
 		<view class="page-bottom">
-			<view class="bottomPoint">
-				<image src="/static/productIcon05.png" class="buttomIcon"></image>
+			<view :class="{bottomPoint:1,hl:liked}" @click="toggleLike">
+				<image :src="liked?'/static/productIcon05a.png':'/static/productIcon05.png'" class="buttomIcon"></image>
 				<view class="bottomLabel">猜你喜欢</view>
 			</view>
-			<view class="bottomPoint">
-				<image src="/static/productIcon04.png" class="buttomIcon"></image>
+			<view :class="{bottomPoint:1,hl:followed}" @click="toggleFollow">
+				<image :src="followed?'/static/productIcon04a.png':'/static/productIcon04.png'" class="buttomIcon"></image>
 				<view class="bottomLabel">收藏</view>
 			</view>
 			<view class="bottomButtonFrame">
@@ -210,6 +210,8 @@
 		},
 		data() {
 			return {
+				followed:false,
+				liked:false,
 				id:'',
 				commodity_price: 0,
 				coupon_face_value: 0,
@@ -326,9 +328,18 @@
 				_this.estimate=res.data.estimate
 				_this.post_coupon=res.data.post_coupon
 				_this.vip=res.data.vip
-				console.log(uni.getStorageSync('productHistory'),typeof(uni.getStorageSync('productHistory')))
 				if(uni.getStorageSync('productHistory') && Array.isArray(uni.getStorageSync('productHistory'))){
-					uni.setStorageSync('productHistory',[res.data[0],...uni.getStorageSync('productHistory')])
+					
+					let aKey={}
+					aKey[res.data[0].id]=1;
+					let aArray=[res.data[0]]
+					uni.getStorageSync('productHistory').map(function(v){
+						if(!aKey[v.id]){
+							aKey[v.id]=1;
+							aArray.push(v)
+						}
+					});
+					uni.setStorageSync('productHistory',aArray)
 				}else{
 					uni.setStorageSync('productHistory',[res.data[0]])
 				}
@@ -348,9 +359,54 @@
 		},
 		onShow(){
 			let _this = this; 
-			
+			try{
+				this.followed=uni.getStorageSync('followList')[this.id]?true:false
+			}catch(e){
+				this.followed=false;
+			}
+			try{
+				this.liked=uni.getStorageSync('likeList')[this.id]||false
+			}catch(e){
+				this.liked=false
+			}
 		},
 		methods:{
+			toggleLike(){
+				let o=uni.getStorageSync('likeList')
+				if(!o){
+					o={}
+				}
+				this.liked = !this.liked
+				o[this.id]=this.liked
+				uni.setStorageSync('likeList',o)
+			},
+			toggleFollow(){
+				let _this=this;
+				let o=uni.getStorageSync('followList')
+				if(!o){
+					o={}
+				}
+				this.followed = !this.followed
+				if(this.followed){
+					o[this.id]={
+						id:_this.id,
+						commodity_price:_this.commodity_price,
+						coupon_face_value:_this.coupon_face_value,
+						coupon_link:_this.coupon_link,
+						header_img:_this.header_img,
+						pro_url:_this.pro_url,
+						product_name:_this.product_name,
+						sales_volume:_this.sales_volume,
+						shop_name:_this.shop_name,
+						estimate:_this.estimate,
+						post_coupon:_this.post_coupon,
+						vip:_this.vip
+					}
+				}else{
+					o[this.id]=false
+				}
+				uni.setStorageSync('followList',o)
+			},
 			popOut(url){
 				plus.runtime.openURL(url)
 			},
@@ -1006,6 +1062,9 @@
 				color:rgba(96,98,102,1);
 				margin-top: 5rpx;
 			}
+		}
+		.bottomPoint.hl .bottomLabel{
+			color:#DD8D45;
 		}
 		.bottomButtonFrame{
 			width:417rpx;

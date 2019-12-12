@@ -5,14 +5,14 @@
 				<view class="wrapper">
 					<view class="address-box">
 						<text v-if="item.default" class="tag">默认</text>
-						<text class="address">{{item.addressName}} {{item.area}}</text>
+						<text class="address">{{item.province}}省{{item.city}}市{{item.area}}区{{item.address}}</text>
 					</view>
 					<view class="u-box">
 						<text class="name">{{item.name}}</text>
 						<text class="mobile">{{item.mobile}}</text>
 					</view>
 				</view>
-				<text class="yticon icon-bianji" @click.stop="addAddress('edit', item)"></text>
+				<image class="bianji" @click.stop="addAddress('edit', item)" src="/static/editPlace.png"></image>
 			</view>
 		</view>
 		<!-- <text style="display:block;padding: 16upx 30upx 10upx;lihe-height: 1.6;color: #fa436a;font-size: 24upx;">
@@ -33,15 +33,19 @@
 						name: '刘晓晓',
 						mobile: '18666666666',
 						addressName: '贵族皇仕牛排(东城店)',
-						address: '北京市东城区',
-						area: 'B区',
+						address: '贵族皇仕牛排(东城店)',
+						province:'山西',
+						city:'太原',
+						area: '武侯区',
 						default: true
 					},{
 						name: '刘大大',
 						mobile: '18667766666',
 						addressName: '龙回1区12号楼',
-						address: '山东省济南市历城区',
-						area: '西单元302',
+						address: '龙回1区12号楼',
+						province:'广东',
+						city:'广州',
+						area: '黄埔',
 						default: false,
 					}
 				]
@@ -124,20 +128,31 @@
 			color:rgba(34,34,34,1); 
 		}
 	}
+	/* <view class="u-box">
+		<text class="name">{{item.name}}</text>
+		<text class="mobile">{{item.mobile}}</text>
+	</view> */
 	.u-box{
 		margin-top: 19rpx;
-		.name{
-			margin-right: 22upx;
-			
-		}
-	}
-	.icon-bianji{
 		display: flex;
 		align-items: center;
-		height: 80upx;
-		font-size: 40upx;
-		color: $font-color-light;
-		padding-left: 30upx;
+		.name{
+			margin-right: 22upx;
+			font-size:20rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(153,153,153,1);
+		}
+		.mobile{
+			font-size:20rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(153,153,153,1);
+		}
+	}
+	.bianji{
+		width:42rpx;
+		height: 42rpx;
 	}
 	
 	.add-btn{

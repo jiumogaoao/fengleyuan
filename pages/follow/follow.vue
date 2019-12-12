@@ -6,7 +6,7 @@
 			<view 
 				v-for="(item, index) in goodsList2" :key="index"
 				class="guess-item"
-				@click="navToDetailPage(item.id)"
+				@click="navToDetailPage(item.id)" v-if="item"
 			>
 				<view class="image-wrapper">
 					<image :src="item.header_img" mode="aspectFill"></image>
@@ -44,24 +44,10 @@
 		},
 		onShow(){
 			let _this = this;
-
-			uni.getLocation({
-			    type: 'gcj02',
-			    success: function (res) {
-					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:res.latitude||null,
-								longitude:res.longitude||null},false,function(res){
-						_this.$set(_this,'carouselList',res.data.banner)
-						_this.$set(_this,'goodsList2',res.data.product)
-					})
-				},
-				fail:function(){
-					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null},false,function(res){
-						_this.$set(_this,'carouselList',res.data.banner)
-						_this.$set(_this,'goodsList2',res.data.product)
-					})
-				}
-				})
-			
+			if(uni.getStorageSync('followList')){
+				console.log(uni.getStorageSync('followList'))
+				_this.$set(_this,'goodsList2',uni.getStorageSync('followList'))
+			}			
 		},
 		onLoad() {
 			// this.loadData();
