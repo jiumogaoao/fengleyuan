@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<canvas style="width: 574rpx; height: 1019rpx;margin: auto;" canvas-id="shareImg"></canvas>
+		<canvas style="width: 750rpx; height: 1334rpx;margin: auto;" canvas-id="shareImg"></canvas>
 		<view class="buttonFrame">
 <!-- 			<view class="button" style="background-color: #FF930C;" @click="copy">
 				<image class="icon" src="/static/shareIcon0.png"></image>
@@ -8,7 +8,7 @@
 			</view> -->
 			<view class="button" style="background-color: #F4301A;" @click="share">
 				<image class="icon" src="/static/shareIcon1.png"></image>
-				<view class="text">分享海报</view>
+				<view class="text">保存海报</view>
 			</view>
 		</view>
 	</view>
@@ -66,41 +66,44 @@
 		},
 		data() {
 			return {
-				url:"https://www.paradisebee.com/pages/regest/regest?id=A1B2C3D4",
+				url:this.$api.prePage().pro_url,
 				code:"A1B2C3",
 				icon:'',
 				coupond:'',
 				frame:'',
 				logo:'',
-				productImg:'',
+				productImg:this.$api.prePage().header_img,
 				productPic:'',
+				oldPrice:10,
 				qrcode:'',
-				title:'',
-				price:'',
-				couponprice:''
+				title:this.$api.prePage().product_name,
+				price:this.$api.prePage().commodity_price,
+				couponprice:this.$api.prePage().coupon_face_value
 			};
 		},
 		methods:{
-			drawText(ctx, text, x, y, maxWidth, lineHeight) {
-			    let canvas = ctx.canvas;
-			    let arrText = text.split('');
-			    let line = '';
-			    for (let n = 0; n < arrText.length; n++) {
-			        let testLine = line + arrText[n];
-			        let metrics = ctx.measureText(testLine);
-			        let testWidth = metrics.width;
-			        if (testWidth > maxWidth && n > 0) {
-			            ctx.fillText(line, x, y);
-			            line = arrText[n];
-			            y += lineHeight;
-			         } else {
-			            line = testLine;
-			         }
-			    }
-			    ctx.fillText(line, x, y);
-			},
+			// drawText(ctx, text, x, y, maxWidth, lineHeight) {
+			//     let canvas = ctx.canvas;
+			//     let arrText = text.split('');
+			//     let line = '';
+			//     for (let n = 0; n < arrText.length; n++) {
+			//         let testLine = line + arrText[n];
+			// 		ctx.
+			//         let metrics = ctx.measureText(testLine);
+			//         let testWidth = metrics.width;
+			//         if (testWidth > maxWidth && n > 0) {
+			//             ctx.fillText(line, x, y);
+			//             line = arrText[n];
+			//             y += lineHeight;
+			//          } else {
+			//             line = testLine;
+			//          }
+			//     }
+			//     ctx.fillText(line, x, y);
+			// },
 			drawCA(){
 				let _this = this;
+				
 				if(!this.icon){return}
 				if(!this.coupond){return}
 				if(!this.frame){return}
@@ -108,46 +111,74 @@
 				if(!this.productPic){return}
 				try{
 					const context = uni.createCanvasContext('shareImg')
-							console.log(res.tempFilePath)
-					context.drawImage(res.tempFilePath, 0,0,750*_this.rpx, 1334*_this.rpx)
-							context.fillStyle('#fff')
+							context.setFillStyle('#fff')
 							context.fillRect(0,0,750*_this.rpx, 1334*_this.rpx)
-							context.fillStyle('rgba(0,0,0,0)')
-							context.setStrokeStyle('#000')
-							context.setFontSize(36*_this.rpx)
-							_this.drawText(context,"nbsp;nbsp;nbsp;"+_this.title,29*_this.rpx,44*_this.rpx,666*_this.rpx,94*_this.rpx)
+							context.setFillStyle('#000')
+							// context.setStrokeStyle('#000')
+							context.setFontSize('40rpx')
+							context.scale(2, 2)
+							context.setTextBaseline("top")
+							if(_this.title.length>18){
+								context.fillText(_this.title.substr(0,18), 32*_this.rpx, 18*_this.rpx);
+								context.fillText(_this.title.substr(19,_this.title.length-1), 18*_this.rpx, 50*_this.rpx);
+							}else{
+								context.fillText(_this.title, 32*_this.rpx, 18*_this.rpx);
+							}
+							
+							context.scale(0.5, 0.5)
 							//券后价
-							context.setStrokeStyle('#E44654')
-							context.setFontSize(34*_this.rpx)
-							_this.fillText("券后价", 31*_this.rpx, 188*_this.rpx);
-							context.setStrokeStyle('#DB001B')
-							context.setFontSize(36*_this.rpx)
-							_this.fillText("￥", 139*_this.rpx, 193*_this.rpx);
-							context.setStrokeStyle('#DB001B')
-							context.setFontSize(60*_this.rpx)
-							_this.fillText(_this.price, 163*_this.rpx, 174*_this.rpx);
+							// context.setStrokeStyle('rgba(228,70,84,1)')
+							context.setFillStyle('rgba(228,70,84,1)')
+							context.setFontSize('34rpx')
+							context.scale(2, 2)
+							context.fillText("券后价", 15*_this.rpx, 94*_this.rpx);
+							context.setFillStyle('#DB001B')
+							context.setFontSize('36rpx')
+							context.fillText("￥", 70*_this.rpx, 96*_this.rpx);
+							context.setFillStyle('#DB001B')
+							context.setFontSize('60rpx')
+							context.fillText(_this.price, 90*_this.rpx, 96*_this.rpx);
+							context.scale(0.5, 0.5)
 							context.drawImage(_this.icon, 22*_this.rpx,45*_this.rpx,40*_this.rpx, 41*_this.rpx)
 							//优惠券
 							context.drawImage(_this.coupond, 516*_this.rpx,176*_this.rpx,210*_this.rpx, 53*_this.rpx)
-							context.setStrokeStyle('#fff')
-							context.setFontSize(12*_this.rpx)
-							_this.fillText("￥", 539*_this.rpx, 190*_this.rpx);
-							context.setStrokeStyle('#fff')
-							context.setFontSize(33*_this.rpx)
-							_this.fillText(_this.couponprice, 547*_this.rpx, 190*_this.rpx);
-							context.setStrokeStyle('#fff')
-							context.setFontSize(20*_this.rpx)
-							_this.fillText("优惠券", 587*_this.rpx, 193*_this.rpx);
-							context.setStrokeStyle('#fff')
-							context.setFontSize(20*_this.rpx)
-							_this.fillText("领", 679*_this.rpx, 193*_this.rpx);
+							
+							context.setFillStyle('#fff')
+							context.setFontSize('12rpx')
+							context.fillText("￥", 539*_this.rpx, 190*_this.rpx);
+							context.setFillStyle('#fff')
+							context.setFontSize('33rpx')
+							context.fillText(_this.couponprice, 560*_this.rpx, 190*_this.rpx);
+							context.setFillStyle('#fff')
+							context.setFontSize('20rpx')
+							context.fillText("优惠券", 587*_this.rpx, 190*_this.rpx);
+							context.setFillStyle('#fff')
+							context.setFontSize('20rpx')
+							context.fillText("领", 679*_this.rpx, 190*_this.rpx);
+							
 							//原价
-							context.setStrokeStyle('#fff')
-							context.setFontSize(20*_this.rpx)
-							_this.fillText("领", 679*_this.rpx, 193*_this.rpx);
+							context.setFillStyle('#A7A6A6')
+							context.setFontSize('24rpx')
+							context.fillText("原价", 31*_this.rpx, 240*_this.rpx);
+							context.setFillStyle('#A7A6A6')
+							context.setFontSize('24rpx')
+							context.fillText("￥"+_this.oldPrice, 82*_this.rpx, 240*_this.rpx);
 							context.drawImage(_this.productPic, 24*_this.rpx,316*_this.rpx,700*_this.rpx, 700*_this.rpx)
 							context.drawImage(_this.frame, 24*_this.rpx,316*_this.rpx,700*_this.rpx, 700*_this.rpx)
 							context.drawImage(_this.qrcode, 540*_this.rpx,1072*_this.rpx,189*_this.rpx, 189*_this.rpx)
+							context.drawImage(_this.logo, 240*_this.rpx,1103*_this.rpx,247*_this.rpx, 64*_this.rpx)
+							context.scale(2, 2)
+							context.setFillStyle('#fff')
+							context.setFontSize('36rpx')
+							context.fillText("券后价", 523*0.5*_this.rpx, 857*0.5*_this.rpx);
+							context.setFillStyle('#fff')
+							context.setFontSize('60rpx')
+							context.fillText("￥"+_this.price, 526*0.5*_this.rpx, 909*0.5*_this.rpx);
+							context.scale(0.5, 0.5)
+							context.setFillStyle('#666666')
+							context.setFontSize('20rpx')
+							context.fillText("长按图片，扫码领取优惠券", 248*_this.rpx, 1205*_this.rpx);
+							
 					        context.draw()
 							uni.hideLoading()
 	
@@ -205,7 +236,7 @@
 		margin: auto;
 		margin-top: 108rpx;
 		display: flex;
-		justify-content: space-between;
+		justify-content: center;
 		align-items: center;
 		width:633rpx;
 		padding-bottom: 74rpx;

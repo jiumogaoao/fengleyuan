@@ -37,7 +37,7 @@
 			</view>
 			<view class="cate-item" @click="go('/pages/product/list')">
 				<image src="/static/temp/c6.png"></image>
-				<text>巨优惠</text>
+				<text>聚优惠</text>
 			</view>
 			<view class="cate-item" @click="go('/pages/product/list')">
 				<image src="/static/temp/c7.png"></image>

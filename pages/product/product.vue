@@ -140,11 +140,11 @@
 				<view class="bottomLabel">收藏</view>
 			</view>
 			<view class="bottomButtonFrame">
-				<view class="left">
+				<view class="left" @click="share">
 					<view class="title">分享</view>
 					<view class="dsc">赚<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>14.28</view>
 				</view>
-				<view class="right">
+				<view class="right" @click="buy">
 					<view class="title">购买</view>
 					<view class="dsc">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>64.81</view>
 				</view>
@@ -447,16 +447,20 @@
 			},
 			//分享
 			share(){
-				this.$refs.share.toggleMask();	
+				// this.$refs.share.toggleMask();
+					uni.navigateTo({
+						url:'/pages/share/shareProduct'
+					})
 			},
 			//收藏
 			toFavorite(){
 				this.favorite = !this.favorite;
 			},
 			buy(){
-				uni.navigateTo({
-					url: `/pages/order/createOrder`
-				})
+				// uni.navigateTo({
+				// 	url: `/pages/order/createOrder`
+				// })
+				plus.runtime.openURL(this.pro_url)
 			},
 			stopPrevent(){}
 		},
