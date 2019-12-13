@@ -3,6 +3,7 @@
 		<view class="historyList" v-if="!result.length">
 			<view class="historyTop">
 				<view class="title">历史搜索</view>
+				<image class="removeHistory" src="/static/removeHistory.png"></image>
 			</view>
 			<view class="list">
 				<view class="point">电脑</view>
@@ -22,34 +23,73 @@
 		<block v-else>
 			<view class="navbar" :style="{position:headerPosition,top:headerTop}">
 				<view class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)">
-					综合排序
+					<text>综合</text>
 				</view>
 				<view class="nav-item" :class="{current: filterIndex === 1}" @click="tabClick(1)">
-					销量优先
+					<text>销量</text>
+					<image class="sort" :src="saleSort?'/static/up.png':'/static/down.png'" @click="sortToggle(0)"></image>
 				</view>
 				<view class="nav-item" :class="{current: filterIndex === 2}" @click="tabClick(2)">
 					<text>价格</text>
-					<view class="p-box">
-						<text :class="{active: priceOrder === 1 && filterIndex === 2}" class="yticon icon-shang"></text>
-						<text :class="{active: priceOrder === 2 && filterIndex === 2}" class="yticon icon-shang xia"></text>
-					</view>
+					<image class="sort" :src="priceSort?'/static/up.png':'/static/down.png'" @click="sortToggle(1)"></image>
 				</view>
-				<text class="cate-item yticon icon-fenlei1" @click="toggleCateMask('show')"></text>
+				<image class="showType" :src="showType?'/static/show1.png':'/static/show0.png'" @click="toggleShowType"></image>
 			</view>
+			<view style="width:750rpx;height:80rpx;"></view>
 			<view class="goods-list">
 				<view 
 					v-for="(item, index) in goodsList" :key="index"
-					class="goods-item"
+					class="goods-item" v-if="showType==0"
 					@click="navToDetailPage(item)"
 				>
 					<view class="image-wrapper">
 						<image :src="item.image" mode="aspectFill"></image>
 					</view>
-					<text class="title clamp">{{item.title}}</text>
-					<view class="price-box">
-						<text class="price">{{item.price}}</text>
-						<text>已售 {{item.sales}}</text>
+					<view class="title clamp">{{item.title}}</view>
+					<view class="shopFrame">
+						<image class="shopIcon" src="/static/shop.png"></image>
+						<view class="shopName">竞合旗舰店</view>
 					</view>
+					<view class="rebateFrame">
+						<view class="coupon">券￥300</view>
+						<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>50</view>
+					</view>
+					<view class="price-box">
+						<view class="left">
+							<text class="priceTip">￥</text><text class="price">{{item.price}}</text><text class="oldPrice">￥1110</text>
+						</view>
+						
+						<text class="right">已售 {{item.sales}}万</text>
+					</view>
+				</view>
+				<view
+					v-for="(item, index) in goodsList" :key="index"
+					class="goods-item showType1"
+					@click="navToDetailPage(item)"
+					 v-if="showType==1"
+				>
+					<view class="image-wrapper">
+						<image :src="item.image" mode="aspectFill"></image>
+					</view>
+					<view class="productRight">
+						<view class="title clamp">{{item.title}}</view>
+						<view class="shopFrame">
+							<image class="shopIcon" src="/static/shop.png"></image>
+							<view class="shopName">竞合旗舰店</view>
+						</view>
+						<view class="rebateFrame">
+							<view class="coupon">券￥300</view>
+							<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>50</view>
+						</view>
+						<view class="price-box">
+							<view class="left">
+								<text class="priceTip">￥</text><text class="price">{{item.price}}</text><text class="oldPrice">￥1110</text>
+							</view>
+							
+							<text class="right">已售 {{item.sales}}万</text>
+						</view>
+					</view>
+					
 				</view>
 			</view>
 			<uni-load-more :status="loadingType"></uni-load-more>
@@ -62,9 +102,11 @@
 	export default {
 		data() {
 			return {
+				saleSort:0,
+				priceSort:0,
 				searchKey:'',
 				result:[
-					{}
+					
 				],
 				cateMaskState: 0, //分类面板展开状态
 				headerPosition:"fixed",
@@ -74,10 +116,21 @@
 				cateId: 0, //已选三级分类id
 				priceOrder: 0, //1 价格从低到高 2价格从高到低
 				cateList: [],
-				goodsList: []
+				goodsList: [],
+				showType:0
 			};
 		},
 		methods:{
+			sortToggle(type){
+				if(type){
+					this.priceSort = !this.priceSort
+				}else{
+					this.saleSort = !this.saleSort
+				}
+			},
+			toggleShowType(){
+				this.showType = !this.showType
+			},
 			search(){
 				
 			},
@@ -226,7 +279,7 @@
 
 <style lang="scss">
 	page, .content{
-		background: $page-color-base;
+		background: #f5f6f8;
 	}
 	.content{
 		padding-top: 96upx;
@@ -237,6 +290,7 @@
 		left: 0;
 		top: var(--window-top);
 		display: flex;
+		align-items: center;
 		width: 100%;
 		height: 80upx;
 		background: #fff;
@@ -263,6 +317,11 @@
 					height: 0;
 					border-bottom: 4upx solid $base-color;
 				}
+			}
+			.sort{
+				width: 14rpx;
+				height: 35rpx;
+				margin-left: 4rpx;
 			}
 		}
 		.p-box{
@@ -304,6 +363,11 @@
 				width: 0;
 				height: 36upx;
 			}
+		}
+		.showType{
+			width:35rpx;
+			height:35rpx;
+			margin-right: 59rpx;
 		}
 	}
 	
@@ -362,23 +426,29 @@
 	}
 	
 	/* 商品列表 */
+
 	.goods-list{
 		display:flex;
 		flex-wrap:wrap;
-		padding: 0 30upx;
-		background: #fff;
+		justify-content: space-between;
+		padding: 0 14upx;
 		.goods-item{
 			display:flex;
 			flex-direction: column;
-			width: 48%;
-			padding-bottom: 40upx;
-			&:nth-child(2n+1){
-				margin-right: 4%;
-			}
+			width:354rpx;
+			height:556rpx;
+			margin-top: 14rpx;
+			background-color: #fff;
+		}
+		.goods-item.showType1{
+			flex-direction:row;
+			width:100%;
+			height:250rpx;
+			padding: 14rpx;
 		}
 		.image-wrapper{
 			width: 100%;
-			height: 330upx;
+			height: 354upx;
 			border-radius: 3px;
 			overflow: hidden;
 			image{
@@ -387,26 +457,122 @@
 				opacity: 1;
 			}
 		}
-		.title{
-			font-size: $font-lg;
-			color: $font-color-dark;
-			line-height: 80upx;
+		.goods-item.showType1 .image-wrapper{
+			width:222rpx;
+			height: 222rpx;
+			margin-right: 15rpx;
+			flex-shrink: 0;
 		}
-		.price-box{
+		.productRight{
+			flex-grow: 1;
+			padding: 17rpx 0 14rpx 0;
+		}
+		.title{
+			font-size:26rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(34,34,34,1);
+			width:100%;
+			padding: 0 14rpx;
+			height: 58rpx;
+			margin-top: 14rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display:-webkit-box; //作为弹性伸缩盒子模型显示。
+			-webkit-box-orient:vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
+			-webkit-line-clamp:2; //显示的行
+			white-space: normal;
+			line-height: 1.1;
+		}
+		.shopFrame{
+			width:100%;
+			padding: 0 14rpx;
+			margin-top: 10rpx;
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
-			padding-right: 10upx;
-			font-size: 24upx;
-			color: $font-color-light;
+			.shopIcon{
+				width:21rpx;
+				height:21rpx;
+				margin-right: 15rpx;
+			}
+			.shopName{
+				font-size:20rpx;
+				font-family:PingFang SC;
+				font-weight:400;
+				color:rgba(153,153,153,1);
+			}
 		}
-		.price{
-			font-size: $font-lg;
-			color: $uni-color-primary;
-			line-height: 1;
-			&:before{
-				content: '￥';
-				font-size: 26upx;
+		.rebateFrame{
+			width:100%;
+			padding: 0 14rpx;
+			margin-top: 12rpx;
+			display: flex;
+			align-items: center;
+			.coupon{
+				width:90rpx;
+				height:35rpx;
+				background-image: url('~@/static/coupon.png');
+				background-size: 90rpx 35rpx;
+				background-repeat: no-repeat;
+				margin-right: 14rpx;
+				font-size:17rpx;
+				font-family:PingFang SC;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				line-height: 35rpx;
+				text-align: center;
+			}
+			.income{
+				width:139rpx;
+				height:29rpx;
+				background:rgba(250,131,35,1);
+				border-radius:7rpx;
+				font-size:17rpx;
+				font-family:PingFang SC;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				text-align: center;
+				line-height: 29rpx;
+				.mt{
+					width:14rpx;
+					height:14rpx;
+				}
+			}
+		}
+		.price-box{
+			width:100%;
+			padding: 0 14rpx;
+			display: flex;
+			justify-content: space-between;
+			margin-top: 12rpx;
+			.left{
+				display: flex;
+				align-items: baseline;
+				.priceTip{
+					font-size: 20rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(219,0,27,1);
+				}
+				.price{
+					font-size: 29rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(219,0,27,1);
+				}
+				.oldPrice{
+					font-size:20rpx;
+					font-family:PingFang SC;
+					font-weight:400;
+					text-decoration:line-through;
+					color:rgba(153,153,153,1);
+				}
+			}
+			.right{
+				font-size:23rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(153,153,153,1);
 			}
 		}
 	}
@@ -424,6 +590,10 @@
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(34,34,34,1);
+			}
+			.removeHistory{
+				width:35rpx;
+				height:35rpx;
 			}
 		}
 		.list{

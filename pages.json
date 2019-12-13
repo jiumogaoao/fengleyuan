@@ -304,6 +304,12 @@
 				"navigationBarTitleText": "邀请"
 			}
         }
+		,{
+		    "path" : "pages/share/shareProduct",
+		    "style" : {
+				"navigationBarTitleText": "商品分享"
+			}
+		}
         ,{
             "path" : "pages/vip/vip",
             "style" : {
@@ -351,6 +357,7 @@
         },{
 			"path": "pages/search/search",
 			"style": {
+				"backgroundColor":"#f5f6f8",
 				// #ifdef MP 
 				"navigationBarTitleText": "搜索",
 				//"navigationStyle": "custom",

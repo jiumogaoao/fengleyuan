@@ -78,15 +78,15 @@
 			<!-- 订单 -->
 			<view class="order-section">
 				<view class="order-item" @click="navTo('/pages/income/income')">
-					<image class="shouyiIcon" src="/static/b0.png"></image>
+					<image class="shouyiIcon" src="/static/b2.png"></image>
 					<text>收益</text>
 				</view>
 				<view class="order-item" @click="navTo('/pages/order/order?state=0')">
-					<image class="shouyiIcon" src="/static/b1.png"></image>
+					<image class="shouyiIcon" src="/static/b0.png"></image>
 					<text>订单</text>
 				</view>
 				<view class="order-item" @click="navTo('/pages/fans/fans')">
-					<image class="shouyiIcon" src="/static/b2.png"></image>
+					<image class="shouyiIcon" src="/static/b1.png"></image>
 					<text>粉丝</text>
 				</view>
 				<view class="order-item" @click="navTo('/pages/share/share')">
@@ -394,8 +394,8 @@
 			color: $font-color-dark;
 		}
 		.shouyiIcon{
-			width:68rpx;
-			height:68rpx;
+			width:45rpx;
+			height:45rpx;
 			margin-bottom: 20rpx;
 		}
 		.yticon{

@@ -14,7 +14,7 @@
 			</swiper>
 		</view>
 		<view class="headFoot">
-			<view class="text">现在升级VIP，最高可<text>赚{{vip}}元</text></view>
+			<view class="text">现在升级VIP，最高可<text><image class="mt" src="/static/productIcon02.png"></image>赚{{vip}}元</text></view>
 			<view class="button">
 				<image class="icon" src="/static/productIcon01.png"></image>
 				<view class="label">立即升级</view>
@@ -33,7 +33,7 @@
 				<!-- <text class="coupon-tip">7折</text> -->
 			</view>
 			<view class="bot-row">
-				<text>预估收益: {{estimate}}</text>
+				<text>预估收益<image class="mt" src="/static/productIcon02.png"></image>{{estimate}}</text>
 				<!-- <text>库存: 4690</text>
 				<text>浏览量: 768</text> -->
 			</view>
@@ -468,6 +468,10 @@
 	page{
 		background: $page-color-base;
 		padding-bottom: 160upx;
+	}
+	.mt{
+		width:22rpx;
+		height:22rpx;
 	}
 	.icon-you{
 		font-size: $font-base + 2upx;
