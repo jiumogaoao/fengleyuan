@@ -27,19 +27,19 @@
 		</view>
 		<!-- 分类 -->
 		<view class="cate-section">
-			<view class="cate-item" @click="go('/pages/search/search')">
+			<view class="cate-item" @click="go('/pages/search/search?keywork=实时热销&salse=1')">
 				<image src="/static/temp/c3.png"></image>
 				<text>实时热销</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/search/search')">
+			<view class="cate-item" @click="go('/pages/search/search?keywork=网红新品&salse=5')">
 				<image src="/static/temp/c5.png"></image>
 				<text>网红新品</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/search/search')">
+			<view class="cate-item" @click="go('/pages/search/search?keywork=聚优惠&salse=6')">
 				<image src="/static/temp/c6.png"></image>
 				<text>聚优惠</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/product/list')">
+			<view class="cate-item" @click="go('/pages/search/search?keywork=高佣专区&salse=7')">
 				<image src="/static/temp/c7.png"></image>
 				<text>高佣专区</text>
 			</view>

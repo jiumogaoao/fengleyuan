@@ -122,6 +122,7 @@
 </template>
 
 <script>
+	import {postFetch} from '@/util/request_UT.js';
 	export default {
 		data() {
 			return {
@@ -130,6 +131,11 @@
 		},
 		methods:{
 			
+		},
+		onLoad(){
+			postFetch('index.php/index/index/sort_search',{},false,function(res){
+				console.log('incomeList',res)
+			})
 		}
 	}
 </script>

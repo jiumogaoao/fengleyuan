@@ -1,63 +1,64 @@
 <template>
 	<view>
-		<view class="historyList" v-if="!result.length">
+		<view class="historyList" v-if="!noempty && searchHistory.length">
 			<view class="historyTop">
 				<view class="title">历史搜索</view>
-				<image class="removeHistory" src="/static/removeHistory.png"></image>
+				<image class="removeHistory" src="/static/removeHistory.png" @click="removeHistory"></image>
 			</view>
 			<view class="list">
+				<view class="point" v-for="(v,i) in searchHistory" :key="i" @click="setKeyWord(v)">{{v}}</view>
 				<!-- <view class="point">电脑</view>
 				<view class="point">连衣裙</view>
 				<view class="point">海绵床垫</view> -->
 			</view>
 		</view>
-		<view class="hotList" v-if="!result.length">
+		<view class="hotList" v-if="!noempty">
 			<view class="title">大家都在搜</view>
 			<view class="list">
-				<view class="pointFrame"><view class="point">新春礼包</view></view>
-				<view class="pointFrame"><view class="point">圣诞节</view></view>
+				<view class="pointFrame" @click="setKeyWord('新春礼包')"><view class="point">新春礼包</view></view>
+				<view class="pointFrame" @click="setKeyWord('圣诞节')"><view class="point">圣诞节</view></view>
 			</view>
 		</view>
 		<block v-else>
 			<view class="navbar" :style="{position:headerPosition,top:headerTop}">
-				<view class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)">
+				<view class="nav-item" :class="{current: salse === 0}" @click="setSalse(0)">
 					<text>综合</text>
 				</view>
-				<view class="nav-item" :class="{current: filterIndex === 1}" @click="tabClick(1)">
+				<view class="nav-item" :class="{current: salse === 1 || salse === 2}" @click="setSalse(1)">
 					<text>销量</text>
-					<image class="sort" :src="saleSort?'/static/up.png':'/static/down.png'" @click="sortToggle(0)"></image>
+					<image class="sort" :src="salse==1?'/static/up.png':'/static/down.png'" @click.stop="sortToggle(0)"></image>
 				</view>
-				<view class="nav-item" :class="{current: filterIndex === 2}" @click="tabClick(2)">
+				<view class="nav-item" :class="{current: salse === 3 || salse === 4}" @click="setSalse(3)">
 					<text>价格</text>
-					<image class="sort" :src="priceSort?'/static/up.png':'/static/down.png'" @click="sortToggle(1)"></image>
+					<image class="sort" :src="salse==3?'/static/up.png':'/static/down.png'" @click.stop="sortToggle(1)"></image>
 				</view>
 				<image class="showType" :src="showType?'/static/show1.png':'/static/show0.png'" @click="toggleShowType"></image>
 			</view>
 			<view style="width:750rpx;height:80rpx;"></view>
-			<view class="goods-list">
+			<view class="goods-list" v-if="goodsList.length">
 				<view 
 					v-for="(item, index) in goodsList" :key="index"
 					class="goods-item" v-if="showType==0"
 					@click="navToDetailPage(item)"
 				>
 					<view class="image-wrapper">
-						<image :src="item.image" mode="aspectFill"></image>
+						<image :src="item.header_img" mode="aspectFill"></image>
 					</view>
-					<view class="title clamp">{{item.title}}</view>
+					<view class="title clamp">{{item.product_name}}</view>
 					<view class="shopFrame">
 						<image class="shopIcon" src="/static/shop.png"></image>
-						<view class="shopName">竞合旗舰店</view>
+						<view class="shopName">{{item.shop_name}}</view>
 					</view>
 					<view class="rebateFrame">
 						<view class="coupon">券￥300</view>
-						<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>50</view>
+						<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.income_ratio}}</view>
 					</view>
 					<view class="price-box">
 						<view class="left">
-							<text class="priceTip">￥</text><text class="price">{{item.price}}</text><text class="oldPrice">￥1110</text>
+							<text class="priceTip">￥</text><text class="price">{{item.commodity_price}}</text><text class="oldPrice">￥1110</text>
 						</view>
 						
-						<text class="right">已售 {{item.sales}}万</text>
+						<text class="right">已售 {{item.sales_volume}}万</text>
 					</view>
 				</view>
 				<view
@@ -67,29 +68,31 @@
 					 v-if="showType==1"
 				>
 					<view class="image-wrapper">
-						<image :src="item.image" mode="aspectFill"></image>
+						<image :src="item.header_img" mode="aspectFill"></image>
 					</view>
 					<view class="productRight">
-						<view class="title clamp">{{item.title}}</view>
+						<view class="title clamp">{{item.product_name}}</view>
 						<view class="shopFrame">
 							<image class="shopIcon" src="/static/shop.png"></image>
-							<view class="shopName">竞合旗舰店</view>
+							<view class="shopName">{{item.shop_name}}</view>
 						</view>
 						<view class="rebateFrame">
 							<view class="coupon">券￥300</view>
-							<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>50</view>
+							<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.income_ratio}}</view>
 						</view>
 						<view class="price-box">
 							<view class="left">
-								<text class="priceTip">￥</text><text class="price">{{item.price}}</text><text class="oldPrice">￥1110</text>
+								<text class="priceTip">￥</text><text class="price">{{item.commodity_price}}</text><text class="oldPrice">￥1110</text>
 							</view>
 							
-							<text class="right">已售 {{item.sales}}万</text>
+							<text class="right">已售 {{item.sales_volume}}万</text>
 						</view>
 					</view>
 					
 				</view>
+				
 			</view>
+			<image src="/static/empty.png" class="noData" v-else></image>
 			<uni-load-more :status="loadingType"></uni-load-more>
 		</block>
 		
@@ -97,6 +100,7 @@
 </template>
 
 <script>
+	import {postFetch} from '@/util/request_UT.js'
 	export default {
 		data() {
 			return {
@@ -114,23 +118,99 @@
 				cateId: 0, //已选三级分类id
 				priceOrder: 0, //1 价格从低到高 2价格从高到低
 				cateList: [],
-				goodsList: [],
-				showType:0
+				goodsList: [
+					// {
+					// 	"id":2,
+					// 	"pid":"13512020724",
+					// 	"product_name":"WETHERM温碧泉八杯水补水保湿套装爽肤水面霜男女化妆护肤品正品",
+					// 	"header_img":"http://img.alicdn.com/bao/uploaded/i2/661544293/O1CN01O7qd1i1haEshyU0Y4_!!0-item_pic.jpg",
+					// 	"pro_url":"http://item.taobao.com/item.htm?id=13512020724",
+					// 	"shop_name":"温碧泉旗舰店",
+					// 	"commodity_price":90,
+					// 	"sales_volume":"892",
+					// 	"income_ratio":9,
+					// 	"commission":"8.1",
+					// 	"seller_id":"温碧泉旗舰店",
+					// 	"tbk_smor_url":"https://s.click.taobao.com/iwSuYtv",
+					// 	"tbk_url":"https://s.click.taobao.com/t?e=m%3D2%26s%3DSx4s4%2FT5YkccQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67h8r4WhmWCVg5ZnjZiNpIZYP071OQeeUX1U0bFwiQSAKjNDhADNALs5XO%2FuunAhMG1cF%2BxuuSKWB6lBjOrujip7IuD9ht8sOM2hGWPlHgTvG4%2BE8ttrT1rVxKmPmpIKZsA%3D%3D",
+					// 	"ambush":"￥vGYtYBPUkGQ￥",
+					// 	"total_coupons":"200000",
+					// 	"coupon_surplus":"199957",
+					// 	"coupon_face_value":"满90元减55元",
+					// 	"coupon_start_time":"2009-12-01 00:00:00",
+					// 	"coupon_end_time":"2010-12-01 00:00:00",
+					// 	"coupon_link":"https://uland.taobao.com/coupon/edetail?e=4pr5oTZCKMJF0Vw9m5i33M0AcM9Q6CVNTFCQBvBsQDU%2BuLmYoH1Xhtyh%2FpPPYLf0txl6Um37OPIiRT7n5fsvdZTOHoUIKFRgRWbA%2FrJEooPIj4kOey29BKJ7%2BkHL3AEW&af=1&pid=mm_728630106_1144000046_109836000284",
+					// 	"coupon_password":"￥TUIFYBPUybw￥",
+					// 	"Coupon_short_link":"https://s.click.taobao.com/jeRuYtv",
+					// 	"is_pro":"是",
+					// 	"regiment_size":"0",
+					// 	"regiment_price":"0",
+					// 	"regiment_commission":"0",
+					// 	"group_start_time":"2001-01-01 08:00:00",
+					// 	"group_end_time":"2001-01-01 08:00:00",
+					// 	}
+				],
+				showType:0,
+				curr_page:1,
+				keywork:'',
+				salse:0,//0综合1按销量顺序2销量倒序3价格顺序4价格倒序5上架时间6优惠券7金额佣金
+				noempty:false,
+				searchHistory:uni.getStorageSync("searchHistory")||[]
 			};
 		},
 		methods:{
+			setSalse(num){
+				this.salse=num;
+				this.search()
+			},
+			setKeyWord(str){
+				this.keywork=str;
+				this.search()
+			},
+			removeHistory(){
+				this.$set(this,"searchHistory",[])
+				uni.setStorageSync("searchHistory",[])
+			},
 			sortToggle(type){
 				if(type){
-					this.priceSort = !this.priceSort
+					this.salse = (this.salse==3)?4:3
 				}else{
-					this.saleSort = !this.saleSort
+					this.salse = (this.salse==1)?2:1
 				}
 			},
 			toggleShowType(){
 				this.showType = !this.showType
 			},
+			push(){
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,selse:this.selse},false,function(res){
+					console.log("search",res)
+					if(res.data.pro_list){
+						_this.$set(_this,'goodsList',[..._this.goodsList,res.data.pro_list])
+						this.curr_page += 1
+					}
+				})
+			},
 			search(){
-				
+				let _this=this;
+				this.noempty=true;
+				if(this.keywork){
+					let newH = [this.keywork];
+					this.searchHistory.map(function(v){
+						if(!newH.includes(v)){
+							newH.push(v)
+						}
+					})
+					this.$set(this,"searchHistory",newH)
+					uni.setStorageSync("searchHistory",newH)
+				}
+				this.curr_page = 1;
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,selse:this.selse},false,function(res){
+					console.log("search",res)
+					if(res.data.pro_list){
+						_this.$set(_this,'goodsList',res.data.pro_list)
+						this.curr_page += 1
+					}
+				})
 			},
 			//加载分类
 			async loadCateList(fid, sid){
@@ -238,11 +318,16 @@
 		},
 		onLoad(options){
 			// #ifdef H5
-			this.headerTop = document.getElementsByTagName('uni-page-head')[0].offsetHeight+'px';
+			// this.headerTop = document.getElementsByTagName('uni-page-head')[0].offsetHeight+'px';
 			// #endif
-			this.cateId = options.tid;
-			this.loadCateList(options.fid,options.sid);
-			this.loadData();
+			// this.cateId = options.tid;
+			// this.loadCateList(options.fid,options.sid);
+			// this.loadData();
+			if(options.keywork||options.salse){
+				this.keywork = options.keywork || '';
+				this.salse = options.salse;
+				this.search()
+			}
 		},
 		onPageScroll(e){
 			//兼容iOS端下拉时顶部漂移
@@ -262,13 +347,15 @@
 		},
 		onNavigationBarSearchInputChanged(e){
 			this.searchKey = e.text
+			console.log("onNavigationBarSearchInputChanged",e.text)
 		},
 		onNavigationBarSearchInputClicked: async function(e) {
-			
+			console.log("onNavigationBarSearchInputClicked")
 		},
 		onNavigationBarButtonTap(e) {
 			const index = e.index;
 			if (index === 0) {
+				this.keywork = this.searchKey;
 				this.search()
 			}
 		}
@@ -278,6 +365,13 @@
 <style lang="scss">
 	page, .content{
 		background: #fff;
+	}
+	.noData{
+		width:129rpx;
+		height: 181rpx;
+		display: block;
+		margin:auto;
+		margin-top: 273rpx;
 	}
 	.content{
 		padding-top: 96upx;
@@ -301,20 +395,20 @@
 			align-items: center;
 			height: 100%;
 			font-size: 30upx;
-			color: $font-color-dark;
+			color: #999999;
 			position: relative;
 			&.current{
-				color: $base-color;
-				&:after{
-					content: '';
-					position: absolute;
-					left: 50%;
-					bottom: 0;
-					transform: translateX(-50%);
-					width: 120upx;
-					height: 0;
-					border-bottom: 4upx solid $base-color;
-				}
+				color: #222222;
+				// &:after{
+				// 	content: '';
+				// 	position: absolute;
+				// 	left: 50%;
+				// 	bottom: 0;
+				// 	transform: translateX(-50%);
+				// 	width: 120upx;
+				// 	height: 0;
+				// 	border-bottom: 4upx solid $base-color;
+				// }
 			}
 			.sort{
 				width: 14rpx;
@@ -431,6 +525,7 @@
 		justify-content: space-between;
 		padding: 0 14upx;
 		background-color: #f5f6f8;
+		padding-bottom: 20rpx;
 		.goods-item{
 			display:flex;
 			flex-direction: column;

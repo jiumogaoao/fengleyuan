@@ -66,7 +66,7 @@
 				<image class="shopIcon" src="/static/productIcon03.png"></image>
 				<view class="shopTitle">{{shop_name}}</view>
 			</view>
-			<view class="right" @click="popOut(pro_url)">进入店铺</view>
+			<view class="right" @click="toShop">进入店铺</view>
 		</view>
 		<!-- <view class="c-list"> -->
 			<!-- <view class="c-row b-b" @click="toggleSpec">
@@ -215,6 +215,7 @@
 				followed:false,
 				liked:false,
 				id:'',
+				pid:'',
 				commodity_price: 0,
 				coupon_face_value: 0,
 				estimate:0,
@@ -323,7 +324,9 @@
 			// }
 			let _this=this;
 			postFetch('index.php/index/index/product_center',{id:this.id},false,function(res){
+				console.log('product_center',res)
 				_this.id=res.data[0].id
+				_this.pid=res.data[0].pid
 				_this.commodity_price=res.data[0].commodity_price
 				_this.coupon_face_value=res.data.coupon_face_value
 				_this.coupon_link=res.data[0].coupon_link
@@ -397,6 +400,7 @@
 				if(this.followed){
 					o[this.id]={
 						id:_this.id,
+						pid:_this.pid,
 						commodity_price:_this.commodity_price,
 						coupon_face_value:_this.coupon_face_value,
 						coupon_link:_this.coupon_link,
@@ -463,16 +467,24 @@
 			toFavorite(){
 				this.favorite = !this.favorite;
 			},
+			toShop(){
+				t.toShop({
+									shopId: '64809422'
+								})
+			},
 			buy(){
 				// uni.navigateTo({
 				// 	url: `/pages/order/createOrder`
 				// })
-				plus.runtime.openURL(this.pro_url)
+				// plus.runtime.openURL(this.pro_url)
+				t.toDetail({
+									itemId: '521376186545' //商品ID
+								})
 			},
 			stopPrevent(){},
 			like(){
 				uni.navigateTo({
-					url:"/pages/search/search"
+					url:"/pages/search/search?keywork="+this.product_name+"&salse=0"
 				})
 			}
 		},
