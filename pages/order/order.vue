@@ -62,7 +62,7 @@
 						<view class="text">温馨小提示：订单付款成功后1~10分钟才会同步显示哦~</view>
 					</view>
 					<!-- 空白页 -->
-					<empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty>
+					<!-- <empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty> -->
 					
 					<!-- 订单列表 -->
 					<!-- <view class="orderItem">
@@ -133,7 +133,7 @@
 					 		</view>
 					 	</view>
 					 </view> -->
-					<!-- <uni-load-more :status="tabItem.loadingType"></uni-load-more> -->
+					<!-- <uni-load-more :status="tabItem.loadingType"></uni-load-more>-->
 					
 				</scroll-view>
 			</swiper-item>
@@ -469,11 +469,13 @@
 				width:150rpx;
 				height:150rpx;
 				flex-shrink: 0;
-				margin-right: 52rpx;
+				margin-right: 35rpx;
 			}
 			.orderInfo{
 				height:150rpx;
+				flex-grow: 1;
 				.orderTitle{
+					width:100%;
 					font-size:26rpx;
 					font-family:PingFang SC;
 					font-weight:500;

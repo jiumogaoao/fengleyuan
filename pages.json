@@ -249,15 +249,15 @@
         },{
             "path" : "pages/income/incomeList",
             "style" : {
-				"backgroundColor":"#f6f6f6",
 				"app-plus": {
 					"titleNView": {
+						// "type": "transparent",
 						"type":"float",
-						"titleText":"收益明细",
 						"titleSize":18,
+						"titleText":"账单明细",
 						"titleColor":"#fff",
 						"backgroundColor":"rgba(0,0,0,0)"
-						}
+					}
 				}
 			}
         }
@@ -313,7 +313,12 @@
         ,{
             "path" : "pages/vip/vip",
             "style" : {
-            	"navigationStyle":"custom"
+            	"navigationBarTitleText": "",
+            	"app-plus": {
+            		"titleNView": {
+            			"type": "transparent"
+            		}
+            	}
             }
         }
         ,{
@@ -357,7 +362,7 @@
         },{
 			"path": "pages/search/search",
 			"style": {
-				"backgroundColor":"#f5f6f8",
+				"backgroundColor":"#fff",
 				// #ifdef MP 
 				"navigationBarTitleText": "搜索",
 				//"navigationStyle": "custom",
@@ -381,7 +386,12 @@
 					}
 				}
 			}
-		}
+		},{
+            "path" : "pages/yijiayou/yijiayou",
+            "style" : {
+				"navigationBarTitleText": "优惠加油"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

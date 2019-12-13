@@ -9,7 +9,9 @@ export default {
 	nickname:'',
 	user_tooken:'',
 	avatar:'',
-	invitation:''
+	invitation:'',
+	superior:'',
+	superior_head:''
   },
   mutations: {
 	login(state, data) {
@@ -19,6 +21,8 @@ export default {
 		state.user_tooken = data.user_tooken
 		state.invitation = data.invitation
 		state.avatar = data.avatar
+		state.superior = data.superior
+		state.superior_head = data.superior_head
 		uni.setStorageSync('userInfo',state);
 	},
 	logout(state) {
@@ -28,6 +32,8 @@ export default {
 		state.user_tooken = ''
 		state.invitation = ''
 		state.avatar = ''
+		state.superior = ''
+		state.superior_head = ''
 		uni.setStorageSync('userInfo',state);
 	}
   },

@@ -10,11 +10,10 @@
 					<text class="compasser">您的推荐人</text>
 				</view>
 				<view class="user">
-					<image src="/static/f0.png" class="avatar"></image>
-					<view class="userInfo">
+					<image :src="head" class="avatar"></image>
+					<!-- <view class="userInfo"> -->
 						<view class="userName">{{nickname}}</view>
-						<view class="userPhone">{{phone}}</view>
-					</view>
+					<!-- </view> -->
 				</view>
 			</view>
 			<view class="topBottom">
@@ -33,14 +32,16 @@
 			</view>
 		</view>
 		<view class="bar">
-			<view class="item">
-				<view class="title"><image src="/static/ft0.png"></image>粉丝信息</view>
-			</view>
-			<view class="item">
-				<view class="title"><image src="/static/ft1.png"></image>累积获得蜜糖</view>
-			</view>
-			<view class="item">
-				<view class="title"><image src="/static/ft2.png"></image>关系</view>
+			<view class="barFrame">
+				<view class="item">
+					<view class="title"><image src="/static/ft0.png"></image>粉丝信息</view>
+				</view>
+				<view class="item">
+					<view class="title"><image src="/static/ft1.png"></image>累积获得蜜糖</view>
+				</view>
+				<view class="item">
+					<view class="title"><image src="/static/ft2.png"></image>关系</view>
+				</view>
 			</view>
 		</view>
 		<!-- <block v-if="step==0">
@@ -105,7 +106,9 @@
 		},
 		computed:{
 			phone(){return this.$store.state.userST.phone},
-			nickname(){return this.$store.state.userST.nickname}
+			nickname(){return this.$store.state.userST.superior},
+			head(){return this.$store.state.userST.superior_head || '/state/vipIcon.png'}
+			
 		}
 	}
 </script>
@@ -142,18 +145,19 @@
 					height:79rpx;
 					border-radius: 79rpx;
 				}
-				.userInfo{
-					margin-left: 28rpx;
+				// .userInfo{
+					
 					.userName{
+						margin-left: 28rpx;
 						font-size: 23rpx;
 						color: #fff;
 					}
-					.userPhone{
-						font-size: 19rpx;
-						color: #fff;
-						margin-top: 14rpx;
-					}
-				}
+					// .userPhone{
+					// 	font-size: 19rpx;
+					// 	color: #fff;
+					// 	margin-top: 14rpx;
+					// }
+				// }
 			}
 		}
 		.topBottom{
@@ -186,26 +190,37 @@
 		width:750rpx;
 		background-color: #fff;
 		height:82rpx;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		.item{
-			height: 100%;
-			flex-grow: 1;
-			flex-shrink: 0;
+		
+		.barFrame{
+			width: 93%;
+			margin: auto;
+			height: 82rpx;
 			display: flex;
-			justify-content: center;
+			justify-content: space-between;
 			align-items: center;
-			position: relative;
-			.title{
-				font-size: 28rpx;
-				image{
-					width: 30rpx;
-					height:30rpx;
-					margin-right: 20rpx;
+			.item{
+				width: 220rpx;
+				height: 100%;
+				flex-shrink: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				.title{
+					font-size:20rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(51,51,51,1);
+					opacity:0.7;
+					image{
+						width: 30rpx;
+						height:30rpx;
+						margin-right: 20rpx;
+					}
 				}
 			}
 		}
+		
 	}
 	.listFrame{
 		width:712rpx;

@@ -1,108 +1,123 @@
 <template>
 	<view>
-		<block v-if="state==0">
-			<view class="listHead">
-				<view class="item" style="margin-left: 57rpx;">
-					<view class="iconfont">&#xe697;</view>
-					<view class="title">日期</view>
+		<image src="/static/incomeList0.png" class="top"/>
+		<view class="title">今天</view>
+		<view class="list">
+			<view class="point head">
+				<view class="left">
+					<image src="/static/incomeList2.png"></image>
+					<text>来源</text>
 				</view>
-				<view class="item" style="margin-left: 292rpx;">
-					<view class="iconfont">&#xe606;</view>
-					<view class="title">累计获得</view>
+				<view class="center">
+					<image src="/static/incomeList1.png"></image>
+					<text>订单号</text>
 				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+				<view class="right">
+					<image src="/static/productIcon02.png"></image>
+					<text>蜜糖</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+			<view class="point">
+				<view class="left">
+					<text>自购</text>
+				</view>
+				<view class="center">
+					<text>743672608134694077</text>
+				</view>
+				<view class="right">
+					<text>+123.4</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+			<view class="point">
+				<view class="left">
+					<text>下级购物类型</text>
+				</view>
+				<view class="center">
+					<text>/</text>
+				</view>
+				<view class="right">
+					<text>+1.23</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+		</view>
+		<view class="title">12-12</view>
+		<view class="list">
+			<view class="point head">
+				<view class="left">
+					<image src="/static/incomeList2.png"></image>
+					<text>来源</text>
+				</view>
+				<view class="center">
+					<image src="/static/incomeList1.png"></image>
+					<text>订单号</text>
+				</view>
+				<view class="right">
+					<image src="/static/productIcon02.png"></image>
+					<text>蜜糖</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+			<view class="point">
+				<view class="left">
+					<text>自购</text>
+				</view>
+				<view class="center">
+					<text>743672608134694077</text>
+				</view>
+				<view class="right">
+					<text>+123.4</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+			<view class="point">
+				<view class="left">
+					<text>下级购物类型</text>
+				</view>
+				<view class="center">
+					<text>/</text>
+				</view>
+				<view class="right">
+					<text>+1.23</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+		</view>
+		<view class="title">12-11</view>
+		<view class="list">
+			<view class="point head">
+				<view class="left">
+					<image src="/static/incomeList2.png"></image>
+					<text>来源</text>
+				</view>
+				<view class="center">
+					<image src="/static/incomeList1.png"></image>
+					<text>订单号</text>
+				</view>
+				<view class="right">
+					<image src="/static/productIcon02.png"></image>
+					<text>蜜糖</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+			<view class="point">
+				<view class="left">
+					<text>自购</text>
+				</view>
+				<view class="center">
+					<text>743672608134694077</text>
+				</view>
+				<view class="right">
+					<text>+123.4</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+			<view class="point">
+				<view class="left">
+					<text>下级购物类型</text>
+				</view>
+				<view class="center">
+					<text>/</text>
+				</view>
+				<view class="right">
+					<text>+1.23</text>
 				</view>
 			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFoot"></view>
-		</block>
+		</view>
 	</view>
 </template>
 
@@ -110,13 +125,11 @@
 	export default {
 		data() {
 			return {
-				state:0
+				
 			};
 		},
 		methods:{
-			changeState(num){
-				this.state = num
-			}
+			
 		}
 	}
 </script>
@@ -126,149 +139,85 @@
 		background-color: #f6f6f6;
 	}
 	.top{
+		width:750rpx;
+		height: 437rpx;
+	}
+	.title{
 		width: 750rpx;
-		height: 380rpx;
-		background-image: linear-gradient(to top right, #D33D34, #EC6548);
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		padding-top: 60rpx;
-		.topTop{
-			width: 100%;
+		height: 56rpx;
+		background:rgba(245,246,248,1);
+		padding: 0 49rpx;
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:800;
+		color:rgba(102,102,102,1);
+		line-height: 56rpx;
+	}
+	.list{
+		width:750rpx;
+		padding: 0 69rpx 28rpx 63rpx;
+		background-color: #fff;
+		.point{
+			width:100%;
+			height: 78rpx;
 			display: flex;
-			justify-content: space-between;
 			align-items: center;
-			.topLeft{
-				margin-left: 36rpx;
-				.title{
-					font-size: 23rpx;
-					color: #fff;
-				}
-				.bigMoney{
-					font-size: 44rpx;
-					color: #fff;
-					font-weight: bold;
-					margin-top: 33rpx;
-				}
-			}
-			.topRight{
-				margin-right: 58rpx;
-				width:193rpx;
-				height:47rpx;
-				background-color: #fff;
+			justify-content: space-between;
+			.left{
+				flex-shrink: 0;
+				width: 112rpx;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				border-radius: 47rpx;
-				.iconfont{
-					color: #D33D34;
-				}
-				.detail{
-					font-size: 25rpx;
-					color: #D33D34;
-					margin-left: 13rpx;
+				text{
+					font-size:25rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+					text-align: center;
 				}
 			}
-		}
-		.topBottom{
-			display: flex;
-			justify-content: space-between;
-			width: 100%;
-			margin-top: 30rpx;
-			.item{
+			.right{
+				flex-shrink: 0;
+				width:88rpx;
 				display: flex;
-				flex-direction: column;
+				justify-content: center;
 				align-items: center;
+				text{
+					font-size:25rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+					text-align: center;
+				}
+			}
+			.center{
 				flex-grow: 1;
-				.title{
-					font-size: 23rpx;
-					color: #fff;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text{
+					font-size:17rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+					text-align: center;
 				}
-				.money{
-					font-size: 28rpx;
-					color: #fff;
-					margin-top: 28rpx;
-				}
 			}
 		}
-	}
-	.bar{
-		width:750rpx;
-		background-color: #fff;
-		height:82rpx;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		.item{
-			height: 100%;
-			flex-grow: 1;
-			flex-shrink: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			position: relative;
-			.title{
-				font-size: 28rpx;
+		.point.head{
+			image{
+				width:28rpx;
+				height:28rpx;
+				margin-right: 7rpx;
 			}
-			.line{
-				width:34rpx;
-				height: 4rpx;
-				background-color: #333;
-				position: absolute;
-				bottom:0;
-				display: block;
+			text{
+				font-size:28rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(255,187,18,1); 
 			}
 		}
-	}
-	.listHead{
-		width:750rpx;
-		height: 82rpx;
-		display: flex;
-		align-items: center;
-		.item{
-			display: flex;
-			align-items: center;
-			.iconfont{
-				font-size: 27rpx;
-				color: #333333;
-			}
-			.title{
-				font-size: 27rpx;
-				color: #333333;
-				margin-left: 10rpx;
-			}
-		}
-	}
-	.listFrame{
-		width:712rpx;
-		background-color: #fff;
-		margin: auto;
-		.list{
-			width: 631rpx;
-			height: 99rpx;
-			margin: auto;
-			border-bottom: 1px solid #ddd;
-			display: flex;
-			align-items: center;
-			.date{
-				font-size: 25rpx;
-				width: 376rpx;
-				color: #333;
-				font-weight: bold;
-			}
-			.money{
-				font-size: 25rpx;
-				color: #FF5500;
-				font-weight: bold;
-			}
-		}
-	}
-	.listFoot{
-		width:712rpx;
-		height: 47rpx;
-		background-color: #fff;
-		margin: auto;
 	}
 </style>
 

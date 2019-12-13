@@ -17,14 +17,14 @@
 			<text class="cell-tit">消息推送</text>
 			<switch checked color="#fa436a" @change="switchChange" />
 		</view>
-		<view class="list-cell m-t b-b" @click="navTo('清除缓存')" hover-class="cell-hover" :hover-stay-time="50">
+		<view class="list-cell m-t b-b" @click="removeCatch" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">清除缓存</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
-		<view class="list-cell b-b" @click="navTo('关于蜜蜂天堂')" hover-class="cell-hover" :hover-stay-time="50">
+<!-- 		<view class="list-cell b-b" @click="navTo('关于蜜蜂天堂')" hover-class="cell-hover" :hover-stay-time="50">
 			<text class="cell-tit">关于蜜蜂天堂</text>
 			<text class="cell-more yticon icon-you"></text>
-		</view>
+		</view> -->
 		<view class="list-cell">
 			<text class="cell-tit">检查更新</text>
 			<text class="cell-tip">当前版本 1.0.3</text>
@@ -47,8 +47,9 @@
 			};
 		},
 		methods:{
-			
-
+			removeCatch(){
+				this.$api.msg(`缓存已清除`);
+			},
 			navTo(url){
 				this.$api.msg(`跳转到${url}`);
 			},

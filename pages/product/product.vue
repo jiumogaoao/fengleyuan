@@ -131,7 +131,7 @@
 		
 		<!-- 底部操作菜单 -->
 		<view class="page-bottom">
-			<view :class="{bottomPoint:1,hl:liked}" @click="toggleLike">
+			<view :class="{bottomPoint:1,hl:liked}" @click="like">
 				<image :src="liked?'/static/productIcon05a.png':'/static/productIcon05.png'" class="buttomIcon"></image>
 				<view class="bottomLabel">猜你喜欢</view>
 			</view>
@@ -203,7 +203,9 @@
 
 <script>
 	import share from '@/components/share';
-	import {postFetch} from '@/util/request_UT.js'
+	import {postFetch} from '@/util/request_UT.js';
+	import HJ_LBC from "@/js_sdk/hj-lbc/hj_lbc/hj_lbc.js";
+	var t ;
 	export default{
 		components: {
 			share
@@ -308,6 +310,11 @@
 			};
 		},
 		async onLoad(options){
+			t = new HJ_LBC(this,{
+			                appkey:"28164312",//百川的appkey,注册一个应用后看详情下
+			                backUrl:"tbopen28164312" ,//用于在按返回键时从淘宝直接返回本APP
+			                linkKey: 'TB',//或者 TM 代表淘宝和天猫
+			            }) ; //初始化
 			this.id = options.id;
 			//接收传值,id里面放的是标题，因为测试数据并没写id 
 			let id = options.id;
@@ -462,7 +469,12 @@
 				// })
 				plus.runtime.openURL(this.pro_url)
 			},
-			stopPrevent(){}
+			stopPrevent(){},
+			like(){
+				uni.navigateTo({
+					url:"/pages/search/search"
+				})
+			}
 		},
 
 	}

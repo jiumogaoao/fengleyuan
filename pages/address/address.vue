@@ -180,6 +180,8 @@
 		color:rgba(255,255,255,1);
 		line-height: 83rpx;
 		text-align: center;
-		margin-top: 273rpx;
+		position: fixed;
+		bottom:50rpx;
+		left: 62.5rpx;
 	}
 </style>

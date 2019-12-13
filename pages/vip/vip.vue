@@ -1,7 +1,7 @@
 <template>
 	<view class="frame">
 		<image src="/static/vip.png" mode="widthFix" class="bg"></image>
-		<view class="iconfont" @click="back">&#xe63d;</view>
+		<!-- <view class="iconfont" @click="back">&#xe63d;</view> -->
 		<view class="buttonFrame">
 			<view class="button" style="background-color: #F4301A;margin-right:20rpx;" @click="go('/pages/share/share')">
 				<image class="icon" src="/static/shareIcon1.png"></image>

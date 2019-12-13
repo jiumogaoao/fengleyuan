@@ -10,7 +10,7 @@
 			<view class="inputFrame">
 				<view class="label">手机验证码</view>
 				<view class="inputSubFrame">
-					<input placeholder="请输入您的手机验证码" v-model="code"/>
+					<input placeholder="请输入您的手机验证码" v-model="code" type="number"/>
 					<view class="getcode" v-if="nextTime">{{nextTime}}秒后可重发</view>
 					<view class="getcode" @click="getCode" v-else>获取验证码</view>
 				</view>

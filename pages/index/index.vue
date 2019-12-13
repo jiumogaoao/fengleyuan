@@ -27,15 +27,15 @@
 		</view>
 		<!-- 分类 -->
 		<view class="cate-section">
-			<view class="cate-item" @click="go('/pages/product/list')">
+			<view class="cate-item" @click="go('/pages/search/search')">
 				<image src="/static/temp/c3.png"></image>
 				<text>实时热销</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/product/list')">
+			<view class="cate-item" @click="go('/pages/search/search')">
 				<image src="/static/temp/c5.png"></image>
 				<text>网红新品</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/product/list')">
+			<view class="cate-item" @click="go('/pages/search/search')">
 				<image src="/static/temp/c6.png"></image>
 				<text>聚优惠</text>
 			</view>
@@ -301,6 +301,7 @@
 	import navBarCP from '@/components/navBar_CP.vue'
 	import modalCP from '@/components/modal_CP.vue'
 	import {postFetch} from '@/util/request_UT.js'
+	import {encrypt64} from '@/util/security_UT.js'
 	export default {
 		components:{
 			navBarCP,
@@ -317,7 +318,8 @@
 				pop:false,
 				showFirstPOP:false,
 				longitude:0,
-				latitude:0
+				latitude:0,
+				yijiayoulink:''
 			};
 		},
 		onShow(){
@@ -325,18 +327,23 @@
 			if(!uni.getStorageSync('firstIn')){
 				this.showFirstPOP=true
 			}
+			console.log('开始获取')
 			uni.getLocation({
 			    type: 'gcj02',
 			    success: function (res) {
+					console.log('获取坐标成功',res)
 					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:res.latitude||null,
 								longitude:res.longitude||null},false,function(res){
+									console.log("获取index",res)
 									_this.swiperLength=res.data.banner.length
 						_this.$set(_this,'carouselList',res.data.banner)
 						_this.$set(_this,'goodsList2',res.data.product)
 					})
 				},
 				fail:function(){
+					console.log('获取坐标失败')
 					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null},false,function(res){
+						console.log("获取index",res)
 						_this.swiperLength=res.data.banner.length
 						_this.$set(_this,'carouselList',res.data.banner)
 						_this.$set(_this,'goodsList2',res.data.product)
@@ -373,9 +380,31 @@
 								phone:'13800138000'
 							},false,function(res){
 								console.log('ejiayou',JSON.stringify(res.data.url))
-								plus.runtime.openURL(res.data.url)
+								_this.yijiayoulink=encrypt64(res.data.url)
+								uni.navigateTo({
+									url:'/pages/yijiayou/yijiayou?url='+_this.yijiayoulink
+								})
+								// plus.runtime.openURL(res.data.url)
 							})
-					    }
+					    },
+						fail:function(e){
+							uni.showToast({
+								title:'获取定位失败',
+								icon:'none'
+							})
+							postFetch('index.php/index/api/ejiayou',{
+								latitude:null,
+								longitude:null,
+								phone:'13800138000'
+							},false,function(res){
+								console.log('ejiayou',JSON.stringify(res.data.url))
+								_this.yijiayoulink=res.data.url
+								uni.navigateTo({
+									url:'/pages/yijiayou/yijiayou?url='+_this.yijiayoulink
+								})
+								// plus.runtime.openURL(res.data.url)
+							})
+						}
 					});
 				}else{
 					uni.navigateTo({

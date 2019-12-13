@@ -6,18 +6,16 @@
 				<image class="removeHistory" src="/static/removeHistory.png"></image>
 			</view>
 			<view class="list">
-				<view class="point">电脑</view>
+				<!-- <view class="point">电脑</view>
 				<view class="point">连衣裙</view>
-				<view class="point">海绵床垫</view>
+				<view class="point">海绵床垫</view> -->
 			</view>
 		</view>
 		<view class="hotList" v-if="!result.length">
 			<view class="title">大家都在搜</view>
 			<view class="list">
-				<view class="pointFrame"><view class="point">Sony索尼手机Xperia 5</view></view>
-				<view class="pointFrame"><view class="point">连衣裙</view></view>
-				<view class="pointFrame"><view class="point">电脑</view></view>
-				<view class="pointFrame"><view class="point">连衣裙</view></view>
+				<view class="pointFrame"><view class="point">新春礼包</view></view>
+				<view class="pointFrame"><view class="point">圣诞节</view></view>
 			</view>
 		</view>
 		<block v-else>
@@ -279,7 +277,7 @@
 
 <style lang="scss">
 	page, .content{
-		background: #f5f6f8;
+		background: #fff;
 	}
 	.content{
 		padding-top: 96upx;
@@ -432,6 +430,7 @@
 		flex-wrap:wrap;
 		justify-content: space-between;
 		padding: 0 14upx;
+		background-color: #f5f6f8;
 		.goods-item{
 			display:flex;
 			flex-direction: column;

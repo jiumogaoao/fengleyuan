@@ -16,43 +16,48 @@
 
 <script>
 	import QR from "@/static/wxqrcode.js" // 二维码生成器  
+	import {postFetch} from '@/util/request_UT.js'
 	export default {
 		
 		onReady(){
 			let _this=this;
+			postFetch('index.php/index/index/invite_url',{invite:_this.code},false,function(res){
+				_this.url=res.data.url
+				let img = QR.createQrCodeImg(_this.url, {
+				     size: parseInt(206*_this.rpx)//二维码大小  
+				})
+				
+					try{
+						const context = uni.createCanvasContext('shareImg')
+						uni.downloadFile({
+							url:'https://www.paradisebee.com/shareBG.png',
+						    success: function (res) {
+								console.log(res.tempFilePath)
+						context.drawImage(res.tempFilePath, 0,0,574*_this.rpx, 1019*_this.rpx)
+						        // context.restore()
+								context.setStrokeStyle('#333')
+								context.setFontSize(25*_this.rpx)
+								context.fillText('邀请码：'+_this.code, 186*_this.rpx, 699*_this.rpx)
+								context.drawImage(img, 178*_this.rpx,713*_this.rpx,206*_this.rpx, 206*_this.rpx)
+						        context.draw()
+								uni.hideLoading()
+						    }
+						})
+					}catch(e){
+						console.log('canvasError',e)
+					}
+			})
 			uni.showLoading({
 				title:'正在生产分享图'
 			})
-			let img = QR.createQrCodeImg(_this.url, {  
-			     size: parseInt(206*_this.rpx)//二维码大小  
-			})
-
-				try{
-					const context = uni.createCanvasContext('shareImg')
-					uni.downloadFile({
-						url:'https://www.paradisebee.com/shareBG.png',
-					    success: function (res) {
-							console.log(res.tempFilePath)
-					context.drawImage(res.tempFilePath, 0,0,574*_this.rpx, 1019*_this.rpx)
-					        // context.restore()
-							context.setStrokeStyle('#333')
-							context.setFontSize(25*_this.rpx)
-							context.fillText('邀请码：'+_this.code, 186*_this.rpx, 699*_this.rpx)
-							context.drawImage(img, 178*_this.rpx,713*_this.rpx,206*_this.rpx, 206*_this.rpx)
-					        context.draw()
-							uni.hideLoading()
-					    }
-					})
-				}catch(e){
-					console.log('canvasError',e)
-				}
+			
 			
 			
 		},
 		data() {
 			return {
-				url:"https://www.paradisebee.com/pages/regest/regest?id=A1B2C3D4",
-				code:"A1B2C3"
+				url:"",
+				code:this.$store.state.userST.invitation
 			};
 		},
 		methods:{

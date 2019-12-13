@@ -3,8 +3,8 @@
 		<view class="top">
 			<view class="topTop">
 				<view class="topLeft">
-					<view class="title">账户乐币余额</view>
-					<view class="bigMoney">0</view>
+					<view class="title">账户蜜糖余额</view>
+					<view class="bigMoney">--</view>
 				</view>
 				<view class="topRight">
 					<view class="iconfont">&#xe62a;</view>
@@ -207,7 +207,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding-top: 60rpx;
+		padding-top: 70rpx;
 		.topTop{
 			width: 100%;
 			display: flex;
@@ -250,11 +250,11 @@
 			justify-content: space-between;
 			width: 100%;
 			margin-top: 30rpx;
+			padding: 0 36rpx;
 			.item{
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				flex-grow: 1;
 				.title{
 					font-size: 23rpx;
 					color: #fff;
