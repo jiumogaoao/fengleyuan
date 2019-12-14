@@ -205,6 +205,7 @@
 	import share from '@/components/share';
 	import {postFetch} from '@/util/request_UT.js';
 	import HJ_LBC from "@/js_sdk/hj-lbc/hj_lbc/hj_lbc.js";
+	import {encrypt64} from '@/util/security_UT.js'
 	var t ;
 	export default{
 		components: {
@@ -468,18 +469,20 @@
 				this.favorite = !this.favorite;
 			},
 			toShop(){
-				t.toShop({
-									shopId: '64809422'
-								})
+				let url=encrypt64(this.pro_url)
+				uni.navigateTo({
+					url:'/pages/yijiayou/yijiayou?url='+url
+				})
 			},
 			buy(){
 				// uni.navigateTo({
 				// 	url: `/pages/order/createOrder`
 				// })
 				// plus.runtime.openURL(this.pro_url)
-				t.toDetail({
-									itemId: '521376186545' //商品ID
-								})
+				let url=encrypt64(this.pro_url)
+				uni.navigateTo({
+					url:'/pages/yijiayou/yijiayou?url='+url
+				})
 			},
 			stopPrevent(){},
 			like(){

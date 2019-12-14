@@ -389,7 +389,7 @@
 		},{
             "path" : "pages/yijiayou/yijiayou",
             "style" : {
-				"navigationBarTitleText": "优惠加油"
+				"navigationBarTitleText": ""
 			}
         }
     ],

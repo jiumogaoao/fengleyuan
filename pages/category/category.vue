@@ -7,7 +7,7 @@
 		</scroll-view>
 		<scroll-view scroll-with-animation scroll-y class="right-aside" @scroll="asideScroll" :scroll-top="tabScrollTop">
 			<view v-for="item in slist" :key="item.id" class="s-list" :id="'main-'+item.id">
-				<text class="s-item">{{item.name}}</text>
+				<view class="s-item">{{item.name}}</view>
 				<view class="t-list">
 					<view @click="navToList(item.id, titem.id)" v-if="titem.pid === item.id" class="t-item" v-for="titem in tlist" :key="titem.id">
 						<image :src="titem.picture"></image>
@@ -114,11 +114,13 @@
 		justify-content: center;
 		width: 100%;
 		height: 100upx;
-		font-size: 28upx;
-		color: $font-color-base;
+		font-size: 25upx;
+		color: #666666;
 		position: relative;
+		font-family:PingFang SC;
+		font-weight:500;
 		&.active{
-			color: $base-color;
+			color: #222222;
 			background: #f8f8f8;
 			&:before{
 				content: '';
@@ -126,9 +128,9 @@
 				left: 0;
 				top: 50%;
 				transform: translateY(-50%);
-				height: 36upx;
+				height: 42upx;
 				width: 8upx;
-				background-color: $base-color;
+				background-color: #222222;
 				border-radius: 0 4px 4px 0;
 				opacity: .8;
 			}
@@ -138,42 +140,51 @@
 	.right-aside{
 		flex: 1;
 		overflow: hidden;
-		padding-left: 20upx;
+		padding: 0 13upx;
 	}
 	.s-item{
-		display: flex;
-		align-items: center;
-		height: 70upx;
-		padding-top: 8upx;
-		font-size: 28upx;
-		color: $font-color-dark;
+		height: 90upx;
+		padding-top: 44upx;
+		font-size:25rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(11,12,14,1);
 	}
 	.t-list{
 		display: flex;
 		flex-wrap: wrap;
 		width: 100%;
 		background: #fff;
-		padding-top: 12upx;
-		&:after{
+		justify-content: space-between;
+		padding-top: 21upx;
+		/* &:after{
 			content: '';
 			flex: 99;
 			height: 0;
-		}
+		} */
 	}
 	.t-item{
 		flex-shrink: 0;
 		display: flex;
-		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		width: 176upx;
-		font-size: 26upx;
-		color: #666;
-		padding-bottom: 20upx;
-		
+		width: 171upx;
+		font-size:25rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(66,66,66,1);
+		padding-bottom: 32upx;
+		padding-left: 34rpx;
+		padding-right: 22rpx;
 		image{
-			width: 140upx;
-			height: 140upx;
+			width: 115upx;
+			height: 115upx;
+			margin-bottom: 14rpx;
+		}
+		text{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 	}
 </style>

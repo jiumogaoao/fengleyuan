@@ -133,7 +133,7 @@
 			
 		},
 		onLoad(){
-			postFetch('index.php/index/index/sort_search',{},false,function(res){
+			postFetch('index.php/index/login/vip_data',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken},false,function(res){
 				console.log('incomeList',res)
 			})
 		}

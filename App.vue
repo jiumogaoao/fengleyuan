@@ -32,6 +32,9 @@
 			let noN = setInterval(function(){
 				uni.getNetworkType({
 				    success: function (res) {
+						// uni.showToast({
+						// 	title:res.networkType
+						// })
 						if(res.networkType=='none'){
 							_this.noNetwork=true
 						}else{
@@ -52,7 +55,7 @@
 		},
 		watch:{
 			noNetwork(val){
-				console.log('nonetwork',val)
+				// console.log('nonetwork',val)
 				if(val){
 					uni.navigateTo({
 						url:'/pages/noNetwork/noNetwork'

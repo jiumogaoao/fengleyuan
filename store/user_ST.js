@@ -3,6 +3,7 @@ import {postFetch} from '@/util/request_UT.js'
 export default {
   namespaced:true,
   state: {
+	  id:'',
 	hasLogin: false,
 	userInfo: {},
 	phone:'',
@@ -15,6 +16,7 @@ export default {
   },
   mutations: {
 	login(state, data) {
+		state.id = data.id;
 		state.hasLogin = true;
 		state.phone = data.phone
 		state.nickname = data.nickname
@@ -26,6 +28,7 @@ export default {
 		uni.setStorageSync('userInfo',state);
 	},
 	logout(state) {
+		state.id = '';
 		state.hasLogin = false;
 		state.phone = ''
 		state.nickname = ''

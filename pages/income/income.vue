@@ -176,11 +176,25 @@
 </template>
 
 <script>
+	import {postFetch} from '@/util/request_UT.js';
 	export default {
 		data() {
 			return {
-				state:0
+				state:0,
+				accumulated:0,
+				user_balance:0,
+				unsettled:0,
+				list:[]
 			};
+		},
+		onLoad(){
+			let _this=this;
+			postFetch('index.php/index/login/vip_profit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,type:this.state+1},false,function(res){
+				console.log('income',res)
+				_this.accumulated = res.data.accumulated[0].income
+				_this.user_balance = res.data.user_balance[0].income
+				_this.unsettled = res.data.unsettled[0].commission
+			})
 		},
 		methods:{
 			changeState(num){
