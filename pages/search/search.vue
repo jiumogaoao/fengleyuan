@@ -24,13 +24,13 @@
 				<view class="nav-item" :class="{current: salse === 0}" @click="setSalse(0)">
 					<text>综合</text>
 				</view>
-				<view class="nav-item" :class="{current: salse === 1 || salse === 2}" @click="setSalse(1)">
+				<view class="nav-item" :class="{current: salse === 8 || salse === 9}" @click="setSalse(8)">
 					<text>销量</text>
-					<image class="sort" :src="salse==1?'/static/up.png':'/static/down.png'" @click.stop="sortToggle(0)"></image>
+					<image class="sort" :src="salse==9?'/static/up.png':'/static/down.png'" @click.stop="sortToggle(0)"></image>
 				</view>
-				<view class="nav-item" :class="{current: salse === 3 || salse === 4}" @click="setSalse(3)">
+				<view class="nav-item" :class="{current: salse === 10 || salse === 11}" @click="setSalse(9)">
 					<text>价格</text>
-					<image class="sort" :src="salse==3?'/static/up.png':'/static/down.png'" @click.stop="sortToggle(1)"></image>
+					<image class="sort" :src="salse==11?'/static/up.png':'/static/down.png'" @click.stop="sortToggle(1)"></image>
 				</view>
 				<image class="showType" :src="showType?'/static/show1.png':'/static/show0.png'" @click="toggleShowType"></image>
 			</view>
@@ -173,9 +173,9 @@
 			},
 			sortToggle(type){
 				if(type){
-					this.salse = (this.salse==3)?4:3
+					this.salse = (this.salse==10)?11:10
 				}else{
-					this.salse = (this.salse==1)?2:1
+					this.salse = (this.salse==8)?9:8
 				}
 			},
 			toggleShowType(){
@@ -192,6 +192,7 @@
 			},
 			search(){
 				let _this=this;
+				uni.hideKeyboard()
 				this.noempty=true;
 				if(this.keywork){
 					let newH = [this.keywork];
@@ -204,8 +205,9 @@
 					uni.setStorageSync("searchHistory",newH)
 				}
 				this.curr_page = 1;
-				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,selse:this.selse},false,function(res){
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.selse},false,function(res){
 					console.log("search",res)
+					
 					if(res.data.pro_list){
 						_this.$set(_this,'goodsList',res.data.pro_list)
 						this.curr_page += 1
@@ -351,6 +353,10 @@
 		},
 		onNavigationBarSearchInputClicked: async function(e) {
 			console.log("onNavigationBarSearchInputClicked")
+		},
+		onNavigationBarSearchInputConfirmed(){
+			this.keywork = this.searchKey;
+			this.search()
 		},
 		onNavigationBarButtonTap(e) {
 			const index = e.index;

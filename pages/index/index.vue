@@ -15,7 +15,7 @@
 			<view class="titleNview-background" :style="{backgroundColor:'#'+(titleNViewBackground||'DD8D45')}"></view>
 			<swiper class="carousel" circular @change="swiperChange">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
-					<image :src="item.banner_url" @click="bannerClick(item.url,item.type)"/>
+					<image :src="item.banner_url" @click="bannerClick(item.url,item.type,item.interal)"/>
 				</swiper-item>
 			</swiper>
 			<!-- 自定义swiper指示器 -->
@@ -27,19 +27,19 @@
 		</view>
 		<!-- 分类 -->
 		<view class="cate-section">
-			<view class="cate-item" @click="go('/pages/search/search?keywork=实时热销&salse=1')">
+			<view class="cate-item" @click="go('/pages/search/search?salse=1')">
 				<image src="/static/temp/c3.png"></image>
 				<text>实时热销</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/search/search?keywork=网红新品&salse=5')">
+			<view class="cate-item" @click="go('/pages/search/search?salse=2')">
 				<image src="/static/temp/c5.png"></image>
 				<text>网红新品</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/search/search?keywork=聚优惠&salse=6')">
+			<view class="cate-item" @click="go('/pages/search/search?salse=3')">
 				<image src="/static/temp/c6.png"></image>
 				<text>聚优惠</text>
 			</view>
-			<view class="cate-item" @click="go('/pages/search/search?keywork=高佣专区&salse=7')">
+			<view class="cate-item" @click="go('/pages/search/search?salse=7')">
 				<image src="/static/temp/c7.png"></image>
 				<text>高佣专区</text>
 			</view>
@@ -285,7 +285,7 @@
 					<image :src="item.header_img" mode="aspectFill"></image>
 				</view>
 				<text class="title clamp">{{item.product_name}}</text>
-				<text class="price">￥{{item.commodity_price}}</text>
+				<text class="price" :style="{opacity:(index==0||index==1)?0:1}">￥{{item.commodity_price}}</text>
 			</view>
 		</view>
 		
@@ -341,8 +341,12 @@
 					})
 				},
 				fail:function(){
-					console.log('获取坐标失败')
-					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null},false,function(res){
+					uni.showToast({
+						title:'获取坐标失败',
+						icon:'none'
+					})
+					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:null,
+								longitude:null},false,function(res){
 						console.log("获取index",res)
 						_this.swiperLength=res.data.banner.length
 						_this.$set(_this,'carouselList',res.data.banner)
@@ -412,14 +416,23 @@
 					})  
 				}
 			},
-			bannerClick(url,type){
+			bannerClick(url,type,interal){
 				let _this = this;
 				if(type && !_this.$store.state.userST.phone){
 					uni.navigateTo({
 						url:'/pages/public/login'
 					})
 				}else{
-					plus.runtime.openURL(url)
+					if(interal){
+						uni.navigateTo({
+							url:url
+						})
+					}else{
+						url=encrypt64(url)
+						uni.navigateTo({
+							url:'/pages/yijiayou/yijiayou?url='+url
+						})
+					}
 				}
 				
 			},
@@ -946,20 +959,18 @@
 	.guess-section{
 		display:flex;
 		flex-wrap:wrap;
-		padding: 0 30upx;
+		padding: 0 26rpx;
+		justify-content: space-between;
 		background: #fff;
 		.guess-item{
 			display:flex;
 			flex-direction: column;
-			width: 48%;
+			width: 333rpx;
 			padding-bottom: 40upx;
-			&:nth-child(2n+1){
-				margin-right: 4%;
-			}
 		}
 		.image-wrapper{
 			width: 100%;
-			height: 330upx;
+			height: 333upx;
 			border-radius: 3px;
 			overflow: hidden;
 			image{

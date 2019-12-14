@@ -420,7 +420,11 @@
 				uni.setStorageSync('followList',o)
 			},
 			popOut(url){
-				plus.runtime.openURL(url)
+				// plus.runtime.openURL(url)
+				url=encrypt64(url)
+				uni.navigateTo({
+					url:'/pages/yijiayou/yijiayou?url='+url
+				})
 			},
 			//规格弹窗开关
 			toggleSpec() {
