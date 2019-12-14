@@ -92,7 +92,12 @@
 		font-style: normal;
 		src: url('~@/static/iconfont.ttf') format('truetype');
 	}
-	
+	@font-face {
+		font-family: iconfont2;
+		font-weight: normal;
+		font-style: normal;
+		src: url('~@/static/iconfont/iconfont.ttf') format('truetype');
+	}
 	.yticon {
 		font-family: "yticon" !important;
 		font-size: 16px;
@@ -102,6 +107,13 @@
 	}
 	.iconfont{
 		font-family: "iconfont" !important;
+		font-size: 16px;
+		font-style: normal;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	.iconfont2{
+		font-family: "iconfont2" !important;
 		font-size: 16px;
 		font-style: normal;
 		-webkit-font-smoothing: antialiased;

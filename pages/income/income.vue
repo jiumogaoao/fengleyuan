@@ -4,21 +4,21 @@
 			<view class="topTop">
 				<view class="topLeft">
 					<view class="title">账户蜜糖余额</view>
-					<view class="bigMoney">--</view>
+					<view class="bigMoney">{{user_balance>0?user_balance:'- -'}}</view>
 				</view>
 				<view class="topRight">
-					<view class="iconfont">&#xe62a;</view>
+					<view class="iconfont2">&#xe62a;</view>
 					<view class="detail" @click="go('/pages/income/incomeList')">账单明细</view>
 				</view>
 			</view>
 			<view class="topBottom">
 				<view class="item">
 					<view class="title">累计获得蜜糖</view>
-					<view class="money">- -</view>
+					<view class="money">{{accumulated>0?accumulated:'- -'}}</view>
 				</view>
 				<view class="item">
 					<view class="title">未结算蜜糖</view>
-					<view class="money">- -</view>
+					<view class="money">{{unsettled>0?unsettled:'- -'}}</view>
 				</view>
 				<view class="item">
 					<view class="title">月均获得蜜糖</view>
@@ -40,138 +40,66 @@
 				<view class="line" v-if="state==2"></view>
 			</view>
 		</view>
-		<view class="noMessage" style="top:462rpx;">
+		<view class="noMessage" style="top:462rpx;" v-if="!list[state].length">
 			<image src="/static/empty.png"/>
 		</view>
-		<!-- <block v-if="state==0">
+		<block v-if="state==0 && list[0].length">
 			<view class="listHead">
 				<view class="item" style="margin-left: 57rpx;">
-					<view class="iconfont">&#xe697;</view>
+					<view class="iconfont2">&#xe697;</view>
 					<view class="title">日期</view>
 				</view>
 				<view class="item" style="margin-left: 292rpx;">
-					<view class="iconfont">&#xe606;</view>
+					<view class="iconfont2">&#xe606;</view>
 					<view class="title">累计获得</view>
 				</view>
 			</view>
-			<view class="listFrame">
+			<view class="listFrame" v-for="(v,i) in list[0]" :key="i">
 				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-25</view>
-					<view class="money">12.34蜜糖</view>
+					<view class="date">{{v.created_at}}</view>
+					<view class="money">{{v.income}}蜜糖</view>
 				</view>
 			</view>
 			<view class="listFoot"></view>
 		</block>
-		<block v-if="state==1">
+		<block v-if="state==1 && list[1].length">
 			<view class="listHead">
 				<view class="item" style="margin-left: 57rpx;">
-					<view class="iconfont">&#xe697;</view>
+					<view class="iconfont2">&#xe697;</view>
 					<view class="title">日期</view>
 				</view>
 				<view class="item" style="margin-left: 292rpx;">
-					<view class="iconfont">&#xe606;</view>
+					<view class="iconfont2">&#xe606;</view>
 					<view class="title">累计获得</view>
 				</view>
 			</view>
-			<view class="listFrame">
+			<view class="listFrame" v-for="(v,i) in list[1]" :key="i">
 				<view class="list">
-					<view class="date">10-02至10-09</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-02至10-09</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-02至10-09</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-02至10-09</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">10-02至10-09</view>
-					<view class="money">12.34蜜糖</view>
+					<view class="date">{{v.created_at}}</view>
+					<view class="money">{{v.income}}蜜糖</view>
 				</view>
 			</view>
 			<view class="listFoot"></view>
 		</block>
-		<block v-if="state==2">
+		<block v-if="state==2" && list[2].length>
 			<view class="listHead">
 				<view class="item" style="margin-left: 57rpx;">
-					<view class="iconfont">&#xe697;</view>
+					<view class="iconfont2">&#xe697;</view>
 					<view class="title">日期</view>
 				</view>
 				<view class="item" style="margin-left: 292rpx;">
-					<view class="iconfont">&#xe606;</view>
+					<view class="iconfont2">&#xe606;</view>
 					<view class="title">累计获得</view>
 				</view>
 			</view>
-			<view class="listFrame">
+			<view class="listFrame" v-for="(v,i) in list[2]" :key="i">
 				<view class="list">
-					<view class="date">2019年10月</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">2019年10月</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">2019年10月</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">2019年10月</view>
-					<view class="money">12.34蜜糖</view>
-				</view>
-			</view>
-			<view class="listFrame">
-				<view class="list">
-					<view class="date">2019年10月</view>
-					<view class="money">12.34蜜糖</view>
+					<view class="date">{{v.created_at}}</view>
+					<view class="money">{{v.income}}蜜糖</view>
 				</view>
 			</view>
 			<view class="listFoot"></view>
-		</block> -->
+		</block>
 	</view>
 </template>
 
@@ -184,16 +112,31 @@
 				accumulated:0,
 				user_balance:0,
 				unsettled:0,
-				list:[]
+				list:[[],[],[]]
 			};
 		},
 		onLoad(){
 			let _this=this;
-			postFetch('index.php/index/login/vip_profit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,type:this.state+1},false,function(res){
-				console.log('income',res)
+			postFetch('index.php/index/login/vip_profit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,type:1},false,function(res){
+				console.log('income1',res)
 				_this.accumulated = res.data.accumulated[0].income
 				_this.user_balance = res.data.user_balance[0].income
 				_this.unsettled = res.data.unsettled[0].commission
+				_this.$set(_this.list,0,res.data.list)
+			})
+			postFetch('index.php/index/login/vip_profit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,type:2},false,function(res){
+				console.log('income2',res)
+				_this.accumulated = res.data.accumulated[0].income
+				_this.user_balance = res.data.user_balance[0].income
+				_this.unsettled = res.data.unsettled[0].commission
+				_this.$set(_this.list,1,res.data.list)
+			})
+			postFetch('index.php/index/login/vip_profit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,type:3},false,function(res){
+				console.log('income3',res)
+				_this.accumulated = res.data.accumulated[0].income
+				_this.user_balance = res.data.user_balance[0].income
+				_this.unsettled = res.data.unsettled[0].commission
+				_this.$set(_this.list,2,res.data.list)
 			})
 		},
 		methods:{

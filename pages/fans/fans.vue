@@ -6,7 +6,7 @@
 		<view class="top">
 			<view class="topTop">
 				<view class="compass">
-					<text class="iconfont">&#xe60e;</text>
+					<text class="iconfont2">&#xe60e;</text>
 					<text class="compasser">您的推荐人</text>
 				</view>
 				<view class="user">

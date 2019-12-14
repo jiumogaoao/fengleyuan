@@ -1,123 +1,51 @@
 <template>
 	<view>
 		<image src="/static/incomeList0.png" class="top"/>
-		<view class="title">今天</view>
-		<view class="list">
-			<view class="point head">
-				<view class="left">
-					<image src="/static/incomeList2.png"></image>
-					<text>来源</text>
+		<block v-if="Object.keys(list).length" v-for="(v,i) in list" :key="i">
+			<view class="title">{{v.created_at}}</view>
+			<view class="list">
+				<view class="point head">
+					<view class="left">
+						<image src="/static/incomeList2.png"></image>
+						<text>来源</text>
+					</view>
+					<view class="center">
+						<image src="/static/incomeList1.png"></image>
+						<text>订单号</text>
+					</view>
+					<view class="right">
+						<image src="/static/productIcon02.png"></image>
+						<text>蜜糖</text>
+					</view>
 				</view>
-				<view class="center">
-					<image src="/static/incomeList1.png"></image>
-					<text>订单号</text>
+				<view class="point" v-if="v.oneself">
+					<view class="left">
+						<text>自购</text>
+					</view>
+					<view class="center">
+						<text>{{v.oneself.order_id}}</text>
+					</view>
+					<view class="right">
+						<text>{{v.oneself.income}}</text>
+					</view>
 				</view>
-				<view class="right">
-					<image src="/static/productIcon02.png"></image>
-					<text>蜜糖</text>
+				<view class="point" v-if="v.offline">
+					<view class="left">
+						<text>下级购物类型</text>
+					</view>
+					<view class="center">
+						<text>/</text>
+					</view>
+					<view class="right">
+						<text>{{v.offline.income}}</text>
+					</view>
 				</view>
 			</view>
-			<view class="point">
-				<view class="left">
-					<text>自购</text>
-				</view>
-				<view class="center">
-					<text>743672608134694077</text>
-				</view>
-				<view class="right">
-					<text>+123.4</text>
-				</view>
-			</view>
-			<view class="point">
-				<view class="left">
-					<text>下级购物类型</text>
-				</view>
-				<view class="center">
-					<text>/</text>
-				</view>
-				<view class="right">
-					<text>+1.23</text>
-				</view>
-			</view>
+		</block>
+		<view class="noMessage" style="top:437rpx;" v-else>
+			<image src="/static/empty.png"/>
 		</view>
-		<view class="title">12-12</view>
-		<view class="list">
-			<view class="point head">
-				<view class="left">
-					<image src="/static/incomeList2.png"></image>
-					<text>来源</text>
-				</view>
-				<view class="center">
-					<image src="/static/incomeList1.png"></image>
-					<text>订单号</text>
-				</view>
-				<view class="right">
-					<image src="/static/productIcon02.png"></image>
-					<text>蜜糖</text>
-				</view>
-			</view>
-			<view class="point">
-				<view class="left">
-					<text>自购</text>
-				</view>
-				<view class="center">
-					<text>743672608134694077</text>
-				</view>
-				<view class="right">
-					<text>+123.4</text>
-				</view>
-			</view>
-			<view class="point">
-				<view class="left">
-					<text>下级购物类型</text>
-				</view>
-				<view class="center">
-					<text>/</text>
-				</view>
-				<view class="right">
-					<text>+1.23</text>
-				</view>
-			</view>
-		</view>
-		<view class="title">12-11</view>
-		<view class="list">
-			<view class="point head">
-				<view class="left">
-					<image src="/static/incomeList2.png"></image>
-					<text>来源</text>
-				</view>
-				<view class="center">
-					<image src="/static/incomeList1.png"></image>
-					<text>订单号</text>
-				</view>
-				<view class="right">
-					<image src="/static/productIcon02.png"></image>
-					<text>蜜糖</text>
-				</view>
-			</view>
-			<view class="point">
-				<view class="left">
-					<text>自购</text>
-				</view>
-				<view class="center">
-					<text>743672608134694077</text>
-				</view>
-				<view class="right">
-					<text>+123.4</text>
-				</view>
-			</view>
-			<view class="point">
-				<view class="left">
-					<text>下级购物类型</text>
-				</view>
-				<view class="center">
-					<text>/</text>
-				</view>
-				<view class="right">
-					<text>+1.23</text>
-				</view>
-			</view>
-		</view>
+
 	</view>
 </template>
 
@@ -126,15 +54,33 @@
 	export default {
 		data() {
 			return {
-				
+				list:{}
 			};
 		},
 		methods:{
 			
 		},
 		onLoad(){
+			let _this=this;
 			postFetch('index.php/index/login/vip_data',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken},false,function(res){
 				console.log('incomeList',res)
+				let newO={}
+				res.data.oneself.map(function(v,i){
+					if(!newO[v.order_id]){
+						newO[v.order_id]={}
+					}
+					newO[v.order_id].oneself=v
+					newO[v.order_id].created_at=v.created_at
+				})
+				res.data.offline.map(function(v,i){
+					if(!newO[v.order_id]){
+						newO[v.order_id]={}
+					}
+					newO[v.order_id].offline=v
+					newO[v.order_id].created_at=v.created_at
+				})
+				_this.$set(_this,'list',newO)
+				console.log("_this.list",_this.list)
 			})
 		}
 	}
