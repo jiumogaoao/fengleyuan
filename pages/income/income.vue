@@ -22,7 +22,7 @@
 				</view>
 				<view class="item">
 					<view class="title">月均获得蜜糖</view>
-					<view class="money">- -</view>
+					<view class="money">{{move_avg>0?move_avg:'- -'}}</view>
 				</view>
 			</view>
 		</view>
@@ -112,6 +112,7 @@
 				accumulated:0,
 				user_balance:0,
 				unsettled:0,
+				move_avg:0,
 				list:[[],[],[]]
 			};
 		},
@@ -122,6 +123,7 @@
 				_this.accumulated = res.data.accumulated[0].income
 				_this.user_balance = res.data.user_balance[0].income
 				_this.unsettled = res.data.unsettled[0].commission
+				_this.move_avg = res.data.move_avg
 				_this.$set(_this.list,0,res.data.list)
 			})
 			postFetch('index.php/index/login/vip_profit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,type:2},false,function(res){
@@ -129,6 +131,7 @@
 				_this.accumulated = res.data.accumulated[0].income
 				_this.user_balance = res.data.user_balance[0].income
 				_this.unsettled = res.data.unsettled[0].commission
+				_this.move_avg = res.data.move_avg
 				_this.$set(_this.list,1,res.data.list)
 			})
 			postFetch('index.php/index/login/vip_profit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,type:3},false,function(res){
@@ -136,6 +139,7 @@
 				_this.accumulated = res.data.accumulated[0].income
 				_this.user_balance = res.data.user_balance[0].income
 				_this.unsettled = res.data.unsettled[0].commission
+				_this.move_avg = res.data.move_avg
 				_this.$set(_this.list,2,res.data.list)
 			})
 		},
