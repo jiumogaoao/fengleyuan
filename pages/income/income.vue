@@ -81,7 +81,7 @@
 			</view>
 			<view class="listFoot"></view>
 		</block>
-		<block v-if="state==2" && list[2].length>
+		<block v-if="state==2 && list[2].length">
 			<view class="listHead">
 				<view class="item" style="margin-left: 57rpx;">
 					<view class="iconfont2">&#xe697;</view>
