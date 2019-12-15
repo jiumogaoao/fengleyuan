@@ -50,12 +50,12 @@
 						<view class="shopName">{{item.shop_name}}</view>
 					</view>
 					<view class="rebateFrame">
-						<view class="coupon">券￥300</view>
+						<view class="coupon">券￥{{item.couponPrice}}</view>
 						<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.income_ratio}}</view>
 					</view>
 					<view class="price-box">
 						<view class="left">
-							<text class="priceTip">￥</text><text class="price">{{item.commodity_price}}</text><text class="oldPrice">￥1110</text>
+							<text class="priceTip">￥</text><text class="price">{{item.post_coupon}}</text><text class="oldPrice">￥{{item.commodity_price}}</text>
 						</view>
 						
 						<text class="right">已售 {{item.sales_volume}}万</text>
@@ -77,12 +77,12 @@
 							<view class="shopName">{{item.shop_name}}</view>
 						</view>
 						<view class="rebateFrame">
-							<view class="coupon">券￥300</view>
-							<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.income_ratio}}</view>
+							<view class="coupon">券￥{{item.couponPrice}}</view>
+							<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.commission}}</view>
 						</view>
 						<view class="price-box">
 							<view class="left">
-								<text class="priceTip">￥</text><text class="price">{{item.commodity_price}}</text><text class="oldPrice">￥1110</text>
+								<text class="priceTip">￥</text><text class="price">{{item.post_coupon}}</text><text class="oldPrice">￥{{item.commodity_price}}</text>
 							</view>
 							
 							<text class="right">已售 {{item.sales_volume}}万</text>
@@ -182,7 +182,7 @@
 				this.showType = !this.showType
 			},
 			push(){
-				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,selse:this.selse},false,function(res){
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.salse},false,function(res){
 					console.log("search",res)
 					if(res.data.pro_list){
 						_this.$set(_this,'goodsList',[..._this.goodsList,res.data.pro_list])
@@ -205,12 +205,12 @@
 					uni.setStorageSync("searchHistory",newH)
 				}
 				this.curr_page = 1;
-				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.selse},false,function(res){
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.salse},false,function(res){
 					console.log("search",res)
 					
 					if(res.data.pro_list){
 						_this.$set(_this,'goodsList',res.data.pro_list)
-						this.curr_page += 1
+						_this.curr_page += 1
 					}
 				})
 			},
@@ -311,7 +311,7 @@
 			//详情
 			navToDetailPage(item){
 				//测试数据没有写id，用title代替
-				let id = item.title;
+				let id = item.id;
 				uni.navigateTo({
 					url: `/pages/product/product?id=${id}`
 				})

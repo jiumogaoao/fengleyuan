@@ -24,7 +24,7 @@
 					<text class="yticon icon-iLinkapp-"></text>
 					蜜蜂天堂会员
 				</view>
-				<text class="e-m">蜜蜂天堂 Union</text>
+				<!-- <text class="e-m">蜜蜂天堂 Union</text> -->
 				<text class="e-b">会员等级越高，消费奖励越丰厚，更多精彩，等您发现</text>
 			</view>
 		</view>
@@ -42,7 +42,7 @@
 			<image class="arc" src="/static/arc.png"></image>
 			
 			<view class="tj-sction">
-				<view class="tj-item" @click="navTo('/pages/account/account')">
+				<view class="tj-item" @click="navTo('/pages/fans/fans')">
 					<text class="num">0</text>
 					<text>邀请人数</text>
 				</view>
@@ -117,6 +117,7 @@
 </template>  
 <script>  
 	import listCell from '@/components/mix-list-cell';
+	import {encrypt64} from '@/util/security_UT.js'
     import {  
         mapState 
     } from 'vuex';  

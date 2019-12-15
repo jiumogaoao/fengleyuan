@@ -275,7 +275,7 @@
 			<text class="yticon icon-you"></text>
 		</view>
 		
-		<view class="guess-section">
+		<!-- <view class="guess-section">
 			<view 
 				v-for="(item, index) in goodsList2" :key="index"
 				class="guess-item"
@@ -287,8 +287,34 @@
 				<text class="title clamp">{{item.product_name}}</text>
 				<text class="price" :style="{opacity:(index==0||index==1)?0:1}">￥{{item.commodity_price}}</text>
 			</view>
+		</view> -->
+		<view class="goods-list" v-if="goodsList2.length">
+			<view 
+				v-for="(item, index) in goodsList2" :key="index"
+				class="goods-item"
+				@click="navToDetailPage(item)"
+			>
+				<view class="image-wrapper">
+					<image :src="item.header_img" mode="aspectFill"></image>
+				</view>
+				<view class="title clamp">{{item.product_name}}</view>
+				<view class="shopFrame">
+					<image class="shopIcon" src="/static/shop.png"></image>
+					<view class="shopName">{{item.shop_name}}</view>
+				</view>
+				<view class="rebateFrame">
+					<view class="coupon">券￥{{item.couponPrice}}</view>
+					<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.commission}}</view>
+				</view>
+				<view class="price-box">
+					<view class="left">
+						<text class="priceTip">￥</text><text class="price">{{item.post_coupon}}</text><text class="oldPrice">{{item.commodity_price}}</text>
+					</view>
+					
+					<text class="right">已售 {{item.sales_volume}}万</text>
+				</view>
+			</view>
 		</view>
-		
 		<modalCP title="用户协议及隐私政策" cancelText="不同意" confirmText="同意" class="modalCP" @confirm="rulaComfirm" @cancel="rulaCancel" v-if="showFirstPOP">
 			<view class="p">感谢您信任并使用蜜蜂天堂</view>
 			<view class="p">我们非常重视您的个人信息和隐私保护，为了更好的保障您的个人权益，在您使用我们的产品前，请您认真阅读<text class="link" @click="go('/pages/agreement/agreement')">《用户协议》</text>和<text class="link" @click="go('/pages/policy/policy')">《隐私政策》</text>的全部内容，同意并接受全部条款后开始使用我们的产品和服务。</view>
@@ -328,32 +354,45 @@
 				this.showFirstPOP=true
 			}
 			console.log('开始获取')
-			uni.getLocation({
-			    type: 'gcj02',
-			    success: function (res) {
-					console.log('获取坐标成功',res)
-					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:res.latitude||null,
-								longitude:res.longitude||null},false,function(res){
-									console.log("获取index",res)
-									_this.swiperLength=res.data.banner.length
-						_this.$set(_this,'carouselList',res.data.banner)
-						_this.$set(_this,'goodsList2',res.data.product)
+			if(!_this.latitude){
+				uni.getLocation({
+				    type: 'gcj02',
+				    success: function (res) {
+						console.log('获取坐标成功',res)
+						_this.latitude=res.latitude;
+						_this.longitude=res.longitude;
+						postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:_this.latitude||null,
+									longitude:_this.longitude||null},false,function(res){
+										console.log("获取index",res)
+										_this.swiperLength=res.data.banner.length
+							_this.$set(_this,'carouselList',res.data.banner)
+							_this.$set(_this,'goodsList2',res.data.product)
+						})
+					},
+					fail:function(){
+						uni.showToast({
+							title:'获取坐标失败',
+							icon:'none'
+						})
+						postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:null,
+									longitude:null},false,function(res){
+							console.log("获取index",res)
+							_this.swiperLength=res.data.banner.length
+							_this.$set(_this,'carouselList',res.data.banner)
+							_this.$set(_this,'goodsList2',res.data.product)
+						})
+					}
 					})
-				},
-				fail:function(){
-					uni.showToast({
-						title:'获取坐标失败',
-						icon:'none'
-					})
-					postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:null,
-								longitude:null},false,function(res){
-						console.log("获取index",res)
-						_this.swiperLength=res.data.banner.length
-						_this.$set(_this,'carouselList',res.data.banner)
-						_this.$set(_this,'goodsList2',res.data.product)
-					})
-				}
+			}else{
+				postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:_this.latitude||null,
+							longitude:_this.longitude||null},false,function(res){
+								console.log("获取index",res)
+								_this.swiperLength=res.data.banner.length
+					_this.$set(_this,'carouselList',res.data.banner)
+					_this.$set(_this,'goodsList2',res.data.product)
 				})
+			}
+			
 			
 		},
 		onLoad() {
@@ -372,17 +411,23 @@
 				let _this = this;
 				console.log('yijiayouClick')
 				if(_this.$store.state.userST.phone){
-					uni.getLocation({
-					    type: 'gcj02',
-					    success: function (res) {
-							console.log('yijiayouClickRes',res)
-							_this.longitude = res.longitude
-							_this.latitude = res.latitude
+					// uni.getLocation({
+					//     type: 'wgs84',
+					//     success: function (res) {
+					// 		console.log('yijiayouClickRes',res)
+					// 		_this.longitude = res.longitude
+					// 		_this.latitude = res.latitude
+					// _this.latitude=res.latitude;
+					// _this.longitude=res.longitude;
 							postFetch('index.php/index/api/ejiayou',{
 								latitude:_this.latitude,
 								longitude:_this.longitude,
 								phone:'13800138000'
 							},false,function(res){
+								// uni.showToast({
+								// 	title:'获取坐标失败',
+								// 	icon:'none'
+								// })
 								console.log('ejiayou',JSON.stringify(res.data.url))
 								_this.yijiayoulink=encrypt64(res.data.url)
 								uni.navigateTo({
@@ -390,26 +435,26 @@
 								})
 								// plus.runtime.openURL(res.data.url)
 							})
-					    },
-						fail:function(e){
-							uni.showToast({
-								title:'获取定位失败',
-								icon:'none'
-							})
-							postFetch('index.php/index/api/ejiayou',{
-								latitude:null,
-								longitude:null,
-								phone:'13800138000'
-							},false,function(res){
-								console.log('ejiayou',JSON.stringify(res.data.url))
-								_this.yijiayoulink=res.data.url
-								uni.navigateTo({
-									url:'/pages/yijiayou/yijiayou?url='+_this.yijiayoulink
-								})
-								// plus.runtime.openURL(res.data.url)
-							})
-						}
-					});
+					//     },
+					// 	fail:function(e){
+					// 		uni.showToast({
+					// 			title:'获取定位失败',
+					// 			icon:'none'
+					// 		})
+					// 		postFetch('index.php/index/api/ejiayou',{
+					// 			latitude:null,
+					// 			longitude:null,
+					// 			phone:'13800138000'
+					// 		},false,function(res){
+					// 			console.log('ejiayou',JSON.stringify(res.data.url))
+					// 			_this.yijiayoulink=res.data.url
+					// 			uni.navigateTo({
+					// 				url:'/pages/yijiayou/yijiayou?url='+_this.yijiayoulink
+					// 			})
+					// 			// plus.runtime.openURL(res.data.url)
+					// 		})
+					// 	}
+					// });
 				}else{
 					uni.navigateTo({
 						url:'/pages/public/login'
@@ -484,13 +529,20 @@
 				this.titleNViewBackground = this.carouselList[index].colo;
 			},
 			//详情页
-			navToDetailPage(item) {
+			// navToDetailPage(item) {
+			// 	//测试数据没有写id，用title代替
+			// 	// let id = item.title;
+			// 	uni.navigateTo({
+			// 		url: `/pages/product/product?id=${item}`
+			// 	})id
+			// },
+			navToDetailPage(item){
 				//测试数据没有写id，用title代替
-				// let id = item.title;
+				let id = item.id;
 				uni.navigateTo({
-					url: `/pages/product/product?id=${item}`
+					url: `/pages/product/product?id=${id}`
 				})
-			},
+			}
 		},
 		// #ifndef MP
 		// 标题栏input搜索框点击
@@ -988,6 +1040,157 @@
 			font-size: $font-lg;
 			color: $uni-color-primary;
 			line-height: 1;
+		}
+	}
+	.goods-list{
+		display:flex;
+		flex-wrap:wrap;
+		justify-content: space-between;
+		padding: 0 14upx;
+		background-color: #f5f6f8;
+		padding-bottom: 20rpx;
+		.goods-item{
+			display:flex;
+			flex-direction: column;
+			width:354rpx;
+			height:556rpx;
+			margin-top: 14rpx;
+			background-color: #fff;
+		}
+		.goods-item.showType1{
+			flex-direction:row;
+			width:100%;
+			height:250rpx;
+			padding: 14rpx;
+		}
+		.image-wrapper{
+			width: 100%;
+			height: 354upx;
+			border-radius: 3px;
+			overflow: hidden;
+			image{
+				width: 100%;
+				height: 100%;
+				opacity: 1;
+			}
+		}
+		.goods-item.showType1 .image-wrapper{
+			width:222rpx;
+			height: 222rpx;
+			margin-right: 15rpx;
+			flex-shrink: 0;
+		}
+		.productRight{
+			flex-grow: 1;
+			padding: 17rpx 0 14rpx 0;
+		}
+		.title{
+			font-size:26rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(34,34,34,1);
+			width:100%;
+			padding: 0 14rpx;
+			height: 58rpx;
+			margin-top: 14rpx;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display:-webkit-box; //作为弹性伸缩盒子模型显示。
+			-webkit-box-orient:vertical; //设置伸缩盒子的子元素排列方式--从上到下垂直排列
+			-webkit-line-clamp:2; //显示的行
+			white-space: normal;
+			line-height: 1.1;
+		}
+		.shopFrame{
+			width:100%;
+			padding: 0 14rpx;
+			margin-top: 10rpx;
+			display: flex;
+			align-items: center;
+			.shopIcon{
+				width:21rpx;
+				height:21rpx;
+				margin-right: 15rpx;
+			}
+			.shopName{
+				font-size:20rpx;
+				font-family:PingFang SC;
+				font-weight:400;
+				color:rgba(153,153,153,1);
+			}
+		}
+		.rebateFrame{
+			width:100%;
+			padding: 0 14rpx;
+			margin-top: 12rpx;
+			display: flex;
+			align-items: center;
+			.coupon{
+				width:90rpx;
+				height:35rpx;
+				background-image: url('~@/static/coupon.png');
+				background-size: 90rpx 35rpx;
+				background-repeat: no-repeat;
+				margin-right: 14rpx;
+				font-size:17rpx;
+				font-family:PingFang SC;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				line-height: 35rpx;
+				text-align: center;
+			}
+			.income{
+				width:139rpx;
+				height:29rpx;
+				background:rgba(250,131,35,1);
+				border-radius:7rpx;
+				font-size:17rpx;
+				font-family:PingFang SC;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				text-align: center;
+				line-height: 29rpx;
+				.mt{
+					width:14rpx;
+					height:14rpx;
+				}
+			}
+		}
+		.price-box{
+			width:100%;
+			padding: 0 14rpx;
+			display: flex;
+			justify-content: space-between;
+			margin-top: 12rpx;
+			.left{
+				display: flex;
+				align-items: baseline;
+				.priceTip{
+					font-size: 20rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(219,0,27,1);
+				}
+				.price{
+					font-size: 29rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(219,0,27,1);
+				}
+				.oldPrice{
+					font-size:20rpx;
+					font-family:PingFang SC;
+					font-weight:400;
+					text-decoration:line-through;
+					color:rgba(153,153,153,1);
+				}
+			}
+			.right{
+				font-size:23rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(153,153,153,1);
+			}
 		}
 	}
 	.navBarCP{

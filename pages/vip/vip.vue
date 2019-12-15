@@ -60,7 +60,7 @@
 		methods:{
 			togglePop(){
 				uni.navigateTo({
-					url:"/pages/product/list"
+					url:"/pages/search/search"
 				})
 				//this.pop = !this.pop
 			},
