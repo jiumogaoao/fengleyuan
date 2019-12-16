@@ -397,7 +397,20 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#f8f8f8"
+		"backgroundColor": "#f8f8f8",
+		"app-plus":{
+			"subNVues":{
+				"id":"popout",
+				"path":"subNVues/popout.nvue",
+				"type":"popup",
+				"style":{
+					"position": "popup",
+					"margin":"auto",
+					"width": "150px",
+					"height": "150px"
+				}
+			}
+		}
 	},
 	"tabBar": {
 		"color": "#C0C4CC",

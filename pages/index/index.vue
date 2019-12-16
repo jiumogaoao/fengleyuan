@@ -13,7 +13,7 @@
 			<view class="titleNview-placing"></view>
 			<!-- 背景色区域 -->
 			<view class="titleNview-background" :style="{backgroundColor:'#'+(titleNViewBackground||'DD8D45')}"></view>
-			<swiper class="carousel" circular @change="swiperChange">
+			<swiper class="carousel" circular @change="swiperChange" autoplay="true">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
 					<image :src="item.banner_url" @click="bannerClick(item.url,item.type,item.interal)"/>
 				</swiper-item>
@@ -397,6 +397,9 @@
 		},
 		onLoad() {
 			this.loadData();
+			subNVue.show('popup',200,()=>{
+			    console.log('subNVue 原生子窗体显示成功');
+			})
 		},
 		methods: {
 			navTo(url){

@@ -225,6 +225,7 @@
 				coupon_link: "",
 				header_img: "",
 				pro_url: "",
+				tb_url:"",
 				product_name: "",
 				sales_volume: "",
 				specClass: 'none',
@@ -339,6 +340,7 @@
 				_this.estimate=res.data.estimate
 				_this.post_coupon=res.data.post_coupon
 				_this.vip=res.data.vip
+				_this.tb_url=res.data[0].tb_url
 				if(uni.getStorageSync('productHistory') && Array.isArray(uni.getStorageSync('productHistory'))){
 					
 					let aKey={}
@@ -421,10 +423,39 @@
 			},
 			popOut(url){
 				// plus.runtime.openURL(url)
+				let _this=this;
+				// let tburl=_this.pro_url.replace('http:','tbopen:')
 				url=encrypt64(url)
-				uni.navigateTo({
-					url:'/pages/yijiayou/yijiayou?url='+url
-				})
+				if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:url})){
+						console.log("淘宝应用已安装");
+						plus.runtime.openURL(_this.tb_url)
+						// if ( plus.os.name == "Android" ) {
+						// 		plus.runtime.launchApplication( {pname:"com.taobao.taobao"
+						// 			,extra:{url:tburl}}, function ( e ) {
+						// 				uni.showToast({
+						// 					title:"打开淘宝失败",
+						// 					icon:"none"
+						// 				})
+						// 				uni.navigateTo({
+						// 					url:'/pages/yijiayou/yijiayou?url='+url
+						// 				})
+						// 		} );
+						// 	} else if ( plus.os.name == "iOS" ) {
+						// 		plus.runtime.launchApplication( {action:tburl}, function ( e ) {
+						// 			uni.showToast({
+						// 				title:"打开淘宝失败",
+						// 				icon:"none"
+						// 			})
+						// 			uni.navigateTo({
+						// 				url:'/pages/yijiayou/yijiayou?url='+url
+						// 			})
+						// 		} );
+						// 	}
+					}else{
+						uni.navigateTo({
+							url:'/pages/yijiayou/yijiayou?url='+url
+						})
+					}
 			},
 			//规格弹窗开关
 			toggleSpec() {
@@ -479,14 +510,43 @@
 				})
 			},
 			buy(){
+				let _this=this;
+				// let tburl=_this.pro_url.replace('http:','tbopen:')
 				// uni.navigateTo({
 				// 	url: `/pages/order/createOrder`
 				// })
 				// plus.runtime.openURL(this.pro_url)
 				let url=encrypt64(this.pro_url)
-				uni.navigateTo({
-					url:'/pages/yijiayou/yijiayou?url='+url
-				})
+				if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:this.pro_url})){
+						console.log("淘宝应用已安装");
+						// if ( plus.os.name == "Android" ) {
+						// 		plus.runtime.launchApplication( {pname:'com.taobao.taobao'
+						// 			,extra:{url:this.pro_url}}, function ( e ) {
+						// 				uni.showToast({
+						// 					title:"打开淘宝失败",
+						// 					icon:"none"
+						// 				})
+						// 				uni.navigateTo({
+						// 					url:'/pages/yijiayou/yijiayou?url='+url
+						// 				})
+						// 		} );
+						// 	} else if ( plus.os.name == "iOS" ) {
+						// 		plus.runtime.launchApplication( {action:tburl}, function ( e ) {
+						// 			uni.showToast({
+						// 				title:"打开淘宝失败",
+						// 				icon:"none"
+						// 			})
+						// 			uni.navigateTo({
+						// 				url:'/pages/yijiayou/yijiayou?url='+url
+						// 			})
+						// 		} );
+						// 	}
+						plus.runtime.openURL(_this.tb_url)
+					}else{
+						uni.navigateTo({
+							url:'/pages/yijiayou/yijiayou?url='+url
+						})
+					}
 			},
 			stopPrevent(){},
 			like(){
