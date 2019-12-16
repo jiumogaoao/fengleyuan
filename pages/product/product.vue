@@ -142,7 +142,7 @@
 			<view class="bottomButtonFrame">
 				<view class="left" @click="share">
 					<view class="title">分享</view>
-					<view class="dsc">赚<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>14.28</view>
+					<!-- <view class="dsc">赚<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>14.28</view> -->
 				</view>
 				<view class="right" @click="buy">
 					<view class="title">购买</view>
