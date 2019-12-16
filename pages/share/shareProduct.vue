@@ -74,10 +74,10 @@
 				logo:'',
 				productImg:this.$api.prePage().header_img,
 				productPic:'',
-				oldPrice:10,
+				oldPrice:this.$api.prePage().commodity_price,
 				qrcode:'',
 				title:this.$api.prePage().product_name,
-				price:this.$api.prePage().commodity_price,
+				price:this.$api.prePage().post_coupon,
 				couponprice:this.$api.prePage().coupon_face_value
 			};
 		},

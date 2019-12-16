@@ -60,7 +60,7 @@
 		methods:{
 			togglePop(){
 				uni.navigateTo({
-					url:"/pages/search/search"
+					url:"/pages/search/search?salse=0"
 				})
 				//this.pop = !this.pop
 			},
