@@ -14,7 +14,7 @@
 			</swiper>
 		</view>
 		<view class="headFoot">
-			<view class="text">现在升级VIP，最高可<text><image class="mt" src="/static/productIcon02.png"></image>赚{{vip}}元</text></view>
+			<view class="text"><text>现在升级VIP，最高可</text><text class="red">赚</text><image class="mt" src="/static/productIcon02.png"></image><text class="red">赚{{vip}}元</text></view>
 			<view class="button">
 				<image class="icon" src="/static/productIcon01.png"></image>
 				<view class="label">立即升级</view>
@@ -33,7 +33,7 @@
 				<!-- <text class="coupon-tip">7折</text> -->
 			</view>
 			<view class="bot-row">
-				<text>预估收益<image class="mt" src="/static/productIcon02.png"></image>{{estimate}}</text>
+				<text>预估收益</text><image class="mt" src="/static/productIcon02.png"></image><text>{{estimate}}</text>
 				<!-- <text>库存: 4690</text>
 				<text>浏览量: 768</text> -->
 			</view>
@@ -549,6 +549,12 @@
 			font-family:PingFang SC;
 			font-weight:500;
 			color:rgba(49,33,8,1);
+			.red{
+				font-size:24rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(200,55,47,1);
+			}
 		}
 		.button{
 			flex-shrink: 0;

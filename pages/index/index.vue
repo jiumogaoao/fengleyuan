@@ -431,7 +431,7 @@
 								console.log('ejiayou',JSON.stringify(res.data.url))
 								_this.yijiayoulink=encrypt64(res.data.url)
 								uni.navigateTo({
-									url:'/pages/yijiayou/yijiayou?url='+_this.yijiayoulink
+									url:'/pages/yijiayou/yijiayou?url='+_this.yijiayoulink+'&title=蜜蜂天堂 · 优惠加油'
 								})
 								// plus.runtime.openURL(res.data.url)
 							})

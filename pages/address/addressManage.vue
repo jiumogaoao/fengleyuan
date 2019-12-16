@@ -11,12 +11,15 @@
 			</view>
 			<view class="row b-b">
 				<text class="tit">选择地区</text>
-				<input class="input" type="text" v-model="addressData.province" placeholder="某" placeholder-class="placeholder" />
+				<picker mode="multiSelector" :range="optionList" range-key="name" @columnchange="placeChange" @change="placeChange2" @cancel="placeCancel">
+					<view class="input">{{addressData.province||'--'}} {{addressData.city||'--'}} {{addressData.area||'--'}}</view>
+				</picker>
+				<!-- <input class="input" type="text" v-model="addressData.province" placeholder="某" placeholder-class="placeholder" />
 				<text class="addressLabel">省</text>
 				<input class="input" type="text" v-model="addressData.city" placeholder="某" placeholder-class="placeholder" />
 				<text class="addressLabel">市</text>
 				<input class="input" type="text" v-model="addressData.area" placeholder="某" placeholder-class="placeholder" />
-				<text class="addressLabel">区</text>
+				<text class="addressLabel">区</text> -->
 			</view>
 			<view class="row b-b"> 
 				<text class="tit">详细地址</text>
@@ -33,6 +36,7 @@
 
 <script>
 	import simpleAddress from "@/components/simple-address/simple-address.nvue"
+	import cityJSON from "@/static/city_code.json"
 	export default {
 		comments:{
 			simpleAddress
@@ -41,6 +45,9 @@
 			return {
 				manageType:'',
 				manageId:'',
+				optionProvince:cityJSON,
+				optionCity:cityJSON[0].city,
+				optionArea:cityJSON[0].city[0].area,
 				addressData: {
 					name: '',
 					mobile: '',
@@ -54,6 +61,11 @@
 					pickerText: '',
 					isshowPopup:false
 				}
+			}
+		},
+		computed:{
+			optionList(){
+				return [this.optionProvince,this.optionCity,this.optionArea]
 			}
 		},
 		onLoad(option){
@@ -71,6 +83,25 @@
 			})
 		},
 		methods: {
+			placeChange(e){
+				let _this = this;
+				console.log('placeChange',e.detail)
+				if(e.detail.column==0){
+					_this.$set(_this,'optionCity',_this.optionProvince[e.detail.value].city)
+					_this.$set(_this,'optionArea',_this.optionProvince[e.detail.value].city[0].area)
+				}else if(e.detail.column==1){
+					_this.$set(_this,'optionArea',_this.optionCity[e.detail.value].area)
+				}
+			},
+			placeChange2(e){
+				console.log('placeChange2',e.detail)
+				this.addressData.province=this.optionProvince[e.detail.value[0]].name
+				this.addressData.city=this.optionCity[e.detail.value[1]].name
+				this.addressData.area=this.optionArea[e.detail.value[2]].name
+			},
+			placeCancel(e){
+				console.log('placeCancel',e.detail)
+			},
 			openFn(fn){
 				console.log('openFn',fn)
 			},
