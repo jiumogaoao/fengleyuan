@@ -1150,7 +1150,8 @@
 				text-align: center;
 			}
 			.income{
-				width:139rpx;
+				// width:139rpx;
+				padding: 0 10rpx;
 				height:29rpx;
 				background:rgba(250,131,35,1);
 				border-radius:7rpx;

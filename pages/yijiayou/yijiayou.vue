@@ -22,18 +22,18 @@
 		onShow(){
 			let _this=this;
 			var currentWebview = this.$mp.page.$getAppWebview() //获取当前页面的webview对象
-			       setTimeout(function() {
-				if(_this.showTitle){
-					_this.dl=setInterval(function(){
-						uni.setNavigationBarTitle({
-							title:_this.showTitle
-						})
-					},500)
-				}
-			       }, 500); //如果是页面初始化调用时，需要延时一下
+			 //       setTimeout(function() {
+				// if(_this.showTitle){
+				// 	_this.dl=setInterval(function(){
+				// 		uni.setNavigationBarTitle({
+				// 			title:_this.showTitle
+				// 		})
+				// 	},500)
+				// }
+			 //       }, 500); //如果是页面初始化调用时，需要延时一下
 		},
 		onHide(){
-			clearInterval(this.dl)
+			// clearInterval(this.dl)
 		},
 		onReady(){
 			

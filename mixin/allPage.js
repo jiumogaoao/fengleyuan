@@ -18,6 +18,9 @@ module.exports = {
 			});
 		},
 	},
+	onLoad(){
+		
+	},
 	onShow(){
 		let _this=this
 		// if(!uni.getStorageSync('cacheCheck')){

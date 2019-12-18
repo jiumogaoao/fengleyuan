@@ -42,23 +42,23 @@
 					@click="navToDetailPage(item)"
 				>
 					<view class="image-wrapper">
-						<image :src="item.header_img" mode="aspectFill"></image>
+						<image :src="item.pict_url" mode="aspectFill"></image>
 					</view>
-					<view class="title clamp">{{item.product_name}}</view>
+					<view class="title clamp">{{item.title}}</view>
 					<view class="shopFrame">
 						<image class="shopIcon" src="/static/shop.png"></image>
-						<view class="shopName">{{item.shop_name}}</view>
+						<view class="shopName">{{item.shop_title}}</view>
 					</view>
 					<view class="rebateFrame">
-						<view class="coupon">券￥{{item.couponPrice}}</view>
-						<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.income_ratio}}</view>
+						<view class="coupon" v-if="item.coupon">券￥{{item.coupon}}</view>
+						<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.commission}}</view>
 					</view>
 					<view class="price-box">
 						<view class="left">
-							<text class="priceTip">￥</text><text class="price">{{item.post_coupon}}</text><text class="oldPrice">￥{{item.commodity_price}}</text>
+							<text class="priceTip">￥</text><text class="price">{{item.zk_final_price_wap}}</text><text class="oldPrice">￥{{item.reserve_price}}</text>
 						</view>
 						
-						<text class="right">已售 {{item.sales_volume}}万</text>
+						<text class="right">已售 {{item.volume}}</text>
 					</view>
 				</view>
 				<view
@@ -68,24 +68,24 @@
 					 v-if="showType==1"
 				>
 					<view class="image-wrapper">
-						<image :src="item.header_img" mode="aspectFill"></image>
+						<image :src="item.pict_url" mode="aspectFill"></image>
 					</view>
 					<view class="productRight">
-						<view class="title clamp">{{item.product_name}}</view>
+						<view class="title clamp">{{item.title}}</view>
 						<view class="shopFrame">
 							<image class="shopIcon" src="/static/shop.png"></image>
-							<view class="shopName">{{item.shop_name}}</view>
+							<view class="shopName">{{item.shop_title}}</view>
 						</view>
 						<view class="rebateFrame">
-							<view class="coupon">券￥{{item.couponPrice}}</view>
+							<view class="coupon" v-if="item.coupon">券￥{{item.coupon}}</view>
 							<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.commission}}</view>
 						</view>
 						<view class="price-box">
 							<view class="left">
-								<text class="priceTip">￥</text><text class="price">{{item.post_coupon}}</text><text class="oldPrice">￥{{item.commodity_price}}</text>
+								<text class="priceTip">￥</text><text class="price">{{item.zk_final_price_wap}}</text><text class="oldPrice">￥{{item.reserve_price}}</text>
 							</view>
 							
-							<text class="right">已售 {{item.sales_volume}}万</text>
+							<text class="right">已售 {{item.volume}}</text>
 						</view>
 					</view>
 					
@@ -625,7 +625,7 @@
 				text-align: center;
 			}
 			.income{
-				width:139rpx;
+				padding: 0 10rpx;
 				height:29rpx;
 				background:rgba(250,131,35,1);
 				border-radius:7rpx;
