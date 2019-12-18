@@ -105,7 +105,9 @@
 
 <script>
 	import {postFetch} from '@/util/request_UT.js';
+	import allpage from '@/mixin/allPage'
 	export default {
+		mixins:[allpage],
 		data() {
 			return {
 				state:0,

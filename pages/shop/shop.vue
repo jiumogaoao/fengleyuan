@@ -25,8 +25,10 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import navBarCP from '@/components/navBar_CP.vue'
 	export default {
+		mixins:[allpage],
 		components:{
 			navBarCP
 		},

@@ -11,10 +11,19 @@ export default {
 	user_tooken:'',
 	avatar:'',
 	invitation:'',
-	superior:'',
-	superior_head:''
+	pinvitation:'',
+	superior_head:'',
+	network:true,
+	identity_type:0,
+	cacheTitle:''
   },
   mutations: {
+	setCacheTitle(state, data){
+		state.cacheTitle=data
+	},
+	network(state, data){
+		state.network=data
+	},
 	login(state, data) {
 		state.id = data.id;
 		state.hasLogin = true;
@@ -23,8 +32,9 @@ export default {
 		state.user_tooken = data.user_tooken
 		state.invitation = data.invitation
 		state.avatar = data.avatar
-		state.superior = data.superior
+		state.pinvitation = data.pinvitation
 		state.superior_head = data.superior_head
+		state.identity_type = data.identity_type
 		uni.setStorageSync('userInfo',state);
 	},
 	logout(state) {
@@ -35,12 +45,19 @@ export default {
 		state.user_tooken = ''
 		state.invitation = ''
 		state.avatar = ''
-		state.superior = ''
+		state.pinvitation = ''
 		state.superior_head = ''
+		state.identity_type = ''
 		uni.setStorageSync('userInfo',state);
 	}
   },
   actions:{
+	  setCacheTitle(context,data){debugger;
+		  context.commit('setCacheTitle',data)
+	  },
+	  network(context,data){
+	  	context.commit('network',data)
+	  },
 	async logon(context,data){
 		let _this=this;
 		let res = await postFetch('index.php/index/login/login',{phone:data.phone,password:data.password},false)

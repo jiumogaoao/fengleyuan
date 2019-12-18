@@ -4,10 +4,11 @@
 	 */
 	export default {
 		data:{
-			noNetwork:false
+
 		},
 		onLaunch: function() {
 			let _this=this;
+			uni.setStorageSync('cacheCheck',0);
 			let userInfo = uni.getStorageSync('userInfo') || '';
 			if(userInfo.user_tooken){
 				//更新登陆状态
@@ -36,13 +37,13 @@
 						// 	title:res.networkType
 						// })
 						if(res.networkType=='none'){
-							_this.noNetwork=true
+							_this.$store.dispatch('userST/network',false)
 						}else{
-							_this.noNetwork=false;
+							_this.$store.dispatch('userST/network',true)
 						}
 				    },
 					fail:function(){
-						_this.noNetwork=true
+						_this.$store.dispatch('userST/network',false)
 					}
 				});
 			},800)
@@ -53,15 +54,20 @@
 		onHide: function() {
 			console.log('App Hide')
 		},
+		computed:{
+			noNetwork(){
+				return this.$store.state.userST.network
+			}
+		},
 		watch:{
 			noNetwork(val){
 				// console.log('nonetwork',val)
 				if(val){
+					uni.navigateBack()
+				}else{
 					uni.navigateTo({
 						url:'/pages/noNetwork/noNetwork'
 					})
-				}else{
-					uni.navigateBack()
 				}
 			}
 		}

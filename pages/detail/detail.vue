@@ -86,8 +86,10 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import share from '@/components/share';
 	export default {
+		mixins:[allpage],
 		components: {
 			share
 		},

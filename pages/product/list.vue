@@ -55,8 +55,10 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	export default {
+		mixins:[allpage],
 		components: {
 			uniLoadMore	
 		},

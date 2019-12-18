@@ -20,10 +20,12 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import navBarCP from '@/components/navBar_CP.vue'
 	import modalCP from '@/components/modal_CP.vue'
 	import {postFetch} from '@/util/request_UT.js'
 	export default {
+		mixins:[allpage],
 		components:{
 			navBarCP,
 			modalCP
@@ -167,13 +169,13 @@
 		},
 		onTabItemTap(t){
 			console.log(t);
-			if(t.text=="自营商城"){
-				uni.showToast({
-					title:"暂未开放，敬请期待",
-					icon:'none'
-				})
-			}
-			return false;
+			// if(t.text=="自营商城"){
+			// 	uni.showToast({
+			// 		title:"暂未开放，敬请期待",
+			// 		icon:'none'
+			// 	})
+			// }
+			// return false;
 		},
 		//点击导航栏 buttons 时触发
 		onNavigationBarButtonTap(e) {

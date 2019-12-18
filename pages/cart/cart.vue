@@ -80,11 +80,13 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import {
 		mapState
 	} from 'vuex';
 	import uniNumberBox from '@/components/uni-number-box.vue'
 	export default {
+		mixins:[allpage],
 		components: {
 			uniNumberBox
 		},

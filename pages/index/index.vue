@@ -13,7 +13,7 @@
 			<view class="titleNview-placing"></view>
 			<!-- 背景色区域 -->
 			<view class="titleNview-background" :style="{backgroundColor:'#'+(titleNViewBackground||'DD8D45')}"></view>
-			<swiper class="carousel" circular @change="swiperChange" autoplay="true">
+			<swiper class="carousel" circular @change="swiperChange" :autoplay="true" :interval="4000">
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
 					<image :src="item.banner_url" @click="bannerClick(item.url,item.type,item.interal)"/>
 				</swiper-item>
@@ -295,23 +295,23 @@
 				@click="navToDetailPage(item)"
 			>
 				<view class="image-wrapper">
-					<image :src="item.header_img" mode="aspectFill"></image>
+					<image :src="item.pict_url" mode="aspectFill"></image>
 				</view>
-				<view class="title clamp">{{item.product_name}}</view>
+				<view class="title clamp">{{item.title}}</view>
 				<view class="shopFrame">
 					<image class="shopIcon" src="/static/shop.png"></image>
-					<view class="shopName">{{item.shop_name}}</view>
+					<view class="shopName">{{item.nick}}</view>
 				</view>
 				<view class="rebateFrame">
-					<view class="coupon">券￥{{item.couponPrice}}</view>
+					<view class="coupon" v-if="item.coupon">券￥{{item.coupon}}</view>
 					<view class="income">预估收益<image src="/static/productIcon02.png" class="mt"></image>{{item.commission}}</view>
 				</view>
 				<view class="price-box">
 					<view class="left">
-						<text class="priceTip">￥</text><text class="price">{{item.post_coupon}}</text><text class="oldPrice">{{item.commodity_price}}</text>
+						<text class="priceTip">￥</text><text class="price">{{item.zk_final_price_wap1?item.zk_final_price_wap1:item.zk_final_price_wap}}</text><text class="oldPrice">{{item.commodity_price}}</text>
 					</view>
 					
-					<text class="right">已售 {{item.sales_volume}}万</text>
+					<text class="right">已售 {{item.volume}}</text>
 				</view>
 			</view>
 		</view>
@@ -326,9 +326,11 @@
 <script>
 	import navBarCP from '@/components/navBar_CP.vue'
 	import modalCP from '@/components/modal_CP.vue'
+	import allpage from '@/mixin/allPage'
 	import {postFetch} from '@/util/request_UT.js'
 	import {encrypt64} from '@/util/security_UT.js'
 	export default {
+		mixins:[allpage],
 		components:{
 			navBarCP,
 			modalCP
@@ -397,9 +399,7 @@
 		},
 		onLoad() {
 			this.loadData();
-			subNVue.show('popup',200,()=>{
-			    console.log('subNVue 原生子窗体显示成功');
-			})
+			
 		},
 		methods: {
 			navTo(url){
@@ -411,6 +411,12 @@
 				})  
 			}, 
 			yijiayou(){
+				if(!this.$store.state.userST.network){
+					uni.navigateTo({
+						url:'/pages/noNetWork/noNetwork'
+					})
+					return;
+				}
 				let _this = this;
 				console.log('yijiayouClick')
 				if(_this.$store.state.userST.phone){
@@ -465,6 +471,12 @@
 				}
 			},
 			bannerClick(url,type,interal){
+				if(!this.$store.state.userST.network){
+					uni.navigateTo({
+						url:'/pages/noNetWork/noNetwork'
+					})
+					return;
+				}
 				let _this = this;
 				if(type && !_this.$store.state.userST.phone){
 					uni.navigateTo({
@@ -478,7 +490,7 @@
 					}else{
 						url=encrypt64(url)
 						uni.navigateTo({
-							url:'/pages/yijiayou/yijiayou?url='+url
+							url:'/pages/yijiayou/yijiayou?url='+url+'&title=蜜蜂天堂 · 优惠加油'
 						})
 					}
 				}
@@ -503,11 +515,6 @@
 				                        console.log('运行在开发者工具上')       
 				                        break;
 				                }
-			},
-			go(url){
-				uni.navigateTo({
-					url: url
-				})
 			},
 			closePOP(){
 				this.pop = false
@@ -556,13 +563,13 @@
 		},
 		onTabItemTap(t){
 			console.log(t);
-			if(t.text=="自营商城"){
-				uni.showToast({
-					title:"暂未开放，敬请期待",
-					icon:'none'
-				})
-			}
-			return false;
+			// if(t.text=="自营商城"){
+			// 	uni.showToast({
+			// 		title:"暂未开放，敬请期待",
+			// 		icon:'none'
+			// 	})
+			// }
+			// return false;
 		},
 		//点击导航栏 buttons 时触发
 		onNavigationBarButtonTap(e) {

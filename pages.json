@@ -8,6 +8,16 @@
 				//"navigationStyle": "custom",
 				// #endif 
 				"app-plus": {
+							"subNVues":[{
+								"id":"catchPopup",
+								"path":"pages/subNVues/popout.nvue",
+								"type":"popup",
+								"style": {
+									"margin": "auto",
+									"width": "573upx",
+									"height": "351upx"
+								}
+							}],
 					"titleNView": {
 						"type": "transparent",
 						"searchInput": {
@@ -397,20 +407,7 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#f8f8f8",
-		"app-plus":{
-			"subNVues":{
-				"id":"popout",
-				"path":"subNVues/popout.nvue",
-				"type":"popup",
-				"style":{
-					"position": "popup",
-					"margin":"auto",
-					"width": "150px",
-					"height": "150px"
-				}
-			}
-		}
+		"backgroundColor": "#f8f8f8"
 	},
 	"tabBar": {
 		"color": "#C0C4CC",
@@ -430,8 +427,8 @@
 				"text": "分类"
 			},
 			{
-				"pagePath": "pages/index/index",
-				// "pagePath": "pages/mall/mall",
+				// "pagePath": "pages/index/index",
+				"pagePath": "pages/mall/mall",
 				"iconPath": "static/n2.png",
 				"selectedIconPath": "static/n2-h.png",
 				"text": "自营商城"

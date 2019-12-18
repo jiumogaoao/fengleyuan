@@ -142,11 +142,13 @@
 </template> 
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import empty from "@/components/empty";
 	import uniNav from '@/components/uni-nav-bar/uni-nav-bar.vue';
 	import Json from '@/Json';
 	export default {
+		mixins:[allpage],
 		components: {
 			uniLoadMore,
 			empty,

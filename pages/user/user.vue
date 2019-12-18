@@ -116,6 +116,7 @@
     </view>  
 </template>  
 <script>  
+	import allpage from '@/mixin/allPage'
 	import listCell from '@/components/mix-list-cell';
 	import {encrypt64} from '@/util/security_UT.js'
     import {  
@@ -123,6 +124,7 @@
     } from 'vuex';  
 	let startY = 0, moveY = 0, pageAtTop = true;
     export default {
+		mixins:[allpage],
 		components: {
 			listCell
 		},

@@ -15,9 +15,10 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import QR from "@/static/wxqrcode.js" // 二维码生成器  
 	export default {
-		
+		mixins:[allpage],
 		onReady(){
 			let _this=this;
 			uni.showLoading({

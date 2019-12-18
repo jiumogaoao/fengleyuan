@@ -15,10 +15,11 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import QR from "@/static/wxqrcode.js" // 二维码生成器  
 	import {postFetch} from '@/util/request_UT.js'
 	export default {
-		
+		mixins:[allpage],
 		onReady(){
 			let _this=this;
 			postFetch('index.php/index/index/invite_url',{invite:_this.code},false,function(res){

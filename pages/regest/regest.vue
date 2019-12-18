@@ -47,8 +47,10 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import {postFetch} from '@/util/request_UT.js'
 	export default {
+		mixins:[allpage],
 		data() {
 			return {
 				phone:'',
@@ -189,23 +191,23 @@
 				if(_this.phoneCheck()&&_this.idCheck()&&_this.passwordCheck()&&_this.codeCheck()){
 					postFetch('index.php/index/login/register',{phone:_this.phone,email:_this.email,password:_this.password,checkNum:_this.code,invitation_code:_this.id},false,function(res){
 						console.log('regestCallback',res)
-						debugger;
 						if(res.data.status==200){
 							uni.showToast({
 								title:'注册成功',
 								icon:'none'
 							})
-							res.data.user.avatar=res.data.user.userpic
-							_this.$store.dispatch("userST/setLogon",res.data.user)
-							var pages = getCurrentPages();
-							if((pages[pages.length - 2]).route!='pages/public/login'){
-								_this.go('/'+(pages[pages.length - 2]).route)
-							}else if(pages.length>2&&(pages[pages.length - 3]).route!='pages/public/login'){
-								_this.go('/'+(pages[pages.length - 3]).route)
-							}else{
-								_this.go('/pages/index/index')
-							}
-							
+							// res.data.user.avatar=res.data.user.userpic
+							// _this.$store.dispatch("userST/setLogon",res.data.user)
+							_this.$store.dispatch("userST/logon",{phone:_this.phone,password:_this.password,callback:function(){
+								var pages = getCurrentPages();
+								if((pages[pages.length - 2]).route!='pages/public/login'){
+									_this.go('/'+(pages[pages.length - 2]).route)
+								}else if(pages.length>2&&(pages[pages.length - 3]).route!='pages/public/login'){
+									_this.go('/'+(pages[pages.length - 3]).route)
+								}else{
+									_this.go('/pages/index/index')
+								}
+							}})
 						}else{
 							uni.showToast({
 								title:res.data.msg,

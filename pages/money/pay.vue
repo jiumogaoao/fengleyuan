@@ -46,8 +46,9 @@
 </template>
 
 <script>
-
+import allpage from '@/mixin/allPage'
 	export default {
+		mixins:[allpage],
 		data() {
 			return {
 				payType: 1,

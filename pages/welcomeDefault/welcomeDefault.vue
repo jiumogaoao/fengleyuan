@@ -3,6 +3,7 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	export default {
 		data() {
 			return {

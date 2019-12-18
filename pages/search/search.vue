@@ -100,8 +100,10 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import {postFetch} from '@/util/request_UT.js'
 	export default {
+		mixins:[allpage],
 		data() {
 			return {
 				saleSort:0,

@@ -1,0 +1,120 @@
+<template>
+	<div class="wrapper">
+		<div class="top">
+			<text class="title">猜你喜欢</text>
+			<text class="info">{{title}}</text>
+		</div>
+		<div class="bottom">
+			<div class="buttonCancel" @click="cancel()">
+				<text class="buttonTextCancel">取消</text>
+			</div>
+			<div class="button submit" @click="submit()">
+				<text class="buttonText">立即搜索</text>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				title:''
+			}
+		},
+		created() {
+			uni.$on('cacheTitle',(title)=>{
+					if(title.length<28){
+						this.title = title;  
+					}else{
+						this.title = title.substr(0,28)+'...';  
+					}
+			    })  
+		},
+		onShow(){
+
+		},
+		beforeDestroy() {
+			
+		},
+		methods: {
+			submit(){
+				uni.$emit('popUpGo',{})
+			},
+			cancel(){
+				uni.$emit('popUpCancel',{})
+			}
+		}
+	}
+</script>
+
+<style>
+	.wrapper {
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: #fff;
+		width: 573rpx;
+		overflow:hidden;
+		padding: 48rpx 31rpx 47rpx 31rpx;
+		border-radius:38upx;
+	}
+	
+	.title{
+		font-size:38rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(221,141,69,1);
+		text-align: center;
+	}
+	.info{
+		width: 453rpx;
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(51,51,51,1);
+		line-height:36rpx;
+		margin-left: 28rpx;
+		margin-top: 32rpx;
+		text-align: center;
+	}
+	.bottom{
+		width: 511rpx;
+		flex-direction:row;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.button{
+		width:245rpx;
+		height:74rpx;
+		background-color:rgba(221,141,69,1);
+		border-radius:37rpx;
+	}
+	.buttonCancel{
+		width:245rpx;
+		height:74rpx;
+		border-radius:37rpx;
+		border-width:1px;
+		border-style:solid;
+		border-color:rgba(221,141,69,1);
+	}
+	.buttonText{
+		font-size:29rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(255,255,255,1);
+		line-height:36rpx;
+		width:245rpx;
+		text-align: center;
+		padding-top: 23rpx;
+	}
+	.buttonTextCancel{
+		font-size:29rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color: rgba(221,141,69,1);
+		line-height:36rpx;
+		width:245rpx;
+		text-align: center;
+		padding-top: 22rpx;
+	}
+</style>

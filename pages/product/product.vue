@@ -13,8 +13,8 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		<view class="headFoot">
-			<view class="text"><text>现在升级VIP，最高可</text><text class="red">赚</text><image class="mt" src="/static/productIcon02.png"></image><text class="red">赚{{vip}}元</text></view>
+		<view class="headFoot" v-if="!identity_type">
+			<view class="text"><text>现在升级VIP，最高可</text><text class="red">赚</text><image class="mt" src="/static/productIcon02.png"></image><text class="red">{{vip}}元</text></view>
 			<view class="button">
 				<image class="icon" src="/static/productIcon01.png"></image>
 				<view class="label">立即升级</view>
@@ -32,8 +32,8 @@
 				<text class="m-price">¥{{commodity_price}}</text>
 				<!-- <text class="coupon-tip">7折</text> -->
 			</view>
-			<view class="bot-row">
-				<text>预估收益</text><image class="mt" src="/static/productIcon02.png"></image><text>{{estimate}}</text>
+			<view class="bot-row" v-if="vip">
+				<text>预估收益</text><image class="mt" src="/static/productIcon02.png"></image><text>{{vip}}</text>
 				<!-- <text>库存: 4690</text>
 				<text>浏览量: 768</text> -->
 			</view>
@@ -52,7 +52,7 @@
 			</view>
 			
 		</view> -->
-		<view class="couponFrame">
+		<view class="couponFrame" v-if="coupon_face_value">
 			<image class="couponBG" src="/static/productIcon06.png"></image>
 			<view class="left">
 				<view class="price-tip">￥</view>
@@ -146,7 +146,7 @@
 				</view>
 				<view class="right" @click="buy">
 					<view class="title">购买</view>
-					<view class="dsc">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>64.81</view>
+					<view class="dsc" v-if="estimate">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>{{estimate}}</view>
 				</view>
 			</view>
 		</view>
@@ -202,12 +202,14 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import share from '@/components/share';
 	import {postFetch} from '@/util/request_UT.js';
 	import HJ_LBC from "@/js_sdk/hj-lbc/hj_lbc/hj_lbc.js";
 	import {encrypt64} from '@/util/security_UT.js'
 	var t ;
 	export default{
+		mixins:[allpage],
 		components: {
 			share
 		},
@@ -327,20 +329,22 @@
 			let _this=this;
 			postFetch('index.php/index/index/product_center',{id:this.id},false,function(res){
 				console.log('product_center',res)
-				_this.id=res.data[0].id
-				_this.pid=res.data[0].pid
-				_this.commodity_price=res.data[0].commodity_price
-				_this.coupon_face_value=res.data.coupon_face_value
-				_this.coupon_link=res.data[0].coupon_link
-				_this.header_img=res.data[0].header_img
-				_this.pro_url=res.data[0].pro_url
-				_this.product_name=res.data[0].product_name
-				_this.sales_volume=res.data[0].sales_volume
-				_this.shop_name=res.data[0].shop_name
-				_this.estimate=res.data.estimate
-				_this.post_coupon=res.data.post_coupon
-				_this.vip=res.data.vip
-				_this.tb_url=res.data[0].tb_url
+				_this.id=res.data.id//id
+				_this.pid=res.data.pid//淘宝id
+				_this.commodity_price=res.data.reserve_price//原价
+				_this.coupon_face_value=res.data.coupon//优惠券价格
+				_this.coupon_link=res.data.coupon_click_url//优惠券地址
+				_this.header_img=res.data.pict_url//商品图片
+				_this.pro_url=res.data.item_url//商品地址
+				_this.product_name=res.data.title//商品标题
+				_this.sales_volume=res.data.volume//销量
+				_this.shop_name=res.data.nick//店铺名
+				_this.estimate=res.data.save//省多少
+				_this.post_coupon=res.data.zk_final_price_wap1||res.data.zk_final_price_wap//券后价
+				_this.vip=res.data.commission//升级可赚,预估收益
+				// _this.save=res.data.reserve_price-res.data.zk_final_price_wap//省多少
+				// _this.tb_url=res.data[0].tb_url
+				_this.tb_url="tbopen://m.taobao.com/tbopen/index.html?action=ali.open.nav&module=h5&bootImage=0&source=sb&appkey=24585258&smbSid=D9usFXFt3CUCAWpUEmbJnqKl_1562771012228&rbbt=bc.mallDetail.6.0.0&params=%7B%22fid%22%3A%22Wq6WVWePzYK%22%2C%22mtopCostTime%22%3A%22602%22%2C%22_t%22%3A%221562771013928%22%7D&h5Url=https%3A%2F%2Fdetail.m.tmall.com%2Fitem.htm%3Fid%3D545617271936%26ali_trackid%3D2%253Amm_119358667_35544742_126462907%253A1562771005_146_947006687%26pvid%3Dnull%26scm%3Dnull%26e%3Dp1zr4pcBUutfRHk7Z7SOONK1O27zH5exMy-K7eYuUtD9Umq014SDk-EB843RIyUrz5TIqjXOFX8u5CK3qPnb4lYGFoZ0V7Qu1n2u1uaGfFRgsCpuYl5N_4Fi75dyoNakjIS9tDsfWnft889xAP7p2jp03STBeU8EESg8S2zmmcYTF6i4jJ3bKFV3p2QP3rdTNIRPse9zYAx9sOxrKwzrUKjUeRQ-baNrRbbhzKSdd6Buj8gkG7lyPXJNpUdEdxUwsmcYjUfw1pLyxfMlhoGmqyEXoVwCl-WxyneceYJe9jQVJFtDE6_qOAMjmLAC-HTKdL9elmNoMI-b0YmewATGuG3qGSkGjcFH-YgNcLKYkqVb8VTdan73Yx5l5jApKhRTBzCw_9olP8KLGcjuwgWuxNQDEIJrpqdyy8CEDSc0Uk_EXzm7ZfO5Mg%26type%3D2%26tk_cps_param%3D119358667%26tkFlag%3D0%26point%3D%25257B%252522from%252522%25253A%252522h5%252522%25252C%252522ali_trackid%252522%25253A%2525222%25253Amm_119358667_35544742_126462907%25253A1562771005_146_947006687%252522%25252C%252522h5_uid%252522%25253A%252522D9usFXFt3CUCAWpUEmbJnqKl%252522%25252C%252522ap_uri%252522%25253A%252522sb_redirect_auto%252522%25252C%252522page%252522%25253A%252522mallDetail%252522%25252C%252522callType%252522%25253A%252522scheme%252522%25257D"
 				if(uni.getStorageSync('productHistory') && Array.isArray(uni.getStorageSync('productHistory'))){
 					
 					let aKey={}
@@ -381,6 +385,11 @@
 				this.liked=uni.getStorageSync('likeList')[this.id]||false
 			}catch(e){
 				this.liked=false
+			}
+		},
+		computed:{
+			identity_type(){
+				return this.$store.state.userST.identity_type
 			}
 		},
 		methods:{
@@ -426,36 +435,39 @@
 				let _this=this;
 				// let tburl=_this.pro_url.replace('http:','tbopen:')
 				url=encrypt64(url)
-				if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:url})){
-						console.log("淘宝应用已安装");
-						plus.runtime.openURL(_this.tb_url)
-						// if ( plus.os.name == "Android" ) {
-						// 		plus.runtime.launchApplication( {pname:"com.taobao.taobao"
-						// 			,extra:{url:tburl}}, function ( e ) {
-						// 				uni.showToast({
-						// 					title:"打开淘宝失败",
-						// 					icon:"none"
-						// 				})
-						// 				uni.navigateTo({
-						// 					url:'/pages/yijiayou/yijiayou?url='+url
-						// 				})
-						// 		} );
-						// 	} else if ( plus.os.name == "iOS" ) {
-						// 		plus.runtime.launchApplication( {action:tburl}, function ( e ) {
-						// 			uni.showToast({
-						// 				title:"打开淘宝失败",
-						// 				icon:"none"
-						// 			})
-						// 			uni.navigateTo({
-						// 				url:'/pages/yijiayou/yijiayou?url='+url
-						// 			})
-						// 		} );
-						// 	}
-					}else{
-						uni.navigateTo({
-							url:'/pages/yijiayou/yijiayou?url='+url
-						})
-					}
+				uni.navigateTo({
+					url:'/pages/yijiayou/yijiayou?url='+url
+				})
+				// if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:_this.tb_url})){
+				// 		console.log("淘宝应用已安装");
+				// 		// plus.runtime.openURL(_this.tb_url)
+				// 		if ( plus.os.name == "Android" ) {
+				// 				plus.runtime.launchApplication( {pname:'com.taobao.taobao'
+				// 					,extra:{url:_this.tb_url}}, function ( e ) {
+				// 						uni.showToast({
+				// 							title:"打开淘宝失败",
+				// 							icon:"none"
+				// 						})
+				// 						uni.navigateTo({
+				// 							url:'/pages/yijiayou/yijiayou?url='+url
+				// 						})
+				// 				} );
+				// 			} else if ( plus.os.name == "iOS" ) {
+				// 				plus.runtime.launchApplication( {action:_this.tb_url}, function ( e ) {
+				// 					uni.showToast({
+				// 						title:"打开淘宝失败",
+				// 						icon:"none"
+				// 					})
+				// 					uni.navigateTo({
+				// 						url:'/pages/yijiayou/yijiayou?url='+url
+				// 					})
+				// 				} );
+				// 			}
+				// 	}else{
+				// 		uni.navigateTo({
+				// 			url:'/pages/yijiayou/yijiayou?url='+url
+				// 		})
+				// 	}
 			},
 			//规格弹窗开关
 			toggleSpec() {
@@ -517,36 +529,39 @@
 				// })
 				// plus.runtime.openURL(this.pro_url)
 				let url=encrypt64(this.pro_url)
-				if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:this.pro_url})){
-						console.log("淘宝应用已安装");
-						// if ( plus.os.name == "Android" ) {
-						// 		plus.runtime.launchApplication( {pname:'com.taobao.taobao'
-						// 			,extra:{url:this.pro_url}}, function ( e ) {
-						// 				uni.showToast({
-						// 					title:"打开淘宝失败",
-						// 					icon:"none"
-						// 				})
-						// 				uni.navigateTo({
-						// 					url:'/pages/yijiayou/yijiayou?url='+url
-						// 				})
-						// 		} );
-						// 	} else if ( plus.os.name == "iOS" ) {
-						// 		plus.runtime.launchApplication( {action:tburl}, function ( e ) {
-						// 			uni.showToast({
-						// 				title:"打开淘宝失败",
-						// 				icon:"none"
-						// 			})
-						// 			uni.navigateTo({
-						// 				url:'/pages/yijiayou/yijiayou?url='+url
-						// 			})
-						// 		} );
-						// 	}
-						plus.runtime.openURL(_this.tb_url)
-					}else{
-						uni.navigateTo({
-							url:'/pages/yijiayou/yijiayou?url='+url
-						})
-					}
+				uni.navigateTo({
+					url:'/pages/yijiayou/yijiayou?url='+url
+				})
+				// if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:_this.tb_url})){
+				// 		console.log("淘宝应用已安装");
+				// 		if ( plus.os.name == "Android" ) {
+				// 				plus.runtime.launchApplication( {pname:'com.taobao.taobao'
+				// 					,extra:{url:_this.tb_url}}, function ( e ) {
+				// 						uni.showToast({
+				// 							title:"打开淘宝失败",
+				// 							icon:"none"
+				// 						})
+				// 						uni.navigateTo({
+				// 							url:'/pages/yijiayou/yijiayou?url='+url
+				// 						})
+				// 				} );
+				// 			} else if ( plus.os.name == "iOS" ) {
+				// 				plus.runtime.launchApplication( {action:_this.tb_url}, function ( e ) {
+				// 					uni.showToast({
+				// 						title:"打开淘宝失败",
+				// 						icon:"none"
+				// 					})
+				// 					uni.navigateTo({
+				// 						url:'/pages/yijiayou/yijiayou?url='+url
+				// 					})
+				// 				} );
+				// 			}
+				// 		// plus.runtime.openURL(_this.tb_url)
+				// 	}else{
+				// 		uni.navigateTo({
+				// 			url:'/pages/yijiayou/yijiayou?url='+url
+				// 		})
+				// 	}
 			},
 			stopPrevent(){},
 			like(){

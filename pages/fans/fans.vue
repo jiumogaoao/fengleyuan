@@ -93,7 +93,9 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	export default {
+		mixins:[allpage],
 		data() {
 			return {
 				step:0
@@ -106,8 +108,8 @@
 		},
 		computed:{
 			phone(){return this.$store.state.userST.phone},
-			nickname(){return this.$store.state.userST.superior},
-			head(){return this.$store.state.userST.superior_head || '/state/vipIcon.png'}
+			nickname(){return this.$store.state.userST.pinvitation},
+			head(){return this.$store.state.userST.superior_head || '/static/vipIcon.png'}
 			
 		}
 	}

@@ -37,10 +37,12 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import {  
 	    mapMutations  
 	} from 'vuex';
 	export default {
+		mixins:[allpage],
 		data() {
 			return {
 				

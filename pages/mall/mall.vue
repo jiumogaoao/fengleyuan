@@ -146,8 +146,10 @@
 </template>
 
 <script>
+	import allpage from '@/mixin/allPage'
 	import navBarCP from '@/components/navBar_CP.vue'
 	export default {
+		mixins:[allpage],
 		components:{
 			navBarCP
 		},
@@ -161,14 +163,14 @@
 			};
 		},
 		onShow(){
-			uni.showToast({
-					title:'暂未开放，敬请期待',
-					icon:'none',
-					duration:3000
-			})
-			uni.switchTab({
-			    url: '/pages/index/index'
-			});
+			// uni.showToast({
+			// 		title:'暂未开放，敬请期待',
+			// 		icon:'none',
+			// 		duration:3000
+			// })
+			// uni.switchTab({
+			//     url: '/pages/index/index'
+			// });
 		},
 		onLoad() {
 			this.loadData();
