@@ -272,7 +272,7 @@
 				<text class="tit">猜你喜欢</text>
 				<text class="tit2">Guess You Like It</text>
 			</view>
-			<text class="yticon icon-you"></text>
+			<!-- <text class="yticon icon-you"></text> -->
 		</view>
 		
 		<!-- <view class="guess-section">
