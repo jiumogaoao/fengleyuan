@@ -205,7 +205,6 @@
 	import allpage from '@/mixin/allPage'
 	import share from '@/components/share';
 	import {postFetch} from '@/util/request_UT.js';
-	import HJ_LBC from "@/js_sdk/hj-lbc/hj_lbc/hj_lbc.js";
 	import {encrypt64} from '@/util/security_UT.js'
 	var t ;
 	export default{
@@ -316,18 +315,21 @@
 			};
 		},
 		async onLoad(options){
-			t = new HJ_LBC(this,{
-			                appkey:"28164312",//百川的appkey,注册一个应用后看详情下
-			                backUrl:"tbopen28164312" ,//用于在按返回键时从淘宝直接返回本APP
-			                linkKey: 'TB',//或者 TM 代表淘宝和天猫
-			            }) ; //初始化
 			this.id = options.id;
+		},
+		onShow(){
+			let _this = this; 
+			// t = new HJ_LBC(this,{
+			//                 appkey:"28164312",//百川的appkey,注册一个应用后看详情下
+			//                 backUrl:"tbopen28164312" ,//用于在按返回键时从淘宝直接返回本APP
+			//                 linkKey: 'TB',//或者 TM 代表淘宝和天猫
+			//             }) ; //初始化
+			
 			//接收传值,id里面放的是标题，因为测试数据并没写id 
 			let id = options.id;
 			// if(id){
 			// 	this.$api.msg(`点击了${id}`);
 			// }
-			let _this=this;
 			postFetch('index.php/index/index/product_center',{id:this.id},false,function(res){
 				console.log('product_center',res)
 				_this.id=res.data.id//id
@@ -380,9 +382,6 @@
 				}
 			})
 			this.shareList = await this.$api.json('shareList');
-		},
-		onShow(){
-			let _this = this; 
 			try{
 				this.followed=uni.getStorageSync('followList')[this.id]?true:false
 			}catch(e){
