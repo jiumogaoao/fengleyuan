@@ -381,7 +381,7 @@
 					}
 				}
 			})
-			this.shareList = await this.$api.json('shareList');
+			this.shareList = this.$api.json('shareList');
 			try{
 				this.followed=uni.getStorageSync('followList')[this.id]?true:false
 			}catch(e){

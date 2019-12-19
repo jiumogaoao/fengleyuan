@@ -1,5 +1,6 @@
 <template>
-			<web-view :src="url" :webview-styles="st" class="webview"></web-view>
+				<!-- <web-view :src="url" :webview-styles="st" class="webview"></web-view> -->
+				<view></view>
 </template>
 
 <script>
@@ -20,17 +21,7 @@
 			};
 		},
 		onShow(){
-			let _this=this;
-			var currentWebview = this.$mp.page.$getAppWebview() //获取当前页面的webview对象
-			 //       setTimeout(function() {
-				// if(_this.showTitle){
-				// 	_this.dl=setInterval(function(){
-				// 		uni.setNavigationBarTitle({
-				// 			title:_this.showTitle
-				// 		})
-				// 	},500)
-				// }
-			 //       }, 500); //如果是页面初始化调用时，需要延时一下
+			
 		},
 		onHide(){
 			// clearInterval(this.dl)
@@ -44,6 +35,28 @@
 			if(option.title){
 				this.showTitle=option.title
 			}
+			var currentWebview = this.$mp.page.$getAppWebview() //获取当前页面的webview对象
+			       setTimeout(function() {
+				if(_this.showTitle){
+					// _this.dl=setInterval(function(){
+						uni.setNavigationBarTitle({
+							title:_this.showTitle
+						})
+					// },500)
+				}
+				let wv=plus.webview.open(_this.url,"wv",{
+					"zindex":0,
+					"top":60,
+					"left":0,
+					"right":0,
+					"bottom":0
+				},null,null,function(){
+					const subNVue = uni.getSubNVueById('title')
+					subNVue.show('none',0,()=>{
+						console.log("显示头部")
+					})
+				})
+			       }, 500); //如果是页面初始化调用时，需要延时一下
 		},
 		onNavigationBarButtonTap(e) {
 			const index = e.index;

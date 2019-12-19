@@ -399,7 +399,21 @@
 		},{
             "path" : "pages/yijiayou/yijiayou",
             "style" : {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"app-plus": {
+							"subNVues":[
+								{
+									"id":"title",
+									"path":"pages/subNVues/title.nvue",
+									"type":"navigationBar",
+									"style": {
+										"margin": "auto",
+										"width": "100%",
+										"height": "44px",
+										"zindex":9999999999999
+									}
+								}]
+							}
 			}
         }
     ],
