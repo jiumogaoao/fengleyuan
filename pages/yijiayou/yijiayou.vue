@@ -17,7 +17,8 @@
 				st:{
 
 				},
-				dl:null
+				dl:null,
+				wv:null
 			};
 		},
 		onShow(){
@@ -28,6 +29,9 @@
 		},
 		onReady(){
 			
+		},
+		onBackPress(){
+			this.wv.close()
 		},
 		onLoad(option){
 			let _this=this;
@@ -44,7 +48,7 @@
 						})
 					// },500)
 				}
-				let wv=plus.webview.open(_this.url,"wv",{
+				_this.wv=plus.webview.open(_this.url,"wv",{
 					"zindex":0,
 					"top":60,
 					"left":0,
