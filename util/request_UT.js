@@ -9,8 +9,19 @@ let accessToken = "";
 let frontendAppId= "";
 let getCache = {}
 let postCache = {}
+let network=true;
+
+export const setNetwork = (v)=>{
+	network = v
+}
 
 export const getFetch =  async (url,params = {},CDN,callback) => {
+	if(!network){
+		uni.navigateTo({
+					url:'/pages/noNetwork/noNetwork'
+				})
+		return;
+	}
 	var cacheKey = encrypt64(url + JSON.stringify(params))
 	// if(getCache[cacheKey] && ((new Date().getTime()) - getCache[cacheKey].time) < config.updateTime){
 	// 	logTag('已有缓存',cacheKey)
@@ -67,6 +78,12 @@ export const getFetch =  async (url,params = {},CDN,callback) => {
 };
 
 export const postFetch =  async (url,params = {},CDN,callback) => {
+	if(!network){
+		uni.navigateTo({
+					url:'/pages/noNetwork/noNetwork'
+				})
+		return;
+	}
 	var cacheKey = encrypt64(url + JSON.stringify(params))
 	var time = new Date().getTime()
 	var token = MD5('controller'+time)

@@ -403,7 +403,7 @@
 		},
 		methods: {
 			navTo(url){
-				if(!this.hasLogin){
+				if(!this.$store.state.userST.phone){
 					url = '/pages/public/login';
 				}
 				uni.navigateTo({  

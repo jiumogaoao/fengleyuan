@@ -2,6 +2,7 @@
 	/**
 	 * vuex管理登陆状态，具体可以参考官方登陆模板示例
 	 */
+	import {setNetwork} from '@/util/request_UT.js'
 	export default {
 		data:{
 
@@ -37,13 +38,13 @@
 						// 	title:res.networkType
 						// })
 						if(res.networkType=='none'){
-							_this.$store.dispatch('userST/network',false)
+							setNetwork(false)
 						}else{
-							_this.$store.dispatch('userST/network',true)
+							setNetwork(true)
 						}
 				    },
 					fail:function(){
-						_this.$store.dispatch('userST/network',false)
+						setNetwork(false)
 					}
 				});
 			},800)
@@ -55,21 +56,21 @@
 			console.log('App Hide')
 		},
 		computed:{
-			noNetwork(){
-				return this.$store.state.userST.network
-			}
+			// noNetwork(){
+			// 	return this.$store.state.userST.network
+			// }
 		},
 		watch:{
-			noNetwork(val){
-				// console.log('nonetwork',val)
-				if(val){
-					uni.navigateBack()
-				}else{
-					uni.navigateTo({
-						url:'/pages/noNetwork/noNetwork'
-					})
-				}
-			}
+			// noNetwork(val){
+			// 	// console.log('nonetwork',val)
+			// 	if(val){
+			// 		uni.navigateBack()
+			// 	}else{
+			// 		uni.navigateTo({
+			// 			url:'/pages/noNetwork/noNetwork'
+			// 		})
+			// 	}
+			// }
 		}
 	}
 </script>

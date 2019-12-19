@@ -52,7 +52,7 @@ export default {
 	}
   },
   actions:{
-	  setCacheTitle(context,data){debugger;
+	  setCacheTitle(context,data){
 		  context.commit('setCacheTitle',data)
 	  },
 	  network(context,data){

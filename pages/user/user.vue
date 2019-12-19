@@ -17,12 +17,16 @@
 			</view>
 			<view class="vip-card-box">
 				<image class="card-bg" src="/static/vip-card-bg.png" mode=""></image>
-				<view class="b-btn" @click="navTo('/pages/vip/vip')">
+				<view class="b-btn" @click="navTo('/pages/vip/vip')" v-if="!identity_type">
 					立即开通
 				</view>
 				<view class="tit">
 					<text class="yticon icon-iLinkapp-"></text>
-					蜜蜂天堂会员
+					{{identity_type==0 && phone?'普通会员':''}}
+					{{identity_type==0 && !phone?'蜜蜂天堂会员':''}}
+					{{identity_type==1?'VIP会员':''}}
+					{{identity_type==2?'合伙人':''}}
+					{{identity_type==3?'联合创始人':''}}
 				</view>
 				<!-- <text class="e-m">蜜蜂天堂 Union</text> -->
 				<text class="e-b">会员等级越高，消费奖励越丰厚，更多精彩，等您发现</text>
@@ -96,12 +100,12 @@
 			</view>
 			<!-- 浏览历史 -->
 			<view class="history-section icon">
-				<view class="sec-header">
+				<view class="sec-header" v-if="historyList.length">
 					<text class="yticon icon-lishijilu"></text>
 					<text>浏览历史</text>
 				</view>
-				<scroll-view scroll-x class="h-list">
-					<image @click="popOut(v.pro_url)" :src="v.header_img" mode="aspectFill" v-for="(v,i) in historyList" :key="i"></image>
+				<scroll-view scroll-x class="h-list" v-if="historyList.length">
+					<image @click="popOut(v.item_url)" :src="v.pict_url" mode="aspectFill" v-for="(v,i) in historyList" :key="i"></image>
 				</scroll-view>
 				<!-- <list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="我的钱包" tips="您的会员还有3天过期"></list-cell> -->
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/address')"></list-cell>
@@ -133,11 +137,12 @@
 				coverTransform: 'translateY(0px)',
 				coverTransition: '0s',
 				moving: false,
-				historyList:uni.getStorageSync('productHistory')||[]
+				historyList:[]
 			}
 		},
 		onShow(){
-			this.historyList=uni.getStorageSync('productHistory')||[]
+			let productHistory = uni.getStorageSync('productHistory')
+			this.$set(this,"historyList",productHistory||[])
 		},
 		onLoad(){
 		},
@@ -177,6 +182,9 @@
 			avatar(){
 				return this.$store.state.userST.avatar
 			},
+			identity_type(){
+				return this.$store.state.userST.identity_type
+			}
 		},
         methods: {
 			go(url){

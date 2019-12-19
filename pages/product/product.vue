@@ -33,7 +33,7 @@
 				<!-- <text class="coupon-tip">7折</text> -->
 			</view>
 			<view class="bot-row" v-if="vip">
-				<text>预估收益</text><image class="mt" src="/static/productIcon02.png"></image><text>{{income}}</text>
+				<view>预估收益</view><image class="mt" src="/static/productIcon02.png"></image><view>{{income}}</view>
 				<!-- <text>库存: 4690</text>
 				<text>浏览量: 768</text> -->
 			</view>
@@ -234,6 +234,7 @@
 				specSelected:[],
 				shop_name:'',
 				favorite: true,
+				income:0,
 				shareList: [],
 				imgList: [
 					{
@@ -346,20 +347,25 @@
 				// _this.save=res.data.reserve_price-res.data.zk_final_price_wap//省多少
 				// _this.tb_url=res.data[0].tb_url
 				_this.tb_url="tbopen://m.taobao.com/tbopen/index.html?action=ali.open.nav&module=h5&bootImage=0&source=sb&appkey=24585258&smbSid=D9usFXFt3CUCAWpUEmbJnqKl_1562771012228&rbbt=bc.mallDetail.6.0.0&params=%7B%22fid%22%3A%22Wq6WVWePzYK%22%2C%22mtopCostTime%22%3A%22602%22%2C%22_t%22%3A%221562771013928%22%7D&h5Url=https%3A%2F%2Fdetail.m.tmall.com%2Fitem.htm%3Fid%3D545617271936%26ali_trackid%3D2%253Amm_119358667_35544742_126462907%253A1562771005_146_947006687%26pvid%3Dnull%26scm%3Dnull%26e%3Dp1zr4pcBUutfRHk7Z7SOONK1O27zH5exMy-K7eYuUtD9Umq014SDk-EB843RIyUrz5TIqjXOFX8u5CK3qPnb4lYGFoZ0V7Qu1n2u1uaGfFRgsCpuYl5N_4Fi75dyoNakjIS9tDsfWnft889xAP7p2jp03STBeU8EESg8S2zmmcYTF6i4jJ3bKFV3p2QP3rdTNIRPse9zYAx9sOxrKwzrUKjUeRQ-baNrRbbhzKSdd6Buj8gkG7lyPXJNpUdEdxUwsmcYjUfw1pLyxfMlhoGmqyEXoVwCl-WxyneceYJe9jQVJFtDE6_qOAMjmLAC-HTKdL9elmNoMI-b0YmewATGuG3qGSkGjcFH-YgNcLKYkqVb8VTdan73Yx5l5jApKhRTBzCw_9olP8KLGcjuwgWuxNQDEIJrpqdyy8CEDSc0Uk_EXzm7ZfO5Mg%26type%3D2%26tk_cps_param%3D119358667%26tkFlag%3D0%26point%3D%25257B%252522from%252522%25253A%252522h5%252522%25252C%252522ali_trackid%252522%25253A%2525222%25253Amm_119358667_35544742_126462907%25253A1562771005_146_947006687%252522%25252C%252522h5_uid%252522%25253A%252522D9usFXFt3CUCAWpUEmbJnqKl%252522%25252C%252522ap_uri%252522%25253A%252522sb_redirect_auto%252522%25252C%252522page%252522%25253A%252522mallDetail%252522%25252C%252522callType%252522%25253A%252522scheme%252522%25257D"
-				if(uni.getStorageSync('productHistory') && Array.isArray(uni.getStorageSync('productHistory'))){
-					
+				let productHistory = uni.getStorageSync('productHistory')
+				if(productHistory && Array.isArray(productHistory)){
 					let aKey={}
-					aKey[res.data[0].id]=1;
-					let aArray=[res.data[0]]
-					uni.getStorageSync('productHistory').map(function(v){
-						if(!aKey[v.id]){
-							aKey[v.id]=1;
-							aArray.push(v)
-						}
-					});
-					uni.setStorageSync('productHistory',aArray)
+					aKey[res.data.id]=1;
+					let aArray=[res.data]
+					try{
+						productHistory.map(function(v){
+							if(!aKey[v.id]){
+								aKey[v.id]=1;
+								aArray.push(v)
+							}
+						});
+						uni.setStorageSync('productHistory',aArray)
+					}catch(e){
+						uni.setStorageSync('productHistory',[res.data])
+					}
+					
 				}else{
-					uni.setStorageSync('productHistory',[res.data[0]])
+					uni.setStorageSync('productHistory',[res.data])
 				}
 			})
 			
@@ -722,7 +728,8 @@
 			transform: translateY(-4upx); 
 		}
 		.bot-row{
-			width:186rpx;
+			/* width:186rpx; */
+			padding: 0 10rpx;
 			height:37rpx;
 			background-color: #FFE0A5;
 			font-size:24rpx;
@@ -731,6 +738,8 @@
 			color:rgba(49,33,8,1);
 			text-align: center;
 			line-height: 37rpx;
+			display: flex;
+			align-items: center;
 		}
 	}
 	.couponFrame{

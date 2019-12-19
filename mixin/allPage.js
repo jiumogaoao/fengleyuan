@@ -24,10 +24,10 @@ module.exports = {
 	onShow(){
 		let _this=this
 		// if(!uni.getStorageSync('cacheCheck')){
+			
 			uni.getClipboardData({
 			    success: function (res) {
-			        console.log(res.data);
-					if(res.data.length){
+					if(res.data.length && uni.getStorageSync('firstIn')==1 && _this.$store.state.userST.cacheTitle != res.data){
 						const subNVue = uni.getSubNVueById('catchPopup')
 							uni.$off('popUpCancel')
 							uni.$on('popUpCancel',function(){
@@ -45,15 +45,15 @@ module.exports = {
 							setTimeout(function(){
 								subNVue.show('popup',200,()=>{
 									uni.$emit('cacheTitle',res.data)
-									// _this.$store.dispatch("userST/setCacheTitle",res.data)
+									_this.$store.dispatch("userST/setCacheTitle",res.data)
 								    console.log('subNVue 原生子窗体显示成功');
 									// uni.setStorageSync('cacheCheck',1)
-									uni.setClipboardData({
-									    data: '',
-									    success: function () {
-									        console.log('清除缓存成功');
-									    }
-									});
+									// uni.setClipboardData({
+									//     data: '',
+									//     success: function () {
+									//         console.log('清除缓存成功');
+									//     }
+									// });
 								})
 							},1000)
 					}
