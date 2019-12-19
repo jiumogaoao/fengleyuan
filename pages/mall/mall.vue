@@ -1,480 +1,417 @@
 <template>
-	<view class="container" v-if="false">
-		<!-- 小程序头部兼容 -->
-		<!-- #ifdef MP -->
-		<view class="mp-search-box">
-			<input class="ser-input" type="text" value="输入关键字搜索" disabled />
-		</view>
-		<!-- #endif -->
-		<!-- 头部轮播 -->
-		<view class="carousel-section">
-			<!-- 标题栏和状态栏占位符 -->
-			<view class="titleNview-placing"></view>
-			<!-- 背景色区域 -->
-			<view class="titleNview-background" :style="{backgroundColor:titleNViewBackground}"></view>
-			<swiper class="carousel" circular @change="swiperChange">
-				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
-					<image :src="item.src" />
+	<view class="container">
+		<image src="/static/mallBG.png" class="bg"></image>
+		<view class="bigTitle">蜂巢优选</view>
+		<scroll-view class="scroll" :scroll-y="true">
+			<view class="topFrame">
+				<view class="left">
+					<image class="avatar" src="/static/missing-face.png"></image>
+					<view class="info">
+						<view class="name">普通用户小明</view>
+						<view class="typeFrame">
+							<image class="typeIcon" src="/static/d1.png"></image>
+							<view class="typeName">普通会员</view>
+						</view>
+					</view>
+				</view>
+				<view class="right">
+					<view class="canUseTitle">可用蜜糖</view>
+					<view class="canUseFrame">
+						<image class="mt" src="/static/productIcon02.png"></image>
+						<view class="canUse">123,123.<text>456</text></view>
+					</view>
+				</view>
+			</view>
+			<swiper class="carousel" circular :autoplay="true" :interval="4000">
+				<swiper-item>
+					<image src="/static/mallBanner.png"/>
 				</swiper-item>
 			</swiper>
-			<!-- 自定义swiper指示器 -->
-			<view class="swiper-dots">
-				<text class="num">{{swiperCurrent+1}}</text>
-				<text class="sign">/</text>
-				<text class="num">{{swiperLength}}</text>
-			</view>
-		</view>
-		<view class="ad-1">
-			<image src="/static/temp/ad1.jpg" mode="scaleToFill"></image>
-		</view>
-		<!-- 分类 -->
-		<view class="cate-section">
-			<view class="cate-item">
-				<image src="/static/temp/c3.png"></image>
-				<text>环球美食</text>
-			</view>
-			<view class="cate-item">
-				<image src="/static/temp/c5.png"></image>
-				<text>个护美妆</text>
-			</view>
-			<view class="cate-item">
-				<image src="/static/temp/c6.png"></image>
-				<text>营养保健</text>
-			</view>
-			<view class="cate-item">
-				<image src="/static/temp/c7.png"></image>
-				<text>家居厨卫</text>
-			</view>
-			<view class="cate-item">
-				<image src="/static/temp/c8.png"></image>
-				<text>速食生鲜</text>
-			</view>
-		</view>
-		
-		<view class="ad-1">
-			<image src="/static/temp/ad1.jpg" mode="scaleToFill"></image>
-		</view>
-		<image class="promo1" src="/static/pomo.png"></image>
-		<view class="shopFrame">
-			<view class="top">
-				<view class="left">
-					<image class="avatar" src="/static/icon0.png"></image>
-					<view class="info">
-						<view class="title">歌菲府</view>
-						<view class="type">塑身毛衣</view>
+			<view class="promoFrame">
+				<view class="promoSubFrame promoLeft">
+					<view class="title">新人专享</view>
+					<view class="dsc">蜜粉邀请必备</view>
+					<view class="red">拉新活动</view>
+					<image class="promo" src="/static/mallPromo0.png"></image>
+				</view>
+				<view class="promoRight">
+					<view class="promoSubFrame promoTop">
+						<view class="title">蜜蜂优选</view>
+						<view class="dsc">源头精选 员工福利</view>
+						<image class="promo" src="/static/mallPromo1.png"></image>
+					</view>
+					<view class="promoSubFrame promoBottom">
+						<view class="title">红包0元购</view>
+						<view class="dsc">高效助理拉新</view>
+						<image class="promo" src="/static/mallPromo2.png"></image>
 					</view>
 				</view>
-				<view class="go" @click="navToShopPage(0)">去抢购 ></view>
+			</view>
+			<view class="titleFrame">
+				<image class="titlePoint img" src="/static/mallTitle0.png"></image>
+				<view class="titleName">会员特惠礼包专区</view>
+				<image class="titlePoint img" src="/static/mallTitle1.png"></image>
 			</view>
 			<view class="goodList">
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop0.png" class="pic"></image>
-					<view class="name">蓝色打底毛衣女</view>
-					<view class="price">￥96</view>
-				</view>
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop1.png" class="pic"></image>
-					<view class="name">马卡龙黄色手机壳</view>
-					<view class="price">￥83</view>
-				</view>
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop2.png" class="pic"></image>
-					<view class="name">马卡龙黄色手机壳</view>
-					<view class="price">￥85</view>
-				</view>
-			</view>
-		</view>
-		<view class="shopFrame">
-			<view class="top">
-				<view class="left">
-					<image class="avatar" src="/static/icon1.png"></image>
-					<view class="info">
-						<view class="title">酷洋数码</view>
-						<view class="type blue">电子数码</view>
+				<view class="good">
+					<image class="goodImg"></image>
+					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+					<view class="goodBottom">
+						<view class="price"><text>￥</text>365</view>
+						<view class="vipFrame">
+							<image class="vipIcon" src="/static/d0.png"></image>
+							<view class="vipDay">送365天VIP权益</view>
+						</view>
 					</view>
 				</view>
-				<view class="go" @click="navToShopPage(0)">去抢购 ></view>
-			</view>
-			<view class="goodList">
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop3.png" class="pic"></image>
-					<view class="name">马卡龙红色手机壳</view>
-					<view class="price">￥53</view>
-				</view>
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop4.png" class="pic"></image>
-					<view class="name">马卡龙黄色手机壳</view>
-					<view class="price">￥53</view>
-				</view>
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop5.png" class="pic"></image>
-					<view class="name">马卡龙透明手机壳</view>
-					<view class="price">￥70</view>
-				</view>
-			</view>
-		</view>
-		<view class="shopFrame">
-			<view class="top">
-				<view class="left">
-					<image class="avatar" src="/static/icon2.png"></image>
-					<view class="info">
-						<view class="title">耐驰</view>
-						<view class="type blue">真皮男鞋</view>
+				<view class="good odd">
+					<image class="goodImg"></image>
+					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+					<view class="goodBottom">
+						<view class="price"><text>￥</text>365</view>
+						<view class="vipFrame">
+							<image class="vipIcon" src="/static/d0.png"></image>
+							<view class="vipDay">送365天VIP权益</view>
+						</view>
 					</view>
 				</view>
-				<view class="go" @click="navToShopPage(0)">去抢购 ></view>
 			</view>
-			<view class="goodList">
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop6.png" class="pic"></image>
-					<view class="name">欧洲站男孩</view>
-					<view class="price">￥130</view>
-				</view>
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop7.png" class="pic"></image>
-					<view class="name">秋冬季潮鞋</view>
-					<view class="price">￥120</view>
-				</view>
-				<view class="good" @click="navToDetailPage(0)">
-					<image src="/static/shop8.png" class="pic"></image>
-					<view class="name">真皮高帮鞋</view>
-					<view class="price">￥115</view>
-				</view>
+			<view class="titleFrame">
+				<view class="titlePoint"></view>
+				<view class="titleName">新品上架</view>
+				<view class="titlePoint"></view>
 			</view>
-		</view>
+			<view class="titleFrame">
+				<view class="titlePoint"></view>
+				<view class="titleName">正在热卖</view>
+				<view class="titlePoint"></view>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
 	import allpage from '@/mixin/allPage'
-	import navBarCP from '@/components/navBar_CP.vue'
+
 	export default {
 		mixins:[allpage],
 		components:{
-			navBarCP
+			
 		},
 		data() {
 			return {
-				titleNViewBackground: '',
-				swiperCurrent: 0,
-				swiperLength: 0,
-				carouselList: [],
-				goodsList: []
+				
 			};
 		},
 		onShow(){
-			// uni.showToast({
-			// 		title:'暂未开放，敬请期待',
-			// 		icon:'none',
-			// 		duration:3000
-			// })
-			// uni.switchTab({
-			//     url: '/pages/index/index'
-			// });
+
 		},
 		onLoad() {
-			this.loadData();
+			
 		},
 		methods: {
-			/**
-			 * 请求静态数据只是为了代码不那么乱
-			 * 分次请求未作整合
-			 */
-			async loadData() {
-				let carouselList = await this.$api.json('carouselList');
-				this.titleNViewBackground = carouselList[0].background;
-				this.swiperLength = carouselList.length;
-				this.carouselList = carouselList;
-				
-				let goodsList = await this.$api.json('goodsList');
-				this.goodsList = goodsList || [];
-			},
-			//轮播图切换修改背景色
-			swiperChange(e) {
-				const index = e.detail.current;
-				this.swiperCurrent = index;
-				this.titleNViewBackground = this.carouselList[index].background;
-			},
-			//店铺
-			navToShopPage(item) {
-				uni.navigateTo({
-					url: `/pages/shop/shop?id=${item}`
-				})
-			},
-			//详情页
-			navToDetailPage(item) {
-				uni.navigateTo({
-					url: `/pages/product/product?id=${item}`
-				})
-			},
-		},
-		// #ifndef MP
-		// 标题栏input搜索框点击
-		onNavigationBarSearchInputClicked: async function(e) {
-			this.$api.msg('点击了搜索框');
-		},
-		//点击导航栏 buttons 时触发
-		onNavigationBarButtonTap(e) {
-			const index = e.index;
-			if (index === 0) {
-				this.$api.msg('点击了扫描');
-			} else if (index === 1) {
-				// #ifdef APP-PLUS
-				const pages = getCurrentPages();
-				const page = pages[pages.length - 1];
-				const currentWebview = page.$getAppWebview();
-				currentWebview.hideTitleNViewButtonRedDot({
-					index
-				});
-				// #endif
-				uni.navigateTo({
-					url: '/pages/notice/notice'
-				})
-			}
+			
 		}
-		// #endif
 	}
 </script>
 
 <style lang="scss" scoped>
-	/* #ifdef MP */
-	.mp-search-box{
-		position:absolute;
-		left: 0;
-		top: 30upx;
-		z-index: 9999;
-		width: 100%;
-		padding: 0 80upx;
-		.ser-input{
-			flex:1;
-			height: 56upx;
-			line-height: 56upx;
-			text-align: center;
-			font-size: 28upx;
-			color:$font-color-base;
-			border-radius: 20px;
-			background: rgba(255,255,255,.6);
-		}
-	}
-	page{
-		.cate-section{
-			position:relative;
-			z-index:5;
-			border-radius:16upx 16upx 0 0;
-			margin-top:-20upx;
-		}
-		.carousel-section{
-			padding: 0;
-			.titleNview-placing {
-				padding-top: 0;
-				height: 0;
-			}
-			.carousel{
-				.carousel-item{
-					padding: 0;
-				}
-			}
-			.swiper-dots{
-				left:45upx;
-				bottom:40upx;
-			}
-		}
-	}
-	/* #endif */
-	
-	
-	page {
-		background: #f8f8f8;
-	}
-	.m-t{
-		margin-top: 16upx;
-	}
-	/* 头部 轮播图 */
-	.carousel-section {
-		position: relative;
-		padding-top: 10px;
-
-		.titleNview-placing {
-			height: var(--status-bar-height);
-			padding-top: 0px;
-			box-sizing: content-box;
-		}
-
-		.titleNview-background {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 426upx;
-			transition: .4s;
-		}
-	}
-	.carousel {
-		width: 100%;
-		height: 350upx;
-
-		.carousel-item {
-			width: 100%;
-			height: 100%;
-			padding: 0 28upx;
-			overflow: hidden;
-		}
-
-		image {
-			width: 100%;
-			height: 100%;
-			border-radius: 10upx;
-		}
-	}
-	.swiper-dots {
-		display: flex;
-		position: absolute;
-		left: 60upx;
-		bottom: 15upx;
-		width: 72upx;
-		height: 36upx;
-		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAYAAADDhn8LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTMyIDc5LjE1OTI4NCwgMjAxNi8wNC8xOS0xMzoxMzo0MCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTk4MzlBNjE0NjU1MTFFOUExNjRFQ0I3RTQ0NEExQjMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTk4MzlBNjA0NjU1MTFFOUExNjRFQ0I3RTQ0NEExQjMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Q0E3RUNERkE0NjExMTFFOTg5NzI4MTM2Rjg0OUQwOEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Q0E3RUNERkI0NjExMTFFOTg5NzI4MTM2Rjg0OUQwOEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4Gh5BPAAACTUlEQVR42uzcQW7jQAwFUdN306l1uWwNww5kqdsmm6/2MwtVCp8CosQtP9vg/2+/gY+DRAMBgqnjIp2PaCxCLLldpPARRIiFj1yBbMV+cHZh9PURRLQNhY8kgWyL/WDtwujjI8hoE8rKLqb5CDJaRMJHokC6yKgSCR9JAukmokIknCQJpLOIrJFwMsBJELFcKHwM9BFkLBMKFxNcBCHlQ+FhoocgpVwwnv0Xn30QBJGMC0QcaBVJiAMiec/dcwKuL4j1QMsVCXFAJE4s4NQA3K/8Y6DzO4g40P7UcmIBJxbEesCKWBDg8wWxHrAiFgT4fEGsB/CwIhYE+AeBAAdPLOcV8HRmWRDAiQVcO7GcV8CLM8uCAE4sQCDAlHcQ7x+ABQEEAggEEAggEEAggEAAgQACASAQQCCAQACBAAIBBAIIBBAIIBBAIABe4e9iAe/xd7EAJxYgEGDeO4j3EODp/cOCAE4sYMyJ5cwCHs4rCwI4sYBxJ5YzC84rCwKcXxArAuthQYDzC2JF0H49LAhwYUGsCFqvx5EF2T07dMaJBetx4cRyaqFtHJ8EIhK0i8OJBQxcECuCVutxJhCRoE0cZwMRyRcFefa/ffZBVPogePihhyCnbBhcfMFFEFM+DD4m+ghSlgmDkwlOgpAl4+BkkJMgZdk4+EgaSCcpVX7bmY9kgXQQU+1TgE0c+QJZUUz1b2T4SBbIKmJW+3iMj2SBVBWz+leVfCQLpIqYbp8b85EskIxyfIOfK5Sf+wiCRJEsllQ+oqEkQfBxmD8BBgA5hVjXyrBNUQAAAABJRU5ErkJggg==);
-		background-size: 100% 100%;
-
-		.num {
-			width: 36upx;
-			height: 36upx;
-			border-radius: 50px;
-			font-size: 24upx;
-			color: #fff;
-			text-align: center;
-			line-height: 36upx;
-		}
-
-		.sign {
-			position: absolute;
-			top: 0;
-			left: 50%;
-			line-height: 36upx;
-			font-size: 12upx;
-			color: #fff;
-			transform: translateX(-50%);
-		}
-	}
-	/* 分类 */
-	.cate-section {
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		flex-wrap:wrap;
-		padding: 30upx 22upx; 
-		background: #fff;
-		.cate-item {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			font-size: $font-sm + 2upx;
-			color: $font-color-dark;
-		}
-		/* 原图标颜色太深,不想改图了,所以加了透明度 */
-		image {
-			width: 88upx;
-			height: 88upx;
-			margin-bottom: 14upx;
-			border-radius: 50%;
-			opacity: .7;
-			box-shadow: 4upx 4upx 20upx rgba(250, 67, 106, 0.3);
-		}
-	}
-	.ad-1{
-		width: 100%;
-		height: 210upx;
-		padding: 10upx 0;
-		background: #fff;
-		image{
-			width:100%;
-			height: 100%; 
-		}
-	}
-	.promo1{
-		width: 750rpx;
-		height:466rpx;
-	}
-	.shopFrame{
+	.container{
 		width:750rpx;
-		margin-top: 15rpx;
-		background-color: #fff;
-		.top{
-			width:100%;
-			height: 135rpx;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			.left{
+		position: fixed;
+		top:0;
+		left: 0;
+		bottom: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #ececec;
+		.bg{
+			width:750rpx;
+			height: 433rpx;
+			position: absolute;
+			top:0;
+			left: 0;
+		}
+		.bigTitle{
+			font-size:35rpx;
+			font-family:PingFang SC;
+			color:rgba(255,255,255,1);
+			margin-top: 96rpx;
+			flex-shrink: 0;
+			position: relative;
+			z-index: 3;
+		}
+		.scroll{
+			width: 750rpx;
+			position: relative;
+			z-index: 3;
+			flex-grow: 1;
+			overflow: hidden;
+			margin-top: 49rpx;
+			padding: 0 23rpx 0 27rpx;
+			.topFrame{
+				width:100%;
+				height: 132rpx;
+				background:rgba(255,255,255,1);
+				box-shadow:0px 1px 14px 0px rgba(182,182,182,0.3);
+				border-radius:7px;
+				padding: 0 46rpx 0 35rpx;
 				display: flex;
 				align-items: center;
-				.avatar{
-					width:104rpx;
-					height:104rpx;
-					border-radius: 50rpx;
-					box-shadow: 3rpx 3rpx 3rpx rgba(0,0,0,0.3);
-					margin-left: 20rpx;
+				justify-content: space-between;
+				.left{
+					display: flex;
+					align-items: center;
+					.avatar{
+						width:99rpx;
+						height:99rpx;
+					}
+					.info{
+						margin-left: 13rpx;
+						.name{
+							font-size:25rpx;
+							font-family:PingFang SC;
+							font-weight:bold;
+							color:rgba(51,51,51,1);
+						}
+						.typeFrame{
+							display: flex;
+							align-items: center;
+							background:linear-gradient(50deg,rgba(255,223,169,1),rgba(252,241,211,1));
+							border-radius:16rpx;
+							padding: 8rpx 17rpx;
+							margin-top: 9rpx;
+							.typeIcon{
+								width: 20rpx;
+								height: 17rpx;
+							}
+							.typeName{
+								font-size:19rpx;
+								font-family:PingFang SC;
+								font-weight:500;
+								color:rgba(0,0,0,1);
+								margin-left: 6rpx;
+							}
+						}
+					}
 				}
-				.info{
-					margin-left: 15rpx;
-					.title{
-						font-size:33rpx;
+				.right{
+					.canUseTitle{
+						font-size:25rpx;
 						font-family:PingFang SC;
 						font-weight:500;
-						color:rgba(0,0,0,1);
+						color:rgba(51,51,51,1);
+						opacity:0.5;
 					}
-					.type{
-						font-size: 22rpx;
-						color: #cfb143;
-						background-color: #fff5e9;
-						padding: 5rpx 18rpx;
-						margin-top: 20rpx;
-						border-radius: 20rpx;
-					}
-					.type.blue{
-						color: #90A9D0;
-						background-color: #EDF5FE;
+					.canUseFrame{
+						display: flex;
+						margin-top: 13rpx;
+						.mt{
+							width:24rpx;
+							height:24rpx;
+						}
+						.canUse{
+							margin-left: 8rpx;
+							font-size:33rpx;
+							font-family:Source Han Sans CN;
+							font-weight:800;
+							color:rgba(51,51,51,1);
+							text{
+								font-size:25rpx;
+								font-family:Source Han Sans CN;
+								font-weight:800;
+								color:rgba(51,51,51,1);
+							}
+						}
 					}
 				}
 			}
-			.go{
-				font-size: 26rpx;
-				color: #fff;
-				font-weight: bold;
-				background-color: #3b3b3b;
-				padding: 14rpx 24rpx;
-				margin-right: 20rpx;
-				border-radius: 30rpx;
-			}
-		}
-		.goodList{
-			width: 750rpx;
-			display: flex;
-			justify-content: space-evenly;
-			.good{
-				width:208rpx;
-				height:320rpx;
-				.pic{
-					width:208rpx;
-					height:208rpx;
+			.carousel{
+				width:100%;
+				height: 351rpx;
+				margin-top: 15rpx;
+				image{
+					width:100%;
+					height: 351rpx;
+					box-shadow: 3rpx 3rpx 3rpx rgba(0,0,0,0.3);
+					border-radius: 10rpx;
 				}
-				.name{
-					font-size:25rpx;
+			}
+			.promoFrame{
+				width:100%;
+				height: 365rpx;
+				background:rgba(255,255,255,1);
+				box-shadow:0rpx 1rpx 14rpx 0rpx rgba(182,182,182,0.3);
+				border-radius:7rpx;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				margin-top: 28rpx;
+				.promoRight{
+					width: 50%;
+					height: 100%;
+				}
+				.promoSubFrame{
+					padding: 31rpx 19rpx 18rpx 33rpx;
+					flex-shrink: 0;
+					position: relative;
+					.title{
+						font-size:28rpx;
+						font-family:PingFang SC;
+						font-weight:800;
+						color:rgba(51,51,51,1);
+					}
+					.dsc{
+						font-size:19rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(161,161,161,1);
+						margin-top: 13rpx;
+					}
+					.red{
+						width:108rpx;
+						height:34rpx;
+						border-radius: 34rpx;
+						background-color: red;
+						color: #fff;
+						font-size: 26rpx;
+						line-height: 34rpx;
+						text-align: center;
+					}
+					&.promoLeft{
+						width: 50%;
+						height: 100%;
+						image{
+							position: absolute;
+							bottom:18rpx;
+							right:19rpx;
+							width:195rpx;
+							height:195rpx;
+						}
+					}
+					&.promoTop{
+						width:100%;
+						height: 50%;
+						border-left: 1px solid rgba(153,153,153,1);
+						border-bottom: 1px solid rgba(153,153,153,1);
+						image{
+							position: absolute;
+							top:33rpx;
+							right:19rpx;
+							width:158rpx;
+							height:158rpx;
+						}
+					}
+					&.promoBottom{
+						width:100%;
+						height: 50%;
+						border-left: 1px solid rgba(153,153,153,1);
+						image{
+							position: absolute;
+							bottom:18rpx;
+							right:24rpx;
+							width:115rpx;
+							height:115rpx;
+						}
+					}
+				}
+			}
+			.titleFrame{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: auto;
+				margin-top: 54rpx;
+				.titlePoint{
+					width:11rpx;
+					height:11rpx;
+					border:1px solid rgba(51,51,51,1);
+					border-radius:50%;
+					&.img{
+						width:12rpx;
+						height: 10rpx;
+						border: 0;
+						border-radius:0;
+					}
+				}
+				.titleName{
+					font-size:35rpx;
 					font-family:PingFang SC;
 					font-weight:500;
 					color:rgba(51,51,51,1);
-					width: 100%;
-					text-align: center;
-					margin-top: 27.08rpx;
+					margin: 0 22rpx;
 				}
-				.price{
-					font-size:25rpx;
-					font-family:PingFang SC;
-					font-weight:500;
-					color:rgba(190,68,110,1);
-					width: 100%;
-					text-align: center;
-					margin-top: 13rpx;
+			}
+			.goodList{
+				width:100%;
+				background-color: #fff;
+				border-radius:21rpx;
+				margin-top: 44rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+				.good{
+					width:50%;
+					height: 497rpx;
+					border-bottom: 1px solid rgba(245,245,245,1);
+					padding: 27rpx 15rpx 15rpx 18rpx;
+					&.odd{
+						border-left: 1px solid rgba(245,245,245,1);
+					}
+					.goodImg{
+						width: 100%;
+						height: 317rpx;
+					}
+					.goodTitle{
+						width:100%;
+						height: 56rpx;
+						font-size:24rpx;
+						font-family:PingFang SC;
+						font-weight:400;
+						color:rgba(51,51,51,1);
+						line-height:33rpx;
+						margin-top: 22rpx;
+					}
+					.goodBottom{
+						margin-top: 14rpx;
+						width: 100%;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						.price{
+							font-size:33rpx;
+							font-family:PingFang SC;
+							font-weight:400;
+							color:rgba(255,165,33,1);
+							text{
+								font-size:24rpx;
+								font-family:PingFang SC;
+								font-weight:400;
+								color:rgba(255,165,33,1);
+							}
+						}
+						.vipFrame{
+							background:rgba(255,165,33,1);
+							border-radius:24rpx;
+							padding: 13rpx 19rpx;
+							display: flex;
+							align-items: center;
+							.vipIcon{
+								width:25rpx;
+								height: 22rpx;
+							}
+							.vipDay{
+								font-size:21rpx;
+								font-family:PingFang SC;
+								font-weight:500;
+								color:rgba(255,255,255,1);
+								margin-left: 3rpx;
+							}
+						}
+					}
 				}
 			}
 		}

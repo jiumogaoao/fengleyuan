@@ -436,11 +436,11 @@
 				}
 				uni.setStorageSync('followList',o)
 			},
-			popOut(url){
+			popOut(){
 				// plus.runtime.openURL(url)
 				let _this=this;
 				// let tburl=_this.pro_url.replace('http:','tbopen:')
-				url=encrypt64(url)
+				let url=encrypt64(this.pro_url)
 				uni.navigateTo({
 					url:'/pages/yijiayou/yijiayou?url='+url
 				})

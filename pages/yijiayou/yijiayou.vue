@@ -39,14 +39,11 @@
 			if(option.title){
 				this.showTitle=option.title
 			}
-			var currentWebview = this.$mp.page.$getAppWebview() //获取当前页面的webview对象
 			       setTimeout(function() {
 				if(_this.showTitle){
-					// _this.dl=setInterval(function(){
 						uni.setNavigationBarTitle({
 							title:_this.showTitle
 						})
-					// },500)
 				}
 				_this.wv=plus.webview.open(_this.url,"wv",{
 					"zindex":0,
@@ -55,10 +52,13 @@
 					"right":0,
 					"bottom":0
 				},null,null,function(){
-					const subNVue = uni.getSubNVueById('title')
-					subNVue.show('none',0,()=>{
-						console.log("显示头部")
-					})
+					// const subNVue = uni.getSubNVueById('title')
+					// // subNVue.setStyle({
+					// // 	"zindex":99999999999999999999999
+					// // })
+					// subNVue.show('none',0,()=>{
+					// 	console.log("显示头部")
+					// })
 				})
 			       }, 500); //如果是页面初始化调用时，需要延时一下
 		},
