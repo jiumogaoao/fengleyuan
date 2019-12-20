@@ -206,6 +206,7 @@
 	import share from '@/components/share';
 	import {postFetch} from '@/util/request_UT.js';
 	import {encrypt64} from '@/util/security_UT.js'
+	const Alibcsdk = uni.requireNativePlugin('UZK-Alibcsdk');
 	var t ;
 	export default{
 		mixins:[allpage],
@@ -316,6 +317,21 @@
 		},
 		async onLoad(options){
 			this.id = options.id;
+			Alibcsdk.init(
+				result => {
+					console.log(JSON.stringify(result))
+					if (result.status) {
+						uni.showToast({
+							title: "初始化成功"
+						});
+					} else {
+						uni.showToast({
+							title: "初始化失败"
+						});
+					}
+					//console.log(JSON.stringify(result))
+				}
+			)
 		},
 		onShow(){
 			let _this = this; 
@@ -545,10 +561,21 @@
 				// 	url: `/pages/order/createOrder`
 				// })
 				// plus.runtime.openURL(this.pro_url)
-				let url=encrypt64(this.pro_url)
-				uni.navigateTo({
-					url:'/pages/yijiayou/yijiayou?url='+url
+				Alibcsdk.opendetail({
+					itemid: '563275619905',
+					linkkey: "taobao",
+					adzoneid: "103062550066",
+					pid: "mm_131245267_59600050_103062550066",
+					nativeFailedMode: "download",
+					appkey: "28164312",
+					opentype: 'native'
+				}, result => {
+				
 				})
+				// let url=encrypt64(this.pro_url)
+				// uni.navigateTo({
+				// 	url:'/pages/yijiayou/yijiayou?url='+url
+				// })
 				// if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:_this.tb_url})){
 				// 		console.log("淘宝应用已安装");
 				// 		if ( plus.os.name == "Android" ) {

@@ -185,6 +185,12 @@
                 ]
             },
             "ios" : {
+				"urltypes" : [
+				                {
+				                "urlschemes" : ["tbopen28147310"]
+				                }
+				                ],
+				                "urlschemewhitelist" : "tbopen,tmall",
                 "privacyDescription" : {
                     "NSLocationAlwaysAndWhenInUseUsageDescription" : "想获取你的位置"
                 }
