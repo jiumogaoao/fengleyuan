@@ -238,6 +238,20 @@
                     "pid" : "695",
                     "parameters" : {}
                 }
+            },
+            "UZK-Alibcsdk" : {
+                "__plugin_info__" : {
+                    "name" : "新版阿里百川SDK 4.0.0.8 - [试用版，仅用于自定义调试基座]",
+                    "description" : "UZK-AlibcSDK模块 封装了阿里百川电商sdk",
+                    "platforms" : "Android,iOS",
+                    "url" : "https://ext.dcloud.net.cn/plugin?id=873",
+                    "android_package_name" : "",
+                    "ios_bundle_id" : "",
+                    "isCloud" : true,
+                    "bought" : 0,
+                    "pid" : "873",
+                    "parameters" : {}
+                }
             }
         }
     },
