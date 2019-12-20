@@ -15,7 +15,7 @@
 		</view>
 		<view class="headFoot" v-if="!identity_type">
 			<view class="text"><text>现在升级VIP，最高可</text><text class="red">赚</text><image class="mt" src="/static/productIcon02.png"></image><text class="red">{{vip}}元</text></view>
-			<view class="button">
+			<view class="button" @click="goVip">
 				<image class="icon" src="/static/productIcon01.png"></image>
 				<view class="label">立即升级</view>
 			</view>
@@ -146,7 +146,7 @@
 				</view>
 				<view class="right" @click="buy">
 					<view class="title">购买</view>
-					<view class="dsc">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>{{estimate?estimate:(commodity_price-post_coupon)}}</view>
+					<view class="dsc">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>{{estimate?estimate:(commodity_price-post_coupon)}}元</view>
 				</view>
 			</view>
 		</view>
@@ -326,7 +326,7 @@
 			//             }) ; //初始化
 			
 			//接收传值,id里面放的是标题，因为测试数据并没写id 
-			let id = options.id;
+			let id = this.id;
 			// if(id){
 			// 	this.$api.msg(`点击了${id}`);
 			// }
@@ -399,6 +399,17 @@
 			}
 		},
 		methods:{
+			goVip(){
+				if(this.$store.state.userST.phone){
+					uni.navigateTo({
+						url:'/pages/vip/vip'
+					})
+				}else{
+					uni.navigateTo({
+						url:'/pages/public/login'
+					})
+				}
+			},
 			toggleLike(){
 				let o=uni.getStorageSync('likeList')
 				if(!o){

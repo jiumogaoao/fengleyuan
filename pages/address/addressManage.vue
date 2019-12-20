@@ -12,7 +12,7 @@
 			<view class="row b-b">
 				<text class="tit">选择地区</text>
 				<picker mode="multiSelector" :range="optionList" range-key="name" @columnchange="placeChange" @change="placeChange2" @cancel="placeCancel">
-					<view class="input" v-if="!addressData.province&&!addressData.city&&addressData.area">点击选择收货区域</view>
+					<view class="input" v-if="!addressData.province&&!addressData.city&&!addressData.area">点击选择收货区域</view>
 					<view class="input" v-else>{{addressData.province||'--'}} {{addressData.city||'--'}} {{addressData.area||'--'}}</view>
 				</picker>
 				<!-- <input class="input" type="text" v-model="addressData.province" placeholder="某" placeholder-class="placeholder" />
