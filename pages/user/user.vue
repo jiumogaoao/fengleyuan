@@ -105,7 +105,7 @@
 					<text>浏览历史</text>
 				</view>
 				<scroll-view scroll-x class="h-list" v-if="historyList.length">
-					<image @click="popOut(v.item_url)" :src="v.pict_url" mode="aspectFill" v-for="(v,i) in historyList" :key="i"></image>
+					<image @click="popOut(v.num_iid)" :src="v.pict_url" mode="aspectFill" v-for="(v,i) in historyList" :key="i"></image>
 				</scroll-view>
 				<!-- <list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="我的钱包" tips="您的会员还有3天过期"></list-cell> -->
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/address')"></list-cell>
@@ -126,6 +126,7 @@
     import {  
         mapState 
     } from 'vuex';  
+	const Alibcsdk = uni.requireNativePlugin('UZK-Alibcsdk');
 	let startY = 0, moveY = 0, pageAtTop = true;
     export default {
 		mixins:[allpage],
@@ -145,6 +146,20 @@
 			this.$set(this,"historyList",productHistory||[])
 		},
 		onLoad(){
+			Alibcsdk.init(
+				result => {
+					console.log(JSON.stringify(result))
+					if (result.status) {
+						// uni.showToast({
+						// 	title: "初始化成功"
+						// });
+						console.log('Alibcsdk初始化成功')
+					} else {
+						console.log('Alibcsdk初始化失败')
+					}
+					//console.log(JSON.stringify(result))
+				}
+			)
 		},
 		// #ifndef MP
 		onNavigationBarButtonTap(e) {
@@ -194,9 +209,20 @@
 			},
 			popOut(url){
 				// plus.runtime.openURL(url)
-				url=encrypt64(url)
-				uni.navigateTo({
-					url:'/pages/yijiayou/yijiayou?url='+url
+				// url=encrypt64(url)
+				// uni.navigateTo({
+				// 	url:'/pages/yijiayou/yijiayou?url='+url
+				// })
+				Alibcsdk.opendetail({
+					itemid: url,
+					linkkey: "taobao",
+					// adzoneid: "103062550066",
+					// pid: "mm_131245267_59600050_103062550066",
+					nativeFailedMode: "download",
+					appkey: "28164312",
+					opentype: 'native'
+				}, result => {
+				
 				})
 			},
 			/**

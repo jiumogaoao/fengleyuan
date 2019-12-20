@@ -70,7 +70,19 @@
 			next(){
 				let _this=this
 				if(_this.phoneCheck()&&_this.idCheck()&&_this.codeCheck()){
-					this.step=2
+					postFetch('index.php/index/login/check_invitation',{
+						invitation:_this.id
+					},false,function(res){
+						if(res.data.status==200){
+							this.step=2
+						}else{
+							uni.showToast({
+								title:res.data.msg,
+								icon:'none'
+							})
+						}
+					
+					})
 				}
 			},
 			go(url){

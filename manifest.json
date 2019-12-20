@@ -185,12 +185,12 @@
                 ]
             },
             "ios" : {
-				"urltypes" : [
-				                {
-				                "urlschemes" : ["tbopen28147310"]
-				                }
-				                ],
-				                "urlschemewhitelist" : "tbopen,tmall",
+                "urltypes" : [
+                    {
+                        "urlschemes" : [ "tbopen28147310" ]
+                    }
+                ],
+                "urlschemewhitelist" : "tbopen,tmall",
                 "privacyDescription" : {
                     "NSLocationAlwaysAndWhenInUseUsageDescription" : "想获取你的位置"
                 }
@@ -247,14 +247,14 @@
             },
             "UZK-Alibcsdk" : {
                 "__plugin_info__" : {
-                    "name" : "新版阿里百川SDK 4.0.0.8 - [试用版，仅用于自定义调试基座]",
+                    "name" : "新版阿里百川SDK 4.0.0.8",
                     "description" : "UZK-AlibcSDK模块 封装了阿里百川电商sdk",
                     "platforms" : "Android,iOS",
                     "url" : "https://ext.dcloud.net.cn/plugin?id=873",
                     "android_package_name" : "",
                     "ios_bundle_id" : "",
                     "isCloud" : true,
-                    "bought" : 0,
+                    "bought" : 1,
                     "pid" : "873",
                     "parameters" : {}
                 }
