@@ -15,7 +15,10 @@ export default {
 	superior_head:'',
 	network:true,
 	identity_type:0,
-	cacheTitle:''
+	cacheTitle:'',
+	fans1:[],
+	fans2:[],
+	fans3:[]
   },
   mutations: {
 	setCacheTitle(state, data){
@@ -35,6 +38,9 @@ export default {
 		state.pinvitation = data.pinvitation
 		state.superior_head = data.superior_head
 		state.identity_type = data.identity_type
+		Vue.set(state,'fans1',data.fans1)
+		Vue.set(state,'fans2',data.fans2)
+		Vue.set(state,'fans3',data.fans3)
 		uni.setStorageSync('userInfo',state);
 	},
 	logout(state) {
@@ -48,6 +54,9 @@ export default {
 		state.pinvitation = ''
 		state.superior_head = ''
 		state.identity_type = ''
+		Vue.set(state,'fans1',[])
+		Vue.set(state,'fans2',[])
+		Vue.set(state,'fans3',[])
 		uni.setStorageSync('userInfo',state);
 	}
   },
@@ -68,6 +77,25 @@ export default {
 			}
 		}else{
 			res.data.avatar=res.data.userpic
+			res.data.fans1=[];
+			res.data.fans2=[];
+			res.data.fans3=[];
+			if(res.data.children && res.data.children.children &&res.data.children.children.length){
+				res.data.fans1= res.data.children.children
+				res.data.children.children.map(function(v){
+					if(v.children && v.children.length){
+						v.children.map(function(v2){
+							res.data.fans2.push(v2)
+							if(v2.children && v2.children.length){
+								v2.children.map(function(v3){
+									res.data.fans3.push(v3)
+								})
+							}
+						})
+					}
+				})
+			}
+			debugger;
 			context.commit('login',res.data)
 			if(data.callback){
 				data.callback()

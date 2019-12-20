@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<view class="noMessage" style="top:524rpx;">
+		<view class="noMessage" style="top:524rpx;" v-if="(step==0&&!fans1.length)||(step==1&&!fans2.length)||(step==2&&!fans3.length)">
 			<image src="/static/empty.png"/>
 		</view>
 		<view class="top">
@@ -18,15 +18,15 @@
 			</view>
 			<view class="topBottom">
 				<view :class="{item:1,hl:step==0}" @click="changeStep(0)">
-					<view class="number">0</view>
+					<view class="number">{{fans1.length||0}}</view>
 					<view class="title">直属粉丝</view>
 				</view>
 				<view :class="{item:1,hl:step==1}" @click="changeStep(1)">
-					<view class="number">0</view>
+					<view class="number">{{fans2.length||0}}</view>
 					<view class="title">二代粉丝</view>
 				</view>
 				<view :class="{item:1,hl:step==2}" @click="changeStep(2)">
-					<view class="number">0</view>
+					<view class="number">{{fans3.length||0}}</view>
 					<view class="title">二代以后粉丝</view>
 				</view>
 			</view>
@@ -44,51 +44,51 @@
 				</view>
 			</view>
 		</view>
-		<!-- <block v-if="step==0">
+		<block v-if="step==0 && fans1.length">
 			<view class="listFrame">
-				<view class="list">
+				<view class="list" v-for="(v,i) in fans1" :key="i">
 					<view class="fans">
-						<image src="/static/f1.png" class="avatar"></image>
+						<image src="/static/missing-face.png" class="avatar"></image>
 						<view class="fansInfo">
-							<view class="fansName">用户A1234</view>
-							<view class="fansPhone">130****6687</view>
+							<view class="fansName">{{v.nickname}}</view>
+							<!-- <view class="fansPhone">130****6687</view> -->
 						</view>
 					</view>
-					<view class="number">1234.56</view>
+					<view class="number">{{v.sum}}</view>
 					<view class="relation">直属粉丝</view>
 				</view>
 			</view>
 		</block>
-		<block v-if="step==1">
+		<block v-if="step==1 && fans2.length">
 			<view class="listFrame">
-				<view class="list">
+				<view class="list" v-for="(v,i) in fans2" :key="i">
 					<view class="fans">
-						<image src="/static/f1.png" class="avatar"></image>
+						<image src="/static/missing-face.png" class="avatar"></image>
 						<view class="fansInfo">
-							<view class="fansName">用户A45678</view>
-							<view class="fansPhone">130****5411</view>
+							<view class="fansName">{{v.nickname}}</view>
+							<!-- <view class="fansPhone">130****6687</view> -->
 						</view>
 					</view>
-					<view class="number">754.14</view>
+					<view class="number">{{v.sum}}</view>
 					<view class="relation">二代粉丝</view>
 				</view>
 			</view>
 		</block>
-		<block v-if="step==2">
+		<block v-if="step==2 && fans3.length">
 			<view class="listFrame">
-				<view class="list">
+				<view class="list" v-for="(v,i) in fans3" :key="i">
 					<view class="fans">
-						<image src="/static/f1.png" class="avatar"></image>
+						<image src="/static/missing-face.png" class="avatar"></image>
 						<view class="fansInfo">
-							<view class="fansName">开心第一</view>
-							<view class="fansPhone">130****1234</view>
+							<view class="fansName">{{v.nickname}}</view>
+							<!-- <view class="fansPhone">130****6687</view> -->
 						</view>
 					</view>
-					<view class="number">5477.12</view>
-					<view class="relation">二代以后粉丝</view>
+					<view class="number">{{v.sum}}</view>
+					<view class="relation">二代以后的粉丝</view>
 				</view>
 			</view>
-		</block> -->
+		</block>
 	</view>
 </template>
 
@@ -109,8 +109,19 @@
 		computed:{
 			phone(){return this.$store.state.userST.phone},
 			nickname(){return this.$store.state.userST.pinvitation},
-			head(){return this.$store.state.userST.superior_head || '/static/vipIcon.png'}
-			
+			head(){return this.$store.state.userST.superior_head || '/static/vipIcon.png'},
+			fans1(){
+				debugger;
+				return this.$store.state.userST.fans1
+				},
+			fans2(){
+				debugger;
+				return this.$store.state.userST.fans2
+				},
+			fans3(){
+				debugger;
+				return this.$store.state.userST.fans3
+				}
 		}
 	}
 </script>

@@ -39,12 +39,15 @@
 						// })
 						if(res.networkType=='none'){
 							setNetwork(false)
+							_this.$store.dispatch('userST/network',false)
 						}else{
 							setNetwork(true)
+							_this.$store.dispatch('userST/network',true)
 						}
 				    },
 					fail:function(){
 						setNetwork(false)
+						_this.$store.dispatch('userST/network',false)
 					}
 				});
 			},800)

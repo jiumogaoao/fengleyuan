@@ -31,6 +31,7 @@
 		justify-content: center;
 		align-items: center;
 		background-color: #f5f6f8;
+		flex-direction: column;
 		image{
 			width:265rpx;
 			height: 229rpx;

@@ -22,7 +22,15 @@
 			};
 		},
 		onShow(){
-			
+			if(!this.$store.state.userST.network){
+				uni.navigateTo({
+							url:'/pages/noNetwork/noNetwork'
+						})
+			}else{
+				if(this.wv){
+					wv.loadURL(this.url)
+				}
+			}
 		},
 		onHide(){
 			// clearInterval(this.dl)
@@ -31,9 +39,10 @@
 			
 		},
 		onBackPress(){
-			this.wv.close()
+			// this.wv.close()
 		},
 		onLoad(option){
+			
 			let _this=this;
 			_this.url=decrypt64(option.url)
 			if(option.title){
@@ -60,6 +69,8 @@
 					// 	console.log("显示头部")
 					// })
 				})
+				let currentWebview = _this.$mp.page.$getAppWebview()
+					currentWebview.append(_this.wv)
 			       }, 500); //如果是页面初始化调用时，需要延时一下
 		},
 		onNavigationBarButtonTap(e) {
