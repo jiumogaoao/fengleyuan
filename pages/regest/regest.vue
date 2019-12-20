@@ -141,13 +141,13 @@
 					return false;
 				}else if(this.password.length < 5 || this.password.length>10){
 					uni.showToast({
-						title:'密码须5-10位',
+						title:'密码须5-10位大小写字母或数字',
 						icon:'none'
 					})
 					return false;
 				}else if(!(/^[a-zA-Z\d]+$/.test(this.password))){
 					uni.showToast({
-						title:'密码格式错误',
+						title:'密码须5-10位大小写字母或数字',
 						icon:'none'
 					})
 					return false;

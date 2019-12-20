@@ -337,8 +337,8 @@
         },{
             "path" : "pages/noNetwork/noNetwork",
             "style" : {
-				"navigationBarTitleText": "没有网络"
-				// "navigationStyle":"custom"
+				"navigationBarTitleText": "没有网络",
+				"navigationStyle":"custom"
 			}
         },{
 			"path": "pages/search/search",
