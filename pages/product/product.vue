@@ -347,7 +347,7 @@
 			// if(id){
 			// 	this.$api.msg(`点击了${id}`);
 			// }
-			postFetch('index.php/index/index/product_center',{id:this.id},false,function(res){
+			postFetch('index.php/index/index/product_center',{id:this.id,isvip:this.identity_type||0},false,function(res){
 				console.log('product_center',res)
 				_this.id=res.data.id//id
 				_this.pid=res.data.pid//淘宝id
