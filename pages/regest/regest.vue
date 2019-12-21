@@ -74,7 +74,7 @@
 						invitation:_this.id
 					},false,function(res){
 						if(res.data.status==200){
-							this.step=2
+							_this.step=2
 						}else{
 							uni.showToast({
 								title:res.data.msg,
