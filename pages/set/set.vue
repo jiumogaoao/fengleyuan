@@ -63,8 +63,11 @@
 				    success: (e)=>{
 				    	if(e.confirm){
 				    		_this.$store.dispatch('userST/logout')
+							
 				    		setTimeout(()=>{
-				    			uni.navigateBack();
+				    			uni.redirectTo({
+				    				url: '/pages/public/login'
+				    			});
 				    		}, 200)
 				    	}
 				    }

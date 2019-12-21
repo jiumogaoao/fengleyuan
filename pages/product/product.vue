@@ -469,53 +469,21 @@
 				uni.setStorageSync('followList',o)
 			},
 			popOut(url){
-				// plus.runtime.openURL(url)
 				let _this=this;
-				// let tburl=_this.pro_url.replace('http:','tbopen:')
-				// let url=encrypt64(this.pro_url)
-				Alibcsdk.openurl({
-				    url: url,
-				    // pid: 'mm_123_456_789',
-				    // adzoneid: '789',
-				    appkey:'28164312',
-				    linkkey: 'taobao',
-				    nativeFailedMode:'download'
-				}, result=> {
-				
-				});
-				// uni.navigateTo({
-				// 	url:'/pages/yijiayou/yijiayou?url='+url
-				// })
-				// if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:_this.tb_url})){
-				// 		console.log("淘宝应用已安装");
-				// 		// plus.runtime.openURL(_this.tb_url)
-				// 		if ( plus.os.name == "Android" ) {
-				// 				plus.runtime.launchApplication( {pname:'com.taobao.taobao'
-				// 					,extra:{url:_this.tb_url}}, function ( e ) {
-				// 						uni.showToast({
-				// 							title:"打开淘宝失败",
-				// 							icon:"none"
-				// 						})
-				// 						uni.navigateTo({
-				// 							url:'/pages/yijiayou/yijiayou?url='+url
-				// 						})
-				// 				} );
-				// 			} else if ( plus.os.name == "iOS" ) {
-				// 				plus.runtime.launchApplication( {action:_this.tb_url}, function ( e ) {
-				// 					uni.showToast({
-				// 						title:"打开淘宝失败",
-				// 						icon:"none"
-				// 					})
-				// 					uni.navigateTo({
-				// 						url:'/pages/yijiayou/yijiayou?url='+url
-				// 					})
-				// 				} );
-				// 			}
-				// 	}else{
-				// 		uni.navigateTo({
-				// 			url:'/pages/yijiayou/yijiayou?url='+url
-				// 		})
-				// 	}
+				if(!this.$store.state.userST.network){
+					uni.navigateTo({
+								url:'/pages/noNetwork/noNetwork'
+							})
+				}else{
+					Alibcsdk.openurl({
+					    url: url,
+					    appkey:'28164312',
+					    linkkey: 'taobao',
+					    nativeFailedMode:'download'
+					}, result=> {
+					
+					});
+				}
 			},
 			//规格弹窗开关
 			toggleSpec() {
@@ -564,74 +532,39 @@
 				this.favorite = !this.favorite;
 			},
 			toShop(){
-				// let url=encrypt64(this.pro_url)
-				// uni.navigateTo({
-				// 	url:'/pages/yijiayou/yijiayou?url='+url
-				// })
 				let _this=this
-				Alibcsdk.openshop({
-					shopid:_this.shop_id,
-				    // pid: 'mm_123_456_789',
-				    // adzoneid: '789',
-				    appkey:'28164312',
-				    linkkey: 'taobao',
-				    nativeFailedMode:"download"
-				}, result=> {
-				
-				});
+				if(!this.$store.state.userST.network){
+					uni.navigateTo({
+								url:'/pages/noNetwork/noNetwork'
+							})
+				}else{
+					Alibcsdk.openshop({
+						shopid:_this.shop_id,
+					    appkey:'28164312',
+					    linkkey: 'taobao',
+					    nativeFailedMode:"download"
+					}, result=> {
+					
+					});
+				}
 			},
 			buy(){
 				let _this=this;
-				// let tburl=_this.pro_url.replace('http:','tbopen:')
-				// uni.navigateTo({
-				// 	url: `/pages/order/createOrder`
-				// })
-				// plus.runtime.openURL(this.pro_url)
-				Alibcsdk.opendetail({
-					itemid: _this.num_iid,
-					linkkey: "taobao",
-					// adzoneid: "103062550066",
-					// pid: "mm_131245267_59600050_103062550066",
-					nativeFailedMode: "download",
-					appkey: "28164312",
-					opentype: 'native'
-				}, result => {
-				
-				})
-				// let url=encrypt64(this.pro_url)
-				// uni.navigateTo({
-				// 	url:'/pages/yijiayou/yijiayou?url='+url
-				// })
-				// if(plus.runtime.isApplicationExist({pname:'com.taobao.taobao',action:_this.tb_url})){
-				// 		console.log("淘宝应用已安装");
-				// 		if ( plus.os.name == "Android" ) {
-				// 				plus.runtime.launchApplication( {pname:'com.taobao.taobao'
-				// 					,extra:{url:_this.tb_url}}, function ( e ) {
-				// 						uni.showToast({
-				// 							title:"打开淘宝失败",
-				// 							icon:"none"
-				// 						})
-				// 						uni.navigateTo({
-				// 							url:'/pages/yijiayou/yijiayou?url='+url
-				// 						})
-				// 				} );
-				// 			} else if ( plus.os.name == "iOS" ) {
-				// 				plus.runtime.launchApplication( {action:_this.tb_url}, function ( e ) {
-				// 					uni.showToast({
-				// 						title:"打开淘宝失败",
-				// 						icon:"none"
-				// 					})
-				// 					uni.navigateTo({
-				// 						url:'/pages/yijiayou/yijiayou?url='+url
-				// 					})
-				// 				} );
-				// 			}
-				// 		// plus.runtime.openURL(_this.tb_url)
-				// 	}else{
-				// 		uni.navigateTo({
-				// 			url:'/pages/yijiayou/yijiayou?url='+url
-				// 		})
-				// 	}
+				if(!this.$store.state.userST.network){
+					uni.navigateTo({
+								url:'/pages/noNetwork/noNetwork'
+							})
+				}else{
+					Alibcsdk.opendetail({
+						itemid: _this.num_iid,
+						linkkey: "taobao",
+						nativeFailedMode: "download",
+						appkey: "28164312",
+						opentype: 'native'
+					}, result => {
+					
+					})
+				}
 			},
 			stopPrevent(){},
 			like(){
