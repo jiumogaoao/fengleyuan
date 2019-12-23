@@ -1,16 +1,16 @@
 <template>
 	<view class="content">
 		<scroll-view scroll-y class="left-aside">
-			<view v-for="item in flist" :key="item.id" class="f-item b-b" :class="{active: item.id === currentId}" @click="tabtap(item)">
+			<view v-for="item in leftList" :key="item.id" class="f-item b-b" :class="{active: item.id === currentId}" @click="getRight(item.id)" v-if="leftList.length">
 				{{item.name}}
 			</view>
 		</scroll-view>
-		<scroll-view scroll-with-animation scroll-y class="right-aside" @scroll="asideScroll" :scroll-top="tabScrollTop">
-			<view v-for="item in slist" :key="item.id" class="s-list" :id="'main-'+item.id">
+		<scroll-view scroll-with-animation scroll-y class="right-aside" :scroll-top="tabScrollTop">
+			<view v-for="item in rightList" :key="item.id" class="s-list" :id="'main-'+item.id"  v-if="rightList.length">
 				<view class="s-item">{{item.name}}</view>
 				<view class="t-list">
-					<view @click="navToList(item.id, titem.id)" v-if="titem.pid === item.id" class="t-item" v-for="titem in tlist" :key="titem.id">
-						<image :src="titem.picture"></image>
+					<view @click="navToList(titem.name)" v-if="item.c_class.length" class="t-item" v-for="titem in item.c_class" :key="titem.id">
+						<image :src="titem.img_url"></image>
 						<text>{{titem.name}}</text>
 					</view>
 				</view>
@@ -21,6 +21,7 @@
 
 <script>
 	import allpage from '@/mixin/allPage'
+	import {postFetch} from '@/util/request_UT.js';
 	export default {
 		mixins:[allpage],
 		data() {
@@ -31,12 +32,41 @@
 				flist: [],
 				slist: [],
 				tlist: [],
+				leftList:[],
+				rightList:[]
 			}
 		},
 		onLoad(){
-			this.loadData();
+			// this.loadData();
+			let _this=this;
+			postFetch('index.php/index/index/f_class',{},false,function(res){
+				if(res.data.status!==200){
+					uni.showToast({
+						title:res.data.msg,
+						icon:'none'
+					})
+				}else{
+					_this.$set(_this,'leftList',res.data.data)
+					_this.getRight(res.data.data[0].id)
+				}
+			})
 		},
 		methods: {
+			getRight(id){
+				let _this = this;
+				this.currentId = id
+				this.tabScrollTop = 0
+				postFetch('index.php/index/index/c_class',{id:id},false,function(res){
+					if(res.data.status!==200){
+						uni.showToast({
+							title:res.data.msg,
+							icon:'none'
+						})
+					}else{
+						_this.$set(_this,'rightList',res.data.data)
+					}
+				})
+			},
 			async loadData(){
 				let list = await this.$api.json('cateList');
 				list.forEach(item=>{
@@ -85,9 +115,9 @@
 				})
 				this.sizeCalcState = true;
 			},
-			navToList(sid, tid){
+			navToList(keyword){
 				uni.navigateTo({
-					url: `/pages/product/list?fid=${this.currentId}&sid=${sid}&tid=${tid}`
+					url: '/pages/search/search?keywork='+keyword
 				})
 			}
 		}
