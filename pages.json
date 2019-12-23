@@ -55,7 +55,19 @@
 					}
 				}
 			}
-		}, {
+		}, 
+		{
+			"path": "pages/product/productMall",
+			"style": {
+				"navigationBarTitleText": "详情展示",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, 
+		{
 			"path": "pages/set/set",
 			"style": {
 				"navigationBarTitleText": "设置"

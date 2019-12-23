@@ -53,7 +53,7 @@
 				<image class="titlePoint img" src="/static/mallTitle1.png"></image>
 			</view>
 			<view class="goodList">
-				<view class="good">
+				<view class="good" @click="goodClick">
 					<image class="goodImg"></image>
 					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
 					<view class="goodBottom">
@@ -64,7 +64,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="good odd">
+				<view class="good odd" @click="goodClick">
 					<image class="goodImg"></image>
 					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
 					<view class="goodBottom">
@@ -81,10 +81,58 @@
 				<view class="titleName">新品上架</view>
 				<view class="titlePoint"></view>
 			</view>
+			<view class="goodList">
+				<view class="good" @click="goodClick">
+					<image class="goodImg"></image>
+					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+					<view class="goodBottom">
+						<view class="price"><text>￥</text>365</view>
+						<view class="vipFrame">
+							<image class="vipIcon" src="/static/d0.png"></image>
+							<view class="vipDay">送365天VIP权益</view>
+						</view>
+					</view>
+				</view>
+				<view class="good odd" @click="goodClick">
+					<image class="goodImg"></image>
+					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+					<view class="goodBottom">
+						<view class="price"><text>￥</text>365</view>
+						<view class="vipFrame">
+							<image class="vipIcon" src="/static/d0.png"></image>
+							<view class="vipDay">送365天VIP权益</view>
+						</view>
+					</view>
+				</view>
+			</view>
 			<view class="titleFrame">
 				<view class="titlePoint"></view>
 				<view class="titleName">正在热卖</view>
 				<view class="titlePoint"></view>
+			</view>
+			<view class="goodList">
+				<view class="good" @click="goodClick">
+					<image class="goodImg"></image>
+					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+					<view class="goodBottom">
+						<view class="price"><text>￥</text>365</view>
+						<view class="vipFrame">
+							<image class="vipIcon" src="/static/d0.png"></image>
+							<view class="vipDay">送365天VIP权益</view>
+						</view>
+					</view>
+				</view>
+				<view class="good odd" @click="goodClick">
+					<image class="goodImg"></image>
+					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+					<view class="goodBottom">
+						<view class="price"><text>￥</text>365</view>
+						<view class="vipFrame">
+							<image class="vipIcon" src="/static/d0.png"></image>
+							<view class="vipDay">送365天VIP权益</view>
+						</view>
+					</view>
+				</view>
 			</view>
 		</scroll-view>
 	</view>
@@ -110,7 +158,11 @@
 			
 		},
 		methods: {
-			
+			goodClick(){
+				uni.navigateTo({
+					url:'/pages/product/productMall'
+				})
+			}
 		}
 	}
 </script>
