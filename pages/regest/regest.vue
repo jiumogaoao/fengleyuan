@@ -74,7 +74,7 @@
 						invitation:_this.id
 					},false,function(res){
 						if(res.data.status==200){
-							this.step=2
+							_this.step=2
 						}else{
 							uni.showToast({
 								title:res.data.msg,
@@ -234,6 +234,7 @@
 				let _this=this
 				if(this.phoneCheck()){
 					postFetch('index.php/index/login/sms',{phone:_this.phone,psw_reset:0},false,function(res){
+						console.log('sms',res)
 						if(res.data.status!=200){
 							uni.showToast({
 								title:res.data.msg,

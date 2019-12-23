@@ -51,7 +51,7 @@
 						<image src="/static/missing-face.png" class="avatar"></image>
 						<view class="fansInfo">
 							<view class="fansName">{{v.nickname}}</view>
-							<!-- <view class="fansPhone">130****6687</view> -->
+							<view class="fansPhone">{{v.userphone}}</view>
 						</view>
 					</view>
 					<view class="number">{{v.sum}}</view>
@@ -66,7 +66,7 @@
 						<image src="/static/missing-face.png" class="avatar"></image>
 						<view class="fansInfo">
 							<view class="fansName">{{v.nickname}}</view>
-							<!-- <view class="fansPhone">130****6687</view> -->
+							<view class="fansPhone">{{v.userphone}}</view>
 						</view>
 					</view>
 					<view class="number">{{v.sum}}</view>
@@ -81,7 +81,7 @@
 						<image src="/static/missing-face.png" class="avatar"></image>
 						<view class="fansInfo">
 							<view class="fansName">{{v.nickname}}</view>
-							<!-- <view class="fansPhone">130****6687</view> -->
+							<view class="fansPhone">{{v.userphone}}</view>
 						</view>
 					</view>
 					<view class="number">{{v.sum}}</view>

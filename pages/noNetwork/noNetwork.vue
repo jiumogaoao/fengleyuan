@@ -44,7 +44,10 @@
 			font-family:PingFang SC;
 			font-weight:500;
 			color:rgba(255,255,255,1);
-			margin-top: 20rpx;
+		    background: rgba(250,197,35,1);
+			margin-top: 60rpx;
+			text-align: center;
+			line-height: 74rpx;
 		}
 	}
 </style>

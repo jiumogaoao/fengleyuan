@@ -364,7 +364,7 @@
 						_this.latitude=res.latitude;
 						_this.longitude=res.longitude;
 						postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:_this.latitude||null,
-									longitude:_this.longitude||null},false,function(res){
+									longitude:_this.longitude||null,isvip:_this.identity_type||null},false,function(res){
 										console.log("获取index",res)
 										_this.swiperLength=res.data.banner.length
 							_this.$set(_this,'carouselList',res.data.banner)
@@ -377,7 +377,7 @@
 							icon:'none'
 						})
 						postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:null,
-									longitude:null},false,function(res){
+									longitude:null,isvip:_this.identity_type||null},false,function(res){
 							console.log("获取index",res)
 							_this.swiperLength=res.data.banner.length
 							_this.$set(_this,'carouselList',res.data.banner)
@@ -387,7 +387,7 @@
 					})
 			}else{
 				postFetch('index.php/index/index',{phone:_this.$store.state.userST.phone||null,latitude:_this.latitude||null,
-							longitude:_this.longitude||null},false,function(res){
+							longitude:_this.longitude||null,isvip:_this.identity_type||null},false,function(res){
 								console.log("获取index",res)
 								_this.swiperLength=res.data.banner.length
 					_this.$set(_this,'carouselList',res.data.banner)
@@ -400,6 +400,11 @@
 		onLoad() {
 			this.loadData();
 			
+		},
+		computed:{
+			identity_type(){
+				return this.$store.state.userST.identity_type
+			}
 		},
 		methods: {
 			navTo(url){

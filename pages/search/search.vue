@@ -160,6 +160,11 @@
 				searchHistory:uni.getStorageSync("searchHistory")||[]
 			};
 		},
+		computed:{
+			identity_type(){
+				return this.$store.state.userST.identity_type
+			}
+		},
 		methods:{
 			setSalse(num){
 				this.salse=num;
@@ -184,7 +189,7 @@
 				this.showType = !this.showType
 			},
 			push(){
-				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.salse},false,function(res){
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.salse,isvip:_this.identity_type||null},false,function(res){
 					console.log("search",res)
 					if(res.data.pro_list){
 						_this.$set(_this,'goodsList',[..._this.goodsList,res.data.pro_list])
