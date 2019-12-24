@@ -1448,6 +1448,7 @@
 				font-size:21upx;
 				font-family:PingFang SC;
 				font-weight:500;
+				margin-top: 10upx;
 				color:rgba(241,241,241,1);
 				.bottomButtonIcon{
 					width:22upx;
