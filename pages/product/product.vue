@@ -594,15 +594,20 @@
 								url:'/pages/noNetwork/noNetwork'
 							})
 				}else{
-					Alibcsdk.opendetail({
-						itemid: _this.num_iid,
-						linkkey: "taobao",
-						nativeFailedMode: "download",
-						appkey: "28164312",
-						opentype: 'native'
-					}, result => {
+					if(_this.coupon_link){
+						_this.popOut(_this.coupon_link)
+					}else{
+						Alibcsdk.opendetail({
+							itemid: _this.num_iid,
+							linkkey: "taobao",
+							nativeFailedMode: "download",
+							appkey: "28164312",
+							opentype: 'native'
+						}, result => {
+						
+						})
+					}
 					
-					})
 				}
 			},
 			stopPrevent(){},

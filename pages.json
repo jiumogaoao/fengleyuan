@@ -424,8 +424,8 @@
 				"text": "分类"
 			},
 			{
-				// "pagePath": "pages/index/index",
-				"pagePath": "pages/mall/mall",
+				"pagePath": "pages/index/index",
+				// "pagePath": "pages/mall/mall",
 				"iconPath": "static/n2.png",
 				"selectedIconPath": "static/n2-h.png",
 				"text": "自营商城"

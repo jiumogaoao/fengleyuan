@@ -10,17 +10,7 @@ module.exports = {
 	},
 	methods: {
 		back(){
-			if(this.$store.state.userST.network==true){
-				uni.navigateBack();
-			}else{
-				uni.showLoading({
-					title:'加载中'
-				})
-				setTimeout(function () {
-				    uni.hideLoading();
-				}, 4000);
-			}
-			
+			uni.navigateBack();
 		},
 		go(url){
 			uni.navigateTo({
@@ -37,7 +27,7 @@ module.exports = {
 			
 			uni.getClipboardData({
 			    success: function (res) {
-					if(res.data.length && uni.getStorageSync('firstIn')==1 && _this.$store.state.userST.cacheTitle != res.data){
+					if(res.data.length && res.data.replace(/\s*/g,"").length && uni.getStorageSync('firstIn')==1 && uni.getStorageSync('cacheTitle') != res.data && typeof(res.data)=="string"){
 						const subNVue = uni.getSubNVueById('catchPopup')
 							uni.$off('popUpCancel')
 							uni.$on('popUpCancel',function(){
@@ -55,7 +45,8 @@ module.exports = {
 							setTimeout(function(){
 								subNVue.show('popup',200,()=>{
 									uni.$emit('cacheTitle',res.data)
-									_this.$store.dispatch("userST/setCacheTitle",res.data)
+									uni.setStorageSync('cacheTitle',res.data)
+									// _this.$store.dispatch("userST/setCacheTitle",res.data)
 								    console.log('subNVue 原生子窗体显示成功');
 									// uni.setStorageSync('cacheCheck',1)
 									// uni.setClipboardData({
