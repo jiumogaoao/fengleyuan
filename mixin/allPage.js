@@ -10,7 +10,17 @@ module.exports = {
 	},
 	methods: {
 		back(){
-			uni.navigateBack();
+			if(this.$store.state.userST.network==true){
+				uni.navigateBack();
+			}else{
+				uni.showLoading({
+					title:'加载中'
+				})
+				setTimeout(function () {
+				    uni.hideLoading();
+				}, 4000);
+			}
+			
 		},
 		go(url){
 			uni.navigateTo({

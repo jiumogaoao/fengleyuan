@@ -75,64 +75,24 @@
 			</view>
 			<scroll-view scroll-x="true" class="scroll">
 				<view class="scrollFrame">
-					<view class="guessProduct">
-						<image src="/static/goodlist2@2x.png" class="guessImg"></image>
-						<view class="guessProductTitle">恒源祥2019春季长...</view>
+					<view class="guessProduct" v-for="(v,i) in guess_like" :key="i">
+						<image :src="v.pict_url" class="guessImg"></image>
+						<view class="guessProductTitle">{{v.title}}</view>
 						<view class="guessInfo">
-							<view class="guessCoupon">券￥300</view>
+							<view class="guessCoupon">券￥{{v.coupon}}</view>
 							<view class="guessIncomeFrame">
 								<view class="guessIncome">预估收益</view>
 								<image class="mt" src="/static/productIcon02.png"></image>
-								<view class="guessIncome">50</view>
+								<view class="guessIncome">{{v.commission}}</view>
 							</view>
 						</view>
 						<view class="guessBottom">
 							<view class="guessPriceFrame">
 								<view class="guessPriceLabel">券后价</view>
 								<view class="guessPriceTip">￥</view>
-								<view class="guessPrice">248</view>
+								<view class="guessPrice">{{v.zk_final_price_wap1?v.zk_final_price_wap1:v.zk_final_price_wap}}</view>
 							</view>
-							<view class="guessOldPrice">￥387</view>
-						</view>
-					</view>
-					<view class="guessProduct">
-						<image src="/static/goodlist2@2x.png" class="guessImg"></image>
-						<view class="guessProductTitle">恒源祥2019春季长...</view>
-						<view class="guessInfo">
-							<view class="guessCoupon">券￥300</view>
-							<view class="guessIncomeFrame">
-								<view class="guessIncome">预估收益</view>
-								<image class="mt" src="/static/productIcon02.png"></image>
-								<view class="guessIncome">50</view>
-							</view>
-						</view>
-						<view class="guessBottom">
-							<view class="guessPriceFrame">
-								<view class="guessPriceLabel">券后价</view>
-								<view class="guessPriceTip">￥</view>
-								<view class="guessPrice">248</view>
-							</view>
-							<view class="guessOldPrice">￥387</view>
-						</view>
-					</view>
-					<view class="guessProduct">
-						<image src="/static/goodlist2@2x.png" class="guessImg"></image>
-						<view class="guessProductTitle">恒源祥2019春季长...</view>
-						<view class="guessInfo">
-							<view class="guessCoupon">券￥300</view>
-							<view class="guessIncomeFrame">
-								<view class="guessIncome">预估收益</view>
-								<image class="mt" src="/static/productIcon02.png"></image>
-								<view class="guessIncome">50</view>
-							</view>
-						</view>
-						<view class="guessBottom">
-							<view class="guessPriceFrame">
-								<view class="guessPriceLabel">券后价</view>
-								<view class="guessPriceTip">￥</view>
-								<view class="guessPrice">248</view>
-							</view>
-							<view class="guessOldPrice">￥387</view>
+							<view class="guessOldPrice">￥{{v.commodity_price}}</view>
 						</view>
 					</view>
 				</view>
@@ -391,7 +351,8 @@
 					},
 				],
 				num_iid:'',
-				shop_id:''
+				shop_id:'',
+				guess_like:[]
 			};
 		},
 		async onLoad(options){
@@ -437,6 +398,7 @@
 				_this.income=res.data.commission//预估收益
 				_this.num_iid=res.data.num_iid
 				_this.shop_id=res.data.seller_id
+				_this.$set(_this,'guess_like',res.data.guess_like)
 				// _this.save=res.data.reserve_price-res.data.zk_final_price_wap//省多少
 				// _this.tb_url=res.data[0].tb_url
 				_this.tb_url="tbopen://m.taobao.com/tbopen/index.html?action=ali.open.nav&module=h5&bootImage=0&source=sb&appkey=24585258&smbSid=D9usFXFt3CUCAWpUEmbJnqKl_1562771012228&rbbt=bc.mallDetail.6.0.0&params=%7B%22fid%22%3A%22Wq6WVWePzYK%22%2C%22mtopCostTime%22%3A%22602%22%2C%22_t%22%3A%221562771013928%22%7D&h5Url=https%3A%2F%2Fdetail.m.tmall.com%2Fitem.htm%3Fid%3D545617271936%26ali_trackid%3D2%253Amm_119358667_35544742_126462907%253A1562771005_146_947006687%26pvid%3Dnull%26scm%3Dnull%26e%3Dp1zr4pcBUutfRHk7Z7SOONK1O27zH5exMy-K7eYuUtD9Umq014SDk-EB843RIyUrz5TIqjXOFX8u5CK3qPnb4lYGFoZ0V7Qu1n2u1uaGfFRgsCpuYl5N_4Fi75dyoNakjIS9tDsfWnft889xAP7p2jp03STBeU8EESg8S2zmmcYTF6i4jJ3bKFV3p2QP3rdTNIRPse9zYAx9sOxrKwzrUKjUeRQ-baNrRbbhzKSdd6Buj8gkG7lyPXJNpUdEdxUwsmcYjUfw1pLyxfMlhoGmqyEXoVwCl-WxyneceYJe9jQVJFtDE6_qOAMjmLAC-HTKdL9elmNoMI-b0YmewATGuG3qGSkGjcFH-YgNcLKYkqVb8VTdan73Yx5l5jApKhRTBzCw_9olP8KLGcjuwgWuxNQDEIJrpqdyy8CEDSc0Uk_EXzm7ZfO5Mg%26type%3D2%26tk_cps_param%3D119358667%26tkFlag%3D0%26point%3D%25257B%252522from%252522%25253A%252522h5%252522%25252C%252522ali_trackid%252522%25253A%2525222%25253Amm_119358667_35544742_126462907%25253A1562771005_146_947006687%252522%25252C%252522h5_uid%252522%25253A%252522D9usFXFt3CUCAWpUEmbJnqKl%252522%25252C%252522ap_uri%252522%25253A%252522sb_redirect_auto%252522%25252C%252522page%252522%25253A%252522mallDetail%252522%25252C%252522callType%252522%25253A%252522scheme%252522%25257D"
@@ -610,14 +572,19 @@
 								url:'/pages/noNetwork/noNetwork'
 							})
 				}else{
-					Alibcsdk.openshop({
-						shopid:_this.shop_id,
-					    appkey:'28164312',
-					    linkkey: 'taobao',
-					    nativeFailedMode:"download"
-					}, result=> {
+					if(_this.coupon_link){
+						_this.popOut(_this.coupon_link)
+					}else{
+						Alibcsdk.openshop({
+							shopid:_this.shop_id,
+						    appkey:'28164312',
+						    linkkey: 'taobao',
+						    nativeFailedMode:"download"
+						}, result=> {
+						
+						});
+					}
 					
-					});
 				}
 			},
 			buy(){
@@ -772,7 +739,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-top: 20upx;
+		/* margin-top: 15upx; */
 		.price-box{
 			display:flex;
 			align-items:baseline;
@@ -936,6 +903,9 @@
 						/* text-indent: 9upx; */
 						margin-top: 10upx;
 						padding-left: 9upx;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
 					}
 					.guessInfo{
 						padding-left: 6upx;
@@ -1415,8 +1385,8 @@
 		align-items: center;
 		width: 690upx;
 		height: 100upx;
-		/* background: rgba(255,255,255,.9); */
-		/* box-shadow: 0 0 20upx 0 rgba(0,0,0,.5); */
+		background: rgba(255,255,255,.9);
+		box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
 		border-radius: 16upx;
 		padding: 0 22upx;
 		.bottomPoint{

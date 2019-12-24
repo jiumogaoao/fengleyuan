@@ -20,24 +20,51 @@
 				<view class="label">立即升级</view>
 			</view>
 		</view>
-		<view class="introduce-section">
-			<text class="title"><image src="/static/productIcon03.png" class="titleIcon"></image> {{product_name}}</text>
-			
-		</view>
-		<view class="priceFrame">
-			<view class="price-box">
-				<text class="priceLabel">券后价</text>
-				<text class="price-tip">¥</text>
-				<text class="price">{{post_coupon}}</text>
-				<text class="m-price">¥{{commodity_price}}</text>
-				<!-- <text class="coupon-tip">7折</text> -->
+		<view class="introduceFrame">
+			<view class="introduce-section">
+				<view class="title"><text class="textLabel">优选</text>{{product_name}}</view>
 			</view>
-			<view class="bot-row" v-if="vip">
-				<view>预估收益</view><image class="mt" src="/static/productIcon02.png"></image><view>{{income}}</view>
-				<!-- <text>库存: 4690</text>
-				<text>浏览量: 768</text> -->
+			<view class="introduce-dsc">
+				全羊绒，哥弟2019秋冬新款100%，纯山羊绒衫女针织衫打底衫毛 衣良好的耐热、耐寒性，耐磨，耐冲性能好，且皮革柔软、坚韧…
 			</view>
+			<view class="priceFrame">
+				<view class="price-box">
+					<text class="priceLabel">券后价</text>
+					<text class="price-tip">¥</text>
+					<text class="price">{{post_coupon}}</text>
+					<text class="m-price">¥{{commodity_price}}</text>
+					<!-- <text class="coupon-tip">7折</text> -->
+				</view>
+				<view class="bot-row">
+					<view>预估收益</view><image class="mt" src="/static/productIcon02.png"></image><view>{{income}}</view>
+					<!-- <text>库存: 4690</text>
+					<text>浏览量: 768</text> -->
+				</view>
+			</view>
+			<view class="introduceBottom">
+				<view class="introduceBottomPoint">
+					<view class="introduceBottomLabel">销量：</view>
+					<view class="introduceBottomNum">120</view>
+				</view>
+				<view class="introduceBottomPoint">
+					<view class="introduceBottomLabel">分享：</view>
+					<view class="introduceBottomNum">45771</view>
+				</view>
+			</view>
+			<!-- <view class="couponFrame" v-if="coupon_face_value">
+				<image class="couponBG" src="/static/productIcon06.png"></image>
+				<view class="left">
+					<view class="price-tip">￥</view>
+					<view class="price">{{coupon_face_value}}</view>
+					<view class="nameFrame">
+						<view class="name">优惠券</view>
+						<view class="useDate">12月12日 - 12月21日</view>
+					</view>
+				</view>
+				<view class="button" @click="popOut(coupon_link)">立即领取</view>
+			</view> -->
 		</view>
+		
 		<!--  分享 -->
 		<!-- <view class="share-section" @click="share">
 			<view class="share-icon">
@@ -52,15 +79,77 @@
 			</view>
 			
 		</view> -->
-		<view class="couponFrame" v-if="coupon_face_value">
-			<image class="couponBG" src="/static/productIcon06.png"></image>
-			<view class="left">
-				<view class="price-tip">￥</view>
-				<view class="price">{{coupon_face_value}}</view>
-				<view class="name">优惠券</view>
+		<!-- <view class="guessFrame">
+			<view class="guesstTitleFrame">
+				<image class="guessTitleIcon" src="/static/productTitleIcon.png"></image>
+				<view class="guessTitle">猜你喜欢</view>
+				<image class="guessTitleIcon" src="/static/productTitleIcon.png"></image>
 			</view>
-			<view class="button" @click="popOut(coupon_link)">立即领取</view>
-		</view>
+			<scroll-view scroll-x="true" class="scroll">
+				<view class="scrollFrame">
+					<view class="guessProduct">
+						<image src="/static/goodlist2@2x.png" class="guessImg"></image>
+						<view class="guessProductTitle">恒源祥2019春季长...</view>
+						<view class="guessInfo">
+							<view class="guessCoupon">券￥300</view>
+							<view class="guessIncomeFrame">
+								<view class="guessIncome">预估收益</view>
+								<image class="mt" src="/static/productIcon02.png"></image>
+								<view class="guessIncome">50</view>
+							</view>
+						</view>
+						<view class="guessBottom">
+							<view class="guessPriceFrame">
+								<view class="guessPriceLabel">券后价</view>
+								<view class="guessPriceTip">￥</view>
+								<view class="guessPrice">248</view>
+							</view>
+							<view class="guessOldPrice">￥387</view>
+						</view>
+					</view>
+					<view class="guessProduct">
+						<image src="/static/goodlist2@2x.png" class="guessImg"></image>
+						<view class="guessProductTitle">恒源祥2019春季长...</view>
+						<view class="guessInfo">
+							<view class="guessCoupon">券￥300</view>
+							<view class="guessIncomeFrame">
+								<view class="guessIncome">预估收益</view>
+								<image class="mt" src="/static/productIcon02.png"></image>
+								<view class="guessIncome">50</view>
+							</view>
+						</view>
+						<view class="guessBottom">
+							<view class="guessPriceFrame">
+								<view class="guessPriceLabel">券后价</view>
+								<view class="guessPriceTip">￥</view>
+								<view class="guessPrice">248</view>
+							</view>
+							<view class="guessOldPrice">￥387</view>
+						</view>
+					</view>
+					<view class="guessProduct">
+						<image src="/static/goodlist2@2x.png" class="guessImg"></image>
+						<view class="guessProductTitle">恒源祥2019春季长...</view>
+						<view class="guessInfo">
+							<view class="guessCoupon">券￥300</view>
+							<view class="guessIncomeFrame">
+								<view class="guessIncome">预估收益</view>
+								<image class="mt" src="/static/productIcon02.png"></image>
+								<view class="guessIncome">50</view>
+							</view>
+						</view>
+						<view class="guessBottom">
+							<view class="guessPriceFrame">
+								<view class="guessPriceLabel">券后价</view>
+								<view class="guessPriceTip">￥</view>
+								<view class="guessPrice">248</view>
+							</view>
+							<view class="guessOldPrice">￥387</view>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view> -->
 		<view class="shopFrame">
 			<view class="left">
 				<image class="shopIcon" src="/static/productIcon03.png"></image>
@@ -146,7 +235,7 @@
 				</view>
 				<view class="right" @click="buy">
 					<view class="title">购买</view>
-					<view class="dsc">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>{{estimate?estimate:(commodity_price-post_coupon)}}元</view>
+					<view class="dsc">省<!-- <image class="bottomButtonIcon" src="/static/productIcon02.png"></image> -->{{estimate?estimate:(commodity_price-post_coupon)}}元</view>
 				</view>
 			</view>
 		</view>
@@ -336,11 +425,6 @@
 		},
 		onShow(){
 			let _this = this; 
-			// t = new HJ_LBC(this,{
-			//                 appkey:"28164312",//百川的appkey,注册一个应用后看详情下
-			//                 backUrl:"tbopen28164312" ,//用于在按返回键时从淘宝直接返回本APP
-			//                 linkKey: 'TB',//或者 TM 代表淘宝和天猫
-			//             }) ; //初始化
 			
 			//接收传值,id里面放的是标题，因为测试数据并没写id 
 			let id = this.id;
@@ -360,7 +444,7 @@
 				_this.sales_volume=res.data.volume//销量
 				_this.shop_name=res.data.nick//店铺名
 				_this.estimate=res.data.save//省多少
-				_this.post_coupon=res.data.zk_final_price_wap1||res.data.zk_final_price_wap//券后价
+				_this.post_coupon=res.data.zk_final_price_wap//券后价
 				_this.vip=res.data.vip//升级可赚,预估收益
 				_this.income=res.data.commission//预估收益
 				_this.num_iid=res.data.num_iid
@@ -582,9 +666,12 @@
 		background: $page-color-base;
 		padding-bottom: 160upx;
 	}
+	.container{
+		background:rgba(248,248,248,1);
+	}
 	.mt{
-		width:22rpx;
-		height:22rpx;
+		width:22upx;
+		height:22upx;
 	}
 	.icon-you{
 		font-size: $font-base + 2upx;
@@ -614,21 +701,21 @@
 		
 	}
 	.headFoot{
-		width: 750rpx;
-		height: 58rpx;
+		width: 750upx;
+		height: 58upx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		.text{
 			flex-grow: 1;
-			padding: 17rpx 42rpx;
+			padding: 17upx 42upx;
 			background-color: #FCEEC7;
-			font-size:24rpx;
+			font-size:24upx;
 			font-family:PingFang SC;
 			font-weight:500;
 			color:rgba(49,33,8,1);
 			.red{
-				font-size:24rpx;
+				font-size:24upx;
 				font-family:PingFang SC;
 				font-weight:bold;
 				color:rgba(200,55,47,1);
@@ -636,19 +723,19 @@
 		}
 		.button{
 			flex-shrink: 0;
-			width: 154rpx;
-			height: 58rpx;
+			width: 154upx;
+			height: 58upx;
 			background-color: #FFD476;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			.icon{
-				width:25rpx;
-				height: 24rpx;
-				margin-right: 10rpx;
+				width:25upx;
+				height: 24upx;
+				margin-right: 10upx;
 			}
 			.label{
-				font-size:21rpx;
+				font-size:21upx;
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(49,33,8,1);
@@ -656,55 +743,123 @@
 		}
 	}
 	/* 标题简介 */
-	.introduce-section{
-		background: #fff;
-		padding: 20upx 30upx;
-		.title{
-			font-size:29rpx;
+	.introduceFrame{
+		width: 100%;
+		background-color: #fff;
+		padding-bottom: 24upx;
+		/* <view class="introduceBottom">
+			<view class="introduceBottomPoint">
+				<view class="introduceBottomLabel">销量：</view>
+				<view class="introduceBottomNum">120</view>
+			</view>
+			<view class="introduceBottomPoint">
+				<view class="introduceBottomLabel">分享：</view>
+				<view class="introduceBottomNum">45771</view>
+			</view>
+		</view> */
+		.introduce-dsc{
+			padding: 0 30upx;
+			font-size:24upx;
 			font-family:PingFang SC;
 			font-weight:500;
 			color:rgba(51,51,51,1);
-			height: 71rpx;
-			line-height: 1.5;
-			.titleIcon{
-				width:28rpx;
-				height:28rpx;
-				margin-right: 10rpx;
+			line-height:43upx;
+			opacity:0.6;
+		}
+		.introduceBottom{
+			display: flex;
+			margin-top: 44upx;
+			align-items: center;
+			.introduceBottomPoint{
+				display: flex;
+				align-items: center;
+				margin-right: 104rpx;
+				padding: 0 30upx;
+				.introduceBottomLabel{
+					font-size:21upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:#A7A6A6;
+				}
+				.introduceBottomNum{
+					font-size:21upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:#333333;
+				}
 			}
 		}
-		
+	}
+	.introduce-section{
+		background: #fff;
+		padding: 20upx 30upx;
+		position: relative;
+		.title{
+			font-size:29upx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(51,51,51,1);
+			height: 71upx;
+			line-height: 1.5;
+			/* text-indent: 38upx; */
+			.textLabel{
+				padding: 6upx 9upx;
+				background:linear-gradient(73deg,rgba(255,215,109,1) 0%,rgba(255,223,151,1) 100%);
+				border-radius:16upx;
+				font-size:21upx;
+				font-family:PingFang SC;
+				font-weight:800;
+				color:rgba(51,51,51,1);
+			}
+		}
+		.titleIcon{
+			width:28upx;
+			height:28upx;
+			position: absolute;
+			top:28upx;
+			left: 30upx;
+		}
+		.saled{
+			font-size:24upx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(153,153,153,1);
+			position: absolute;
+			top:74upx;
+			right: 31upx;
+		}
 	}
 	.priceFrame{
-		width: 750rpx;
-		padding: 0 28rpx;
+		width: 750upx;
+		padding: 0 28upx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-top: 34rpx;
+		margin-top: 34upx;
 		.price-box{
 			display:flex;
 			align-items:baseline;
 			.priceLabel{
-				font-size:24rpx;
+				font-size:24upx;
 				font-family:PingFang SC;
 				font-weight:bold;
 				color:rgba(228,70,84,1);
 			}
 			.price-tip{
-				font-size:33rpx;
+				font-size:33upx;
 				font-family:PingFang SC;
 				font-weight:bold;
 				color:rgba(219,0,27,1);
 			}
 			.price{
-				font-size:50rpx;
+				font-size:50upx;
 				font-family:PingFang SC;
 				font-weight:bold;
 				color:rgba(219,0,27,1);
 			}
 			.m-price{
 			margin:0 12upx;
-			font-size:21px;
+			font-size:21upx;
 			font-family:PingFang SC;
 			font-weight:500;
 			color:rgba(167,166,166,1);
@@ -724,93 +879,248 @@
 			transform: translateY(-4upx); 
 		}
 		.bot-row{
-			/* width:186rpx; */
-			padding: 0 10rpx;
-			height:37rpx;
+			/* width:186upx; */
+			padding: 0 10upx;
+			height:37upx;
 			background-color: #FFE0A5;
-			font-size:24rpx;
+			font-size:24upx;
 			font-family:PingFang SC;
 			font-weight:500;
 			color:rgba(49,33,8,1);
 			text-align: center;
-			line-height: 37rpx;
+			line-height: 37upx;
 			display: flex;
 			align-items: center;
 		}
 	}
 	.couponFrame{
-		width:715rpx;
-		height:173rpx;
+		width:715upx;
+		height:173upx;
 		margin: auto;
-		margin-top: 45rpx;
+		margin-top: 45upx;
 		position: relative;
 		.couponBG{
-			width:715rpx;
-			height:173rpx;
+			width:715upx;
+			height:173upx;
 		}
 		.left{
 			position: absolute;
-			top:37rpx;
-			left: 60rpx;
+			top:37upx;
+			left: 60upx;
 			display: flex;
 			align-items: baseline;
 			.price-tip{
-				font-size:33rpx;
+				font-size:33upx;
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(249,22,60,1);
 				position: relative;
-				top:-80rpx;
+				top:-80upx;
 			}
 			.price{
-				font-size:115rpx;
+				font-size:115upx;
 				font-family:Adobe Heiti Std;
 				font-weight:normal;
 				color:rgba(249,22,60,1);
 			}
-			.name{
-				font-size:35rpx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(249,22,60,1);
-				margin-left: 10rpx;
+			.nameFrame{
+				height: 76upx;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: relative;
+				top: -52upx;
+				margin-left: 26upx;
+				.name{
+					font-size:35upx;
+					font-family:PingFang SC;
+					font-weight:800;
+					color:rgba(249,22,60,1);
+				}
+				.useDate{
+					font-size:21upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(249,22,60,1);
+				}
 			}
 		}
 		.button{
-			font-size:28rpx;
+			font-size:28upx;
 			font-family:PingFang SC;
 			font-weight:bold;
 			color:rgba(210,26,56,1);
 			position: absolute;
-			top:76rpx;
-			right:48rpx;
+			top:69upx;
+			right:48upx;
 		}
 	}
+	.guessFrame{
+		width: 750upx;
+		padding: 27upx 0;
+		margin-top: 16upx;
+		background-color: #fff;
+		.guesstTitleFrame{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 98upx;
+			.guessTitleIcon{
+				width:26upx;
+				height:26upx;
+			}
+			.guessTitle{
+				font-size:31upx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(34,34,34,1);
+				margin: 0 21upx;
+			}
+		}
+		.scroll{
+			width:750upx;
+			height: 380upx;
+			.scrollFrame{
+				display: flex;
+				flex-wrap: nowrap;
+				.guessProduct{
+					width:249upx;
+					margin-left: 17upx;
+					.guessImg{
+						width:249upx;
+						height:249upx;
+					}
+					.guessProductTitle{
+						font-size:26upx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(51,51,51,1);
+						/* text-indent: 9upx; */
+						margin-top: 10upx;
+						padding-left: 9upx;
+					}
+					.guessInfo{
+						padding-left: 6upx;
+						margin-top: 8upx;
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						.guessCoupon{
+							width:90upx;
+							height: 35upx;
+							background-image: url('~@/static/coupon.png');
+							background-size: 90upx 35upx;
+							line-height: 35upx;
+							text-align: center;
+							font-size:17upx;
+							font-family:PingFang SC;
+							font-weight:400;
+							color:rgba(255,255,255,1);
+						}
+						.guessIncomeFrame{
+							padding: 6upx 15upx;
+							background:rgba(250,131,35,1);
+							border-radius:7upx;
+							display: flex;
+							align-items: center;
+							.guessIncome{
+								font-size:17upx;
+								font-family:PingFang SC;
+								font-weight:400;
+								color:rgba(255,255,255,1);
+							}
+						}
+					}
+					.guessBottom{
+						margin-top: 17upx;
+						width: 100%;
+						padding-left: 7upx;
+						display: flex;
+						justify-content: space-between;
+						align-items: baseline;
+						.guessPriceFrame{
+							display: flex;
+							align-items: baseline;
+							.guessPriceLabel{
+								font-size:17upx;
+								font-family:PingFang SC;
+								font-weight:500;
+								color:rgba(228,70,84,1);
+							}
+							.guessPriceTip{
+								font-size:22upx;
+								font-family:PingFang SC;
+								font-weight:bold;
+								color:rgba(219,0,27,1);
+							}
+							.guessPrice{
+								font-size:33upx;
+								font-family:PingFang SC;
+								font-weight:bold;
+								color:rgba(219,0,27,1);
+							}
+						}
+						.guessOldPrice{
+							font-size:21upx;
+							font-family:PingFang SC;
+							font-weight:500;
+							text-decoration:line-through;
+							color:rgba(167,166,166,1);
+						}
+					}
+				}
+			}
+		}
+		/* <scroll-view scroll-x="true" class="scroll">
+			<view class="scrollFrame">
+				<view class="guessProduct">
+					<image src="/static/goodlist2@2x.png" class="guessImg"></image>
+					<view class="guessProductTitle">恒源祥2019春季长。。。</view>
+					<view class="guessInfo">
+						<view class="guessCoupon">券￥300</view>
+						<view class="guessIncomeFrame">
+							<view class="guessIncome">预估收益</view>
+							<image class="mt" src="/static/productIcon02.png"></image>
+							<view class="guessIncome">50</view>
+						</view>
+					</view>
+					<view class="guessBottom">
+						<view class="guessPriceFrame">
+							<view class="guessPriceLabel">券后价</view>
+							<view class="guessPriceTip">￥</view>
+							<view class="guessPrice">248</view>
+						</view>
+						<view class="guessOldPrice">￥387</view>
+					</view>
+				</view> */
+	}
 	.shopFrame{
-		width:750rpx;
-		height:80rpx;
-		padding:28rpx 42rpx;
+		width:750upx;
+		height:80upx;
+		padding:28upx 42upx;
 		display:flex;
 		align-items:center;
 		justify-content:space-between;
-		margin-top:16rpx;
+		margin-top:16upx;
+		background-color: #fff;
 		.left{
 			display: flex;
 			align-items: center;
 			.shopIcon{
-				width:40rpx;
-				height:40rpx;
-				margin-right: 11rpx;
+				width:40upx;
+				height:40upx;
+				margin-right: 11upx;
 			}
 			.shopTitle{
-				font-size:28rpx;
+				font-size:28upx;
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(51,51,51,1);
 			}
 		}
 		.right{
-			font-size:25rpx;
+			font-size:25upx;
 			font-family:PingFang SC;
 			font-weight:500;
 			color:rgba(228,24,87,1);
@@ -1168,68 +1478,68 @@
 		align-items: center;
 		width: 690upx;
 		height: 100upx;
-		background: rgba(255,255,255,.9);
-		box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
+		/* background: rgba(255,255,255,.9); */
+		/* box-shadow: 0 0 20upx 0 rgba(0,0,0,.5); */
 		border-radius: 16upx;
-		padding: 0 22rpx;
+		padding: 0 22upx;
 		.bottomPoint{
 			display:flex;
 			flex-direction:column;
 			justify-content: center;
 			align-items: center;
 			.buttomIcon{
-				width:40rpx;
-				height:40rpx;
+				width:40upx;
+				height:40upx;
 			}
 			.bottomLabel{
-				font-size:22rpx;
+				font-size:22upx;
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(96,98,102,1);
-				margin-top: 5rpx;
+				margin-top: 5upx;
 			}
 		}
 		.bottomPoint.hl .bottomLabel{
 			color:#DD8D45;
 		}
 		.bottomButtonFrame{
-			width:417rpx;
-			height: 75rpx;
+			width:417upx;
+			height: 75upx;
 			display: flex;
 			.left{
-				width:208rpx;
-				height:75rpx;
+				width:208upx;
+				height:75upx;
 				background:rgba(45,45,45,1);
-				border-radius:37rpx 0rpx 0rpx 38rpx;
+				border-radius:37upx 0upx 0upx 38upx;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 			}
 			.right{
-				width:208rpx;
-				height:75rpx;
+				width:208upx;
+				height:75upx;
 				background:linear-gradient(-90deg,rgba(150,12,0,1) 0%,rgba(226,41,39,1) 100%);
-				border-radius:0rpx 37rpx 38rpx 0rpx;
+				border-radius:0upx 37upx 38upx 0upx;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 			}
 			.title{
-				font-size:28rpx;
+				font-size:28upx;
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(241,241,241,1);
 			}
 			.dsc{
-				font-size:21rpx;
+				font-size:21upx;
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(241,241,241,1);
 				.bottomButtonIcon{
-					width:22rpx;
-					height: 22rpx;
+					width:22upx;
+					height: 22upx;
 				}
 			}
 		}

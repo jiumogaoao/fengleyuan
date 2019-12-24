@@ -5,7 +5,7 @@
 			<image class="bg" src="/static/user-bg.png"></image>
 			<view class="user-info-box">
 				<view class="portrait-box">
-					<image class="portrait" :src="avatar || '/static/missing-face.png'"></image>
+					<image class="portrait" :src="avatar || '/static/logo.png'"></image>
 				</view>
 				<view class="info-box" v-if="nickname">
 					<text class="username">{{nickname || '游客'}}</text>

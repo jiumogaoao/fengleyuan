@@ -1,5 +1,7 @@
 <template>
-	<image src="/static/welcomeDefault.png" mode="widthFix"></image>
+	<view class="frame">
+		<image src="/static/firstLogo.png"></image>
+	</view>
 </template>
 
 <script>
@@ -21,7 +23,20 @@
 </script>
 
 <style lang="scss">
-	image{
-		width:750rpx;
+	.frame{
+		position: fixed;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(150deg,#dbfcf1 0%,#aae9d4 100%);
+		image{
+			width:364upx;
+			height: 324upx;
+		}
 	}
+	
 </style>
