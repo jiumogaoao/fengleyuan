@@ -10,7 +10,7 @@
 				<view v-for="item in g" :key="item.id" class="s-list" :id="'main-'+item.id"  v-if="g.length">
 					<view class="s-item">{{item.name}}</view>
 					<view class="t-list">
-						<view @click="navToList(titem.name)" v-if="item.c_class.length" class="t-item" v-for="titem in item.c_class" :key="titem.id">
+						<view @click="navToList(titem.id)" v-if="item.c_class.length" class="t-item" v-for="titem in item.c_class" :key="titem.id">
 							<image :src="titem.img_url"></image>
 							<text>{{titem.name}}</text>
 						</view>
@@ -143,9 +143,9 @@
 				})
 				this.sizeCalcState = true;
 			},
-			navToList(keyword){
+			navToList(id){
 				uni.navigateTo({
-					url: '/pages/search/search?keywork='+keyword
+					url: '/pages/search/search?classid='+id
 				})
 			}
 		}

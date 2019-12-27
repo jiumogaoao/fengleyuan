@@ -128,7 +128,8 @@
 				keywork:'',
 				salse:0,//0综合1按销量顺序2销量倒序3价格顺序4价格倒序5上架时间6优惠券7金额佣金
 				noempty:false,
-				searchHistory:uni.getStorageSync("searchHistory")||[]
+				searchHistory:uni.getStorageSync("searchHistory")||[],
+				classid:''
 			};
 		},
 		computed:{
@@ -183,7 +184,7 @@
 					uni.setStorageSync("searchHistory",newH)
 				}
 				this.curr_page = 1;
-				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.salse},false,function(res){
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.salse,classid:this.classid},false,function(res){
 					console.log("search",res)
 					
 					if(res.data.pro_list){
@@ -314,9 +315,10 @@
 			// this.cateId = options.tid;
 			// this.loadCateList(options.fid,options.sid);
 			// this.loadData();
-			if(options.keywork||options.salse){
+			if(options.keywork||options.salse||options.classid){
 				this.keywork = options.keywork || '';
-				this.salse = options.salse;
+				this.salse = options.salse||0;
+				this.classid = options.classid || '';
 				this.search()
 			}
 		},
