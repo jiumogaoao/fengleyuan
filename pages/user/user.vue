@@ -1,7 +1,83 @@
 <template>  
     <view class="container">  
-		
-		<view class="user-section">
+		<view class="top">
+			<view class="user-info-box">
+				<image class="portrait" :src="avatar || '/static/logo.png'"></image>
+				<view class="info-box" v-if="nickname">
+					<text class="username">{{nickname || '游客'}}</text>
+					<view class="codeFrame"><view class="code">{{invitation||'暂无'}}</view><view class="copyButton" v-if="invitation">复制邀请码</view></view>
+				</view>
+				<view class="toLogon" v-else @click="go('/pages/public/login')">点击登陆账号</view>
+			</view>
+		</view>
+		<view class="card">
+			<view class="tag"><text>{{identity_type==0 && phone?'普通会员':''}}{{identity_type==0 && !phone?'蜜蜂天堂会员':''}}{{identity_type==1?'VIP会员':''}}{{identity_type==2?'合伙人':''}}{{identity_type==3?'联合创始人':''}}</text><image src="/static/userDeamean.png"></image></view>
+			<view class="cardTop">
+				<view class="topLeft">
+					<view class="topLeftTitle"><image class="mt" src="/static/productIcon02.png"></image><text>累计收益</text><image class="rightDeg" src="/static/right.png"></image></view>
+					<view class="topLeftNumber">123.45</view>
+				</view>
+				<view class="topRight">
+					<view class="topRightTitle">今日预估蜜糖</view>
+					<view class="topRightNumber">0.0</view>
+					<view class="topRightTitle" style="margin-top: 32rpx;">本月预估蜜糖</view>
+					<view class="topRightNumber">0.0</view>
+				</view>
+			</view>
+			<view class="cardBottom">
+				<view class="bottomLeft">
+					<image src="/static/vipDeamean.png"></image><text>升级</text><text class="yellow">VIP</text><text>购物返佣最高</text><text class="yellow">90%</text>
+				</view>
+				<view class="bottomRight" @click="navTo('/pages/vip/vip')">
+					<text>去升级</text><image src="/static/right.png"></image>
+				</view>
+			</view>
+		</view>
+		<view class="navFrame">
+			<view class="nav" @click="navTo('/pages/income/income')">
+				<image class="navImg" src="/static/user0.png"></image>
+				<view class="navTitle">我的收益</view>
+			</view>
+			<view class="nav" @click="navTo('/pages/order/order?state=0')">
+				<image class="navImg" src="/static/user1.png"></image>
+				<view class="navTitle">订单明细</view>
+			</view>
+			<view class="nav" @click="navTo('/pages/fans/fans')">
+				<image class="navImg" src="/static/user2.png"></image>
+				<view class="navTitle">我的粉丝</view>
+			</view>
+			<view class="nav" @click="navTo('/pages/share/share')">
+				<image class="navImg" src="/static/user3.png"></image>
+				<view class="navTitle">分享好友</view>
+			</view>
+		</view>
+		<view class="bothFrame">
+			<image class="bothPoint" src="/static/userBoth0.png" @click="navTo('/pages/cart/cart')"></image>
+			<image class="bothPoint" src="/static/userBoth1.png"></image>
+		</view>
+		<image class="bigPic" src="/static/userBigPic.png" @click="navTo('/pages/vip/vip')"></image>
+		<view class="otherFrame">
+			<view class="otherTitle">其他服务</view>
+			<view class="otherList">
+				<view class="otherPoint">
+					<image class="otherImg" src="/static/userOther0.png"></image>
+					<view class="otherPointTitle">浏览历史</view>
+				</view>
+				<view class="otherPoint" @click="navTo('/pages/follow/follow')">
+					<image class="otherImg" src="/static/userOther1.png"></image>
+					<view class="otherPointTitle">我的收藏</view>
+				</view>
+				<view class="otherPoint" @click="navTo('/pages/fans/fans')">
+					<image class="otherImg" src="/static/userOther2.png"></image>
+					<view class="otherPointTitle">邀请好友</view>
+				</view>
+				<view class="otherPoint">
+					<image class="otherImg" src="/static/userOther3.png"></image>
+					<view class="otherPointTitle">商家入驻</view>
+				</view>
+			</view>
+		</view>
+		<!-- <view class="user-section">
 			<image class="bg" src="/static/user-bg.png"></image>
 			<view class="user-info-box">
 				<view class="portrait-box">
@@ -27,13 +103,13 @@
 					{{identity_type==1?'VIP会员':''}}
 					{{identity_type==2?'合伙人':''}}
 					{{identity_type==3?'联合创始人':''}}
-				</view>
+				</view> -->
 				<!-- <text class="e-m">蜜蜂天堂 Union</text> -->
-				<text class="e-b">会员等级越高，消费奖励越丰厚，更多精彩，等您发现</text>
-			</view>
-		</view>
+				<!-- <text class="e-b">会员等级越高，消费奖励越丰厚，更多精彩，等您发现</text> -->
+		<!-- 	</view>
+		</view> -->
 		
-		<view 
+		<!-- <view 
 			class="cover-container"
 			:style="[{
 				transform: coverTransform,
@@ -58,7 +134,7 @@
 					<text class="num">0</text>
 					<text>蜜糖</text>
 				</view>
-			</view>
+			</view> -->
 			<!-- 订单 -->
 			<!-- <view class="order-section">
 				<view class="order-item" @click="navTo('/pages/order/order?state=0')" hover-class="common-hover"  :hover-stay-time="50">
@@ -78,9 +154,9 @@
 					<text>退款/售后</text>
 				</view>
 			</view> -->
-			<image src="https://www.paradisebee.com/pomo4.png" class="promoD" @click="navTo('/pages/vip/vip')"></image>
+			<!-- <image src="https://www.paradisebee.com/pomo4.png" class="promoD" @click="navTo('/pages/vip/vip')"></image> -->
 			<!-- 订单 -->
-			<view class="order-section">
+			<!-- <view class="order-section">
 				<view class="order-item" @click="navTo('/pages/income/income')">
 					<image class="shouyiIcon" src="/static/b2.png"></image>
 					<text>收益</text>
@@ -97,24 +173,24 @@
 					<image class="shouyiIcon" src="/static/b3.png"></image>
 					<text>邀请</text>
 				</view>
-			</view>
+			</view> -->
 			<!-- 浏览历史 -->
-			<view class="history-section icon">
+			<!-- <view class="history-section icon">
 				<view class="sec-header" v-if="historyList.length">
 					<text class="yticon icon-lishijilu"></text>
 					<text>浏览历史</text>
 				</view>
 				<scroll-view scroll-x class="h-list" v-if="historyList.length">
 					<image @click="popOut(v.num_iid)" :src="v.pict_url" mode="aspectFill" v-for="(v,i) in historyList" :key="i"></image>
-				</scroll-view>
+				</scroll-view> -->
 				<!-- <list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="我的钱包" tips="您的会员还有3天过期"></list-cell> -->
-				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/address')"></list-cell>
-				<list-cell icon="icon-share" iconColor="#9789f7" title="分享" tips="邀请好友,分享快乐" @eventClick="navTo('/pages/share/share')"></list-cell>
+				<!-- <list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/address')"></list-cell>
+				<list-cell icon="icon-share" iconColor="#9789f7" title="分享" tips="邀请好友,分享快乐" @eventClick="navTo('/pages/share/share')"></list-cell> -->
 				<!-- <list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="晒单" tips="晒单抢红包"></list-cell> -->
-				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="navTo('/pages/follow/follow')"></list-cell>
+	<!-- 			<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏" @eventClick="navTo('/pages/follow/follow')"></list-cell>
 				<list-cell icon="icon-shezhi1" iconColor="#e07472" title="设置" border="" @eventClick="navTo('/pages/set/set')"></list-cell>
 			</view>
-		</view>
+		</view> -->
 			
 		
     </view>  
@@ -280,204 +356,270 @@
     }  
 </script>  
 <style lang='scss'>
-	%flex-center {
-	 display:flex;
-	 flex-direction: column;
-	 justify-content: center;
-	 align-items: center;
-	}
-	%section {
-	  display:flex;
-	  justify-content: space-around;
-	  align-content: center;
-	  background: #fff;
-	  border-radius: 10upx;
-	}
-
-	.user-section{
-		height: 520upx;
-		padding: 100upx 30upx 0;
-		position:relative;
-		.bg{
-			position:absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			filter: blur(1px);
-			opacity: .7;
-		}
-	}
-	.user-info-box{
-		height: 180upx;
-		display:flex;
-		align-items:center;
-		position:relative;
-		z-index: 1;
-		.portrait{
-			width: 130upx;
-			height: 130upx;
-			/* border:5upx solid #fff; */
-			border-radius: 50%;
-		}
-		.username{
-			font-size: $font-lg + 6upx;
-			color: $font-color-dark;
-			margin-left: 20upx;
-		}
-		.code{
-			font-size: $font-lg - 6upx;
-			color: $font-color-dark;
-			margin-left: 20upx;
-			margin-top: 20rpx;
-		}
-		.toLogon{
-			font-size:33rpx;
-			font-family:PingFang SC;
-			font-weight:bold;
-			color:rgba(255,255,255,1);
-			margin-left: 20rpx;
-		}
-	}
-
-	.vip-card-box{
-		display:flex;
-		flex-direction: column;
-		color: #f7d680;
-		height: 240upx;
-		background: linear-gradient(left, rgba(0,0,0,.7), rgba(0,0,0,.8));
-		border-radius: 16upx 16upx 0 0;
-		overflow: hidden;
+	.top{
+		width:750rpx;
+		height:483rpx;
+		background-image: url('~@/static/user-bg.png');
 		position: relative;
-		padding: 20upx 24upx;
-		.card-bg{
-			position:absolute;
-			top: 20upx;
-			right: 0;
-			width: 380upx;
-			height: 260upx;
-		}
-		.b-btn{
-			position: absolute;
-			right: 20upx;
-			top: 16upx;
-			width: 132upx;
-			height: 40upx;
-			text-align: center;
-			line-height: 40upx;
-			font-size: 22upx;
-			color: #36343c;
-			border-radius: 20px;
-			background: linear-gradient(left, #f9e6af, #ffd465);
-			z-index: 1;
-		}
-		.tit{
-			font-size: $font-base+2upx;
-			color: #f7d680;
-			margin-bottom: 28upx;
-			.yticon{
-				color: #f6e5a3;
-				margin-right: 16upx;
-			}
-		}
-		.e-b{
-			font-size: $font-sm;
-			color: #d8cba9;
-			margin-top: 10upx;
-		}
-	}
-	.cover-container{
-		background: $page-color-base;
-		margin-top: -150upx;
-		padding: 0 30upx;
-		position:relative;
-		background: #f5f5f5;
-		padding-bottom: 20upx;
-		.arc{
-			position:absolute;
-			left: 0;
-			top: -34upx;
-			width: 100%;
-			height: 36upx;
-		}
-	}
-	.tj-sction{
-		@extend %section;
-		.tj-item{
-			@extend %flex-center;
-			flex-direction: column;
-			height: 140upx;
-			font-size: $font-sm;
-			color: #75787d;
-		}
-		.num{
-			font-size: $font-lg;
-			color: $font-color-dark;
-			margin-bottom: 8upx;
-		}
-	}
-	.promoD{
-		margin-top: 20rpx;
-		margin: auto;
-		width: 684rpx;
-		height:235rpx;
-	}
-	.order-section{
-		@extend %section;
-		padding: 28upx 0;
-		margin-top: 20upx;
-		.order-item{
-			@extend %flex-center;
-			width: 120upx;
-			height: 120upx;
-			border-radius: 10upx;
-			font-size: $font-sm;
-			color: $font-color-dark;
-		}
-		.shouyiIcon{
-			width:45rpx;
-			height:45rpx;
-			margin-bottom: 20rpx;
-		}
-		.yticon{
-			font-size: 48upx;
-			margin-bottom: 18upx;
-			color: #fa436a;
-		}
-		.icon-shouhoutuikuan{
-			font-size:44upx;
-		}
-	}
-	.history-section{
-		padding: 30upx 0 0;
-		margin-top: 20upx;
-		background: #fff;
-		border-radius:10upx;
-		.sec-header{
-			display:flex;
+		.user-info-box{
+			display: flex;
 			align-items: center;
-			font-size: $font-base;
-			color: $font-color-dark;
-			line-height: 40upx;
-			margin-left: 30upx;
-			.yticon{
-				font-size: 44upx;
-				color: #5eba8f;
-				margin-right: 16upx;
-				line-height: 40upx;
+			position: absolute;
+			top:142rpx;
+			left: 24rpx;
+			.portrait{
+				width:119rpx;
+				height:119rpx;
 			}
-		}
-		.h-list{
-			white-space: nowrap;
-			padding: 30upx 30upx 0;
-			image{
-				display:inline-block;
-				width: 160upx;
-				height: 160upx;
-				margin-right: 20upx;
-				border-radius: 10upx;
+			.info-box{
+				margin-left: 17rpx;
+				.username{
+					font-size:33rpx;
+					font-family:PingFang SC;
+					font-weight:bold;
+					color:rgba(43,9,0,1);
+				}
+				.codeFrame{
+					display: flex;
+					align-items: center;
+					margin-top: 14rpx;
+					.code{
+						width:141rpx;
+						height:44rpx;
+						background-image: url('~@/static/userCodeBG.png');
+						background-size: 141rpx 44rpx;
+						line-height: 44rpx;
+						text-align: center;
+						font-size:31rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(43,9,0,1);
+					}
+					.copyButton{
+						width:154rpx;
+						height:44rpx;
+						background:rgba(51,51,51,1);
+						border-radius:22rpx;
+						font-size:22rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(255,255,255,1);
+						line-height: 44rpx;
+						text-align: center;
+					}
+				}
+			}
+			.toLogon{
+				font-size:33rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(43,9,0,1);
 			}
 		}
 	}
-	
+
+	.card{
+		background-image: url('~@/static/userBackgroundCard.png');
+		width:705rpx;
+		height: 315rpx;
+		margin: auto;
+		margin-top: -168rpx;
+		background-size: 705rpx 315rpx;
+		position:relative;
+		.tag{
+			width:143rpx;
+			height:49rpx;
+			background:linear-gradient(83deg,rgba(53,53,53,1) 0%,rgba(11,11,11,1) 100%);
+			border-radius:14rpx 0px 14rpx 0px;
+			font-size:21rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(251,205,156,1);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: absolute;
+			top:0;
+			left:0;
+			image{
+				width:22rpx;
+				height: 22rpx;
+			}
+		}
+		.cardTop{
+			display: flex;
+			padding-left: 31rpx;
+			padding-right: 119rpx;
+			padding-top: 40rpx;
+			align-items: center;
+			justify-content: space-between;
+			height: 247rpx;
+			width: 100%;
+			.topLeftTitle{
+				font-size:25rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(255,255,255,1);
+				.mt{
+					width:25rpx;
+					height:25rpx;
+					margin-right: 6rpx;
+				}
+				.rightDeg{
+					width:10rpx;
+					height: 19rpx;
+					margin-left: 6rpx;
+				}
+			}
+			.topLeftNumber{
+				font-size:49rpx;
+				font-family:PingFang SC;
+				font-weight:800;
+				color:rgba(255,255,255,1);
+				margin-top: 22rpx;
+			}
+			.topRight{
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				.topRightTitle{
+					font-size:22rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(255,255,255,1);
+				}
+				.topRightNumber{
+					font-size:35rpx;
+					font-family:PingFang SC;
+					font-weight:800;
+					color:rgba(255,255,255,1);
+					margin-top: 22rpx;
+				}
+			}
+		}
+		.cardBottom{
+			width:656rpx;
+			height:47rpx;
+			background:linear-gradient(16deg,rgba(255,229,184,1) 0%,rgba(255,207,158,1) 100%);
+			border-radius:14rpx;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 14rpx 0 8rpx;
+			margin: auto;
+			.bottomLeft{
+				display: flex;
+				align-items: center;
+				font-size:22rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(51,51,51,1);
+				.yellow{
+					color: #E38A3A;
+				}
+				image{
+					width:24rpx;
+					height: 24rpx;
+					margin-right: 7rpx;
+				}
+			}
+			.bottomRight{
+				display: flex;
+				align-items: center;
+				font-size:22rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(117,96,73,1);
+				image{
+					width:10rpx;
+					height: 19rpx;
+					margin-left: 7rpx;
+				}
+			}
+		}
+	}
+	.navFrame{
+		width:574rpx;
+		margin: auto;
+		margin-top: 30rpx;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		.nav{
+			width: 25%;
+			.navImg{
+				width:84rpx;
+				height:84rpx;
+				margin: auto;
+				display: block;
+			}
+			.navTitle{
+				font-size:24rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(34,34,34,1);
+				text-align: center;
+				margin-top: 20rpx;
+			}
+		}
+	}
+	.bothFrame{
+		width:738rpx;
+		margin:auto;
+		margin-top: 28rpx;
+		display: flex;
+		align-items: center;
+		image{
+			width: 368rpx;
+			height:140rpx;
+		}
+	}
+	.bigPic{
+		width:706rpx;
+		height:151rpx;
+		border-radius: 10rpx;
+		display: block;
+		margin: auto;
+		margin-top: 17rpx;
+	}
+	.otherFrame{
+		width:706rpx;
+		margin: auto;
+		margin-top: 33rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 0rpx 13px 1rpx rgba(0, 0, 0, 0.1);
+		border-radius:7rpx;
+		padding: 47rpx 0 47rpx 24rpx;
+		.otherTitle{
+			font-size:25rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(34,34,34,1);
+		}
+		.otherList{
+			margin: auto;
+			margin-top: 58rpx;
+			width: 597rpx;
+			display: flex;
+			align-items: center;
+			.otherPoint{
+				width:25%;
+				.otherImg{
+					width:35rpx;
+					height:35rpx;
+					display: block;
+					margin: auto;
+				}
+				.otherPointTitle{
+					font-size:22rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+					margin-top: 20rpx;
+					text-align: center;
+				}
+			}
+		}
+	}
 </style>

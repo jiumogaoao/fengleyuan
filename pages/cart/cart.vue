@@ -14,66 +14,49 @@
 		</view>
 		<view v-else>
 			<!-- 列表 -->
-			<view class="cart-list">
-				<block v-for="(item, index) in cartList" :key="item.id">
-					<view
-						class="cart-item" 
-						:class="{'b-b': index!==cartList.length-1}"
-					>
-						<view class="image-wrapper">
-							<image :src="item.image" 
-								:class="[item.loaded]"
-								mode="aspectFill" 
-								lazy-load 
-								@load="onImageLoad('cartList', index)" 
-								@error="onImageError('cartList', index)"
-							></image>
-							<view 
-								class="yticon icon-xuanzhong2 checkbox"
-								:class="{checked: item.checked}"
-								@click="check('item', index)"
-							></view>
+			<view class="shopList">
+				<view class="shopListTop">
+					<radio class="shopRadio"/>
+					<image src="/static/shoppingCartShopIcon.png" class="shopIcon"></image>
+					<view class="shopTitle">蜜蜂天堂专营店</view>
+					<image src="/static/right.png" class="shopRightDeg"></image>
+				</view>
+				<view class="goodList">
+					<radio class="goodRadio"/>
+					<image src="/static/found2.png" class="goodIcon"></image>
+					<view class="goodInfo">
+						<view class="goodTitle">儿童大块积木桶装1-2-3-6周岁益智早教婴儿宝宝男女孩木头玩具</view>
+						<view class="infoCenter">
+							<view class="sku">全部套装【68块】</view>
+							<view class="income"><text>预估收益</text><image src="/static/productIcon02.png" class="mt"></image><text>15.51</text></view>
 						</view>
-						<view class="item-right">
-							<text class="clamp title">{{item.title}}</text>
-							<text class="attr">{{item.attr_val}}</text>
-							<text class="price">¥{{item.price}}</text>
-							<uni-number-box 
-								class="step"
-								:min="1" 
-								:max="item.stock"
-								:value="item.number>item.stock?item.stock:item.number"
-								:isMax="item.number>=item.stock?true:false"
-								:isMin="item.number===1"
-								:index="index"
-								@eventChange="numberChange"
-							></uni-number-box>
+						<view class="infoBottom">
+							<view class="infoBottomLeft">
+								<view class="price">￥123</view>
+								<view class="oldPrice">￥123</view>
+							</view>
+							<view class="countFrame">
+								<view class="countButton">+</view>
+								<input/>
+								<view class="countButton">-</view>
+							</view>
 						</view>
-						<text class="del-btn yticon icon-fork" @click="deleteCartItem(index)"></text>
 					</view>
-				</block>
+				</view>
 			</view>
 			<!-- 底部菜单栏 -->
 			<view class="action-section">
-				<view class="checkbox">
-					<image 
-						:src="allChecked?'/static/selected.png':'/static/select.png'" 
-						mode="aspectFit"
-						@click="check('all')"
-					></image>
-					<view class="clear-btn" :class="{show: allChecked}" @click="clearCart">
-						清空
+				<view class="actionLeft">
+					<radio></radio>
+					<view class="actionLabel">全选</view>
+				</view>
+				<view class="actionRight">
+					<view class="actionCenter">
+						<view class="total">合计：<text class="red">$320.00</text></view>
+						<view class="dec"><text>预估收益</text><image src="/static/productIcon02.png" class="mt"></image><text>3.89</text></view>
 					</view>
+					<view class="go" @click="createOrder">结算（0）</view>
 				</view>
-				<view class="total-box">
-					<text class="price">¥{{total}}</text>
-					<text class="coupon">
-						已优惠
-						<text>74.35</text>
-						元
-					</text>
-				</view>
-				<button type="primary" class="no-border confirm-btn" @click="createOrder">去结算</button>
 			</view>
 		</view>
 	</view>
@@ -222,6 +205,9 @@
 </script>
 
 <style lang='scss'>
+	page{
+		background-color: #f2f2f2;
+	}
 	.container{
 		padding-bottom: 134upx;
 		/* 空白页 */
@@ -254,141 +240,209 @@
 		}
 	}
 	/* 购物车列表项 */
-	.cart-item{
-		display:flex;
-		position:relative;
-		padding:30upx 40upx;
-		.image-wrapper{
-			width: 230upx;
-			height: 230upx;
-			flex-shrink: 0;
-			position:relative;
-			image{
-				border-radius:8upx;
-			}
-		}
-		.checkbox{
-			position:absolute;
-			left:-16upx;
-			top: -16upx;
-			z-index: 8;
-			font-size: 44upx;
-			line-height: 1;
-			padding: 4upx;
-			color: $font-color-disabled;
-			background:#fff;
-			border-radius: 50px;
-		}
-		.item-right{
-			display:flex;
-			flex-direction: column;
-			flex: 1;
-			overflow: hidden;
-			position:relative;
-			padding-left: 30upx;
-			.title,.price{
-				font-size:$font-base + 2upx;
-				color: $font-color-dark;
-				height: 40upx;
-				line-height: 40upx;
-			}
-			.attr{
-				font-size: $font-sm + 2upx;
-				color: $font-color-light;
-				height: 50upx;
-				line-height: 50upx;
-			}
-			.price{
-				height: 50upx;
-				line-height:50upx;
-			}
-		}
-		.del-btn{
-			padding:4upx 10upx;
-			font-size:34upx; 
-			height: 50upx;
-			color: $font-color-light;
-		}
-	}
+	
 	/* 底部栏 */
-	.action-section{
-		/* #ifdef H5 */
-		margin-bottom:100upx;
-		/* #endif */
-		position:fixed;
-		left: 30upx;
-		bottom:30upx;
-		z-index: 95;
-		display: flex;
-		align-items: center;
-		width: 690upx;
-		height: 100upx;
-		padding: 0 30upx;
-		background: rgba(255,255,255,.9);
-		box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
-		border-radius: 16upx;
-		.checkbox{
-			height:52upx;
-			position:relative;
-			image{
-				width: 52upx;
-				height: 100%;
-				position:relative;
-				z-index: 5;
-			}
-		}
-		.clear-btn{
-			position:absolute;
-			left: 26upx;
-			top: 0;
-			z-index: 4;
-			width: 0;
-			height: 52upx;
-			line-height: 52upx;
-			padding-left: 38upx;
-			font-size: $font-base;
-			color: #fff;
-			background: $font-color-disabled;
-			border-radius:0 50px 50px 0;
-			opacity: 0;
-			transition: .2s;
-			&.show{
-				opacity: 1;
-				width: 120upx;
-			}
-		}
-		.total-box{
-			flex: 1;
-			display:flex;
-			flex-direction: column;
-			text-align:right;
-			padding-right: 40upx;
-			.price{
-				font-size: $font-lg;
-				color: $font-color-dark;
-			}
-			.coupon{
-				font-size: $font-sm;
-				color: $font-color-light;
-				text{
-					color: $font-color-dark;
-				}
-			}
-		}
-		.confirm-btn{
-			padding: 0 38upx;
-			margin: 0;
-			border-radius: 100px;
-			height: 76upx;
-			line-height: 76upx;
-			font-size: $font-base + 2upx;
-			background: $uni-color-primary;
-			box-shadow: 1px 2px 5px rgba(217, 60, 93, 0.72)
-		}
-	}
+	
 	/* 复选框选中状态 */
 	.action-section .checkbox.checked,
 	.cart-item .checkbox.checked{
 		color: $uni-color-primary;
+	}
+
+	.shopList{
+		width:100%;
+		background-color: #fff;
+		margin-top: 21upx;
+		.shopListTop{
+			display: flex;
+			align-items: center;
+			padding: 31rpx 31upx 31upx 33upx;
+			.shopIcon{
+				width: 29upx;
+				height: 29upx;
+				margin-left: 22upx;
+				margin-right: 10upx;
+			}
+			.shopTitle{
+				font-size:26upx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(51,51,51,1);
+				margin-right: 22upx;
+			}
+			.shopRightDeg{
+				width:14upx;
+				height:24upx;
+			}
+		}
+		.goodList{
+			width:100%;
+			height:238upx;
+			display:flex;
+			align-items:center;
+			padding: 26upx 31upx 22upx 33upx;
+			border-bottom:1px solid rgba(248,248,248,1);
+			.goodIcon{
+				width:154upx;
+				height:154upx;
+				margin-left: 20upx;
+				margin-right: 20upx;
+				flex-shrink: 0;
+			}
+			.goodInfo{
+				flex-grow: 1;
+				.goodTitle{
+					font-size:25upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(0,0,0,1);
+					height: 55rpx;
+					overflow: hidden;
+				}
+				.infoCenter{
+					margin-top: 25upx;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					.sku{
+						padding:10upx 12upx;
+						background:rgba(249,249,249,1);
+						border-radius:3upx;
+						font-size:24upx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(153,153,153,1);
+					}
+					.income{
+						font-size:24upx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(255,198,0,1);
+						.mt{
+							width:22upx;
+							height: 22upx;
+							margin: 0 4upx;
+						}
+					}
+				}
+				.infoBottom{
+					margin-top: 16upx;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					.infoBottomLeft{
+						display: flex;
+						align-items: center;
+						.price{
+							font-size:26upx;
+							font-family:PingFang SC;
+							font-weight:bold;
+							color:rgba(254,69,69,1);
+						}
+						.oldPrice{
+							font-size:21upx;
+							font-family:PingFang SC;
+							font-weight:500;
+							text-decoration:line-through;
+							color:rgba(167,166,166,1);
+							margin-left: 15upx;
+						}
+					}
+					.countFrame{
+						display: flex;
+						align-items: center;
+						width:130upx;
+						height:33upx;
+						border: 1px solid #BBBBBB;
+						border-radius:3upx;
+						.countButton{
+							width: 42upx;
+							height: 100%;
+							text-align: center;
+							line-height: 26upx;
+							font-size:24upx;
+							font-family:PingFang SC;
+							font-weight:500;
+							color:rgba(102,102,102,1);
+							flex-shrink: 0;
+						}
+						input{
+							flex-grow: 1;
+							height: 26upx;
+							border-left: 1px solid #BBBBBB;
+							border-right: 1px solid #BBBBBB;
+							font-size:24upx;
+							font-family:PingFang SC;
+							font-weight:500;
+							color:rgba(102,102,102,1);
+						}
+					}
+				}
+			}
+		}
+	}
+	.action-section{
+		width:750upx;
+		position:fixed;
+		left:0;
+		bottom:0;
+		justify-content:space-between;
+		height:90upx;
+		padding-left:54upx;
+		display: flex;
+		background-color: #fff;
+		.actionLeft{
+			display: flex;
+			align-items: center;
+			flex-shrink: 0;
+			.actionLabel{
+				font-size:24upx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(102,102,102,1);
+				margin-left: 20upx;
+			}
+		}
+		.actionRight{
+			flex-grow: 1;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			.actionCenter{
+				margin-right: 79upx;
+				.total{
+					font-size:25upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+					.red{
+						color:#FE4646;
+					}
+				}
+				.dec{
+					font-size:24upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(255,198,0,1);
+					margin-top: 10upx;
+					.mt{
+						width:22upx;
+						height:22upx;
+						margin: 0 4upx;
+					}
+				}
+			}
+			.go{
+				width:217upx;
+				height:90upx;
+				background:rgba(250,28,0,1);
+				font-size:28upx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(255,255,255,1);
+				line-height: 90upx;
+				text-align: center;
+			}
+		}
 	}
 </style>

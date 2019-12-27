@@ -11,7 +11,7 @@
 					<view class="s-item">{{item.name}}</view>
 					<view class="t-list">
 						<view @click="navToList(titem.name)" v-if="item.c_class.length" class="t-item" v-for="titem in item.c_class" :key="titem.id">
-							<image :src="'https://api.paradisebee.com/'+titem.img_url"></image>
+							<image :src="titem.img_url"></image>
 							<text>{{titem.name}}</text>
 						</view>
 					</view>

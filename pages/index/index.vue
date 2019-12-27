@@ -1563,7 +1563,7 @@
 	// </view>
 	.indexTitleFrame{
 		margin: auto;
-		margin-top: 58rpx;
+		margin-top: 35rpx;
 		.indexTitleTop{
 			display: flex;
 			align-items: center;
@@ -1594,7 +1594,7 @@
 		width: 704rpx;
 		height: 282rpx;
 		margin: auto;
-		margin-top: 35rpx;
+		margin-top: 19rpx;
 		display: block;
 	}
 	// <view class="JXList">

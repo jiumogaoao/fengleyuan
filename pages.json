@@ -148,7 +148,9 @@
 			"path": "pages/order/createOrder",
 			"style": {
 				"backgroundColor": "#f5f6f8",
-				"navigationBarTitleText": "确认订单"
+				"navigationBarTitleText": "确认订单",
+				"navigationBarBackgroundColor":"#FE4646",
+				"navigationBarTextStyle":"white"
 			}
 		}, {
 			"path": "pages/address/address",
