@@ -96,6 +96,7 @@
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				cartList: [],
+				hasLogin:true
 			};
 		},
 		onLoad(){
@@ -111,7 +112,7 @@
 			}
 		},
 		computed:{
-			...mapState(['userST/hasLogin'])
+		
 		},
 		methods: {
 			//请求数据

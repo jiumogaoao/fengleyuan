@@ -121,36 +121,7 @@
 				priceOrder: 0, //1 价格从低到高 2价格从高到低
 				cateList: [],
 				goodsList: [
-					// {
-					// 	"id":2,
-					// 	"pid":"13512020724",
-					// 	"product_name":"WETHERM温碧泉八杯水补水保湿套装爽肤水面霜男女化妆护肤品正品",
-					// 	"header_img":"http://img.alicdn.com/bao/uploaded/i2/661544293/O1CN01O7qd1i1haEshyU0Y4_!!0-item_pic.jpg",
-					// 	"pro_url":"http://item.taobao.com/item.htm?id=13512020724",
-					// 	"shop_name":"温碧泉旗舰店",
-					// 	"commodity_price":90,
-					// 	"sales_volume":"892",
-					// 	"income_ratio":9,
-					// 	"commission":"8.1",
-					// 	"seller_id":"温碧泉旗舰店",
-					// 	"tbk_smor_url":"https://s.click.taobao.com/iwSuYtv",
-					// 	"tbk_url":"https://s.click.taobao.com/t?e=m%3D2%26s%3DSx4s4%2FT5YkccQipKwQzePOeEDrYVVa64K7Vc7tFgwiHjf2vlNIV67h8r4WhmWCVg5ZnjZiNpIZYP071OQeeUX1U0bFwiQSAKjNDhADNALs5XO%2FuunAhMG1cF%2BxuuSKWB6lBjOrujip7IuD9ht8sOM2hGWPlHgTvG4%2BE8ttrT1rVxKmPmpIKZsA%3D%3D",
-					// 	"ambush":"￥vGYtYBPUkGQ￥",
-					// 	"total_coupons":"200000",
-					// 	"coupon_surplus":"199957",
-					// 	"coupon_face_value":"满90元减55元",
-					// 	"coupon_start_time":"2009-12-01 00:00:00",
-					// 	"coupon_end_time":"2010-12-01 00:00:00",
-					// 	"coupon_link":"https://uland.taobao.com/coupon/edetail?e=4pr5oTZCKMJF0Vw9m5i33M0AcM9Q6CVNTFCQBvBsQDU%2BuLmYoH1Xhtyh%2FpPPYLf0txl6Um37OPIiRT7n5fsvdZTOHoUIKFRgRWbA%2FrJEooPIj4kOey29BKJ7%2BkHL3AEW&af=1&pid=mm_728630106_1144000046_109836000284",
-					// 	"coupon_password":"￥TUIFYBPUybw￥",
-					// 	"Coupon_short_link":"https://s.click.taobao.com/jeRuYtv",
-					// 	"is_pro":"是",
-					// 	"regiment_size":"0",
-					// 	"regiment_price":"0",
-					// 	"regiment_commission":"0",
-					// 	"group_start_time":"2001-01-01 08:00:00",
-					// 	"group_end_time":"2001-01-01 08:00:00",
-					// 	}
+
 				],
 				showType:0,
 				curr_page:1,
@@ -217,6 +188,17 @@
 					
 					if(res.data.pro_list){
 						_this.$set(_this,'goodsList',res.data.pro_list)
+						_this.curr_page += 1
+					}
+				})
+			},
+			searchPush(){
+				let _this=this;
+				postFetch('index.php/index/index/search',{keywork:this.keywork,curr_page:this.curr_page,type:this.salse},false,function(res){
+					console.log("search",res)
+					
+					if(res.data.pro_list){
+						_this.$set(_this,'goodsList',[..._this.goodsList,...res.data.pro_list])
 						_this.curr_page += 1
 					}
 				})
@@ -348,11 +330,12 @@
 		},
 		//下拉刷新
 		onPullDownRefresh(){
-			this.loadData('refresh');
+			// this.loadData('refresh');
+			this.searchPush()
 		},
 		//加载更多
 		onReachBottom(){
-			this.loadData();
+			this.searchPush()
 		},
 		onNavigationBarSearchInputChanged(e){
 			this.searchKey = e.text

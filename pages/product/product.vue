@@ -75,11 +75,11 @@
 			</view>
 			<scroll-view scroll-x="true" class="scroll">
 				<view class="scrollFrame">
-					<view class="guessProduct" v-for="(v,i) in guess_like" :key="i">
+					<view class="guessProduct" v-for="(v,i) in guess_like" :key="i" @click="guessClick(v.id)">
 						<image :src="v.pict_url" class="guessImg"></image>
 						<view class="guessProductTitle">{{v.title}}</view>
 						<view class="guessInfo">
-							<view class="guessCoupon">券￥{{v.coupon}}</view>
+							<view class="guessCoupon" v-if="v.coupon">券￥{{v.coupon}}</view>
 							<view class="guessIncomeFrame">
 								<view class="guessIncome">预估收益</view>
 								<image class="mt" src="/static/productIcon02.png"></image>
@@ -92,7 +92,7 @@
 								<view class="guessPriceTip">￥</view>
 								<view class="guessPrice">{{v.zk_final_price_wap1?v.zk_final_price_wap1:v.zk_final_price_wap}}</view>
 							</view>
-							<view class="guessOldPrice">￥{{v.commodity_price}}</view>
+							<view class="guessOldPrice">￥{{v.reserve_price}}</view>
 						</view>
 					</view>
 				</view>
@@ -183,7 +183,7 @@
 				</view>
 				<view class="right" @click="buy">
 					<view class="title">购买</view>
-					<view class="dsc">省<!-- <image class="bottomButtonIcon" src="/static/productIcon02.png"></image> -->{{estimate?estimate:(commodity_price-post_coupon)}}元</view>
+					<view class="dsc" v-if="estimate||(commodity_price-post_coupon)">省<!-- <image class="bottomButtonIcon" src="/static/productIcon02.png"></image> -->{{estimate?estimate:(commodity_price-post_coupon)}}元</view>
 				</view>
 			</view>
 		</view>
@@ -452,6 +452,11 @@
 			}
 		},
 		methods:{
+			guessClick(id){
+				uni.navigateTo({
+					url:'/pages/product/product?id='+id
+				})
+			},
 			goVip(){
 				if(this.$store.state.userST.phone){
 					uni.navigateTo({
@@ -1448,7 +1453,7 @@
 				font-size:21upx;
 				font-family:PingFang SC;
 				font-weight:500;
-				margin-top: 10upx;
+				margin-top: 5upx;
 				color:rgba(241,241,241,1);
 				.bottomButtonIcon{
 					width:22upx;

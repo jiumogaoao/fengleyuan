@@ -1,17 +1,19 @@
 <template>
 	<view class="content">
 		<scroll-view scroll-y class="left-aside">
-			<view v-for="item in leftList" :key="item.id" class="f-item b-b" :class="{active: item.id === currentId}" @click="getRight(item.id)" v-if="leftList.length">
+			<view v-for="(item,i) in leftList" :key="item.id" class="f-item b-b" :class="{active: i === currentId}" @click="scrollRight(i)" v-if="leftList.length">
 				{{item.name}}
 			</view>
 		</scroll-view>
-		<scroll-view scroll-with-animation scroll-y class="right-aside" :scroll-top="tabScrollTop">
-			<view v-for="item in rightList" :key="item.id" class="s-list" :id="'main-'+item.id"  v-if="rightList.length">
-				<view class="s-item">{{item.name}}</view>
-				<view class="t-list">
-					<view @click="navToList(titem.name)" v-if="item.c_class.length" class="t-item" v-for="titem in item.c_class" :key="titem.id">
-						<image :src="titem.img_url"></image>
-						<text>{{titem.name}}</text>
+		<scroll-view scroll-with-animation scroll-y class="right-aside" @scroll="asideScroll" :scroll-top="tabScrollTop">
+			<view class="group" v-if="rightList.length" v-for="(g,i) in rightList" :key="i" :id="'group'+i">
+				<view v-for="item in g" :key="item.id" class="s-list" :id="'main-'+item.id"  v-if="g.length">
+					<view class="s-item">{{item.name}}</view>
+					<view class="t-list">
+						<view @click="navToList(titem.name)" v-if="item.c_class.length" class="t-item" v-for="titem in item.c_class" :key="titem.id">
+							<image :src="'https://api.paradisebee.com/'+titem.img_url"></image>
+							<text>{{titem.name}}</text>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -28,7 +30,7 @@
 			return {
 				sizeCalcState: false,
 				tabScrollTop: 0,
-				currentId: 1,
+				currentId: 0,
 				flist: [],
 				slist: [],
 				tlist: [],
@@ -47,14 +49,26 @@
 					})
 				}else{
 					_this.$set(_this,'leftList',res.data.data)
-					_this.getRight(res.data.data[0].id)
+					res.data.data.map(function(v,i){
+						_this.getRight(v.id,i)
+					})
 				}
 			})
 		},
 		methods: {
-			getRight(id){
+			scrollRight(i){
 				let _this = this;
-				this.currentId = id
+				this.currentId = i
+				if(!this.sizeCalcState){
+					this.calcSize();
+					setTimeout(function(){
+						_this.tabScrollTop = _this.leftList[i].top
+					},500)
+				}
+				this.tabScrollTop = this.leftList[i].top
+			},
+			getRight(id,i){
+				let _this = this;
 				this.tabScrollTop = 0
 				postFetch('index.php/index/index/c_class',{id:id},false,function(res){
 					if(res.data.status!==200){
@@ -63,7 +77,7 @@
 							icon:'none'
 						})
 					}else{
-						_this.$set(_this,'rightList',res.data.data)
+						_this.$set(_this.rightList,i,res.data.data)
 					}
 				})
 			},
@@ -91,20 +105,34 @@
 			},
 			//右侧栏滚动
 			asideScroll(e){
+				let _this =this;
 				if(!this.sizeCalcState){
 					this.calcSize();
-				}
-				let scrollTop = e.detail.scrollTop;
-				let tabs = this.slist.filter(item=>item.top <= scrollTop).reverse();
-				if(tabs.length > 0){
-					this.currentId = tabs[0].pid;
+					this.currentId=0
+					console.log('noSizeCalcState',this.currentId)
+				}else{
+					let scrollTop = e.detail.scrollTop;
+					console.log('scrollTopE',e)
+					this.leftList.map(function(v,i){
+						if(i != _this.leftList.length-1){
+							if(scrollTop>=v.top&&scrollTop<_this.leftList[i+1].top){
+								_this.currentId=i
+								console.log('notLast',_this.currentId)
+							}
+						}else{
+							if(scrollTop>=e.detail.scrollHeight-uni.getSystemInfoSync().windowHeight){
+								_this.currentId=i
+								console.log('last',_this.currentId)
+							}
+						}
+					})
 				}
 			},
 			//计算右侧栏每个tab的高度等信息
 			calcSize(){
 				let h = 0;
-				this.slist.forEach(item=>{
-					let view = uni.createSelectorQuery().select("#main-" + item.id);
+				this.leftList.map((item,i)=>{
+					let view = uni.createSelectorQuery().select("#group" + i);
 					view.fields({
 						size: true
 					}, data => {

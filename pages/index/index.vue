@@ -47,12 +47,107 @@
 				<image src="/static/temp/c8.png"></image>
 				<text>优惠加油</text>
 			</view>
+			<view class="cate-item" @click="go('/pages/search/search?salse=7')">
+				<image src="/static/temp/c9.png"></image>
+				<text>加油卡</text>
+			</view>
+			<view class="cate-item" @click="yijiayou">
+				<image src="/static/temp/c10.png"></image>
+				<text>话费充值</text>
+			</view>
 		</view>
 		
 		<view class="ad-1" @click="navTo('/pages/vip/vip')">
 			<image src="https://www.paradisebee.com/pomo3.png" mode="scaleToFill"></image>
 		</view>
+		<view class="fourPicFrame">
+			<image class="fourPic" src="/static/temp/f0.png"></image>
+			<image class="fourPic" src="/static/temp/f1.png"></image>
+			<image class="fourPic" src="/static/temp/f2.png"></image>
+			<image class="fourPic" src="/static/temp/f3.png"></image>
+		</view>
 		
+		<view class="foundFrame">
+			<view class="foundTitleFrame">
+				<view class="foundTitle">发现好物</view>
+				<view class="foundDsc">低价抢网红爆品</view>
+			</view>
+			<view class="foundList">
+				<view class="foundPoind left">
+					<view class="foundPoindTitle">墙烈种草</view>
+					<view class="foundPoindDsc">千万好物 为蜜而来</view>
+					<view class="foundPointGoodList">
+						<view class="foundPointGood">
+							<image class="foundPointGoodImg" src="/static/found0.png"></image>
+							<view class="foundPointGoodButton">必买清单<image class="foundPointGoodButtonDeg"></image></view>
+						</view>
+						<view class="foundPointGood">
+							<image class="foundPointGoodImg" src="/static/found1.png"></image>
+							<view class="foundPointGoodButton">猫超精选<image class="foundPointGoodButtonDeg"></image></view>
+						</view>
+					</view>
+				</view>
+				<view class="foundPoind">
+					<view class="foundPoindTitle">今日热销</view>
+					<view class="foundPoindDsc">每日实时更新</view>
+					<view class="foundPointGoodList">
+						<view class="foundPointGood">
+							<image class="foundPointGoodImg" src="/static/found2.png"></image>
+							<view class="foundPointGoodButton">口碑好评<image class="foundPointGoodButtonDeg"></image></view>
+						</view>
+						<view class="foundPointGood">
+							<image class="foundPointGoodImg" src="/static/found3.png"></image>
+							<view class="foundPointGoodButton">实时版单<image class="foundPointGoodButtonDeg"></image></view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="indexTitleFrame">
+			<view class="indexTitleTop">
+				<view class="indexTitleLine"></view>
+				<view class="indexTitle">精选活动</view>
+				<view class="indexTitleLine"></view>
+			</view>
+			<view class="indexTitleEN">SELECTED ACTIVITIES</view>
+		</view>
+		<image class="JXBigPic" src="/static/JXBanner@2x.png"></image>
+		<view class="JXList">
+			<scroll-view scroll-x="true" class="JXScroll">
+				<view class="JXFrame">
+					<view class="JXPoint">
+						<image class="JXIMG" src="/static/a0.png"></image>
+						<view class="JXTitle">知味观年货糕</view>
+						<view class="JXPrice">券后价：￥59.90</view>
+						<view class="JXCouponPrice">券￥300</view>
+					</view>
+					<view class="JXPoint">
+						<image class="JXIMG" src="/static/a0.png"></image>
+						<view class="JXTitle">知味观年货糕</view>
+						<view class="JXPrice">券后价：￥59.90</view>
+						<view class="JXCouponPrice">券￥300</view>
+					</view>
+					<view class="JXPoint">
+						<image class="JXIMG" src="/static/a0.png"></image>
+						<view class="JXTitle">知味观年货糕</view>
+						<view class="JXPrice">券后价：￥59.90</view>
+						<view class="JXCouponPrice">券￥300</view>
+					</view>
+					<view class="JXPoint">
+						<image class="JXIMG" src="/static/a0.png"></image>
+						<view class="JXTitle">知味观年货糕</view>
+						<view class="JXPrice">券后价：￥59.90</view>
+						<view class="JXCouponPrice">券￥300</view>
+					</view>
+					<view class="JXPoint">
+						<image class="JXIMG" src="/static/a0.png"></image>
+						<view class="JXTitle">知味观年货糕</view>
+						<view class="JXPrice">券后价：￥59.90</view>
+						<view class="JXCouponPrice">券￥300</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
 		<!-- 秒杀楼层 -->
 		<!-- <view class="seckill-section m-t">
 			<view class="s-header">
@@ -266,15 +361,22 @@
 		</view> -->
 
 		<!-- 猜你喜欢 -->
-		<view class="f-header m-t">
+		<!-- <view class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
 				<text class="tit">猜你喜欢</text>
 				<text class="tit2">Guess You Like It</text>
-			</view>
+			</view> -->
 			<!-- <text class="yticon icon-you"></text> -->
+		<!-- </view> -->
+		<view class="indexTitleFrame">
+			<view class="indexTitleTop">
+				<view class="indexTitleLine"></view>
+				<view class="indexTitle">猜你喜欢</view>
+				<view class="indexTitleLine"></view>
+			</view>
+			<view class="indexTitleEN">GUESS YOU LIKE IT</view>
 		</view>
-		
 		<!-- <view class="guess-section">
 			<view 
 				v-for="(item, index) in goodsList2" :key="index"
@@ -588,6 +690,10 @@
 </script>
 
 <style lang="scss" scoped>
+	.container{
+		width:750rpx;
+		overflow: hidden;
+	}
 	.agreeFrameMask{
 		position: fixed;
 		top:0;
@@ -763,7 +869,6 @@
 	/* 分类 */
 	.cate-section {
 		display: flex;
-		justify-content: space-around;
 		align-items: center;
 		flex-wrap:wrap;
 		padding: 30upx 22upx; 
@@ -774,11 +879,14 @@
 			align-items: center;
 			font-size: $font-sm + 2upx;
 			color: $font-color-dark;
+			flex-shrink: 0;
+			width:25%;
+			margin-bottom: 20rpx;
 		}
 		/* 原图标颜色太深,不想改图了,所以加了透明度 */
 		image {
-			width: 108upx;
-			height: 108upx;
+			width: 88upx;
+			height: 88upx;
 			margin-bottom: 14upx;
 			border-radius: 50%;
 			opacity: .7;
@@ -1334,6 +1442,217 @@
 		margin-bottom: 35rpx;
 		.link{
 			color: #FAC523;
+		}
+	}
+	.fourPicFrame{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		.fourPic{
+			width:370rpx;
+			height: 160rpx;
+			margin-bottom: 10rpx;
+		}
+	}
+	// <view class="foundFrame">
+	// 	<view class="foundTitleFrame">
+	// 		<view class="foundTitle">发现好物</view>
+	// 		<view class="foundDsc">低价抢网红爆品</view>
+	// 	</view>
+	// 	<view class="foundList">
+	// 		<view class="foundPoind">
+	// 			<view class="foundPoindTitle">墙烈种草</view>
+	// 			<view class="foundPoindDsc">千万好物 为蜜而来</view>
+	// 			<view class="foundPointGoodList">
+	// 				<view class="foundPointGood">
+	// 					<image class="foundPointGoodImg" src="/static/found0.png"></image>
+	// 					<view class="foundPointGoodButton">必买清单<image class="foundPointGoodButtonDeg"></image></view>
+	// 				</view>
+	// 				<view class="foundPointGood">
+	// 					<image class="foundPointGoodImg" src="/static/found1.png"></image>
+	// 					<view class="foundPointGoodButton">猫超精选<image class="foundPointGoodButtonDeg"></image></view>
+	// 				</view>
+	// 			</view>
+	// 		</view>
+	.foundFrame{
+		margin: auto;
+		margin-top: 36rpx;
+		width:692rpx;
+		height:392rpx;
+		background:rgba(255,255,255,1);
+		border-radius:14rpx;
+		padding: 26rpx 0;
+		.foundTitleFrame{
+			padding-left: 23rpx;
+			display: flex;
+			align-items: center;
+			.foundTitle{
+				font-size:28rpx;
+				font-family:PingFang SC;
+				font-weight:800;
+				color:rgba(255,140,34,1);
+			}
+			.foundDsc{
+				font-size:21rpx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(145,145,145,1);
+				margin-left: 12rpx;
+			}
+		}
+		.foundList{
+			margin-top: 56rpx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.foundPoind{
+				width:50%;
+				height: 269rpx;
+				padding: 0 23rpx;
+				&.left{
+					border-left: 1px solid rgba(236,236,236,1);
+				}
+				.foundPoindTitle{
+					font-size:28rpx;
+					font-family:PingFang SC;
+					font-weight:800;
+					color:rgba(51,51,51,1);
+				}
+				.foundPoindDsc{
+					font-size:21rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(145,145,145,1);
+					margin-top: 19rpx;
+				}
+				.foundPointGoodList{
+					display: flex;
+					margin-top: 21rpx;
+					padding: 0 10rpx;
+					justify-content: space-between;
+					.foundPointGood{
+						.foundPointGoodImg{
+							width: 122rpx;
+							height:122rpx;
+						}
+						.foundPointGoodButton{
+							width:122rpx;
+							height:40rpx;
+							border:1px solid rgba(255,0,0,1);
+							border-radius:19rpx;
+							font-size:21rpx;
+							font-family:PingFang SC;
+							font-weight:500;
+							color:rgba(240,16,16,1);
+							text-align: center;
+							line-height: 36rpx;
+						}
+					}
+				}
+			}
+		}
+	}
+	// <view class="indexTitleFrame">
+	// 	<view class="indexTitleTop">
+	// 		<view class="indexTitleLine"></view>
+	// 		<view class="indexTitle">精选活动</view>
+	// 		<view class="indexTitleLine"></view>
+	// 	</view>
+	// 	<view class="indexTitleEN">SELECTED ACTIVITIES</view>
+	// </view>
+	.indexTitleFrame{
+		margin: auto;
+		margin-top: 58rpx;
+		.indexTitleTop{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			.indexTitleLine{
+				width:27rpx;
+				height:2rpx;
+				background:rgba(48,48,49,1);
+			}
+			.indexTitle{
+				font-size:31rpx;
+				font-family:PingFang SC;
+				font-weight:800;
+				color:rgba(48,48,49,1);
+				margin: 0 11rpx;
+			}
+		}
+		.indexTitleEN{
+			margin-top: 8rpx;
+			text-align: center;
+			font-size:11rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(179,179,179,1);
+		}
+	}
+	.JXBigPic{
+		width: 704rpx;
+		height: 282rpx;
+		margin: auto;
+		margin-top: 35rpx;
+		display: block;
+	}
+	// <view class="JXList">
+	// 		<view class="JXPoint">
+	// 			<image class="JXIMG" src="/static/a0.png"></image>
+	// 			<view class="JXTitle">知味观年货糕</view>
+	// 			<view class="JXPrice">券后价：￥59.90</view>
+	// 			<view class="JXCouponPrice">券￥300</view>
+	// 		</view>
+	.JXList{
+		width: 704rpx;
+		height: 356rpx;
+		padding: 18rpx 0;
+		overflow: hidden;
+		margin: auto;
+		.JXScroll{
+			height: 100%;
+			width: 100%;
+			overflow: hidden;
+			.JXFrame{
+				height: 100%;
+				display: flex;
+				flex-wrap: nowrap;
+				.JXPoint{
+					margin-left: 10rpx;
+					.JXIMG{
+						width:188rpx;
+						height: 193rpx;
+					}
+					.JXTitle{
+						font-size:25rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(51,51,51,1);
+						margin-top: 15rpx;
+					}
+					.JXPrice{
+						margin-top: 17rpx;
+						font-size:21rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(153,153,153,1);
+					}
+					.JXCouponPrice{
+						width:90rpx;
+						height: 35rpx;
+						background-image: url('~@/static/coupon.png');
+						background-size: 90rpx 35rpx;
+						line-height: 35rpx;
+						text-align: center;
+						font-size:17rpx;
+						font-family:PingFang SC;
+						font-weight:400;
+						color:rgba(255,255,255,1);
+						margin-top: 15rpx;
+					}
+				}
+			}
 		}
 	}
 </style>

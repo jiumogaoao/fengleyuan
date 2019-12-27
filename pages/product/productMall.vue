@@ -64,7 +64,23 @@
 				<view class="button" @click="popOut(coupon_link)">立即领取</view>
 			</view> -->
 		</view>
-		
+		<view class="linkFrame">
+			<view class="link" @click="toggleSpec">
+				<view class="linkLabel">选择</view>
+				<view class="linkValue">颜色尺码</view>
+				<image class="linkDeg" src="/static/right.png"></image>
+			</view>
+			<view class="link" @click="toggleCouponPop">
+				<view class="linkLabel">优惠券</view>
+				<view class="linkValue red">领取优惠券</view>
+				<image class="linkDeg" src="/static/right.png"></image>
+			</view>
+			<view class="link">
+				<view class="linkLabel">服务</view>
+				<view class="linkValue">7天无理由退货 正品保证 假一赔十</view>
+				<image class="linkDeg" src="/static/right.png"></image>
+			</view>
+		</view>
 		<!--  分享 -->
 		<!-- <view class="share-section" @click="share">
 			<view class="share-icon">
@@ -231,11 +247,11 @@
 			<view class="bottomButtonFrame">
 				<view class="left" @click="share">
 					<view class="title">分享</view>
-					<!-- <view class="dsc">赚<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>14.28</view> -->
+					<view class="dsc">赚<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>14.28</view>
 				</view>
 				<view class="right" @click="buy">
 					<view class="title">购买</view>
-					<view class="dsc">省<!-- <image class="bottomButtonIcon" src="/static/productIcon02.png"></image> -->{{estimate?estimate:(commodity_price-post_coupon)}}元</view>
+					<view class="dsc">省<image class="bottomButtonIcon" src="/static/productIcon02.png"></image>{{estimate?estimate:(commodity_price-post_coupon)}}元</view>
 				</view>
 			</view>
 		</view>
@@ -251,31 +267,40 @@
 			<!-- 遮罩层 -->
 			<view class="mask"></view>
 			<view class="layer attr-content" @click.stop="stopPrevent">
-				<view class="a-t">
-					<image src="https://gd3.alicdn.com/imgextra/i3/0/O1CN01IiyFQI1UGShoFKt1O_!!0-item_pic.jpg_400x400.jpg"></image>
-					<view class="right">
-						<text class="price">¥328.00</text>
-						<text class="stock">库存：188件</text>
-						<view class="selected">
-							已选：
-							<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
-								{{sItem.name}}
+				<view class="paddingFrame">
+					<view class="a-t">
+						<image src="https://gd3.alicdn.com/imgextra/i3/0/O1CN01IiyFQI1UGShoFKt1O_!!0-item_pic.jpg_400x400.jpg"></image>
+						<view class="right">
+							<text class="price"><text class="priceTip">¥</text>328.00</text>
+							<view class="selected">
+								已选：
+								<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+									{{sItem.name}}
+								</text>
+							</view>
+						</view>
+					</view>
+					<view v-for="(item,index) in specList" :key="index" class="attr-list">
+						<text class="skuTitle">{{item.name}}</text>
+						<view class="item-list">
+							<text 
+								v-for="(childItem, childIndex) in specChildList" 
+								v-if="childItem.pid === item.id"
+								:key="childIndex" class="tit"
+								:class="{selected: childItem.selected}"
+								@click="selectSpec(childIndex, childItem.pid)"
+							>
+								{{childItem.name}}
 							</text>
 						</view>
 					</view>
-				</view>
-				<view v-for="(item,index) in specList" :key="index" class="attr-list">
-					<text>{{item.name}}</text>
-					<view class="item-list">
-						<text 
-							v-for="(childItem, childIndex) in specChildList" 
-							v-if="childItem.pid === item.id"
-							:key="childIndex" class="tit"
-							:class="{selected: childItem.selected}"
-							@click="selectSpec(childIndex, childItem.pid)"
-						>
-							{{childItem.name}}
-						</text>
+					<view class="countFrame">
+						<view class="countLabel">数量</view>
+						<view class="countButtonFrame">
+							<view class="countButton">-</view>
+							<input type="number"/>
+							<view class="countButton">+</view>
+						</view>
 					</view>
 				</view>
 				<button class="btn" @click="toggleSpec">完成</button>
@@ -287,6 +312,52 @@
 			:contentHeight="580"
 			:shareList="shareList"
 		></share>
+		<!-- @click="toggleSpec"
+		>-->
+			<!-- 遮罩层 -->
+			<!-- <view class="mask"></view>
+			<view class="layer attr-content" @click.stop="stopPrevent"> -->
+		<view class="couponPopFrame" @click="toggleCouponPop" v-if="couponPop">
+			<view class="couponPop" @click.stop="stopPrevent">
+				<view class="couponPoptitle">优惠券</view>
+				<view class="couponSubTitle">可领取优惠券</view>
+				<view class="couponPopList">
+					<view class="couponPopPoint">
+						<view class="couponPopLeft">
+							<view class="couponPopPrice"><text class="couponPopPriceTip">￥</text>50</view>
+							<view class="couponPopFull">满200元可用</view>
+						</view>
+						<view class="couponPopCenter">
+							<view class="couponPopTitle">长款羽绒服50元券</view>
+							<view class="couponPopDate">2019.12.18~2020.12.18</view>
+						</view>
+						<view class="couponPopGet">立即领取</view>
+					</view>
+					<view class="couponPopPoint">
+						<view class="couponPopLeft">
+							<view class="couponPopPrice"><text class="couponPopPriceTip">￥</text>50</view>
+							<view class="couponPopFull">满200元可用</view>
+						</view>
+						<view class="couponPopCenter">
+							<view class="couponPopTitle">长款羽绒服50元券</view>
+							<view class="couponPopDate">2019.12.18~2020.12.18</view>
+						</view>
+						<view class="couponPopGet">立即领取</view>
+					</view>
+					<view class="couponPopPoint">
+						<view class="couponPopLeft">
+							<view class="couponPopPrice"><text class="couponPopPriceTip">￥</text>50</view>
+							<view class="couponPopFull">满200元可用</view>
+						</view>
+						<view class="couponPopCenter">
+							<view class="couponPopTitle">长款羽绒服50元券</view>
+							<view class="couponPopDate">2019.12.18~2020.12.18</view>
+						</view>
+						<view class="couponPopGet">立即领取</view>
+					</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -403,7 +474,8 @@
 					},
 				],
 				num_iid:'',
-				shop_id:''
+				shop_id:'',
+				couponPop:false
 			};
 		},
 		async onLoad(options){
@@ -502,6 +574,9 @@
 			}
 		},
 		methods:{
+			toggleCouponPop(){
+				this.couponPop = !this.couponPop
+			},
 			goVip(){
 				if(this.$store.state.userST.phone){
 					uni.navigateTo({
@@ -747,16 +822,6 @@
 		width: 100%;
 		background-color: #fff;
 		padding-bottom: 24upx;
-		/* <view class="introduceBottom">
-			<view class="introduceBottomPoint">
-				<view class="introduceBottomLabel">销量：</view>
-				<view class="introduceBottomNum">120</view>
-			</view>
-			<view class="introduceBottomPoint">
-				<view class="introduceBottomLabel">分享：</view>
-				<view class="introduceBottomNum">45771</view>
-			</view>
-		</view> */
 		.introduce-dsc{
 			padding: 0 30upx;
 			font-size:24upx;
@@ -1072,28 +1137,6 @@
 				}
 			}
 		}
-		/* <scroll-view scroll-x="true" class="scroll">
-			<view class="scrollFrame">
-				<view class="guessProduct">
-					<image src="/static/goodlist2@2x.png" class="guessImg"></image>
-					<view class="guessProductTitle">恒源祥2019春季长。。。</view>
-					<view class="guessInfo">
-						<view class="guessCoupon">券￥300</view>
-						<view class="guessIncomeFrame">
-							<view class="guessIncome">预估收益</view>
-							<image class="mt" src="/static/productIcon02.png"></image>
-							<view class="guessIncome">50</view>
-						</view>
-					</view>
-					<view class="guessBottom">
-						<view class="guessPriceFrame">
-							<view class="guessPriceLabel">券后价</view>
-							<view class="guessPriceTip">￥</view>
-							<view class="guessPrice">248</view>
-						</view>
-						<view class="guessOldPrice">￥387</view>
-					</view>
-				</view> */
 	}
 	.shopFrame{
 		width:750upx;
@@ -1318,62 +1361,134 @@
 	
 	/* 规格选择弹窗 */
 	.attr-content{
-		padding: 10upx 30upx;
+		padding: 10upx 0;
+		.paddingFrame{
+			padding: 0 30upx;
+			min-height: 800upx;
+		}
 		.a-t{
 			display: flex;
+			border-bottom: 1px solid #ECECEC;
 			image{
-				width: 170upx;
-				height: 170upx;
+				width: 242upx;
+				height: 242upx;
 				flex-shrink: 0;
-				margin-top: -40upx;
-				border-radius: 8upx;;
+				margin-top: -60upx;
+				border-radius: 8upx;
 			}
 			.right{
 				display: flex;
 				flex-direction: column;
-				padding-left: 24upx;
-				font-size: $font-sm + 2upx;
-				color: $font-color-base;
-				line-height: 42upx;
+				padding-left: 35upx;
+				padding-top: 60upx;
 				.price{
-					font-size: $font-lg;
-					color: $uni-color-primary;
-					margin-bottom: 10upx;
+					font-size:50upx;
+					font-family:PingFang SC;
+					font-weight:bold;
+					color:rgba(219,0,27,1);
+					.priceTip{
+						font-size:33upx;
+						font-family:PingFang SC;
+						font-weight:bold;
+						color:rgba(219,0,27,1);
+					}
 				}
-				.selected-text{
-					margin-right: 10upx;
+				.selected{
+					margin-top: 26upx;
+					font-size:25upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(51,51,51,1);
+					.selected-text{
+						margin-right: 10upx;
+						font-size:25upx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(51,51,51,1);
+					}
 				}
+				
 			}
 		}
 		.attr-list{
 			display: flex;
 			flex-direction: column;
-			font-size: $font-base + 2upx;
-			color: $font-color-base;
-			padding-top: 30upx;
-			padding-left: 10upx;
+			padding-top: 48upx;
+			padding-left: 13upx;
+			.skuTitle{
+				font-size:28upx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(34,34,34,1);
+			}
 		}
 		.item-list{
-			padding: 20upx 0 0;
+			padding: 34upx 10upx 0 10upx;
 			display: flex;
 			flex-wrap: wrap;
 			text{
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				background: #eee;
-				margin-right: 20upx;
-				margin-bottom: 20upx;
-				border-radius: 100upx;
+				margin-right: 28upx;
+				margin-bottom: 21upx;
 				min-width: 60upx;
-				height: 60upx;
+				height: 56upx;
 				padding: 0 20upx;
-				font-size: $font-base;
-				color: $font-color-dark;
+				font-size:25upx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(34,34,34,1);
+				background:rgba(247,247,247,1);
+				border-radius:28upx;
 			}
 			.selected{
 				background: #fbebee;
 				color: $uni-color-primary;
+			}
+		}
+		.countFrame{
+			width: 100%;
+			padding-top: 38upx;
+			padding-left: 13upx;
+			justify-content: space-between;
+			align-items: center;
+			display: flex;
+			border-top:1px solid #ECECEC;
+			.countLabel{
+				font-size:28upx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(34,34,34,1);
+			}
+			.countButtonFrame{
+				width:188upx;
+				height:47upx;
+				border: 1px solid #BBBBBB;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				.countButton{
+					width:61upx;
+					font-size:35upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+					text-align: center;
+					flex-shrink: 0;
+				}
+				input{
+					height: 100%;
+					flex-grow: 1;
+					text-align: center;
+					line-height: 45upx;
+					border-left: 1px solid #BBBBBB;
+					border-right: 1px solid #BBBBBB;
+					font-size:34upx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+				}
 			}
 		}
 	}
@@ -1424,13 +1539,16 @@
 			border-radius: 10upx 10upx 0 0;
 			background-color: #fff;
 			.btn{
-				height: 66upx;
-				line-height: 66upx;
-				border-radius: 100upx;
-				background: $uni-color-primary;
-				font-size: $font-base + 2upx;
-				color: #fff;
-				margin: 30upx auto 20upx;
+				width:750upx;
+				height: 94upx;
+				line-height: 94upx;
+				background: #DB001B;
+				font-size:35upx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(255,255,255,1);
+				margin: 100upx auto 20upx;
+				border-radius: 0;
 			}
 		}
 		@keyframes showPopup {
@@ -1544,5 +1662,160 @@
 			}
 		}
 	}
-	
+	/* <view class="linkFrame">
+		<view class="link">
+			<view class="linkLabel">选择</view>
+			<view class="linkValue">颜色尺码</view>
+			<image class="linkDeg" src="/static/right.png"></image>
+		</view> */
+	.linkFrame{
+		margin-top: 17rpx;
+		padding-bottom: 25rpx;
+		background-color: #fff;
+		.link{
+			width:750rpx;
+			height: 65rpx;
+			border-bottom: 1px solid rgba(248,248,248,1);
+			display: flex;
+			padding: 0 41rpx 0 27rpx;
+			align-items: center;
+			justify-content: space-between;
+			.linkLabel{
+				font-size:21rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(167,166,166,1);
+				width:163rpx;
+				flex-shrink: 0;
+			}
+			.linkValue{
+				flex-grow: 1;
+				font-size:21rpx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(51,51,51,1);
+				&.red{
+					color: #E44654;
+				}
+			}
+			.linkDeg{
+				width:8rpx;
+				height:14rpx;
+				flex-shrink: 0;
+			}
+		}
+	}
+	/* <view class="couponPopFrame">
+			<view class="couponPop">
+				<view class="couponPoptitle">优惠券</view>
+				<view class="couponPopList">
+					<view class="couponPopPoint">
+						<view class="couponPopLeft">
+							<view class="couponPopPrice"><text class="couponPopPriceTip">￥</text>50</view>
+							<view class="couponPopFull">满200元可用</view>
+						</view>
+						<view class="couponPopCenter">
+							<view class="couponPopTitle">长款羽绒服50元券</view>
+							<view class="couponPopDate">2019.12.18~2020.12.18</view>
+						</view>
+						<view class="couponPopGet">立即领取</view>
+					</view> */
+	.couponPopFrame{
+		position: fixed;
+		top:0;
+		left: 0;
+		right:0;
+		bottom:0;
+		background-color: rgba(0,0,0,0.5);
+		.couponPop{
+			width: 750upx;
+			position: fixed;
+			bottom:0;
+			left:0;
+			padding: 0 17upx;
+			background-color: #fff;
+			min-height: 1000upx;
+			border-radius: 10upx;
+			.couponPoptitle{
+				width: 100%;
+				padding: 34upx 0;
+				font-size:35upx;
+				font-family:PingFang SC;
+				font-weight:bold;
+				color:rgba(52,52,52,1);
+				text-align: center;
+				border-bottom: 1px solid rgba(236,236,236,1);
+			}
+			.couponSubTitle{
+				padding-left: 11upx;
+				margin-top: 27upx;
+				font-size:21upx;
+				font-family:PingFang SC;
+				font-weight:500;
+				color:rgba(52,52,52,1);
+			}
+			.couponPopList{
+				margin-top: 33upx;
+				width: 100%;
+				.couponPopPoint{
+					width:715upx;
+					height: 173upx;
+					background-image: url('~@/static/productIcon06.png');
+					background-size: 715upx 173upx;
+					padding: 0 48upx 0 60upx;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					margin-bottom: 28upx;
+					.couponPopLeft{
+						flex-shrink: 0;
+						.couponPopPrice{
+							font-size:83upx;
+							font-family:Adobe Heiti Std;
+							font-weight:normal;
+							color:rgba(249,22,60,1);
+							.couponPopPriceTip{
+								font-size:33upx;
+								font-family:PingFang SC;
+								font-weight:500;
+								color:rgba(249,22,60,1);
+							}
+						}
+						.couponPopFull{
+							font-size:25upx;
+							font-family:PingFang SC;
+							font-weight:500;
+							color:rgba(249,22,60,1);
+							margin-top: 7upx;
+						}
+					}
+					.couponPopCenter{
+						flex-grow: 1;
+						padding-left: 48upx;
+						.couponPopTitle{
+							font-size:28upx;
+							font-family:PingFang SC;
+							font-weight:500;
+							color:rgba(52,52,52,1);
+						}
+						.couponPopDate{
+							font-size:19upx;
+							font-family:PingFang SC;
+							font-weight:500;
+							color:rgba(52,52,52,1);
+							line-height:17upx;
+							opacity:0.5;
+							margin-top: 22upx;
+						}
+					}
+					.couponPopGet{
+						font-size:28upx;
+						font-family:PingFang SC;
+						font-weight:bold;
+						color:rgba(210,26,56,1);
+					}
+				}
+			}
+		}
+	}
 </style>

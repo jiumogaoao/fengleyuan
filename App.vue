@@ -26,11 +26,12 @@
 				uni.reLaunch({
 					url: '/pages/welcome/welcome'
 				})
-			}else{
-				uni.reLaunch({
-					url: '/pages/welcomeDefault/welcomeDefault'
-				})
 			}
+			// else{
+			// 	uni.reLaunch({
+			// 		url: '/pages/welcomeDefault/welcomeDefault'
+			// 	})
+			// }
 			let noN = setInterval(function(){
 				uni.getNetworkType({
 				    success: function (res) {
