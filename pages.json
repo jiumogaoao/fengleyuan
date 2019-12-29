@@ -406,7 +406,17 @@
 								}]
 							}
 			}
-        }
+        },{
+			"path":"pages/business/business",
+			"style":{
+				"navigationBarTitleText": "商家申请"
+			}
+		},{
+			"path":"pages/business/business2",
+			"style":{
+				"navigationBarTitleText": "商家申请"
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

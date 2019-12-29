@@ -71,7 +71,7 @@
 					<image class="otherImg" src="/static/userOther2.png"></image>
 					<view class="otherPointTitle">邀请好友</view>
 				</view>
-				<view class="otherPoint">
+				<view class="otherPoint" @click="navTo('/pages/business/business')">
 					<image class="otherImg" src="/static/userOther3.png"></image>
 					<view class="otherPointTitle">商家入驻</view>
 				</view>
