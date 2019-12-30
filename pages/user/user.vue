@@ -386,7 +386,7 @@
 					.code{
 						width:141rpx;
 						height:44rpx;
-						background-image: url('~@/static/userCodeBG.png');
+						background-image: url('~@static/userCodeBG.png');
 						background-size: 141rpx 44rpx;
 						line-height: 44rpx;
 						text-align: center;
