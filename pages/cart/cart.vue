@@ -355,6 +355,7 @@
 						height:33upx;
 						border: 1px solid #BBBBBB;
 						border-radius:3upx;
+						overflow: hidden;
 						.countButton{
 							width: 42upx;
 							height: 100%;
@@ -369,12 +370,14 @@
 						input{
 							flex-grow: 1;
 							height: 26upx;
+							line-height: 26upx;
 							border-left: 1px solid #BBBBBB;
 							border-right: 1px solid #BBBBBB;
 							font-size:24upx;
 							font-family:PingFang SC;
 							font-weight:500;
 							color:rgba(102,102,102,1);
+							text-align: center;
 						}
 					}
 				}

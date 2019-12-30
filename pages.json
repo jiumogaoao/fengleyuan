@@ -428,6 +428,11 @@
 			"style":{
 				"navigationBarTitleText": "商品规格"
 			}
+		},{
+			"path":"pages/business/businessDetail",
+			"style":{
+				"navigationBarTitleText": "商家相关信息"
+			}
 		}
 		
     ],

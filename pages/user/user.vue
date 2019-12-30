@@ -629,7 +629,7 @@
 		.otherList{
 			margin: auto;
 			margin-top: 58rpx;
-			width: 650rpx;
+			width: 680rpx;
 			display: flex;
 			align-items: center;
 			.otherPoint{
