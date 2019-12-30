@@ -569,7 +569,7 @@
 		}
 	}
 	.navFrame{
-		width:574rpx;
+		width:656rpx;
 		margin: auto;
 		margin-top: 30rpx;
 		display: flex;
@@ -629,7 +629,7 @@
 		.otherList{
 			margin: auto;
 			margin-top: 58rpx;
-			width: 597rpx;
+			width: 650rpx;
 			display: flex;
 			align-items: center;
 			.otherPoint{

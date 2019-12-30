@@ -418,7 +418,18 @@
 			"style":{
 				"navigationBarTitleText": "商家申请"
 			}
+		},{
+			"path":"pages/business/uploadGood",
+			"style":{
+				"navigationBarTitleText": "上传商品"
+			}
+		},{
+			"path":"pages/business/upLoadSKU",
+			"style":{
+				"navigationBarTitleText": "商品规格"
+			}
 		}
+		
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

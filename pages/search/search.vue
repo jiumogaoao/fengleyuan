@@ -616,7 +616,7 @@
 			}
 			.income{
 				padding: 0 20rpx;
-				height:29rpx;
+				height:38rpx;
 				background:rgba(250,131,35,1);
 				border-radius:7rpx;
 				font-size:22rpx;
@@ -624,7 +624,7 @@
 				font-weight:400;
 				color:rgba(255,255,255,1);
 				text-align: center;
-				line-height: 29rpx;
+				line-height: 38rpx;
 				.mt{
 					width:14rpx;
 					height:14rpx;
