@@ -433,6 +433,12 @@
 			"style":{
 				"navigationBarTitleText": "商家相关信息"
 			}
+		},{
+			"path":"pages/business/businessManage",
+			"style":{
+				"backgroundColor":"#f6f6f6",
+				"navigationBarTitleText": "商家管理"
+			}
 		}
 		
     ],
