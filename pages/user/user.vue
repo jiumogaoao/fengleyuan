@@ -358,8 +358,12 @@
     }  
 </script>  
 <style lang='scss'>
+	page{
+		background-color: #f5f5f5;
+	}
 	.container{
 		position: relative;
+		background-color: #f5f5f5;
 	}
 	.topBG{
 		position:absolute;
@@ -382,6 +386,7 @@
 			.portrait{
 				width:119rpx;
 				height:119rpx;
+				border-radius: 119rpx;
 			}
 			.info-box{
 				margin-left: 17rpx;

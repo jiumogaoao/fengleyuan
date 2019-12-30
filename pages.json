@@ -6,6 +6,7 @@
 				// #ifdef MP 
 				"navigationBarTitleText": "蜜蜂天堂",
 				//"navigationStyle": "custom",
+				"backgroundColor": "#f5f6f8",
 				// #endif 
 				"app-plus": {
 							"subNVues":[{
@@ -100,6 +101,7 @@
 			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "我的",
+				"backgroundColor": "#f5f6f8",
 				// #ifdef MP
 				"navigationStyle": "custom",
 				// #endif

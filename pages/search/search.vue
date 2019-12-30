@@ -601,25 +601,25 @@
 			display: flex;
 			align-items: center;
 			.coupon{
-				width:90rpx;
-				height:35rpx;
+				width:111rpx;
+				height:37rpx;
 				background-image: url('~@/static/coupon.png');
-				background-size: 90rpx 35rpx;
+				background-size: 111rpx 37rpx;
 				background-repeat: no-repeat;
 				margin-right: 14rpx;
-				font-size:17rpx;
+				font-size:22rpx;
 				font-family:PingFang SC;
-				font-weight:400;
+				font-weight:500;
 				color:rgba(255,255,255,1);
-				line-height: 35rpx;
+				line-height: 37rpx;
 				text-align: center;
 			}
 			.income{
-				padding: 0 10rpx;
+				padding: 0 20rpx;
 				height:29rpx;
 				background:rgba(250,131,35,1);
 				border-radius:7rpx;
-				font-size:17rpx;
+				font-size:22rpx;
 				font-family:PingFang SC;
 				font-weight:400;
 				color:rgba(255,255,255,1);
@@ -695,10 +695,10 @@
 			.point{
 				margin-top: 28rpx;
 				margin-right: 21rpx;
-				padding: 18rpx 37rpx;
+				padding: 16rpx 33rpx;
 				background:rgba(247,247,247,1);
-				border-radius:28rpx;
-				font-size:20rpx;
+				border-radius:56rpx;
+				font-size:25rpx;
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(34,34,34,1);
@@ -723,10 +723,12 @@
 				margin-top: 28rpx;
 				margin-right: 21rpx;
 				.point{
-					padding: 18rpx 37rpx;
+					margin-top: 28rpx;
+					margin-right: 21rpx;
+					padding: 16rpx 33rpx;
 					background:rgba(247,247,247,1);
-					border-radius:28rpx;
-					font-size:20rpx;
+					border-radius:56rpx;
+					font-size:25rpx;
 					font-family:PingFang SC;
 					font-weight:500;
 					color:rgba(34,34,34,1);
