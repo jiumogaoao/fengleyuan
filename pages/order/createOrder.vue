@@ -22,7 +22,7 @@
 					<image src="/static/found1.png"></image>
 					<image src="/static/found1.png"></image>
 				</view>
-				<view class="goodListRight">
+				<view class="goodListRight" @click="toggleShoppingList">
 					<view class="total">共4件</view>
 					<image class="rightDeg" src="/static/right.png"></image>
 				</view>
@@ -33,14 +33,14 @@
 			</view>
 		</view>
 		<view class="otherList">
-			<view class="point">
+			<view class="point" @click="toggleCouponPop">
 				<view class="label">优惠券<text class="border">已选推荐优惠</text></view>
 				<view class="value">
 					<text>优惠￥30.00</text>
 					<image class="rightDag" src="/static/right.png"></image>
 				</view>
 			</view>
-			<view class="point" style="margin-top:24rpx;">
+			<view class="point" style="margin-top:24rpx;"  @click="toggleMTPop">
 				<view class="label"><text>蜜糖（共</text><image class="mt" src="/static/productIcon02.png"/><text class="yellow">123.56</text><text>,可抵扣</text><text class="red">￥123.56</text><text>）</text></view>
 				<view class="value">
 					<text>已使用折扣</text>
@@ -129,12 +129,12 @@
 		</view> -->
 		<view class="foot">
 			<view class="left">合计：<text class="red">￥ 1095</text><text class="oldPrice">￥2011.11</text></view>
-			<view class="pay">立即付款</view>
+			<view class="pay"  @click="togglePop">立即付款</view>
 		</view>
 		<view class="popFrame" v-if="pop">
 			<view class="pop">
 				<view class="popTop">
-					<view class="cancel" @click="togglePop">取消</view>
+					<!-- <view class="cancel" @click="togglePop">取消</view> -->
 					请选择支付方式
 				</view>
 				<view class="popList">
@@ -154,8 +154,56 @@
 				<view class="button" @click="togglePop">确认</view>
 			</view>
 		</view>
-		<view class="shoppingListPopFrame">
-			<view class="shoppingListPop">
+		<view class="popFrame" v-if="couponPop" @click="toggleCouponPop">
+			<view class="pop" @click.stop="stopPrevent">
+				<view class="popTop">
+					<!-- <view class="cancel" @click="togglePop">取消</view> -->
+					优惠券
+				</view>
+				<view class="popList">
+					<view class="popLeft">
+						<view class="title">无门槛50优惠券</view>
+					</view>
+					<image class="choose" src="/static/regestIcon3.png"></image>
+				</view>
+				<view class="popList">
+					<view class="popLeft">
+						<view class="title">无门槛50优惠券</view>
+					</view>
+					<image class="choose" src="/static/regestIcon2.png"></image>
+				</view>
+				<view class="popList">
+					<view class="popLeft">
+						<view class="title">冬季商城满300减30</view>
+					</view>
+					<image class="choose" src="/static/regestIcon3.png"></image>
+				</view>
+				<view class="button" @click="toggleCouponPop">完成</view>
+			</view>
+		</view>
+		<view class="popFrame" v-if="mtPop" @click="toggleMTPop">
+			<view class="pop" @click.stop="stopPrevent">
+				<view class="popTop">
+					<!-- <view class="cancel" @click="togglePop">取消</view> -->
+					蜜糖
+				</view>
+				<view class="popList">
+					<view class="popLeft">
+						<view class="title">使用蜜糖折扣</view>
+					</view>
+					<image class="choose" src="/static/regestIcon3.png"></image>
+				</view>
+				<view class="popList">
+					<view class="popLeft">
+						<view class="title">不使用蜜糖折扣</view>
+					</view>
+					<image class="choose" src="/static/regestIcon2.png"></image>
+				</view>
+				<view class="button" @click="toggleMTPop">完成</view>
+			</view>
+		</view>
+		<view class="shoppingListPopFrame" v-if="showShoppingList" @click.stop="toggleShoppingList">
+			<view class="shoppingListPop"  @click.stop="stopPrevent">
 				<view class="shoppingListTop">
 					<view class="shoppingListTitle">商品清单</view>
 					<view class="shoppingListTotal">共3件</view>
@@ -182,7 +230,10 @@
 		mixins:[allpage],
 		data() {
 			return {
-				pop:false
+				pop:false,
+				showShoppingList:false,
+				couponPop:false,
+				mtPop:false
 			}
 		},
 		onLoad(option){
@@ -191,6 +242,16 @@
 		methods: {
 			togglePop(){
 				this.pop = !this.pop
+			},
+			toggleCouponPop(){
+				this.couponPop = !this.couponPop
+			},
+			toggleMTPop(){
+				this.mtPop = !this.mtPop
+			},
+			stopPrevent(){},
+			toggleShoppingList(){
+				this.showShoppingList = !this.showShoppingList
 			},
 			go(url){
 				uni.navigateTo({
@@ -402,6 +463,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		background-color: #fff;
 		.left{
 			flex-grow: 1;
 			padding: 35rpx 47rpx;
@@ -650,6 +712,111 @@
 					font-family:PingFang SC;
 					font-weight:800;
 					color:rgba(250,28,0,1);
+				}
+			}
+		}
+	}
+	.shoppingListPopFrame{
+		position: fixed;
+		top:0;
+		left: 0;
+		bottom:0;
+		width: 750rpx;
+		background-color: rgba(0,0,0,0.5);
+		.shoppingListPop{
+			position: absolute;
+			left:0;
+			bottom:0;
+			width:750rpx;
+			min-height: 75%;
+			background-color: #fff;
+			padding: 70rpx 34rpx;
+			.shoppingListTop{
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				.shoppingListTitle{
+					font-size:35rpx;
+					font-family:PingFang SC;
+					font-weight:bold;
+					color:rgba(52,52,52,1);
+				}
+				.shoppingListTotal{
+					font-size:25rpx;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(153,153,153,1);
+				}
+			}
+			.shoppingPoint{
+				width:100%;
+				padding: 32rpx 0 50rpx 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px solid rgba(236,236,236,1);
+				.shoppingImg{
+					width:189rpx;
+					height:189rpx;
+					flex-shrink: 0;
+				}
+				.shoppingRight{
+					margin-left: 27rpx;
+					flex-grow: 1;
+					.shoppingTitle{
+						width:453rpx;
+						height:68rpx;
+						font-size:25rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(51,51,51,1);
+						line-height:39rpx;
+						overflow: hidden;
+						-webkit-line-clamp:2;
+						display: -webkit-box;
+						-webkit-box-orient:vertical;
+						text-overflow: ellipsis;
+					}
+					.shoppingDsc{
+						font-size:21rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(51,51,51,1);
+						opacity:0.6;
+						margin-top: 20rpx;
+					}
+					.shoppingBottom{
+						display: flex;
+						margin-top: 34rpx;
+						justify-content: space-between;
+						.shoppingPrice{
+							font-size:46rpx;
+							font-family:PingFang SC;
+							font-weight:800;
+							color:rgba(254,70,70,1);
+							.priceTip{
+								font-size:28rpx;
+								font-family:PingFang SC;
+								font-weight:500;
+								color:rgba(254,70,70,1);
+							}
+							.oldPrice{
+								font-size:25rpx;
+								font-family:PingFang SC;
+								font-weight:500;
+								text-decoration:line-through;
+								color:rgba(153,153,153,1);
+								opacity:0.8;
+								margin-left: 24rpx;
+							}
+						}
+						.shoppingCount{
+							font-size:21rpx;
+							font-family:PingFang SC;
+							font-weight:800;
+							color:rgba(51,51,51,1);
+						}
+					}
 				}
 			}
 		}

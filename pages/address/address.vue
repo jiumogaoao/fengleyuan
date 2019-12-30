@@ -5,7 +5,10 @@
 				<view class="wrapper">
 					<view class="address-box">
 						<text v-if="item.default" class="tag">默认</text>
-						<text class="address">{{item.province}}省{{item.city}}市{{item.area}}区{{item.address}}</text>
+						<text class="address">{{item.province}}省{{item.city}}市{{item.area}}区</text>
+					</view>
+					<view class="detailArea">
+						{{item.address}}
 					</view>
 					<view class="u-box">
 						<text class="name">{{item.name}}</text>
@@ -13,6 +16,7 @@
 					</view>
 				</view>
 				<image class="bianji" @click.stop="addAddress('edit', index)" src="/static/editPlace.png"></image>
+				<image class="border" src="/static/mall.png"></image>
 			</view>
 		</view>
 		<image v-else src="/static/empty.png" class="noData"></image>
@@ -20,7 +24,11 @@
 			重要：添加和修改地址回调仅增加了一条数据做演示，实际开发中将回调改为请求后端接口刷新一下列表即可
 		</text> -->
 		
-		<button class="add-btn" @click="addAddress('add')">新增地址</button>
+		<view class="buttonFrame">
+			<button class="add-btn" @click="addAddress('add')">新增地址</button>
+			<button class="comfirm-btn">确定</button>
+		</view>
+		
 	</view>
 </template>
 
@@ -104,18 +112,25 @@
 		margin-top: 273rpx;
 	}
 	.listFrame{
-		margin-top: 19rpx;
 		width: 750rpx;
-		background-color: #fff;
-		padding: 0 18rpx 0 47rpx;
 	}
 	.list{
 		width:100%;
 		display: flex;
 		align-items: center;
-		height: 111rpx;
+		height: 192rpx;
 		justify-content: space-between;
-		border-bottom: 1px solid rgba(241,242,246,1);
+		padding: 21rpx 32rpx 49rpx 32rpx;
+		position: relative;
+		margin-bottom: 28rpx;
+		border-radius:21rpx;
+		.border{
+			width: 750rpx;
+			height: 6rpx;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
 	}
 	.wrapper{
 		display: flex;
@@ -128,7 +143,7 @@
 		.tag{
 			width:56rpx;
 			height:28rpx;
-			background:rgba(250,197,35,1);
+			background:#F32B3F;
 			font-size:20rpx;
 			font-family:PingFang SC;
 			font-weight:500;
@@ -138,11 +153,18 @@
 			margin-right: 20rpx;
 		}
 		.address{
-			font-size:26rpx;
+			font-size:24rpx;
 			font-family:PingFang SC;
 			font-weight:500;
-			color:rgba(34,34,34,1); 
+			color:rgba(51,51,51,1);
 		}
+	}
+	.detailArea{
+		font-size:32rpx;
+		font-family:PingFang SC;
+		font-weight:800;
+		color:rgba(51,51,51,1);
+		margin-top: 26rpx;
 	}
 	/* <view class="u-box">
 		<text class="name">{{item.name}}</text>
@@ -153,25 +175,60 @@
 		display: flex;
 		align-items: center;
 		.name{
-			margin-right: 22upx;
-			font-size:20rpx;
+			font-size:24rpx;
 			font-family:PingFang SC;
 			font-weight:500;
-			color:rgba(153,153,153,1);
+			color:rgba(51,51,51,1);
+			margin-right: 14rpx;
 		}
 		.mobile{
-			font-size:20rpx;
+			font-size:24rpx;
 			font-family:PingFang SC;
 			font-weight:500;
-			color:rgba(153,153,153,1);
+			color:rgba(51,51,51,1);
 		}
 	}
 	.bianji{
 		width:42rpx;
 		height: 42rpx;
 	}
-	
-	.add-btn{
+	/* <view class="buttonFrame">
+		<button class="add-btn" @click="addAddress('add')">新增地址</button>
+		<button class="comfirm-btn">确定</button>
+	</view> */
+	.buttonFrame{
+		display: flex;
+		align-items: center;
+		padding: 33rpx;
+		justify-content: space-between;
+		margin-top: 83rpx;
+		.add-btn{
+			width:322rpx;
+			height:74rpx;
+			border:2rpx solid rgba(243,43,63,1);
+			border-radius:37rpx;
+			font-size:31rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:rgba(243,43,63,1);
+			line-height:70rpx;
+			text-align: center;
+		}
+		.comfirm-btn{
+			width:322rpx;
+			height:74rpx;
+			border:2rpx solid rgba(243,43,63,1);
+			background:linear-gradient(20deg,rgba(240,45,64,1),rgba(239,65,83,1));
+			border-radius:37rpx;
+			font-size:31rpx;
+			font-family:PingFang SC;
+			font-weight:500;
+			color:#fff;
+			line-height:70rpx;
+			text-align: center;
+		}
+	}
+	/* .add-btn{
 		width:625rpx;
 		height:83rpx;
 		background:linear-gradient(-90deg,rgba(221,141,69,1) 0%,rgba(250,197,35,1) 99%);
@@ -185,5 +242,5 @@
 		position: fixed;
 		bottom:50rpx;
 		left: 62.5rpx;
-	}
+	} */
 </style>

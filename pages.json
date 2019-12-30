@@ -82,7 +82,9 @@
 		}, {
 			"path": "pages/cart/cart",
 			"style": {
-				"navigationBarTitleText": "购物车"
+				"navigationBarTitleText": "购物车",
+				"navigationBarBackgroundColor":"#FE4646",
+				"navigationBarTextStyle":"white"
 			}
 		}, {
 			"path": "pages/public/login",
@@ -155,12 +157,16 @@
 		}, {
 			"path": "pages/address/address",
 			"style": {
-				"navigationBarTitleText": "收货地址"
+				"navigationBarTitleText": "收货地址",
+				"navigationBarBackgroundColor":"#FE4646",
+				"navigationBarTextStyle":"white"
 			}
 		}, {
 			"path": "pages/address/addressManage",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#FE4646",
+				"navigationBarTextStyle":"white"
 			}
 		}, {
 			"path": "pages/money/pay",
@@ -400,7 +406,17 @@
 								}]
 							}
 			}
-        }
+        },{
+			"path":"pages/business/business",
+			"style":{
+				"navigationBarTitleText": "商家申请"
+			}
+		},{
+			"path":"pages/business/business2",
+			"style":{
+				"navigationBarTitleText": "商家申请"
+			}
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
