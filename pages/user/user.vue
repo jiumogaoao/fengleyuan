@@ -1,5 +1,6 @@
 <template>  
     <view class="container">  
+		<image class="topBG" src="/static/user-bg.png"></image>
 		<view class="top">
 			<view class="user-info-box">
 				<image class="portrait" :src="avatar || '/static/logo.png'"></image>
@@ -11,6 +12,7 @@
 			</view>
 		</view>
 		<view class="card">
+			<image class="cardBG" src="/static/userBackgroundCard.png"></image>
 			<view class="tag"><text>{{identity_type==0 && phone?'普通会员':''}}{{identity_type==0 && !phone?'蜜蜂天堂会员':''}}{{identity_type==1?'VIP会员':''}}{{identity_type==2?'合伙人':''}}{{identity_type==3?'联合创始人':''}}</text><image src="/static/userDeamean.png"></image></view>
 			<view class="cardTop">
 				<view class="topLeft">
@@ -356,11 +358,21 @@
     }  
 </script>  
 <style lang='scss'>
+	.container{
+		position: relative;
+	}
+	.topBG{
+		position:absolute;
+		top:0;
+		left:0;
+		width:750rpx;
+		height: 483rpx;
+	}
 	.top{
 		width:750rpx;
 		height:483rpx;
-		background-image: url('~@/static/user-bg.png');
 		position: relative;
+		z-index: 2;
 		.user-info-box{
 			display: flex;
 			align-items: center;
@@ -419,13 +431,19 @@
 	}
 
 	.card{
-		background-image: url('~@/static/userBackgroundCard.png');
 		width:705rpx;
 		height: 315rpx;
 		margin: auto;
 		margin-top: -168rpx;
 		background-size: 705rpx 315rpx;
 		position:relative;
+		.cardBG{
+			width:705rpx;
+			height: 315rpx;
+			position: absolute;
+			top:0;
+			left:0;
+		}
 		.tag{
 			width:143rpx;
 			height:49rpx;
@@ -441,6 +459,7 @@
 			position: absolute;
 			top:0;
 			left:0;
+			z-index: 2;
 			image{
 				width:22rpx;
 				height: 22rpx;
@@ -455,6 +474,8 @@
 			justify-content: space-between;
 			height: 247rpx;
 			width: 100%;
+			position: relative;
+			z-index: 2;
 			.topLeftTitle{
 				font-size:25rpx;
 				font-family:PingFang SC;
@@ -508,6 +529,8 @@
 			justify-content: space-between;
 			padding: 0 14rpx 0 8rpx;
 			margin: auto;
+			position: relative;
+			z-index: 2;
 			.bottomLeft{
 				display: flex;
 				align-items: center;
