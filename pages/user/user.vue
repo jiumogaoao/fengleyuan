@@ -398,7 +398,7 @@
 					.code{
 						width:141rpx;
 						height:44rpx;
-						background-image: url('~@static/userCodeBG.png');
+						background-image: url('~@/static/userCodeBG.png');
 						background-size: 141rpx 44rpx;
 						line-height: 44rpx;
 						text-align: center;
@@ -426,6 +426,7 @@
 				font-family:PingFang SC;
 				font-weight:bold;
 				color:rgba(43,9,0,1);
+				margin-left: 20rpx;
 			}
 		}
 	}
@@ -445,8 +446,8 @@
 			left:0;
 		}
 		.tag{
-			width:143rpx;
 			height:49rpx;
+			padding: 0 10rpx;
 			background:linear-gradient(83deg,rgba(53,53,53,1) 0%,rgba(11,11,11,1) 100%);
 			border-radius:14rpx 0px 14rpx 0px;
 			font-size:21rpx;
