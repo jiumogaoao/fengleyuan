@@ -102,32 +102,30 @@
 			"style": {
 				"navigationBarTitleText": "我的",
 				"backgroundColor": "#f5f6f8",
-				// #ifdef MP
-				"navigationStyle": "custom",
-				// #endif
-				"app-plus": {
-					"bounce": "none",
-					"titleNView": {
-						"type": "transparent",
-						"buttons": [{
-								"fontSrc": "/static/yticon.ttf",
-								"text": "\ue60f",
-								"fontSize": 24,
-								"color": "#303133",
-								"width": "46px",
-								"background": "rgba(0,0,0,0)"
-							},
-							{
-								"fontSrc": "/static/yticon.ttf",
-								"text": "\ue744",
-								"fontSize": 28,
-								"color": "#303133",
-								"background": "rgba(0,0,0,0)",
-								"redDot": true
-							}
-						]
-					}
-				}
+				"navigationStyle": "custom"
+				// "app-plus": {
+				// 	"bounce": "none",
+				// 	"titleNView": {
+				// 		"type": "transparent",
+				// 		"buttons": [{
+				// 				"fontSrc": "/static/yticon.ttf",
+				// 				"text": "\ue60f",
+				// 				"fontSize": 24,
+				// 				"color": "#303133",
+				// 				"width": "46px",
+				// 				"background": "rgba(0,0,0,0)"
+				// 			},
+				// 			{
+				// 				"fontSrc": "/static/yticon.ttf",
+				// 				"text": "\ue744",
+				// 				"fontSize": 28,
+				// 				"color": "#303133",
+				// 				"background": "rgba(0,0,0,0)",
+				// 				"redDot": true
+				// 			}
+				// 		]
+				// 	}
+				// }
 			}
 		}, {
 			"path": "pages/detail/detail",
@@ -439,7 +437,26 @@
 				"backgroundColor":"#f6f6f6",
 				"navigationBarTitleText": "商家管理"
 			}
+		},{
+			"path":"pages/goodManage/goodManage",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "商品管理",
+				"app-plus": {
+					"titleNView": {
+						"titletext": "商品管理",
+						"buttons": [{
+								"text": "发布",
+								"fontSize": 16,
+								"color": "#FAC523",
+								"background": "transparent"
+							}
+						]
+					}
+				}
+			}
 		}
+		
 		
     ],
 	"globalStyle": {

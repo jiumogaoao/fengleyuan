@@ -119,6 +119,7 @@ export const postFetch =  async (url,params = {},CDN,callback) => {
 	 logTag('发起请求',cacheKey)
 	 params.time = time;
 	 params.tooken = token;
+	 logTag('参数',params)
 	 const res = await uni.request({
 	 		url: d+url, //仅为示例，并非真实接口地址。
 	 		data: params,

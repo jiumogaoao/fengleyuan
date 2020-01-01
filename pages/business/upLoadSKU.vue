@@ -17,7 +17,7 @@
 				<text class="tit">分佣金额<text class="must">*</text><text class="tdes">（对应规格）</text></text>
 				<view class="input">请输入商品分佣金额</view>
 			</view>
-
+			<image class="remove" src="/static/removePic.png"></image>
 		</view>
 		<image class="addSKU" src="/static/uploadSKU.png"></image>
 		<button class="add-btn" @click="confirm">新增规格</button>
@@ -208,6 +208,14 @@
 		padding: 0 15rpx;
 		border-radius: 10px;
 		box-shadow: 3rpx 3rpx 3rpx rgba(0,0,0,0.3);
+		position: relative;
+		.remove{
+			width: 29rpx;
+			height: 29rpx;
+			position: absolute;
+			left:350rpx;
+			top:-15rpx;
+		}
 		.must{
 			font-size:28rpx;
 			font-family:PingFang SC;

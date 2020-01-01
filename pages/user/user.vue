@@ -1,6 +1,10 @@
 <template>  
     <view class="container">  
 		<image class="topBG" src="/static/user-bg.png"></image>
+		<view class="head">
+			<image class="headIcon" @click="navTo('/pages/notice/notice')" src="/static/userHead0.png"></image>
+			<image class="headIcon" @click="navTo('/pages/set/set')" src="/static/userHead1.png"></image>
+		</view>
 		<view class="top">
 			<view class="user-info-box">
 				<image class="portrait" :src="avatar || '/static/logo.png'"></image>
@@ -73,9 +77,9 @@
 					<image class="otherImg" src="/static/userOther2.png"></image>
 					<view class="otherPointTitle">邀请好友</view>
 				</view>
-				<view class="otherPoint" @click="navTo('/pages/business/business')">
+				<view class="otherPoint" @click="business">
 					<image class="otherImg" src="/static/userOther3.png"></image>
-					<view class="otherPointTitle">商家入驻</view>
+					<view class="otherPointTitle">{{is_business&&is_business!=-1?'商家管理':'商家入驻'}}</view>
 				</view>
 			</view>
 		</view>
@@ -204,7 +208,9 @@
     import {  
         mapState 
     } from 'vuex';  
+	// #ifndef H5
 	const Alibcsdk = uni.requireNativePlugin('UZK-Alibcsdk');
+	// #endif
 	let startY = 0, moveY = 0, pageAtTop = true;
     export default {
 		mixins:[allpage],
@@ -224,6 +230,7 @@
 			this.$set(this,"historyList",productHistory||[])
 		},
 		onLoad(){
+			// #ifndef H5
 			Alibcsdk.init(
 				result => {
 					console.log(JSON.stringify(result))
@@ -238,6 +245,7 @@
 					//console.log(JSON.stringify(result))
 				}
 			)
+			// #endif
 		},
 		// #ifndef MP
 		onNavigationBarButtonTap(e) {
@@ -277,9 +285,24 @@
 			},
 			identity_type(){
 				return this.$store.state.userST.identity_type
+			},
+			is_business(){
+				return this.$store.state.userST.is_business
 			}
 		},
         methods: {
+			business(){
+				if(!this.is_business){
+					this.navTo('/pages/business/business')
+				}else if(this.is_business == -1){
+					uni.showToast({
+						title:'已提交，请耐心等待审核',
+						icon:'none'
+					})
+				}else{
+					this.navTo('/pages/business/businessManage')
+				}
+			},
 			go(url){
 				uni.navigateTo({
 					url
@@ -291,6 +314,7 @@
 				// uni.navigateTo({
 				// 	url:'/pages/yijiayou/yijiayou?url='+url
 				// })
+				// #ifndef H5
 				Alibcsdk.opendetail({
 					itemid: url,
 					linkkey: "taobao",
@@ -302,6 +326,7 @@
 				}, result => {
 				
 				})
+				// #endif
 			},
 			/**
 			 * 统一跳转接口,拦截未登录路由
@@ -371,6 +396,21 @@
 		left:0;
 		width:750rpx;
 		height: 483rpx;
+	}
+	.head{
+		width:750rpx;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		position: absolute;
+		top:44rpx;
+		left: 0;
+		z-index: 3;
+		.headIcon{
+			width:42rpx;
+			height: 42rpx;
+			margin-right: 28rpx;
+		}
 	}
 	.top{
 		width:750rpx;

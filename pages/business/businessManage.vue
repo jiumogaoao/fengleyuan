@@ -29,24 +29,24 @@
 		<view class="bottom">
 			<view class="bottomTitle">店铺管理</view>
 			<view class="list">
-				<view class="point">
+				<view class="point" @click="go('/pages/goodManage/goodManage')">
 					<image class="nav" src="/static/business0.png"></image>
 					<view class="title">商品管理</view>
 					<view class="dsc">商品添加、删除、上下架</view>
 					<view class="line"></view>
 				</view>
-				<view class="point">
+				<view class="point" @click="go('/pages/order/order')">
 					<image class="nav" src="/static/business1.png"></image>
 					<view class="title">订单管理</view>
 					<view class="dsc">上传物流单号、展示物流信息</view>
 				</view>
-				<view class="point">
+				<view class="point" @click="go('/pages/business/business?edit=1')">
 					<image class="nav" src="/static/business2.png"></image>
 					<view class="title">商家信息</view>
 					<view class="dsc">管理和修改商家注册信息</view>
 					<view class="line"></view>
 				</view>
-				<view class="point">
+				<view class="point" @click="go('/pages/fans/fans')">
 					<image class="nav" src="/static/business3.png"></image>
 					<view class="title">分享粉丝</view>
 					<view class="dsc">分享给您的忠实粉丝</view>
@@ -76,7 +76,11 @@
 			
 		},
 		methods: {
-			
+			go(url){
+				uni.navigateTo({
+					url
+				})
+			}
 		}
 	}
 </script>

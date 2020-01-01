@@ -18,7 +18,8 @@ export default {
 	cacheTitle:'',
 	fans1:[],
 	fans2:[],
-	fans3:[]
+	fans3:[],
+	is_business:0
   },
   mutations: {
 	setCacheTitle(state, data){
@@ -27,12 +28,16 @@ export default {
 	network(state, data){
 		state.network=data
 	},
+	setBusiness(state, data) {
+		state.is_business = data;
+		uni.setStorageSync('userInfo',state);
+	},
 	login(state, data) {
 		state.id = data.id;
 		state.hasLogin = true;
 		state.phone = data.phone
 		state.nickname = data.nickname
-		state.user_tooken = data.user_tooken
+		state.user_tooken = data.user_token||data.user_tooken
 		state.invitation = data.invitation
 		state.avatar = data.avatar
 		state.pinvitation = data.pinvitation
@@ -41,6 +46,7 @@ export default {
 		Vue.set(state,'fans1',data.fans1)
 		Vue.set(state,'fans2',data.fans2)
 		Vue.set(state,'fans3',data.fans3)
+		state.is_business=data.is_business||data.business_id
 		uni.setStorageSync('userInfo',state);
 	},
 	logout(state) {
@@ -57,6 +63,7 @@ export default {
 		Vue.set(state,'fans1',[])
 		Vue.set(state,'fans2',[])
 		Vue.set(state,'fans3',[])
+		state.is_business=''
 		uni.setStorageSync('userInfo',state);
 	}
   },
@@ -95,7 +102,6 @@ export default {
 					}
 				})
 			}
-			debugger;
 			context.commit('login',res.data)
 			if(data.callback){
 				data.callback()
@@ -107,6 +113,9 @@ export default {
 	},
 	logout(context,data){
 		context.commit('logout')
+	},
+	setBusiness(context,data){
+		context.commit('setBusiness',data)
 	}
   }
 }
