@@ -2,21 +2,21 @@
 	<view class="content">
 		<block v-if="step==0">
 			<view class="list">
-				<view class="row b-b">
+				<view class="row b-b" key="b0s1">
 					<text class="tit">商户名称</text>
 					<input class="input" type="text" placeholder="请输入营业执照上的公司全称" placeholder-class="placeholder" v-model="business_name"/>
 				</view>
-				<view class="row b-b">
+				<view class="row b-b" key="b1s1">
 					<text class="tit">商户分类</text>
 					<picker @change="bindPickerChange" :value="typeIndex" :range="typeList" range-key="name">
 						<view :class="typeIndex||typeIndex==0?'input':'placeholder'">{{typeIndex||typeIndex==0?typeList[typeIndex].name:'点击选择'}}</view>
 					</picker>
 				</view>
-				<view class="row b-b">
+				<view class="row b-b" key="b2s1">
 					<text class="tit">社会信用代码</text>
 					<input class="input" type="text" placeholder="请输入营业执照得信用代码" placeholder-class="placeholder" v-model="credit_code"/>
 				</view>
-				<view class="picRow">
+				<view class="picRow" key="b3s1">
 					<view class="tit">营业执照照片</view>
 					<view class="picList">
 						<image class="pic" :src="business_license?business_license:'/static/uploadPIC.png'" @click="uploadPIC"></image>
@@ -28,20 +28,20 @@
 		</block>
 		<block v-if="step==1">
 			<view class="list">
-				<view class="row b-b">
+				<view class="row b-b" key="b0s2">
 					<text class="tit">所在地址</text>
 					<picker mode="multiSelector" :range="optionList" range-key="name" @columnchange="placeChange" @change="placeChange2" @cancel="placeCancel">
 						<view :class="{placeholder:!province&&!city&&!area,input:province||city||area}" v-if="!province&&!city&&!area">省-市-区</view>
 						<view class="input" v-else>{{province||'--'}} {{city||'--'}} {{area||'--'}}</view>
 					</picker>
 				</view>
-				<view class="row b-b">
+				<view class="row b-b" key="b1s2">
 					<text class="tit">详细地址</text>
 					<input class="input" type="text" placeholder="如:街道/小区/门牌号" placeholder-class="placeholder" v-model="address"/>
 				</view>
-				<view class="row b-b">
+				<view class="row b-b" key="b2s2">
 					<text class="tit">联系电话</text>
-					<input class="input" type="text" placeholder="请输入联系电话" placeholder-class="placeholder" v-model="phone" type="number"/>
+					<input class="input" placeholder="请输入联系电话" placeholder-class="placeholder" v-model="phone" type="number"/>
 				</view>
 			
 			</view>
@@ -53,15 +53,15 @@
 		</block>
 		<block v-if="step==2">
 			<view class="list">
-				<view class="row b-b">
+				<view class="row b-b" key="b0s3">
 					<text class="tit">客户联系人</text>
 					<input class="input" type="text" placeholder="默认为当前用户" placeholder-class="placeholder" v-model="contacts"/>
 				</view>
-				<view class="row b-b">
+				<view class="row b-b" key="b1s3">
 					<text class="tit">客服联系电话</text>
-					<input class="input" type="text" placeholder="请输入联系电话" placeholder-class="placeholder" v-model="customer" type="number"/>
+					<input class="input" placeholder="请输入联系电话" placeholder-class="placeholder" v-model="customer" type="number"/>
 				</view>
-				<view class="areaRow b-b">
+				<view class="areaRow b-b" key="b2s3">
 					<view class="tit">商品介绍</view>
 					<textarea placeholder="请在此输入您的商家介绍(400字内)" v-model="introduction"></textarea>
 				</view>
