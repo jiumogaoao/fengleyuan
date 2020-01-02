@@ -19,7 +19,20 @@ export default {
 	fans1:[],
 	fans2:[],
 	fans3:[],
-	is_business:0
+	is_business:0,
+	business_name:'',
+	business_class:'',
+	credit_code	:'',
+	business_license:'',
+	province:'',
+	city:'',
+	area: '',
+	address:'',
+	phone:'',
+	contacts:'',
+	customer:'',
+	introduction:'',
+	is_examine:-1
   },
   mutations: {
 	setCacheTitle(state, data){
@@ -29,7 +42,20 @@ export default {
 		state.network=data
 	},
 	setBusiness(state, data) {
-		state.is_business = data;
+		state.is_business = data.is_business
+		state.business_name=data.business_name
+		state.business_class=data.business_class
+		state.credit_code	=data.credit_code
+		state.business_license=data.business_license
+		state.province=data.province
+		state.city=data.city
+		state.area= data.area
+		state.address=data.address
+		state.phone=data.phone
+		state.contacts=data.contacts
+		state.customer=data.customer
+		state.introduction=data.introduction
+		state.is_examine=data.is_examine
 		uni.setStorageSync('userInfo',state);
 	},
 	login(state, data) {
@@ -64,6 +90,19 @@ export default {
 		Vue.set(state,'fans2',[])
 		Vue.set(state,'fans3',[])
 		state.is_business=''
+		state.business_name=''
+		state.business_class=''
+		state.credit_code	=''
+		state.business_license=''
+		state.province=''
+		state.city=''
+		state.area= ''
+		state.address=''
+		state.phone=''
+		state.contacts=''
+		state.customer=''
+		state.introduction=''
+		state.is_examine=-1
 		uni.setStorageSync('userInfo',state);
 	}
   },
@@ -116,6 +155,21 @@ export default {
 	},
 	setBusiness(context,data){
 		context.commit('setBusiness',data)
+	},
+	getBusinesss(context,data){
+		postFetch('index.php/index/business/read',{id:context.state.id,user_token:context.state.user_tooken},false,function(res){
+			if(res.statusCode !== 200){
+				uni.showToast({
+					title:res.errMsg
+				})
+			}else{
+				let CT=JSON.parse(res.data.city)
+				res.data.province=CT[0]
+				res.data.city=CT[1]
+				res.data.area=CT[2]
+				context.commit('setBusiness',res.data)
+			}
+		})
 	}
   }
 }

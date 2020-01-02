@@ -57,7 +57,7 @@ export const getFetch =  async (url,params = {},CDN,callback) => {
 			url: d+url, //仅为示例，并非真实接口地址。
 			data: params,
 			header: {
-				'Content-Type':'application/x-www-form-urlencoded',
+				'Content-Type':'application/json',
 				// 'frontendAppId':frontendAppId,
 				// 'usertoken':accessToken
 			},
@@ -125,7 +125,7 @@ export const postFetch =  async (url,params = {},CDN,callback) => {
 	 		data: params,
 	 			method:"POST",
 	 		header: {
-	 			'Content-Type':'application/x-www-form-urlencoded',
+	 			'Content-Type':'application/json',
 	 			// 'accessKey':accessKey,
 	 				// 'frontendAppId':frontendAppId,
 	 				// 'usertoken': accessToken

@@ -1,5 +1,6 @@
 <template>
 	<view class="content">
+		<view class="readOnly" v-if="readOnly"></view>
 		<block v-if="step==0">
 			<view class="list">
 				<view class="row b-b" key="b0s1">
@@ -45,7 +46,8 @@
 				</view>
 			
 			</view>
-			<button class="add-btn" @click="next2">提交申请</button>
+			<button class="add-btn" @click="next2" v-if="readOnly">下一步</button>
+			<button class="add-btn" @click="next2" v-else>提交申请</button>
 			<view class="bottomText">
 				<view class="dsc">点击“确认申请”后，即表示已阅读并同意</view>
 				<view class="low">《法律条款与隐私政策》</view>
@@ -66,7 +68,8 @@
 					<textarea placeholder="请在此输入您的商家介绍(400字内)" v-model="introduction"></textarea>
 				</view>
 			</view>
-			<button class="add-btn" @click="confirm">确定</button>
+			<button class="add-btn" v-if="readOnly">审核中</button>
+			<button class="add-btn" @click="confirm" v-else>确定</button>
 		</block>
 	</view>
 </template>
@@ -88,19 +91,20 @@
 				optionProvince:cityJSON,
 				optionCity:cityJSON[0].city,
 				optionArea:cityJSON[0].city[0].area,
-				business_name:'',
-				business_class:'',
-				credit_code	:'',
-				business_license:'',
-				province:'',
-				city:'',
-				area: '',
-				address:'',
-				phone:'',
-				contacts:'',
-				customer:'',
-				introduction:'',
-				typeIndex:null
+				business_name:this.$store.state.userST.business_name||'',
+				business_class:this.$store.state.userST.business_class||'',
+				credit_code	:this.$store.state.userST.credit_code||'',
+				business_license:this.$store.state.userST.business_license||'',
+				province:this.$store.state.userST.province||'',
+				city:this.$store.state.userST.city||'',
+				area: this.$store.state.userST.area||'',
+				address:this.$store.state.userST.address||'',
+				phone:this.$store.state.userST.phone||'',
+				contacts:this.$store.state.userST.contacts||'',
+				customer:this.$store.state.userST.customer||'',
+				introduction:this.$store.state.userST.introduction||'',
+				typeIndex:null,
+				readOnly:0
 			}
 		},
 		computed:{
@@ -110,6 +114,16 @@
 		},
 		onLoad(option){
 			let _this = this;
+			if(option.edit){
+				uni.setNavigationBarTitle({
+					title:'商家信息管理'
+				})
+			}else if(option.type==1){
+				_this.readOnly=1
+				uni.setNavigationBarTitle({
+					title:'商家信息'
+				})
+			}
 			postFetch('index.php/index/business/business_class',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken},false,function(res){
 							if(res.data.status!==200){
 								uni.showToast({
@@ -118,6 +132,13 @@
 								})
 							}else{
 								_this.$set(_this,"typeList",res.data.data)
+								if(_this.$store.state.userST.business_class){
+									res.data.data.map(function(v,i){
+										if(_this.$store.state.userST.business_class==v.id){
+											_this.typeIndex = i
+										}
+									})
+								}
 							}	
 						})
 			
@@ -211,7 +232,7 @@
 								title:'提交成功，请耐心等待审核',
 								icon:'none'
 							})
-							_this.$store.dispatch('userST/setBusiness',-1);
+							_this.$store.dispatch('userST/setBusiness',{is_examine:0,..._this});
 							uni.navigateBack()
 						}
 				})
@@ -279,6 +300,14 @@
 	page{
 		background: $page-color-base;
 		padding-top: 16upx;
+	}
+	.readOnly{
+		width:750rpx;
+		position: absolute;
+		top:0;
+		left: 0;
+		height: 800rpx;
+		z-index: 99999;
 	}
 	.b-t:after{
 		border: 0 !important;

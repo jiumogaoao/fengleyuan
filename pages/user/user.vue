@@ -59,7 +59,7 @@
 		</view>
 		<view class="bothFrame">
 			<image class="bothPoint" src="/static/userBoth0.png" @click="navTo('/pages/cart/cart')"></image>
-			<image class="bothPoint" src="/static/userBoth1.png"></image>
+			<image class="bothPoint" src="/static/userBoth1.png" @click="navTo('/pages/coupon/coupon')"></image>
 		</view>
 		<image class="bigPic" src="/static/userBigPic.png" @click="navTo('/pages/vip/vip')"></image>
 		<view class="otherFrame">
@@ -78,8 +78,8 @@
 					<view class="otherPointTitle">邀请好友</view>
 				</view>
 				<view class="otherPoint" @click="business">
-					<image class="otherImg" src="/static/userOther3.png"></image>
-					<view class="otherPointTitle">{{is_business&&is_business!=-1?'商家管理':'商家入驻'}}</view>
+					<image class="otherImg" :src="is_examine ==1?'/static/userOther3a.png':'/static/userOther3.png'"></image>
+					<view class="otherPointTitle">{{is_examine==1?'商家管理':'商家入驻'}}</view>
 				</view>
 			</view>
 		</view>
@@ -228,6 +228,9 @@
 		onShow(){
 			let productHistory = uni.getStorageSync('productHistory')
 			this.$set(this,"historyList",productHistory||[])
+			if(this.hasLogin){
+				this.$store.dispatch('userST/getBusinesss')
+			}
 		},
 		onLoad(){
 			// #ifndef H5
@@ -288,17 +291,19 @@
 			},
 			is_business(){
 				return this.$store.state.userST.is_business
+			},
+			is_examine(){
+				return this.$store.state.userST.is_examine
 			}
 		},
         methods: {
 			business(){
-				if(!this.is_business){
+				if(this.is_examine == -1){
 					this.navTo('/pages/business/business')
-				}else if(this.is_business == -1){
-					uni.showToast({
-						title:'已提交，请耐心等待审核',
-						icon:'none'
-					})
+				}else if(this.is_examine == 0){
+					this.navTo('/pages/business/businessManage?type=1')
+				}else if(this.is_examine == 2){
+					this.navTo('/pages/business/noPass')
 				}else{
 					this.navTo('/pages/business/businessManage')
 				}

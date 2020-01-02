@@ -455,6 +455,36 @@
 					}
 				}
 			}
+		},{
+			"path":"pages/coupon/coupon",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "优惠券",
+				"app-plus": {
+					"titleNView": {
+						"titletext": "优惠券",
+						"buttons": [{
+								"text": "兑换",
+								"fontSize": 16,
+								"color": "#FAC523",
+								"background": "transparent"
+							}
+						]
+					}
+				}
+			}
+		},{
+			"path":"pages/coupon/getCoupon",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "优惠券兑换"
+			}
+		},{
+			"path":"pages/business/noPass",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "审核不通过"
+			}
 		}
 		
 		

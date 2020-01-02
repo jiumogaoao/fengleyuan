@@ -1,9 +1,6 @@
 <template>
 	<view class="container">
-		<view class="tabFrame">
-			<view class="tab hl">出售中</view>
-			<view class="tab">已下架</view>
-		</view>
+		<tabbarCP :tab="['出售中','已下架']" :hl="tap" @change="tabChange"/>
 		<scroll-view class="sc">
 			<view class="frame">
 				<view class="point">
@@ -29,10 +26,12 @@
 </template>
 
 <script>
+	import tabbarCP from '@/components/tabbar_CP.vue'
 	export default {
+		components:{tabbarCP},
 		data() {
 			return {
-				
+				tap:0
 			};
 		},
 		onNavigationBarButtonTap(e) {
@@ -48,6 +47,9 @@
 				uni.navigateTo({
 					url
 				})
+			},
+			tabChange(i){
+				this.tap = i
 			}
 		}
 	}
@@ -64,28 +66,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		.tabFrame{
-			width:750rpx;
-			height: 90rpx;
-			background-color: #fff;
-			display: flex;
-			align-items: center;
-			flex-shrink: 0;
-			.tab{
-				width:50%;
-				height: 100%;
-				line-height: 90rpx;
-				text-align: center;
-				font-size:32rpx;
-				font-family:PingFang SC;
-				font-weight:500;
-				color:rgba(34,34,34,1);
-				&.hl{
-					color: #FAC523;
-					border-bottom: 4px solid #FAC523;
-				}
-			}
-		}
+		
 		.sc{
 			flex-grow: 1;
 			width: 750rpx;

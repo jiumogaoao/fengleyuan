@@ -1,26 +1,34 @@
 <template>
 	<view class="content">
-		<view class="list">
+		<view class="list" v-if="SKU.length" v-for="(v,i) in SKU" :key="i">
 			<view class="row b-b">
 				<text class="tit">商品规格名<text class="must">*</text></text>
-				<input class="input" type="text" placeholder="请输入商品规格(例:黑色M码)" placeholder-class="placeholder" />
+				<input class="input" type="text" placeholder="请输入商品规格(例:黑色M码)" placeholder-class="placeholder" v-model="v.name"/>
 			</view>
 			<view class="row b-b">
 				<text class="tit">商品原价<text class="must">*</text><text class="tdes">（对应规格）</text></text>
-				<input class="input" type="text" placeholder="请输入商品价格" placeholder-class="placeholder" />
+				<input class="input" type="number" placeholder="请输入商品价格" placeholder-class="placeholder" v-model="v.reserve_price"/>
 			</view>
 			<view class="row b-b">
 				<view class="tit">商品折扣价</view>
-				<input class="input" type="text" placeholder="请输入商品折扣价" placeholder-class="placeholder" />
+				<input class="input" type="number" placeholder="请输入商品折扣价" placeholder-class="placeholder" v-model="v.zk_final_price"/>
 			</view>
 			<view class="row b-b">
 				<text class="tit">分佣金额<text class="must">*</text><text class="tdes">（对应规格）</text></text>
-				<view class="input">请输入商品分佣金额</view>
+				<input class="input" type="number" placeholder="请输入分佣金额" placeholder-class="placeholder" v-model="v.commission"/>
 			</view>
-			<image class="remove" src="/static/removePic.png"></image>
+			<view class="row b-b">
+				<text class="tit">分佣金额<text class="must">*</text><text class="tdes">（对应规格）</text></text>
+				<input class="input" type="number" placeholder="请输入分佣金额" placeholder-class="placeholder" v-model="v.commission"/>
+			</view>
+			<view class="row b-b">
+				<text class="tit">库存<text class="must">*</text><text class="tdes">（对应规格）</text></text>
+				<input class="input" type="number" placeholder="请输入库存" placeholder-class="placeholder" v-model="v.stock"/>
+			</view>
+			<image class="remove" src="/static/removePic.png" v-if="i" @click="removeSKU(i)"></image>
 		</view>
-		<image class="addSKU" src="/static/uploadSKU.png"></image>
-		<button class="add-btn" @click="confirm">新增规格</button>
+		<image class="addSKU" src="/static/uploadSKU.png" @click="pushSKU"></image>
+		<button class="add-btn" @click="confirm">上传商品</button>
 	</view>
 </template>
 
@@ -28,6 +36,7 @@
 	import allpage from '@/mixin/allPage'
 	import simpleAddress from "@/components/simple-address/simple-address.nvue"
 	import cityJSON from "@/static/city_code.json"
+	import {postFetch} from '@/util/request_UT.js'
 	export default {
 		mixins:[allpage],
 		comments:{
@@ -35,159 +44,84 @@
 		},
 		data() {
 			return {
-				manageType:'',
-				manageId:'',
-				optionProvince:cityJSON,
-				optionCity:cityJSON[0].city,
-				optionArea:cityJSON[0].city[0].area,
-				addressData: {
-					name: '',
-					mobile: '',
-					addressName: '在地图选择',
-					province:'',
-					city:'',
-					address: '',
-					area: '',
-					default: false,
-					cityPickerValueDefault: [0, 0, 1],
-					pickerText: '',
-					isshowPopup:false
-				}
+				SKU:[{
+					"name":'',
+					"reserve_price":'',
+					"zk_final_price":'',
+					"commission":'',
+					"stock":''
+				}],
+				guarantee:[],
+				edit:false,
+				prePage:{}
 			}
 		},
 		computed:{
-			optionList(){
-				return [this.optionProvince,this.optionCity,this.optionArea]
-			}
+			
 		},
 		onLoad(option){
-			let title = '新增收货地址';
-			if(option.type==='edit'){
-				
-				title = '编辑收货地址'
-				
-				this.addressData = uni.getStorageSync('addressList')[option.id]
+			let _this =this;
+			this.prePage=this.$api.prePage()
+			if(this.prePage.edit){
+				this.edit=true
+				uni.setNavigationBarTitle({
+					title:'商品修改'
+				})
 			}
-			this.manageType = option.type;
-			this.manageId = option.id;
-			uni.setNavigationBarTitle({
-				title
-			})
+			for (let item in this.prePage.guarantee) {
+			  if(_this.prePage.guarantee[item]){
+				  _this.guarantee.push(item)
+			  }
+			}
+			console.log('prePage',this.$api.prePage())
 		},
 		methods: {
-			placeChange(e){
-				let _this = this;
-				console.log('placeChange',e.detail)
-				if(e.detail.column==0){
-					_this.$set(_this,'optionCity',_this.optionProvince[e.detail.value].city)
-					_this.$set(_this,'optionArea',_this.optionProvince[e.detail.value].city[0].area)
-				}else if(e.detail.column==1){
-					_this.$set(_this,'optionArea',_this.optionCity[e.detail.value].area)
-				}
+			pushSKU(){
+				this.$set(this,'SKU',[...this.SKU,{
+					"name":'',
+					"reserve_price":'',
+					"zk_final_price":'',
+					"commission":'',
+					"stock":''
+				}])
 			},
-			placeChange2(e){
-				console.log('placeChange2',e.detail)
-				this.addressData.province=this.optionProvince[e.detail.value[0]].name
-				this.addressData.city=this.optionCity[e.detail.value[1]].name
-				this.addressData.area=this.optionArea[e.detail.value[2]].name
+			removeSKU(i){
+				let newA=[]
+				this.SKU.map(function(v,vi){if(i!==vi){newA.push(v)}})
+				this.$set(this,"SKU",newA)
 			},
-			placeCancel(e){
-				console.log('placeCancel',e.detail)
-			},
-			openFn(fn){
-				console.log('openFn',fn)
-			},
-			openAddres() {
-				console.log('isshowPopup',this.$children)
-			                this.isshowPopup=true;
-			            },
-			onConfirm(e) {
-			                this.pickerText = JSON.stringify(e)
-			            },
-			switchChange(e){
-				this.addressData.default = e.detail;
-			},
-			nameCheck(){
-				if(this.addressData.name){
-					return true
-				}else{
-					uni.showToast({
-						title:'请填写收货人'
-					})
-					return false
-				}
-			},
-			mobileCheck(){
-				if(this.addressData.mobile){
-					return true
-				}else if(!(/^1[3456789]\d{9}$/.test(this.addressData.phone))){
-					uni.showToast({
-						title:'手机号格式不正确'
-					})
-					return false
-				}else{
-					uni.showToast({
-						title:'请填写收货人手机号'
-					})
-					return false
-				}
-			},
-			provinceCheck(){
-				if(this.addressData.province){
-					return true
-				}else{
-					uni.showToast({
-						title:'请填写省'
-					})
-					return false
-				}
-			},
-			cityCheck(){
-				if(this.addressData.address){
-					return true
-				}else{
-					uni.showToast({
-						title:'请填写市'
-					})
-					return false
-				}
-			},
-			areaCheck(){
-				if(this.addressData.area){
-					return true
-				}else{
-					uni.showToast({
-						title:'请填写区'
-					})
-					return false
-				}
-			},
-			addressCheck(){
-				if(this.addressData.address){
-					return true
-				}else{
-					uni.showToast({
-						title:'请填写详细地址'
-					})
-					return false
-				}
-			},
-			//地图选择地址
-			chooseLocation(){
-				uni.chooseLocation({
-					success: (data)=> {
-						this.addressData.addressName = data.name;
-						this.addressData.address = data.name;
+			confirm(){
+				postFetch('index.php/index/selfgoods/save',{
+					id:this.$store.state.userST.id,
+					user_token:this.$store.state.userST.user_tooken,
+					title:this.prePage.title,//标题
+					brief:this.prePage.brief,//邮价（否）
+					desc:this.prePage.desc,//产品简述（否）
+					classid:this.prePage.classid,//分类id（是int）
+					thumb_url:this.prePage.thumb_url,//封面图（数组形式）
+					img_url:this.prePage.img_url,//详情图（数组形式）
+					guarantee:this.guarantee,
+					data:this.SKU
+				},false,function(res){
+					console.log('save',res)
+					if(res.data.status !== 200){
+						uni.showToast({
+							title:res.data.msg,
+							icon:'none'
+						})
+					}else{
+						uni.showToast({
+							title:'发布成功，请耐心等待审核',
+							icon:'none'
+						})
+						setTimeout(function(){
+							uni.navigateBack({
+								delta:2
+							})
+						},2000)
 					}
 				})
-			},
-			
-			//提交
-			confirm(){
-				uni.navigateTo({
-					url:'/pages/business/business2'
-				})
-			},
+			}
 		}
 	}
 </script>
