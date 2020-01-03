@@ -3,20 +3,21 @@
 		<tabbarCP :tab="['出售中','已下架']" :hl="tap" @change="tabChange"/>
 		<scroll-view class="sc">
 			<view class="frame">
-				<view class="point">
-					<image class="pImg" src="/static/found1.png"></image>
+				<view class="point" v-if="list.length" v-for="(v,i) in list" :key="v.id">
+					<image class="pImg" :src="v.head_url"></image>
 					<view class="right">
 						<view class="title">
-							BABYHOST 纽约时装周新款 柠檬 黄连衣裙 好看好看好看好看好…
+							{{v.title}}
 						</view>
 						<view class="info">
-							<view>销量：2553</view>
-							<view>库存：14555</view>
-							<view>上架时间：2016-07-15 14：00</view>
+							<view>销量：{{v.salescout||0}}</view>
+							<view>库存：{{v.stock}}</view>
+							<view>上架时间：{{v.add_tome}}</view>
 						</view>
 						<view class="bottom">
-							<view class="price">￥1999.00<text class="oldPrice">￥3799</text></view>
-							<image class="edit" src="/static/goodManageEdit.png" @click="go('/pages/business/uploadGood?edit=1')"></image>
+							<view class="price">￥{{v.zk_final_price}}<text class="oldPrice">￥{{v.reserve_price}}</text></view>
+							<image v-if="v.is_check==1" class="edit" src="/static/goodManageEdit.png" @click="go('/pages/business/uploadGood?edit='+v.id)"></image>
+							<view class="type" v-else>{{v.is_check==0?'审核中':'审核不通过'}}</view>
 						</view>
 					</view>
 				</view>
@@ -27,11 +28,13 @@
 
 <script>
 	import tabbarCP from '@/components/tabbar_CP.vue'
+	import {postFetch} from '@/util/request_UT.js'
 	export default {
 		components:{tabbarCP},
 		data() {
 			return {
-				tap:0
+				tap:0,
+				list:[]
 			};
 		},
 		onNavigationBarButtonTap(e) {
@@ -42,7 +45,24 @@
 				})
 			}
 		},
+		onLoad(){
+			this.getData()
+		},
 		methods:{
+			getData(){
+				let _this = this;
+				postFetch('index.php/index/selfgoods/index',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,status:this.tap},false,function(res){
+					console.log('selfgoods',res)
+					if(res.statusCode != 200){
+						uni.showToast({
+							title:res.errMsg,
+							icon:'none'
+						})
+					}else{
+						_this.$set(_this,'list',res.data)
+					}
+				})
+			},
 			go(url){
 				uni.navigateTo({
 					url
@@ -50,6 +70,7 @@
 			},
 			tabChange(i){
 				this.tap = i
+				this.getData()
 			}
 		}
 	}
@@ -140,6 +161,12 @@
 							.edit{
 								width:97rpx;
 								height:35rpx;
+							}
+							.type{
+								font-size:25rpx;
+								font-family:PingFang SC;
+								font-weight:500;
+								color:rgba(12,12,12,1);
 							}
 						}
 					}

@@ -365,6 +365,9 @@
 						// 	title: "初始化成功"
 						// });
 						console.log('Alibcsdk初始化成功')
+						Alibcsdk.login(result=>{
+							console.log('Alibcsdk',result)
+    })
 					} else {
 						console.log('Alibcsdk初始化失败')
 					}

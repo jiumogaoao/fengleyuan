@@ -3,7 +3,7 @@
     "appid" : "__UNI__9A2CA7E",
     "description" : "",
     "versionName" : "1.0.2",
-    "versionCode" : 103,
+    "versionCode" : 104,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */
@@ -237,7 +237,10 @@
                         "retina55" : "unpackage/res/welcome/welcome1242_2208.png",
                         "retina47" : "unpackage/res/welcome/welcome750_1334.png",
                         "retina40" : "unpackage/res/welcome/welcome640_1136.png",
-                        "retina35" : "unpackage/res/welcome/welcome640_960.png"
+                        "retina35" : "unpackage/res/welcome/welcome640_960.png",
+                        "landscape-896h@3x" : "",
+                        "landscape-896h@2x" : "",
+                        "iphonexl" : ""
                     }
                 }
             }
