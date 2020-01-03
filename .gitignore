@@ -32,7 +32,8 @@ build/Release
 
 # Dependency directories
 node_modules/
-unpackage/
+unpackage/debug/
+unpackage/dist/
 jspm_packages/
 
 # Optional npm cache directory
