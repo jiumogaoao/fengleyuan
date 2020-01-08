@@ -20,7 +20,7 @@
 				<view class="picRow" key="b3s1">
 					<view class="tit">营业执照照片</view>
 					<view class="picList">
-						<image class="pic" :src="business_license?business_license:'/static/uploadPIC.png'" @click="uploadPIC"></image>
+						<image class="pic" :src="business_license.length?business_license[0]:'/static/uploadPIC.png'" @click="uploadPIC"></image>
 					</view>
 				</view>
 			
@@ -94,7 +94,7 @@
 				business_name:this.$store.state.userST.business_name||'',
 				business_class:this.$store.state.userST.business_class||'',
 				credit_code	:this.$store.state.userST.credit_code||'',
-				business_license:this.$store.state.userST.business_license||'',
+				business_license:this.$store.state.userST.business_license||[],
 				province:this.$store.state.userST.province||'',
 				city:this.$store.state.userST.city||'',
 				area: this.$store.state.userST.area||'',
@@ -169,7 +169,7 @@
 						                    var reader = new plus.io.FileReader();  
 						                        reader.onloadend = function (e3) {  
 													console.log("e3.target.result",e3.target.result)
-						                            _this.business_license = e3.target.result;//base64图片                           
+						                            _this.business_license[0] = e3.target.result;//base64图片                           
 						                        };  
 						                    reader.readAsDataURL(e2.target);  
 						                  },  
@@ -220,7 +220,8 @@
 						phone:this.phone,
 						customer:this.customer,
 						contacts:this.contacts,
-						introduction:this.introduction
+						introduction:this.introduction,
+						ispersonal:0
 					},false,function(res){
 						if(res.data.status != 200){
 							uni.showToast({
@@ -259,7 +260,7 @@
 					})
 					return;
 				}
-				if(!this.business_license){
+				if(!this.business_license.length){
 					uni.showToast({
 						title:'请上传营业执照',
 						icon:'none'

@@ -23,7 +23,7 @@ export default {
 	business_name:'',
 	business_class:'',
 	credit_code	:'',
-	business_license:'',
+	business_license:[],
 	province:'',
 	city:'',
 	area: '',
@@ -46,7 +46,7 @@ export default {
 		state.business_name=data.business_name
 		state.business_class=data.business_class
 		state.credit_code	=data.credit_code
-		state.business_license=data.business_license
+		Vue.set(state,'business_license',data.business_license)
 		state.province=data.province
 		state.city=data.city
 		state.area= data.area
@@ -93,7 +93,7 @@ export default {
 		state.business_name=''
 		state.business_class=''
 		state.credit_code	=''
-		state.business_license=''
+		Vue.set(state,'business_license',[])
 		state.province=''
 		state.city=''
 		state.area= ''

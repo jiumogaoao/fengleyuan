@@ -7,7 +7,7 @@
 		</view>
 		<view class="top">
 			<view class="user-info-box">
-				<image class="portrait" :src="avatar || '/static/logo.png'"></image>
+				<image class="portrait" :src="avatar || '/static/missing-face.png'"></image>
 				<view class="info-box" v-if="nickname">
 					<text class="username">{{nickname || '游客'}}</text>
 					<view class="codeFrame"><view class="code">{{invitation||'暂无'}}</view><view class="copyButton" v-if="invitation">复制邀请码</view><image class="tx" src="/static/userTX.png"></image></view>

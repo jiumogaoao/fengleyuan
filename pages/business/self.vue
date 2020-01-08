@@ -4,18 +4,18 @@
 			<view class="list">
 				<view class="row b-b" key="b0s1">
 					<text class="tit">姓名</text>
-					<input class="input" type="text" placeholder="请输入您的姓名" placeholder-class="placeholder"/>
+					<input class="input" type="text" placeholder="请输入您的姓名" placeholder-class="placeholder" v-model="business_name"/>
 				</view>
 				<view class="row b-b" key="b0s1">
 					<text class="tit">身份证</text>
-					<input class="input" type="text" placeholder="请输入您的身份证号码" placeholder-class="placeholder"/>
+					<input class="input" type="text" placeholder="请输入您的身份证号码" placeholder-class="placeholder" v-model="credit_code"/>
 				</view>
 				<view class="picRow" key="b3s1">
 					<view class="tit">上传身份证照片（正面/反面/手持身份证照片）</view>
 					<view class="picList">
-						<image class="pic" :src="pic0?pic0:'/static/shelf0.png'" @click="uploadPIC(0)"></image>
-						<image class="pic" :src="pic1?pic1:'/static/shelf1.png'" @click="uploadPIC(1)"></image>
-						<image class="pic" :src="pic2?pic2:'/static/shelf2.png'" @click="uploadPIC(2)"></image>
+						<image class="pic" :src="business_license[0]?business_license[0]:'/static/shelf0.png'" @click="uploadPIC(0)"></image>
+						<image class="pic" :src="business_license[1]?business_license[1]:'/static/shelf1.png'" @click="uploadPIC(1)"></image>
+						<image class="pic" :src="business_license[2]?business_license[2]:'/static/shelf2.png'" @click="uploadPIC(2)"></image>
 					</view>
 				</view>
 			
@@ -25,14 +25,28 @@
 </template>
 
 <script>
+	import {postFetch} from '@/util/request_UT.js'
 	export default {
 		data() {
 			return {
 				readOnly:false,
-				pic0:'',
-				pic1:'',
-				pic2:''
+				business_name:this.$store.state.userST.business_name||'',
+				credit_code:this.$store.state.userST.credit_code||'',
+				business_license:this.$store.state.userST.business_license||[]
 			};
+		},
+		onLoad(){
+			let _this = this;
+			if(option.edit){
+				uni.setNavigationBarTitle({
+					title:'个人创业信息管理'
+				})
+			}else if(option.type==1){
+				_this.readOnly=1
+				uni.setNavigationBarTitle({
+					title:'个人创业信息'
+				})
+			}
 		},
 		methods:{
 			uploadPIC(num){
@@ -55,7 +69,7 @@
 						                    var reader = new plus.io.FileReader();  
 						                        reader.onloadend = function (e3) {  
 													console.log("e3.target.result",e3.target.result)
-						                            _this['pic'+num] = e3.target.result;//base64图片                           
+													_this.$set(_this.business_license,num,e3.target.result)//base64图片                    
 						                        };  
 						                    reader.readAsDataURL(e2.target);  
 						                  },  
@@ -71,7 +85,64 @@
 				})
 			},
 			next(){
-				
+				let _this=this;
+				if(!this.business_name){
+					uni.showToast({
+						title:'请输入姓名',
+						icon:'none'
+					})
+					return;
+				}
+				if(!this.credit_code){
+					uni.showToast({
+						title:'请输入身份证',
+						icon:'none'
+					})
+					return;
+				}
+				if(!this.business_license[0]){
+					uni.showToast({
+						title:'请上传手持身份证',
+						icon:'none'
+					})
+					return;
+				}
+				if(!this.business_license[1]){
+					uni.showToast({
+						title:'请上传反面身份证照片',
+						icon:'none'
+					})
+					return;
+				}
+				if(!this.business_license[2]){
+					uni.showToast({
+						title:'请上传正面身份证照片',
+						icon:'none'
+					})
+					return;
+				}
+				postFetch('index.php/index/business/updata_business',{
+					id:this.$store.state.userST.id,
+					user_token:this.$store.state.userST.user_tooken,
+						business_name:this.business_name,
+						credit_code:this.credit_code,
+						business_license:this.business_license,
+						ispersonal:1
+					},false,function(res){
+						if(res.data.status != 200){
+							uni.showToast({
+								title:res.data.msg,
+								icon:'none'
+							})
+						}else{
+							uni.showToast({
+								title:'提交成功，请耐心等待审核',
+								icon:'none'
+							})
+							_this.$store.dispatch('userST/setBusiness',{is_examine:0,..._this});
+							uni.navigateBack()
+						}
+				})
 			}
 		}
 	}

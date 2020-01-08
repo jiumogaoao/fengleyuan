@@ -14,12 +14,12 @@
 				<input class="input" type="number" placeholder="请输入商品折扣价" placeholder-class="placeholder" v-model="v.zk_final_price"/>
 			</view>
 			<view class="row b-b">
-				<text class="tit">分佣金额<text class="must">*</text><text class="tdes">（对应规格）</text></text>
-				<input class="input" type="number" placeholder="请输入分佣金额" placeholder-class="placeholder" v-model="v.commission"/>
-			</view>
-			<view class="row b-b">
-				<text class="tit">分佣金额<text class="must">*</text><text class="tdes">（对应规格）</text></text>
-				<input class="input" type="number" placeholder="请输入分佣金额" placeholder-class="placeholder" v-model="v.commission"/>
+				<text class="tit">分佣金额<text class="must">*</text><text class="tdes">（对应花粉）</text></text>
+				<view class="rowRight">
+					<image class="hf" src="/static/hf.png"></image><input class="input" type="number" placeholder="请输入分佣金额" placeholder-class="placeholder" v-model="v.commission"/>
+					<view class="placeholder">（1元=100花粉）</view>
+				</view>
+				
 			</view>
 			<view class="row b-b">
 				<text class="tit">库存<text class="must">*</text><text class="tdes">（对应规格）</text></text>
@@ -28,7 +28,7 @@
 			<image class="remove" src="/static/removePic.png" v-if="i" @click="removeSKU(i)"></image>
 		</view>
 		<image class="addSKU" src="/static/uploadSKU.png" @click="pushSKU"></image>
-		<button class="add-btn" @click="confirm">上传商品</button>
+		<button class="add-btn" @click="confirm">{{edit?'修改商品':'上传商品'}}</button>
 	</view>
 </template>
 
@@ -61,20 +61,27 @@
 		},
 		onLoad(option){
 			let _this =this;
-			this.prePage=this.$api.prePage()
-			if(this.prePage.edit){
-				this.edit=this.prePage.edit
+			let p=this.$api.prePage()
+			this.prePage={
+				title:p.title,//标题
+				brief:p.brief,//邮价（否）
+				desc:p.desc,//产品简述（否）
+				classid:p.classid,//分类id（是int）
+				thumb_url:p.thumb_url,//封面图（数组形式）
+				img_url:p.img_url,//详情图（数组形式）
+			}
+			if(p.edit){
+				this.edit=p.edit
 				uni.setNavigationBarTitle({
 					title:'商品修改'
 				})
-				this.$set(this,'SKU',this.prePage.c_list)
+				_this.$set(_this,'SKU',p.c_list)
 			}
-			for (let item in this.prePage.guarantee) {
-			  if(_this.prePage.guarantee[item]){
+			for (let item in p.guarantee) {
+			  if(p.guarantee[item]){
 				  _this.guarantee.push(item)
 			  }
 			}
-			console.log('prePage',this.$api.prePage())
 		},
 		methods: {
 			pushSKU(){
@@ -91,19 +98,40 @@
 				this.SKU.map(function(v,vi){if(i!==vi){newA.push(v)}})
 				this.$set(this,"SKU",newA)
 			},
-			confirm(){
-				let count = 0;
-				function setSuccess(){
-					if(count != 2){return;}
-					uni.showToast({
-						title:'修改成功，请耐心等待审核',
-						icon:'none'
-					})
-					setTimeout(function(){
-						uni.navigateBack({
-							delta:2
+			emptyCheck(){
+				let pass=true;
+				this.SKU.map(function(v,i){
+					if(!pass){return;}
+					if(!v.name){
+						uni.showToast({
+							title:'商品规格名不能为空',
+							icon:'none'
 						})
-					},2000)
+						pass=false;
+						return;
+					}
+					if(!v.reserve_price){
+						uni.showToast({
+							title:'商品原价不能为空',
+							icon:'none'
+						})
+						pass=false;
+						return;
+					}
+					if(!v.commission){
+						uni.showToast({
+							title:'分佣金额不能为空',
+							icon:'none'
+						})
+						pass=false;
+						return;
+					}
+				})
+				return pass;
+			},
+			confirm(){
+				if(!this.emptyCheck()){
+					return;
 				}
 				if(this.edit){
 					postFetch('index.php/index/selfgoods/update',{
@@ -118,10 +146,26 @@
 							thumb_url:this.prePage.thumb_url,//封面图（数组形式）
 							img_url:this.prePage.img_url,//详情图（数组形式）
 							guarantee:this.guarantee,
-						}
+						},
+						data_list:this.SKU
 					},false,function(res){
-						count++;
-						setSuccess();
+						console.log('edit',res)
+						if(res.data.status!=200){
+							uni.showToast({
+								title:res.data.msg,
+								icon:'none'
+							})
+						}else{
+							uni.showToast({
+								title:'修改成功',
+								icon:'none'
+							})
+							setTimeout(function(){
+								uni.navigateBack({
+									delta:2
+								})
+							},2000)
+						}
 					})
 					
 				}else{
@@ -205,6 +249,17 @@
 		justify-content: space-between;
 		position: relative;
 		height: 77upx;
+		.rowRight{
+			display: flex;
+			align-items: center;
+			.hf{
+					width:22upx;
+					height:22upx;
+			}
+			.placeholder{
+				font-size:26rpx;
+			}
+		}
 		.tit{
 			flex-shrink: 0;
 			font-size:26rpx;
