@@ -301,16 +301,16 @@
 		},
         methods: {
 			business(){
-				if(this.is_examine == -1){
+				if(this.is_examine == 0){
 					this.navTo('/pages/business/businessType')
-				}else if(this.is_examine == 0){
+				}else if(this.is_examine == -2){
 					if(this.ispersonal){
 						this.navTo('/pages/business/self?type=1')
 					}else{
 						this.navTo('/pages/business/business?type=1')
 					}
 					
-				}else if(this.is_examine == 2){
+				}else if(this.is_examine == -1){
 					this.navTo('/pages/business/noPass')
 				}else{
 					this.navTo('/pages/business/businessManage')

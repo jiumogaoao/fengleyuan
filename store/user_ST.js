@@ -32,7 +32,7 @@ export default {
 	contacts:'',
 	customer:'',
 	introduction:'',
-	is_examine:-1,
+	is_examine:0,
 	ispersonal:-1
   },
   mutations: {
@@ -44,7 +44,7 @@ export default {
 	},
 	setBusiness(state, data) {
 		state.ispersonal=data.ispersonal
-		state.is_business = data.is_business
+		state.is_business = data.is_examine
 		state.business_name=data.business_name
 		state.business_class=data.business_class
 		state.credit_code	=data.credit_code
@@ -74,6 +74,7 @@ export default {
 		Vue.set(state,'fans1',data.fans1)
 		Vue.set(state,'fans2',data.fans2)
 		Vue.set(state,'fans3',data.fans3)
+		state.is_examine=data.is_business||data.business_id
 		state.is_business=data.is_business||data.business_id
 		state.ispersonal=data.ispersonal
 		uni.setStorageSync('userInfo',state);

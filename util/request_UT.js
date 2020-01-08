@@ -133,6 +133,7 @@ export const postFetch =  async (url,params = {},CDN,callback) => {
 	 			// success:callback
 	 	});
 	 postCache[cacheKey]={data:res[1],time:new Date().getTime()}
+	 console.log("respond",res[1])
 	if(callback){callback(res[1])}
     return res[1];
   }catch(e){

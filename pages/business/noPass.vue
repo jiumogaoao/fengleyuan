@@ -14,9 +14,11 @@
 		},
 		methods:{
 			c(){
-				uni.navigateTo({
-					url:'/pages/business/business'
-				})
+					uni.navigateTo({
+						url:'/pages/business/businessType'
+					})
+
+				
 			}
 		}
 	}

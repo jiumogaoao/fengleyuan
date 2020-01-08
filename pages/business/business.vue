@@ -233,8 +233,8 @@
 								title:'提交成功，请耐心等待审核',
 								icon:'none'
 							})
-							_this.$store.dispatch('userST/setBusiness',{is_examine:0,..._this});
-							uni.navigateBack()
+							_this.$store.dispatch('userST/setBusiness',{ispersonal:0,is_examine:-2,..._this});
+							uni.navigateBack({delta: 2})
 						}
 				})
 			},

@@ -6,7 +6,11 @@
 					<text class="tit">姓名</text>
 					<input class="input" type="text" placeholder="请输入您的姓名" placeholder-class="placeholder" v-model="business_name"/>
 				</view>
-				<view class="row b-b" key="b0s1">
+				<view class="row b-b" key="b0s2">
+					<text class="tit">手机号</text>
+					<input class="input" type="number" placeholder="请输入手机号码" placeholder-class="placeholder" v-model="phone"/>
+				</view>
+				<view class="row b-b" key="b0s3">
 					<text class="tit">身份证</text>
 					<input class="input" type="text" placeholder="请输入您的身份证号码" placeholder-class="placeholder" v-model="credit_code"/>
 				</view>
@@ -32,7 +36,8 @@
 				readOnly:false,
 				business_name:this.$store.state.userST.business_name||'',
 				credit_code:this.$store.state.userST.credit_code||'',
-				business_license:this.$store.state.userST.business_license||[]
+				business_license:this.$store.state.userST.business_license||[],
+				phone:this.$store.state.userST.phone
 			};
 		},
 		onLoad(){
@@ -93,6 +98,13 @@
 					})
 					return;
 				}
+				if(!this.phone){
+					uni.showToast({
+						title:'请输入手机号码',
+						icon:'none'
+					})
+					return;
+				}
 				if(!this.credit_code){
 					uni.showToast({
 						title:'请输入身份证',
@@ -127,8 +139,10 @@
 						business_name:this.business_name,
 						credit_code:this.credit_code,
 						business_license:this.business_license,
+						phone:this.phone,
 						ispersonal:1
 					},false,function(res){
+						console.log('updata_business',res)
 						if(res.data.status != 200){
 							uni.showToast({
 								title:res.data.msg,
@@ -139,8 +153,8 @@
 								title:'提交成功，请耐心等待审核',
 								icon:'none'
 							})
-							_this.$store.dispatch('userST/setBusiness',{is_examine:0,..._this});
-							uni.navigateBack()
+							_this.$store.dispatch('userST/setBusiness',{ispersonal:1,is_examine:-2,..._this});
+							uni.navigateBack({delta: 2})
 						}
 				})
 			}
