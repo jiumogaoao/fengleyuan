@@ -40,7 +40,7 @@
 					<view class="title">订单管理</view>
 					<view class="dsc">上传物流单号、展示物流信息</view>
 				</view>
-				<view class="point" @click="go('/pages/business/business?edit=1')">
+				<view class="point" @click="goManage()">
 					<image class="nav" src="/static/business2.png"></image>
 					<view class="title">商家信息</view>
 					<view class="dsc">管理和修改商家注册信息</view>
@@ -70,7 +70,9 @@
 			}
 		},
 		computed:{
-			
+			ispersonal(){
+				return this.$store.state.userST.ispersonal
+			}
 		},
 		onLoad(option){
 			
@@ -80,6 +82,13 @@
 				uni.navigateTo({
 					url
 				})
+			},
+			goManage(){
+				if(this.ispersonal){
+					this.go('/pages/business/self?edit=1')
+				}else{
+					this.go('/pages/business/business?edit=1')
+				}
 			}
 		}
 	}

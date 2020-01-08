@@ -294,6 +294,9 @@
 			},
 			is_examine(){
 				return this.$store.state.userST.is_examine
+			},
+			ispersonal(){
+				return this.$store.state.userST.ispersonal
 			}
 		},
         methods: {
@@ -301,7 +304,12 @@
 				if(this.is_examine == -1){
 					this.navTo('/pages/business/businessType')
 				}else if(this.is_examine == 0){
-					this.navTo('/pages/business/businessManage?type=1')
+					if(this.ispersonal){
+						this.navTo('/pages/business/self?type=1')
+					}else{
+						this.navTo('/pages/business/business?type=1')
+					}
+					
 				}else if(this.is_examine == 2){
 					this.navTo('/pages/business/noPass')
 				}else{

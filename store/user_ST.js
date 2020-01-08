@@ -32,7 +32,8 @@ export default {
 	contacts:'',
 	customer:'',
 	introduction:'',
-	is_examine:-1
+	is_examine:-1,
+	ispersonal:-1
   },
   mutations: {
 	setCacheTitle(state, data){
@@ -42,6 +43,7 @@ export default {
 		state.network=data
 	},
 	setBusiness(state, data) {
+		state.ispersonal=data.ispersonal
 		state.is_business = data.is_business
 		state.business_name=data.business_name
 		state.business_class=data.business_class
@@ -73,6 +75,7 @@ export default {
 		Vue.set(state,'fans2',data.fans2)
 		Vue.set(state,'fans3',data.fans3)
 		state.is_business=data.is_business||data.business_id
+		state.ispersonal=data.ispersonal
 		uni.setStorageSync('userInfo',state);
 	},
 	logout(state) {
@@ -103,6 +106,7 @@ export default {
 		state.customer=''
 		state.introduction=''
 		state.is_examine=-1
+		state.ispersonal=-1
 		uni.setStorageSync('userInfo',state);
 	}
   },
