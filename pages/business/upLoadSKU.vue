@@ -63,10 +63,11 @@
 			let _this =this;
 			this.prePage=this.$api.prePage()
 			if(this.prePage.edit){
-				this.edit=true
+				this.edit=this.prePage.edit
 				uni.setNavigationBarTitle({
 					title:'商品修改'
 				})
+				this.$set(this,'SKU',this.prePage.c_list)
 			}
 			for (let item in this.prePage.guarantee) {
 			  if(_this.prePage.guarantee[item]){
@@ -91,36 +92,71 @@
 				this.$set(this,"SKU",newA)
 			},
 			confirm(){
-				postFetch('index.php/index/selfgoods/save',{
-					id:this.$store.state.userST.id,
-					user_token:this.$store.state.userST.user_tooken,
-					title:this.prePage.title,//标题
-					brief:this.prePage.brief,//邮价（否）
-					desc:this.prePage.desc,//产品简述（否）
-					classid:this.prePage.classid,//分类id（是int）
-					thumb_url:this.prePage.thumb_url,//封面图（数组形式）
-					img_url:this.prePage.img_url,//详情图（数组形式）
-					guarantee:this.guarantee,
-					data:this.SKU
-				},false,function(res){
-					console.log('save',res)
-					if(res.data.status !== 200){
-						uni.showToast({
-							title:res.data.msg,
-							icon:'none'
+				let count = 0;
+				function setSuccess(){
+					if(count != 2){return;}
+					uni.showToast({
+						title:'修改成功，请耐心等待审核',
+						icon:'none'
+					})
+					setTimeout(function(){
+						uni.navigateBack({
+							delta:2
 						})
-					}else{
-						uni.showToast({
-							title:'发布成功，请耐心等待审核',
-							icon:'none'
-						})
-						setTimeout(function(){
-							uni.navigateBack({
-								delta:2
+					},2000)
+				}
+				if(this.edit){
+					postFetch('index.php/index/selfgoods/update',{
+						id:this.$store.state.userST.id,
+						user_token:this.$store.state.userST.user_tooken,
+						data:{
+							id:this.edit,
+							title:this.prePage.title,//标题
+							brief:this.prePage.brief,//邮价（否）
+							desc:this.prePage.desc,//产品简述（否）
+							classid:this.prePage.classid,//分类id（是int）
+							thumb_url:this.prePage.thumb_url,//封面图（数组形式）
+							img_url:this.prePage.img_url,//详情图（数组形式）
+							guarantee:this.guarantee,
+						}
+					},false,function(res){
+						count++;
+						setSuccess();
+					})
+					
+				}else{
+					postFetch('index.php/index/selfgoods/save',{
+						id:this.$store.state.userST.id,
+						user_token:this.$store.state.userST.user_tooken,
+						title:this.prePage.title,//标题
+						brief:this.prePage.brief,//邮价（否）
+						desc:this.prePage.desc,//产品简述（否）
+						classid:this.prePage.classid,//分类id（是int）
+						thumb_url:this.prePage.thumb_url,//封面图（数组形式）
+						img_url:this.prePage.img_url,//详情图（数组形式）
+						guarantee:this.guarantee,
+						data:this.SKU
+					},false,function(res){
+						console.log('save',res)
+						if(res.data.status !== 200){
+							uni.showToast({
+								title:res.data.msg,
+								icon:'none'
 							})
-						},2000)
-					}
-				})
+						}else{
+							uni.showToast({
+								title:'发布成功，请耐心等待审核',
+								icon:'none'
+							})
+							setTimeout(function(){
+								uni.navigateBack({
+									delta:2
+								})
+							},2000)
+						}
+					})
+				}
+				
 			}
 		}
 	}
@@ -298,5 +334,6 @@
 		left: 0rpx;
 		bottom:0rpx;
 		border-radius: 0 !important;
+		z-index: 3;
 	}
 </style>

@@ -16,7 +16,7 @@
 						</view>
 						<view class="bottom">
 							<view class="price">￥{{v.zk_final_price}}<text class="oldPrice">￥{{v.reserve_price}}</text></view>
-							<image v-if="v.is_check==1" class="edit" src="/static/goodManageEdit.png" @click="go('/pages/business/uploadGood?edit='+v.id)"></image>
+							<image v-if="v.is_check==1" class="edit" src="/static/goodManageEdit.png" @click="edit(v)"></image>
 							<view class="type" v-else>{{v.is_check==0?'审核中':'审核不通过'}}</view>
 						</view>
 					</view>
@@ -71,6 +71,10 @@
 			tabChange(i){
 				this.tap = i
 				this.getData()
+			},
+			edit(obj){
+				// this.$set(this,'editJson',obj)
+				this.go('/pages/business/uploadGood?edit='+obj.id)
 			}
 		}
 	}

@@ -10,7 +10,7 @@
 				<image class="portrait" :src="avatar || '/static/logo.png'"></image>
 				<view class="info-box" v-if="nickname">
 					<text class="username">{{nickname || '游客'}}</text>
-					<view class="codeFrame"><view class="code">{{invitation||'暂无'}}</view><view class="copyButton" v-if="invitation">复制邀请码</view></view>
+					<view class="codeFrame"><view class="code">{{invitation||'暂无'}}</view><view class="copyButton" v-if="invitation">复制邀请码</view><image class="tx" src="/static/userTX.png"></image></view>
 				</view>
 				<view class="toLogon" v-else @click="go('/pages/public/login')">点击登陆账号</view>
 			</view>
@@ -299,7 +299,7 @@
         methods: {
 			business(){
 				if(this.is_examine == -1){
-					this.navTo('/pages/business/business')
+					this.navTo('/pages/business/businessType')
 				}else if(this.is_examine == 0){
 					this.navTo('/pages/business/businessManage?type=1')
 				}else if(this.is_examine == 2){
@@ -468,6 +468,11 @@
 						color:rgba(255,255,255,1);
 						line-height: 44rpx;
 						text-align: center;
+					}
+					.tx{
+						width:131rpx;
+						height: 44rpx;
+						margin-left: 92rpx;
 					}
 				}
 			}

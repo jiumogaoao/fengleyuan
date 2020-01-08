@@ -9,6 +9,12 @@
 		},
 		onLaunch: function() {
 			let _this=this;
+			// #ifndef H5
+			console.log('appid',plus.runtime.appid)
+			console.log('version',plus.runtime.version)
+			var info = plus.push.getClientInfo();
+			console.log('userInfo',info)
+			// #endif
 			uni.setStorageSync('cacheCheck',0);
 			let userInfo = uni.getStorageSync('userInfo') || '';
 			if(userInfo.user_tooken){

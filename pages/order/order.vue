@@ -76,7 +76,7 @@
 								<view class="orderTitle">四合院北极保暖四件套原生实惠装...</view>
 								<view class="orderMoney">付款￥260</view>
 								<view class="orderInfoBottom">
-									<view class="rebate">返还28蜜糖</view>
+									<view class="rebate">返还<image class="mt" src="/static/hf.png"></image>28</view>
 									<view class="state">2020-1-11到账</view>
 								</view>
 							</view>
@@ -93,7 +93,7 @@
 					 			<view class="orderTitle">四合院北极保暖四件套原生实惠装...</view>
 					 			<view class="orderMoney">付款￥260</view>
 					 			<view class="orderInfoBottom">
-					 				<view class="rebate">返还28蜜糖</view>
+					 				<view class="rebate">返还<image class="mt" src="/static/hf.png"></image>28</view>
 					 				<view class="state">2020-1-11到账</view>
 					 			</view>
 					 		</view>
@@ -110,7 +110,7 @@
 					 			<view class="orderTitle">四合院北极保暖四件套原生实惠装...</view>
 					 			<view class="orderMoney">付款￥260</view>
 					 			<view class="orderInfoBottom">
-					 				<view class="rebate">返还28蜜糖</view>
+					 				<view class="rebate">返还<image class="mt" src="/static/hf.png"></image>28</view>
 					 				<view class="state">已失效</view>
 					 			</view>
 					 		</view>
@@ -127,7 +127,7 @@
 					 			<view class="orderTitle">四合院北极保暖四件套原生实惠装...</view>
 					 			<view class="orderMoney">付款￥260</view>
 					 			<view class="orderInfoBottom">
-					 				<view class="rebate">预估赚28蜜糖</view>
+					 				<view class="rebate">预估赚<image class="mt" src="/static/hf.png"></image>28</view>
 					 				<view class="state">待结算</view>
 					 			</view>
 					 		</view>

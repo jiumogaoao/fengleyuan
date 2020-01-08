@@ -14,7 +14,7 @@
 			</swiper>
 		</view>
 		<view class="headFoot" v-if="!identity_type">
-			<view class="text"><text>现在升级VIP，最高可</text><text class="red">赚</text><image class="mt" src="/static/productIcon02.png"></image><text class="red">{{vip}}元</text></view>
+			<view class="text"><text>现在升级VIP，最高可</text><text class="red">赚</text><image class="mt" src="/static/hf.png"></image><text class="red">{{vip}}元</text></view>
 			<view class="button" @click="goVip">
 				<image class="icon" src="/static/productIcon01.png"></image>
 				<view class="label">立即升级</view>
@@ -36,7 +36,7 @@
 					<!-- <text class="coupon-tip">7折</text> -->
 				</view>
 				<view class="bot-row">
-					<view>预估收益</view><image class="mt" src="/static/productIcon02.png"></image><view>{{income}}</view>
+					<view>预估收益</view><image class="mt" src="/static/hf.png"></image><view>{{income}}</view>
 					<!-- <text>库存: 4690</text>
 					<text>浏览量: 768</text> -->
 				</view>

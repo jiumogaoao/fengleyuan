@@ -409,7 +409,7 @@
         },{
 			"path":"pages/business/business",
 			"style":{
-				"navigationBarTitleText": "商家申请"
+				"navigationBarTitleText": "商业用户申请"
 			}
 		},{
 			"path":"pages/business/business2",
@@ -485,8 +485,24 @@
 				"backgroundColor":"#fff",
 				"navigationBarTitleText": "审核不通过"
 			}
+		},{
+			"path":"pages/business/businessType",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "商家类别"
+			}
+		},{
+			"path":"pages/business/self",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "个人创业者申请"
+			}
+		},{
+			"path":"pages/business/businessPay",
+			"style" : {
+				"navigationStyle":"custom"
+			}
 		}
-		
 		
     ],
 	"globalStyle": {

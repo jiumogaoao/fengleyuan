@@ -39,6 +39,7 @@
 				</view>
 			</view>
 		</view>
+		<view style="width:750rpx;height:200rpx"></view>
 		<button class="add-btn" @click="confirm">下一步</button>
 		<view class="popFrame" v-if="salePop" @click="toggleSalePop">
 			<view class="pop" @click.stop="stopPrevent">
@@ -80,7 +81,8 @@
 				img_url:[],//详情图（数组形式）
 				desc:'',//商品简介
 				guarantee:{},
-				edit:false
+				edit:false,
+				c_list:[]
 			}
 		},
 		computed:{
@@ -89,9 +91,22 @@
 		onLoad(option){
 			let _this=this;
 			if(option.edit){
-				this.edit=true
+				this.edit=option.edit
 				uni.setNavigationBarTitle({
 					title:'商品修改'
+				})
+				// let p=this.$api.prePage()
+				// this.title=p.title;
+				postFetch('index.php/index/selfgoods/edit',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,pid:option.edit},false,function(res){
+					console.log('edit',res)
+					_this.title=res.data.p_list.title
+					_this.brief=res.data.p_list.brief
+					_this.desc=res.data.p_list.desc
+					_this.class_id=res.data.p_list.class_id
+					_this.$set(_this,"thumb_url",res.data.p_list.thumb_url)
+					_this.$set(_this,"img_url",res.data.p_list.img_url)
+					_this.$set(_this.guarantee,res.data.p_list.guarantee,1)
+					_this.$set(_this,"c_list",res.data.c_list)
 				})
 			}
 			postFetch('index.php/index/selfgoods/selguarantee',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken},false,function(res){
@@ -151,9 +166,12 @@
 					})
 					return false;
 				}
+				
 				uni.navigateTo({
 					url:'/pages/business/upLoadSKU'
 				})
+				
+				
 			},
 			toggleSelguarantee(id){
 				if(this.guarantee[id]){
@@ -357,6 +375,7 @@
 		position: fixed;
 		left: 63rpx;
 		bottom:132rpx;
+		z-index: 3;
 	}
 	.popFrame{
 		position: fixed;

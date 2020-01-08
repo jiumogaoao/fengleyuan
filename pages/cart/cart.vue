@@ -28,7 +28,7 @@
 						<view class="goodTitle">儿童大块积木桶装1-2-3-6周岁益智早教婴儿宝宝男女孩木头玩具</view>
 						<view class="infoCenter">
 							<view class="sku">全部套装【68块】</view>
-							<view class="income"><text>预估收益</text><image src="/static/productIcon02.png" class="mt"></image><text>15.51</text></view>
+							<view class="income"><text>预估收益</text><image src="/static/hf.png" class="mt"></image><text>15.51</text></view>
 						</view>
 						<view class="infoBottom">
 							<view class="infoBottomLeft">
@@ -53,7 +53,7 @@
 				<view class="actionRight">
 					<view class="actionCenter">
 						<view class="total">合计：<text class="red">$320.00</text></view>
-						<view class="dec"><text>预估收益</text><image src="/static/productIcon02.png" class="mt"></image><text>3.89</text></view>
+						<view class="dec"><text>预估收益</text><image src="/static/hf.png" class="mt"></image><text>3.89</text></view>
 					</view>
 					<view class="go" @click="createOrder">结算（0）</view>
 				</view>

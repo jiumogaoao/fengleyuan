@@ -6,6 +6,7 @@
 					<view class="title">账户蜜糖余额</view>
 					<view class="bigMoney">{{user_balance>0?user_balance:'- -'}}</view>
 				</view>
+				<image class="tx" src="/static/userTX.png"></image>
 				<view class="topRight">
 					<view class="iconfont2">&#xe62a;</view>
 					<view class="detail" @click="go('/pages/income/incomeList')">账单明细</view>
@@ -188,6 +189,10 @@
 					font-weight: bold;
 					margin-top: 33rpx;
 				}
+			}
+			.tx{
+				width:130rpx;
+				height:44rpx;
 			}
 			.topRight{
 				margin-right: 58rpx;

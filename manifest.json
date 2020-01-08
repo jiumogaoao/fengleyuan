@@ -2,7 +2,7 @@
     "name" : "蜜蜂天堂",
     "appid" : "__UNI__9A2CA7E",
     "description" : "",
-    "versionName" : "1.0.2",
+    "versionName" : "1.0.3",
     "versionCode" : 104,
     "transformPx" : false,
     "app-plus" : {
@@ -190,7 +190,11 @@
                 }
             },
             /* ios打包配置 */
-            "sdkConfigs" : {},
+            "sdkConfigs" : {
+                "push" : {
+                    "unipush" : {}
+                }
+            },
             "icons" : {
                 "android" : {
                     "hdpi" : "unpackage/res/icons/72x72.png",
@@ -225,19 +229,19 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "unpackage/res/welcome/welcome480_762.png",
-                    "xhdpi" : "unpackage/res/welcome/welcome720_1242.png",
-                    "xxhdpi" : "unpackage/res/welcome/welcome1080_1882.png"
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : ""
                 },
                 "ios" : {
                     "iphone" : {
-                        "portrait-896h@3x" : "unpackage/res/welcome/welcome1242_2668.png",
-                        "portrait-896h@2x" : "unpackage/res/welcome/welcome828_1792.png",
-                        "iphonex" : "unpackage/res/welcome/welcome1125_2436.png",
-                        "retina55" : "unpackage/res/welcome/welcome1242_2208.png",
-                        "retina47" : "unpackage/res/welcome/welcome750_1334.png",
-                        "retina40" : "unpackage/res/welcome/welcome640_1136.png",
-                        "retina35" : "unpackage/res/welcome/welcome640_960.png",
+                        "portrait-896h@3x" : "",
+                        "portrait-896h@2x" : "",
+                        "iphonex" : "",
+                        "retina55" : "",
+                        "retina47" : "",
+                        "retina40" : "",
+                        "retina35" : "",
                         "landscape-896h@3x" : "",
                         "landscape-896h@2x" : "",
                         "iphonexl" : ""
