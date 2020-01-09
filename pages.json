@@ -502,6 +502,54 @@
 			"style" : {
 				"navigationStyle":"custom"
 			}
+		},{
+			"path":"pages/niangmiqi/niangmiqi",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "酿蜜器"
+			}
+		},{
+			"path":"pages/tx/tx",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "提现"
+			},
+			"app-plus": {
+					"titleNView": {
+						"titletext": "提现",
+						"buttons": [{
+								"text": "提现记录",
+								"fontSize": 16,
+								"color": "#FAC523",
+								"background": "transparent"
+							}
+						]
+					}
+				}
+		},{
+			"path":"pages/tx/txZFB",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "提现支付宝"
+			}
+		},{
+			"path":"pages/tx/txWX",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "提现微信"
+			}
+		},{
+			"path":"pages/tx/txYHK",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "银行卡"
+			}
+		},{
+			"path":"pages/tx/rule",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "规则说明"
+			}
 		}
 		
     ],

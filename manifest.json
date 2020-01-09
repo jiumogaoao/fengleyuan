@@ -16,7 +16,8 @@
         },
         "modules" : {
             "Maps" : {},
-            "Push" : {}
+            "Push" : {},
+            "Payment" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -193,6 +194,9 @@
             "sdkConfigs" : {
                 "push" : {
                     "unipush" : {}
+                },
+                "payment" : {
+                    "alipay" : {}
                 }
             },
             "icons" : {

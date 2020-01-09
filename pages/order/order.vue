@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view class="noMessage" style="top:154rpx;">
+		<view class="noMessage" style="top:154rpx;" v-if="!list[tabCurrentIndex].length">
 			<image src="/static/empty.png"/>
 		</view>
 		<view class="zhanwei"></view>
@@ -60,6 +60,23 @@
 					<view class="noticeFrame">
 						<image src="/static/orderNotice.png"></image>
 						<view class="text">温馨小提示：订单付款成功后1~10分钟才会同步显示哦~</view>
+					</view>
+					<view class="orderItem" v-if="list[tabIndex].length" v-for="(v,i) in list[tabIndex]" :key="v.code">
+						<view class="orderTop">
+							<view class="mall">{{v.business_name}}</view>
+							<view class="time">下单时间：{{v.add_time}}</view>
+						</view>
+						<view class="orderBottom">
+							<image :src="v.head_url"></image>
+							<view class="orderInfo">
+								<view class="orderTitle">{{v.title}}</view>
+								<view class="orderMoney">付款￥{{v.total}}</view>
+								<view class="orderInfoBottom">
+									<view class="rebate">返还<image class="mt" src="/static/hf.png"></image>{{v.honey}}</view>
+									<view class="state">{{v.account}}到账</view>
+								</view>
+							</view>
+						</view>
 					</view>
 					<!-- 空白页 -->
 					<!-- <empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty> -->
@@ -147,6 +164,7 @@
 	import empty from "@/components/empty";
 	import uniNav from '@/components/uni-nav-bar/uni-nav-bar.vue';
 	import Json from '@/Json';
+	import {postFetch} from '@/util/request_UT.js'
 	export default {
 		mixins:[allpage],
 		components: {
@@ -184,6 +202,7 @@
 						orderList: []
 					}
 				],
+				list:[]
 			};
 		},
 		
@@ -192,6 +211,7 @@
 			 * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
 			 * 替换onLoad下代码即可
 			 */
+			let _this = this;
 			this.tabCurrentIndex = +options.state;
 			// #ifndef MP
 			this.loadData()
@@ -201,7 +221,46 @@
 				this.loadData()
 			}
 			// #endif
-			
+			postFetch('index.php/index/order/index',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,receive:0},false,function(res){
+				console.log("order/index",res)
+				if(res.statusCode!=200){
+					// uni.showToast({
+					// 	title:res.errMsg
+					// })
+				}else{
+					_this.$set(_this.list,0,res.data)
+				}
+			})
+			postFetch('index.php/index/order/index',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,receive:1},false,function(res){
+				console.log("order/index",res)
+				if(res.statusCode!=200){
+					// uni.showToast({
+					// 	title:res.errMsg
+					// })
+				}else{
+					_this.$set(_this.list,1,res.data)
+				}
+			})
+			postFetch('index.php/index/order/index',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,receive:2},false,function(res){
+				console.log("order/index",res)
+				if(res.statusCode!=200){
+					// uni.showToast({
+					// 	title:res.errMsg
+					// })
+				}else{
+					_this.$set(_this.list,2,res.data)
+				}
+			})
+			postFetch('index.php/index/order/index',{id:this.$store.state.userST.id,user_token:this.$store.state.userST.user_tooken,receive:3},false,function(res){
+				console.log("order/index",res)
+				if(res.statusCode!=200){
+					// uni.showToast({
+					// 	title:res.errMsg
+					// })
+				}else{
+					_this.$set(_this.list,3,res.data)
+				}
+			})
 		},
 		 
 		methods: {
@@ -501,6 +560,10 @@
 						font-family:PingFang SC;
 						font-weight:500;
 						color:rgba(102,102,102,1);
+						.mt{
+							width:22rpx;
+							height:24rpx;
+						}
 					}
 					.state{
 						font-size:23rpx;

@@ -10,7 +10,7 @@
 				<image class="portrait" :src="avatar || '/static/missing-face.png'"></image>
 				<view class="info-box" v-if="nickname">
 					<text class="username">{{nickname || '游客'}}</text>
-					<view class="codeFrame"><view class="code">{{invitation||'暂无'}}</view><view class="copyButton" v-if="invitation">复制邀请码</view><image class="tx" src="/static/userTX.png"></image></view>
+					<view class="codeFrame"><view class="code">{{invitation||'暂无'}}</view><view class="copyButton" v-if="invitation">复制邀请码</view><image class="tx" src="/static/userTX.png" @click="navTo('/pages/tx/tx')"></image></view>
 				</view>
 				<view class="toLogon" v-else @click="go('/pages/public/login')">点击登陆账号</view>
 			</view>
@@ -301,18 +301,18 @@
 		},
         methods: {
 			business(){
-				if(this.is_examine == 0){
+				if(!this.is_examine){debugger;
 					this.navTo('/pages/business/businessType')
-				}else if(this.is_examine == -2){
+				}else if(this.is_examine == -2){debugger;
 					if(this.ispersonal){
 						this.navTo('/pages/business/self?type=1')
 					}else{
 						this.navTo('/pages/business/business?type=1')
 					}
 					
-				}else if(this.is_examine == -1){
+				}else if(this.is_examine == -1){debugger;
 					this.navTo('/pages/business/noPass')
-				}else{
+				}else{debugger;
 					this.navTo('/pages/business/businessManage')
 				}
 			},

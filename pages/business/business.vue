@@ -169,7 +169,7 @@
 						                    var reader = new plus.io.FileReader();  
 						                        reader.onloadend = function (e3) {  
 													console.log("e3.target.result",e3.target.result)
-						                            _this.business_license[0] = e3.target.result;//base64图片                           
+													_this.$set(_this.business_license,0,e3.target.result)//base64图片                       
 						                        };  
 						                    reader.readAsDataURL(e2.target);  
 						                  },  
