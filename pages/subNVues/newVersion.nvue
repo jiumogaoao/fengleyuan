@@ -1,0 +1,36 @@
+<template>
+	<div class="wrapper">
+		<image class="bigPic" src="/static/newVersion.png" @click="submit()"></image>
+		<image class="closePic" src="/static/newVersionClose.png" @click="cancel()"></image>
+	</div>
+</template>
+
+<script>
+	export default {
+		methods:{
+			submit(){
+				uni.$emit('newVersionGo',{})
+			},
+			cancel(){
+				uni.$emit('newVersionCancel',{})
+			}
+		}
+	}
+</script>
+
+<style>
+	.wrapper{
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.bigPic{
+		width:451rpx;
+		height:565rpx;
+	}
+	.closePic{
+		width:55rpx;
+		height:109rpx;
+		margin-top: -5rpx;
+	}
+</style>

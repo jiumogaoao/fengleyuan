@@ -16,6 +16,7 @@
 			console.log('userInfo',info)
 			// #endif
 			uni.setStorageSync('cacheCheck',0);
+			uni.setStorageSync('versionCheck',0)
 			let userInfo = uni.getStorageSync('userInfo') || '';
 			if(userInfo.user_tooken){
 				//更新登陆状态

@@ -33,7 +33,7 @@
 				</view>
 				<view class="payPrice"><text class="priceTip">￥ </text>800.00</view>
 				<view class="payDsc">蜜蜂天堂线上商家（1年，有效期内可以随时续费）</view>
-				<view class="popList" @click="togglePayType(0)">
+				<view class="popList" @click="togglePayType(0,v)" v-for="(v,i) in providerList" :key="v.id">
 					<view class="popListFrame">
 						<view class="popLeft">
 							<image class="icon" src="/static/zfb.png"></image>
@@ -42,7 +42,7 @@
 						<image class="choose" :src="payType==0?'/static/regestIcon2.png':'/static/regestIcon3.png'"></image>
 					</view>
 				</view>
-				<view class="popList" @click="togglePayType(1)">
+				<!-- <view class="popList" @click="togglePayType(1)">
 					<view class="popListFrame">
 						<view class="popLeft">
 							<image class="icon" src="/static/wx.png"></image>
@@ -50,7 +50,7 @@
 						</view>
 						<image class="choose" :src="payType==1?'/static/regestIcon2.png':'/static/regestIcon3.png'"></image>
 					</view>
-				</view>
+				</view> -->
 				<view class="button" @click="submit">确认</view>
 			</view>
 		</view>
@@ -69,13 +69,56 @@
 </template>
 
 <script>
+	import {postFetch} from '@/util/request_UT.js'
 	export default {
 		data() {
 			return {
 				pop:false,
 				payType:0,
-				popSuccess:false
+				popSuccess:false,
+				providerList:[],
+				payObject:null
 			};
+		},
+		onLoad(){
+			let _this=this;
+			uni.getProvider({
+			    service: "payment",
+			    success: (e) => {
+			        console.log("payment success:" + JSON.stringify(e));
+			        let providerList = [];
+			        e.provider.map((value) => {
+			            switch (value) {
+			                case 'alipay':
+			                    providerList.push({
+			                        name: '支付宝',
+			                        id: value,
+			                        loading: false
+			                    });
+								_this.payObject={
+			                        name: '支付宝',
+			                        id: value,
+			                        loading: false
+			                    }
+			                    break;
+			                // case 'wxpay':
+			                //     providerList.push({
+			                //         name: '微信',
+			                //         id: value,
+			                //         loading: false
+			                //     });
+			                //     break;
+			                default:
+			                    break;
+			            }
+			        })
+			        _this.providerList = providerList;
+					console.log("_this.providerList",_this.providerList)
+			    },
+			    fail: (e) => {
+			        console.log("获取支付通道失败：", e);
+			    }
+			});
 		},
 		methods:{
 			togglePop(){
@@ -84,15 +127,65 @@
 			togglePopSuccess(){
 				this.popSuccess = !this.popSuccess
 			},
-			togglePayType(num){
+			togglePayType(num,item){
 				this.payType = num
+				this.payObject = item
 			},
 			stopEvent(){},
-			submit(){
-				this.togglePop()
-				this.togglePopSuccess()
+			getOrderInfo(e,cb) {
+				let _this=this;
+			    let appid = "";
+			    // #ifdef APP-PLUS
+			    appid = plus.runtime.appid;
+			    // #endif
+				postFetch('index.php/index/business/business_save',{id:_this.$store.state.userST.id,user_token:_this.$store.state.userST.user_tooken},false,function(res2){
+					postFetch('index.php/alipay/Business/index',{id:_this.$store.state.userST.id,token:_this.$store.state.userST.user_tooken,user_token:_this.$store.state.userST.user_tooken,by_id:res2.data.payid},false,function(res){
+						if(res.data.status != 200){
+							uni.showToast({
+								title:res.data.msg
+							})
+						}else{
+							cb(res.data.result)
+						}
+					})
+				})
+				
+			    
 			},
-			go(){}
+			submit(){
+				let _this=this;
+				this.providerList[0].loading = true;
+
+				let orderInfo = this.getOrderInfo(this.payObject.id,function(str){
+					console.log("得到订单信息", orderInfo);
+					uni.requestPayment({
+					    provider: _this.payObject.id,
+					    orderInfo: str,
+					    success: (e) => {
+					        console.log("success", e);
+							_this.togglePop()
+							_this.togglePopSuccess()
+					    },
+					    fail: (e) => {
+					        console.log("fail", e);
+					        uni.showModal({
+					            content: "支付失败,原因为: " + e.errMsg,
+					            showCancel: false
+					        })
+					    },
+					    complete: () => {
+					        this.providerList[0].loading = false;
+					    }
+					})
+				});
+				
+				
+			},
+			go(){
+				uni.redirectTo({
+					url:'/pages/business/businessType'
+				})
+			}
 		}
 	}
 </script>

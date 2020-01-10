@@ -18,6 +18,17 @@
 									"width": "573upx",
 									"height": "351upx"
 								}
+							},
+							{
+								"id":"newVersionPopup",
+								"path":"pages/subNVues/newVersion.nvue",
+								"type":"popup",
+								"style": {
+									"margin": "auto",
+									"width": "451upx",
+									"height": "667upx",
+									"background": "transparent"
+								}
 							}],
 					"titleNView": {
 						"type": "transparent",
@@ -549,6 +560,18 @@
 			"style": {
 				"backgroundColor":"#fff",
 				"navigationBarTitleText": "规则说明"
+			}
+		},{
+			"path":"pages/tx/history",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "提现记录"
+			}
+		},{
+			"path":"pages/tx/txSuccess",
+			"style": {
+				"backgroundColor":"#fff",
+				"navigationBarTitleText": "提现成功"
 			}
 		}
 		

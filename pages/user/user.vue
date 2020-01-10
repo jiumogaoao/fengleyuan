@@ -58,7 +58,7 @@
 			</view>
 		</view>
 		<view class="bothFrame">
-			<image class="bothPoint" src="/static/userBoth0.png" @click="navTo('/pages/cart/cart')"></image>
+			<image class="bothPoint" src="/static/userBoth0.png" @click="navTo('/pages/niangmiqi/niangmiqi')"></image>
 			<image class="bothPoint" src="/static/userBoth1.png" @click="navTo('/pages/coupon/coupon')"></image>
 		</view>
 		<image class="bigPic" src="/static/userBigPic.png" @click="navTo('/pages/vip/vip')"></image>
@@ -80,6 +80,10 @@
 				<view class="otherPoint" @click="business">
 					<image class="otherImg" :src="is_examine ==1?'/static/userOther3a.png':'/static/userOther3.png'"></image>
 					<view class="otherPointTitle">{{is_examine==1?'商家管理':'商家入驻'}}</view>
+				</view>
+				<view class="otherPoint" @click="navTo('/pages/cart/cart')">
+					<image class="otherImg" src="/static/userOther4.png"></image>
+					<view class="otherPointTitle">购物车</view>
 				</view>
 			</view>
 		</view>
@@ -301,18 +305,18 @@
 		},
         methods: {
 			business(){
-				if(!this.is_examine){debugger;
-					this.navTo('/pages/business/businessType')
-				}else if(this.is_examine == -2){debugger;
+				if(!this.is_examine){
+					this.navTo('/pages/business/businessPay')
+				}else if(this.is_examine == -2){
 					if(this.ispersonal){
 						this.navTo('/pages/business/self?type=1')
 					}else{
 						this.navTo('/pages/business/business?type=1')
 					}
 					
-				}else if(this.is_examine == -1){debugger;
+				}else if(this.is_examine == -1){
 					this.navTo('/pages/business/noPass')
-				}else{debugger;
+				}else{
 					this.navTo('/pages/business/businessManage')
 				}
 			},
@@ -677,7 +681,7 @@
 		background:rgba(255,255,255,1);
 		box-shadow:0px 0rpx 13px 1rpx rgba(0, 0, 0, 0.1);
 		border-radius:7rpx;
-		padding: 47rpx 0 47rpx 24rpx;
+		padding: 47rpx 0 0rpx 24rpx;
 		.otherTitle{
 			font-size:25rpx;
 			font-family:PingFang SC;
@@ -689,9 +693,11 @@
 			margin-top: 58rpx;
 			width: 680rpx;
 			display: flex;
+			flex-wrap: wrap;
 			align-items: center;
 			.otherPoint{
 				width:25%;
+				margin-bottom: 48rpx;
 				.otherImg{
 					width:35rpx;
 					height:35rpx;

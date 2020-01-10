@@ -20,7 +20,7 @@
 					<view class="type" @click="go('/pages/tx/txZFB')">更多<text class="red">金额</text></view>
 				</view>
 			</view>
-			<view class="list">
+			<!-- <view class="list">
 				<view class="listTitle">
 					<image class="listIcon" src="/static/txIcon1.png"></image>
 					<text>微信支付</text>
@@ -41,9 +41,9 @@
 					<view class="type" @click="go('/pages/tx/txYHK?money=30')">提现<text class="red">30元</text></view>
 					<view class="type" @click="go('/pages/tx/txYHK')">更多<text class="red">金额</text></view>
 				</view>
-			</view>
-			<view class="rule">规则说明</view>
-			<view class="button">邀请好友</view>
+			</view> -->
+			<view class="rule" @click="go('/pages/tx/rule')">规则说明</view>
+			<view class="button" @click="go('/pages/share/shareProduct')">邀请好友</view>
 		</view>
 	</view>
 </template>
@@ -63,7 +63,7 @@
 			const index = e.index;
 			if (index === 0) {
 				uni.navigateTo({
-					url:'/pages/tx/rule'
+					url:'/pages/tx/history'
 				})
 			}
 		},

@@ -26,6 +26,16 @@
 			<view class="total">当前可提现123，456.89元，<text class="red">全部提现</text></view>
 			<view class="confirm">提交</view>
 		</view>
+		<view class="errorPopFrame" @click="errorToggle">
+			<view class="errorPop" @click.stop="stopEvent">
+				<view class="errorTitle">提现失败</view>
+				<view class="errorBottom">
+					<image class="errorIcon" src="/static/txError.png"></image>
+					<view class="errorDsc">抱歉，提现没有成功，请您检查一下~</view>
+					<view class="errorButton" @click="errorToggle">返回</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -33,8 +43,14 @@
 	export default {
 		data() {
 			return {
-				
+				errorPop:false
 			};
+		},
+		methods:{
+			stopEvent(){},
+			errorToggle(){
+				this.errorPop = !this.errorPop
+			}
 		}
 	}
 </script>

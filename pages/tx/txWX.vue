@@ -14,6 +14,16 @@
 			<view class="total">当前可提现123，456.89元，<text class="red">全部提现</text></view>
 			<view class="confirm">提交</view>
 		</view>
+		<view class="errorPopFrame" @click="errorToggle">
+			<view class="errorPop" @click.stop="stopEvent">
+				<view class="errorTitle">提现失败</view>
+				<view class="errorBottom">
+					<image class="errorIcon" src="/static/txError.png"></image>
+					<view class="errorDsc">抱歉，提现没有成功，请您检查一下~</view>
+					<view class="errorButton" @click="errorToggle">返回</view>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -21,8 +31,14 @@
 	export default {
 		data() {
 			return {
-				
+				errorPop:false
 			};
+		},
+		methods:{
+			stopEvent(){},
+			errorToggle(){
+				this.errorPop = !this.errorPop
+			}
 		}
 	}
 </script>
@@ -96,6 +112,67 @@
 				font-family:PingFang SC;
 				font-weight:500;
 				color:rgba(255,255,255,1);
+			}
+		}
+		.errorPopFrame{
+			position: fixed;
+			top:0;
+			bottom:0;
+			left:0;
+			width:750rpx;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 9;
+			.errorPop{
+				width: 750rpx;
+				height: 460rpx;
+				position: absolute;
+				left:0;
+				bottom:0;
+				background-color: #fff;
+				border-radius: 10rpx 10rpx 0 0;
+				padding: 0 22rpx;
+				.errorTitle{
+					width:100%;
+					height: 90rpx;
+					line-height: 90rpx;
+					text-align: center;
+					font-size:35rpx;
+					font-family:PingFang SC;
+					font-weight:bold;
+					color:rgba(52,52,52,1);
+				}
+				.errorBottom{
+					width:100%;
+					height: 374rpx;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+					.errorIcon{
+						width:148rpx;
+						height:148rpx;
+					}
+					.errorDsc{
+						font-size:28rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(52,52,52,1);
+						margin-top: 31rpx;
+					}
+					.errorButton{
+						width:684rpx;
+						height:74rpx;
+						background:linear-gradient(20deg,rgba(240,45,64,1),rgba(239,65,83,1));
+						border-radius:37rpx;
+						margin-top: 37rpx;
+						font-size:31rpx;
+						font-family:PingFang SC;
+						font-weight:500;
+						color:rgba(255,255,255,1);
+						line-height: 74rpx;
+						text-align: center;
+					}
+				}
 			}
 		}
 	}

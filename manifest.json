@@ -17,7 +17,9 @@
         "modules" : {
             "Maps" : {},
             "Push" : {},
-            "Payment" : {}
+            "Payment" : {},
+            "FaceID" : {},
+            "Fingerprint" : {}
         },
         /* 模块配置 */
         "distribute" : {

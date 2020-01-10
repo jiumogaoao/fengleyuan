@@ -12,7 +12,14 @@
 			<text class="cell-tit">实名认证</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view> -->
-		
+		<view class="list-cell b-b" @click="navTo('/pages/agreement/agreement')" hover-class="cell-hover" :hover-stay-time="50">
+			<text class="cell-tit">用户协议</text>
+			<text class="cell-more yticon icon-you"></text>
+		</view>
+		<view class="list-cell" @click="navTo('/pages/policy/policy')" hover-class="cell-hover" :hover-stay-time="50">
+			<text class="cell-tit">隐私政策</text>
+			<text class="cell-more yticon icon-you"></text>
+		</view>
 		<view class="list-cell m-t">
 			<text class="cell-tit">消息推送</text>
 			<switch checked color="#fa436a" @change="switchChange" />
@@ -27,7 +34,7 @@
 		</view> -->
 		<view class="list-cell">
 			<text class="cell-tit">检查更新</text>
-			<text class="cell-tip">当前版本 1.0.3</text>
+			<text class="cell-tip">当前版本 {{version}}</text>
 			<text class="cell-more yticon icon-you"></text>
 		</view>
 		<view class="list-cell log-out-btn" @click="toLogout">
@@ -45,7 +52,7 @@
 		mixins:[allpage],
 		data() {
 			return {
-				
+				version:plus.runtime.version
 			};
 		},
 		methods:{
@@ -53,7 +60,9 @@
 				this.$api.msg(`缓存已清除`);
 			},
 			navTo(url){
-				this.$api.msg(`跳转到${url}`);
+				uni.navigateTo({
+					url
+				})
 			},
 			//退出登录
 			toLogout(){
