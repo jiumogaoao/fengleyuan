@@ -17,9 +17,8 @@
         "modules" : {
             "Maps" : {},
             "Push" : {},
-            "Payment" : {},
-            "FaceID" : {},
-            "Fingerprint" : {}
+            "OAuth" : {},
+            "Payment" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -188,8 +187,17 @@
                 ]
             },
             "ios" : {
+                "urltypes" : [
+                    {
+                        "urlschemes" : [ "tbopen28002500" ]
+                    }
+                ],
+                "urlschemewhitelist" : "tbopen,tmall",
                 "privacyDescription" : {
-                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "想获取你的位置"
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "想获取你的位置",
+                    "NSPhotoLibraryUsageDescription" : "需要获取你的相册",
+                    "NSPhotoLibraryAddUsageDescription" : "需要写你的相册",
+                    "NSCameraUsageDescription" : "需要调用你的摄像头"
                 }
             },
             /* ios打包配置 */
