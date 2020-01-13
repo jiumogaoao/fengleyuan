@@ -17,6 +17,10 @@
 				<text class="tit">商品保障<text class="must">*</text><text class="tdes">（可多选）</text></text>
 				<view class="input" @click="toggleSalePop">点击选择商品保障</view>
 			</view>
+			<view class="row b-b">
+				<text class="tit">下架时间<text class="must">*</text></text>
+				<input class="input" type="number" placeholder="请输入下架时间,YYYY-MM-DD hh:mm:ss " placeholder-class="placeholder" v-model="endtime"/>
+			</view>
 			<view class="picRow">
 				<view class="tit">商品主图<text class="must">*</text><text class="tdes">（可多选）</text></view>
 				<view class="dsc">建议尺寸540*520px，图片大小不超过1M。</view>
@@ -82,6 +86,7 @@
 				desc:'',//商品简介
 				guarantee:{},
 				edit:false,
+				endtime:'',
 				c_list:[]
 			}
 		},
@@ -166,7 +171,12 @@
 					})
 					return false;
 				}
-				
+				if(!this.endtime){
+					uni.showToast({
+						title:'请输入下架时间'
+					})
+					return false;
+				}
 				uni.navigateTo({
 					url:'/pages/business/upLoadSKU'
 				})

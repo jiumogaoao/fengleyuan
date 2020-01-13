@@ -33,7 +33,8 @@ export default {
 	customer:'',
 	introduction:'',
 	is_examine:0,
-	ispersonal:-1
+	ispersonal:-1,
+	payment_status:0
   },
   mutations: {
 	setCacheTitle(state, data){
@@ -77,6 +78,7 @@ export default {
 		state.is_examine=data.is_business||data.business_id
 		state.is_business=data.is_business||data.business_id
 		state.ispersonal=data.ispersonal
+		state.payment_status=data.payment_status
 		uni.setStorageSync('userInfo',state);
 	},
 	logout(state) {
@@ -108,6 +110,11 @@ export default {
 		state.introduction=''
 		state.is_examine=-1
 		state.ispersonal=-1
+		state.payment_status=0
+		uni.setStorageSync('userInfo',state);
+	},
+	setPayment(state, data){
+		state.payment_status=data
 		uni.setStorageSync('userInfo',state);
 	}
   },
@@ -175,6 +182,9 @@ export default {
 				context.commit('setBusiness',res.data)
 			}
 		})
+	},
+	setPayment(context,data){
+		context.commit('setPayment',data)
 	}
   }
 }

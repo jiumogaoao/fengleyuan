@@ -2,10 +2,10 @@
 	<view class="container">
 		<view class="carousel">
 			<swiper indicator-dots circular=true duration="400">
-				<swiper-item class="swiper-item">
+				<swiper-item class="swiper-item" v-for="(v,i) in thumb_url" :key="i">
 					<view class="image-wrapper">
 						<image
-							:src="header_img" 
+							:src="v" 
 							class="loaded" 
 							mode="aspectFill"
 						></image>
@@ -22,21 +22,21 @@
 		</view>
 		<view class="introduceFrame">
 			<view class="introduce-section">
-				<view class="title"><text class="textLabel">优选</text>{{product_name}}</view>
+				<view class="title"><text class="textLabel">优选</text>{{title}}</view>
 			</view>
 			<view class="introduce-dsc">
-				全羊绒，哥弟2019秋冬新款100%，纯山羊绒衫女针织衫打底衫毛 衣良好的耐热、耐寒性，耐磨，耐冲性能好，且皮革柔软、坚韧…
+				{{desc}}
 			</view>
 			<view class="priceFrame">
 				<view class="price-box">
 					<text class="priceLabel">券后价</text>
 					<text class="price-tip">¥</text>
-					<text class="price">{{post_coupon}}</text>
-					<text class="m-price">¥{{commodity_price}}</text>
+					<text class="price">{{showSKU.zk_final_price}}</text>
+					<text class="m-price">¥{{showSKU.reserve_price}}</text>
 					<!-- <text class="coupon-tip">7折</text> -->
 				</view>
 				<view class="bot-row">
-					<view>预估收益</view><image class="mt" src="/static/hf.png"></image><view>{{income}}</view>
+					<view>预估收益</view><image class="mt" src="/static/hf.png"></image><view>{{showSKU.commission}}</view>
 					<!-- <text>库存: 4690</text>
 					<text>浏览量: 768</text> -->
 				</view>
@@ -44,7 +44,7 @@
 			<view class="introduceBottom">
 				<view class="introduceBottomPoint">
 					<view class="introduceBottomLabel">销量：</view>
-					<view class="introduceBottomNum">120</view>
+					<view class="introduceBottomNum">{{salescout}}</view>
 				</view>
 				<view class="introduceBottomPoint">
 					<view class="introduceBottomLabel">分享：</view>
@@ -67,7 +67,7 @@
 		<view class="linkFrame">
 			<view class="link" @click="toggleSpec">
 				<view class="linkLabel">选择</view>
-				<view class="linkValue">颜色尺码</view>
+				<view class="linkValue">{{showSKU.name}}</view>
 				<image class="linkDeg" src="/static/right.png"></image>
 			</view>
 			<view class="link" @click="toggleCouponPop">
@@ -166,13 +166,13 @@
 				</view>
 			</scroll-view>
 		</view> -->
-		<view class="shopFrame">
+		<!-- <view class="shopFrame">
 			<view class="left">
 				<image class="shopIcon" src="/static/productIcon03.png"></image>
 				<view class="shopTitle">{{shop_name}}</view>
 			</view>
 			<view class="right" @click="toShop">进入店铺</view>
-		</view>
+		</view> -->
 		<!-- <view class="c-list"> -->
 			<!-- <view class="c-row b-b" @click="toggleSpec">
 				<text class="tit">购买类型</text>
@@ -227,12 +227,12 @@
 			</view>
 		</view> -->
 		
-		<!-- <view class="detail-desc">
+		<view class="detail-desc">
 			<view class="d-header">
 				<text>图文详情</text>
 			</view>
-			<rich-text :nodes="desc"></rich-text>
-		</view> -->
+			<image class="detailPic" v-for="(v,i) in img_url" :key="i" :src="v" mode="widthFix"></image>
+		</view>
 		
 		<!-- 底部操作菜单 -->
 		<view class="page-bottom">
@@ -271,24 +271,23 @@
 					<view class="a-t">
 						<image src="https://gd3.alicdn.com/imgextra/i3/0/O1CN01IiyFQI1UGShoFKt1O_!!0-item_pic.jpg_400x400.jpg"></image>
 						<view class="right">
-							<text class="price"><text class="priceTip">¥</text>328.00</text>
+							<text class="price"><text class="priceTip">¥</text>{{showSKU.zk_final_price}}</text>
 							<view class="selected">
 								已选：
-								<text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
-									{{sItem.name}}
+								<text class="selected-text">
+									{{showSKU.name}}
 								</text>
 							</view>
 						</view>
 					</view>
-					<view v-for="(item,index) in specList" :key="index" class="attr-list">
-						<text class="skuTitle">{{item.name}}</text>
+					<view class="attr-list">
+						<text class="skuTitle">规格</text>
 						<view class="item-list">
 							<text 
-								v-for="(childItem, childIndex) in specChildList" 
-								v-if="childItem.pid === item.id"
+								v-for="(childItem, childIndex) in SKUList" 
 								:key="childIndex" class="tit"
-								:class="{selected: childItem.selected}"
-								@click="selectSpec(childIndex, childItem.pid)"
+								:class="{selected: childItem.id == SKU}"
+								@click="selectSpec(childItem.id)"
 							>
 								{{childItem.name}}
 							</text>
@@ -307,11 +306,11 @@
 			</view>
 		</view>
 		<!-- 分享 -->
-		<share 
+		<!-- <share 
 			ref="share" 
 			:contentHeight="580"
 			:shareList="shareList"
-		></share>
+		></share> -->
 		<!-- @click="toggleSpec"
 		>-->
 			<!-- 遮罩层 -->
@@ -363,137 +362,45 @@
 
 <script>
 	import allpage from '@/mixin/allPage'
-	import share from '@/components/share';
+	// import share from '@/components/share';
 	import {postFetch} from '@/util/request_UT.js';
 	import {encrypt64} from '@/util/security_UT.js'
 	const Alibcsdk = uni.requireNativePlugin('UZK-Alibcsdk');
 	var t ;
 	export default{
 		mixins:[allpage],
-		components: {
-			share
-		},
+		// components: {
+		// 	share
+		// },
 		data() {
 			return {
-				followed:false,
-				liked:false,
 				id:'',
-				pid:'',
-				commodity_price: 0,
-				coupon_face_value: 0,
-				estimate:0,
-				post_coupon:0,
+				title:'',
+				salescout:'',
+				guarantee:'',
+				desc:'',
+				thumb_url:[],
+				img_url:[],
+				SKUList:[
+					// {
+					// 	id：skuID
+					// 	commission：佣金
+					// 	reserve_price：原价
+					// 	zk_final_price：折扣价
+					// }
+				],
+				SKU:'',
+				couponPop:false,
+				specClass:'none',
 				vip:0,
-				coupon_link: "",
-				header_img: "",
-				pro_url: "",
-				tb_url:"",
-				product_name: "",
-				sales_volume: "",
-				specClass: 'none',
-				specSelected:[],
-				shop_name:'',
-				favorite: true,
-				income:0,
-				shareList: [],
-				imgList: [
-					{
-						src: 'https://gd3.alicdn.com/imgextra/i3/0/O1CN01IiyFQI1UGShoFKt1O_!!0-item_pic.jpg_400x400.jpg'
-					},
-					{
-						src: 'https://gd3.alicdn.com/imgextra/i3/TB1RPFPPFXXXXcNXpXXXXXXXXXX_!!0-item_pic.jpg_400x400.jpg'
-					},
-					{
-						src: 'https://gd2.alicdn.com/imgextra/i2/38832490/O1CN01IYq7gu1UGShvbEFnd_!!38832490.jpg_400x400.jpg'
-					}
-				],
-				desc: `
-					<div style="width:100%">
-						<img style="width:100%;display:block;" src="https://gd3.alicdn.com/imgextra/i4/479184430/O1CN01nCpuLc1iaz4bcSN17_!!479184430.jpg_400x400.jpg" />
-						<img style="width:100%;display:block;" src="https://gd2.alicdn.com/imgextra/i2/479184430/O1CN01gwbN931iaz4TzqzmG_!!479184430.jpg_400x400.jpg" />
-						<img style="width:100%;display:block;" src="https://gd3.alicdn.com/imgextra/i3/479184430/O1CN018wVjQh1iaz4aupv1A_!!479184430.jpg_400x400.jpg" />
-						<img style="width:100%;display:block;" src="https://gd4.alicdn.com/imgextra/i4/479184430/O1CN01tWg4Us1iaz4auqelt_!!479184430.jpg_400x400.jpg" />
-						<img style="width:100%;display:block;" src="https://gd1.alicdn.com/imgextra/i1/479184430/O1CN01Tnm1rU1iaz4aVKcwP_!!479184430.jpg_400x400.jpg" />
-					</div>
-				`,
-				specList: [
-					{
-						id: 1,
-						name: '尺寸',
-					},
-					{	
-						id: 2,
-						name: '颜色',
-					},
-				],
-				specChildList: [
-					{
-						id: 1,
-						pid: 1,
-						name: 'XS',
-					},
-					{
-						id: 2,
-						pid: 1,
-						name: 'S',
-					},
-					{
-						id: 3,
-						pid: 1,
-						name: 'M',
-					},
-					{
-						id: 4,
-						pid: 1,
-						name: 'L',
-					},
-					{
-						id: 5,
-						pid: 1,
-						name: 'XL',
-					},
-					{
-						id: 6,
-						pid: 1,
-						name: 'XXL',
-					},
-					{
-						id: 7,
-						pid: 2,
-						name: '白色',
-					},
-					{
-						id: 8,
-						pid: 2,
-						name: '珊瑚粉',
-					},
-					{
-						id: 9,
-						pid: 2,
-						name: '草木绿',
-					},
-				],
-				num_iid:'',
-				shop_id:'',
-				couponPop:false
+				estimate:0,
+				commodity_price:0,
+				post_coupon:0
 			};
 		},
 		async onLoad(options){
 			this.id = options.id;
-			Alibcsdk.init(
-				result => {
-					console.log(JSON.stringify(result))
-					if (result.status) {
-						// uni.showToast({
-						// 	title: "初始化成功"
-						// });
-						console.log('Alibcsdk初始化成功')
-					} else {
-						console.log('Alibcsdk初始化失败')
-					}
-					//console.log(JSON.stringify(result))
-				}
-			)
+			
 		},
 		onShow(){
 			let _this = this; 
@@ -503,27 +410,24 @@
 			// if(id){
 			// 	this.$api.msg(`点击了${id}`);
 			// }
-			postFetch('index.php/index/index/product_center',{id:this.id,isvip:this.identity_type||0},false,function(res){
-				console.log('product_center',res)
-				_this.id=res.data.id//id
-				_this.pid=res.data.pid//淘宝id
-				_this.commodity_price=res.data.reserve_price//原价
-				_this.coupon_face_value=res.data.coupon//优惠券价格
-				_this.coupon_link=res.data.coupon_click_url//优惠券地址
-				_this.header_img=res.data.pict_url//商品图片
-				_this.pro_url=res.data.item_url//商品地址
-				_this.product_name=res.data.title//商品标题
-				_this.sales_volume=res.data.volume//销量
-				_this.shop_name=res.data.nick//店铺名
-				_this.estimate=res.data.save//省多少
-				_this.post_coupon=res.data.zk_final_price_wap//券后价
-				_this.vip=res.data.vip//升级可赚,预估收益
-				_this.income=res.data.commission//预估收益
-				_this.num_iid=res.data.num_iid
-				_this.shop_id=res.data.seller_id
-				// _this.save=res.data.reserve_price-res.data.zk_final_price_wap//省多少
-				// _this.tb_url=res.data[0].tb_url
-				_this.tb_url="tbopen://m.taobao.com/tbopen/index.html?action=ali.open.nav&module=h5&bootImage=0&source=sb&appkey=24585258&smbSid=D9usFXFt3CUCAWpUEmbJnqKl_1562771012228&rbbt=bc.mallDetail.6.0.0&params=%7B%22fid%22%3A%22Wq6WVWePzYK%22%2C%22mtopCostTime%22%3A%22602%22%2C%22_t%22%3A%221562771013928%22%7D&h5Url=https%3A%2F%2Fdetail.m.tmall.com%2Fitem.htm%3Fid%3D545617271936%26ali_trackid%3D2%253Amm_119358667_35544742_126462907%253A1562771005_146_947006687%26pvid%3Dnull%26scm%3Dnull%26e%3Dp1zr4pcBUutfRHk7Z7SOONK1O27zH5exMy-K7eYuUtD9Umq014SDk-EB843RIyUrz5TIqjXOFX8u5CK3qPnb4lYGFoZ0V7Qu1n2u1uaGfFRgsCpuYl5N_4Fi75dyoNakjIS9tDsfWnft889xAP7p2jp03STBeU8EESg8S2zmmcYTF6i4jJ3bKFV3p2QP3rdTNIRPse9zYAx9sOxrKwzrUKjUeRQ-baNrRbbhzKSdd6Buj8gkG7lyPXJNpUdEdxUwsmcYjUfw1pLyxfMlhoGmqyEXoVwCl-WxyneceYJe9jQVJFtDE6_qOAMjmLAC-HTKdL9elmNoMI-b0YmewATGuG3qGSkGjcFH-YgNcLKYkqVb8VTdan73Yx5l5jApKhRTBzCw_9olP8KLGcjuwgWuxNQDEIJrpqdyy8CEDSc0Uk_EXzm7ZfO5Mg%26type%3D2%26tk_cps_param%3D119358667%26tkFlag%3D0%26point%3D%25257B%252522from%252522%25253A%252522h5%252522%25252C%252522ali_trackid%252522%25253A%2525222%25253Amm_119358667_35544742_126462907%25253A1562771005_146_947006687%252522%25252C%252522h5_uid%252522%25253A%252522D9usFXFt3CUCAWpUEmbJnqKl%252522%25252C%252522ap_uri%252522%25253A%252522sb_redirect_auto%252522%25252C%252522page%252522%25253A%252522mallDetail%252522%25252C%252522callType%252522%25253A%252522scheme%252522%25257D"
+			postFetch('index.php/index/indexgoods/create',{pid:this.id},false,function(res){
+				console.log('indexgoods',res)
+				_this.title = res.data.centent.title;
+				_this.salescout = res.data.centent.salescout
+				_this.guarantee = res.data.centent.guarantee
+				_this.desc = res.data.centent.desc
+				if(res.data.centent.thumb_url){
+					_this.$set(_this,"thumb_url",JSON.parse(res.data.centent.thumb_url))
+				}else{
+					_this.$set(_this,"thumb_url",[])
+				}
+				if(res.data.centent.img_url){
+					_this.$set(_this,"img_url",JSON.parse(res.data.centent.img_url))
+				}else{
+					_this.$set(_this,"img_url",[])
+				}
+				_this.$set(_this,"SKUList",res.data.sku)
+				_this.SKU=res.data.sku[0].id
 				let productHistory = uni.getStorageSync('productHistory')
 				if(productHistory && Array.isArray(productHistory)){
 					let aKey={}
@@ -547,15 +451,15 @@
 			})
 			
 			//规格 默认选中第一条
-			this.specList.forEach(item=>{
-				for(let cItem of this.specChildList){
-					if(cItem.pid === item.id){
-						this.$set(cItem, 'selected', true);
-						this.specSelected.push(cItem);
-						break; //forEach不能使用break
-					}
-				}
-			})
+			// this.SKUList.forEach(item=>{
+			// 	for(let cItem of this.specChildList){
+			// 		if(cItem.pid === item.id){
+			// 			this.$set(cItem, 'selected', true);
+			// 			this.specSelected.push(cItem);
+			// 			break; //forEach不能使用break
+			// 		}
+			// 	}
+			// })
 			this.shareList = this.$api.json('shareList');
 			try{
 				this.followed=uni.getStorageSync('followList')[this.id]?true:false
@@ -571,6 +475,10 @@
 		computed:{
 			identity_type(){
 				return this.$store.state.userST.identity_type
+			},
+			showSKU(){
+				let _this=this;
+				return this.SKUList.find((value,index)=> value.id == _this.SKU)
 			}
 		},
 		methods:{
@@ -657,33 +565,14 @@
 			},
 			//选择规格
 			selectSpec(index, pid){
-				let list = this.specChildList;
-				list.forEach(item=>{
-					if(item.pid === pid){
-						this.$set(item, 'selected', false);
-					}
-				})
-
-				this.$set(list[index], 'selected', true);
-				//存储已选择
-				/**
-				 * 修复选择规格存储错误
-				 * 将这几行代码替换即可
-				 * 选择的规格存放在specSelected中
-				 */
-				this.specSelected = []; 
-				list.forEach(item=>{ 
-					if(item.selected === true){ 
-						this.specSelected.push(item); 
-					} 
-				})
+				this.SKU=pid
 				
 			},
 			//分享
 			share(){
 				// this.$refs.share.toggleMask();
 					uni.navigateTo({
-						url:'/pages/share/shareProduct'
+						url:'/pages/share/shareProductMall'
 					})
 			},
 			//收藏
@@ -714,21 +603,24 @@
 								url:'/pages/noNetwork/noNetwork'
 							})
 				}else{
-					Alibcsdk.opendetail({
-						itemid: _this.num_iid,
-						linkkey: "taobao",
-						nativeFailedMode: "download",
-						appkey: "28164312",
-						opentype: 'native'
-					}, result => {
+					// Alibcsdk.opendetail({
+					// 	itemid: _this.num_iid,
+					// 	linkkey: "taobao",
+					// 	nativeFailedMode: "download",
+					// 	appkey: "28164312",
+					// 	opentype: 'native'
+					// }, result => {
 					
+					// })
+					uni.navigateTo({
+						url:"/pages/cart/cart"
 					})
 				}
 			},
 			stopPrevent(){},
 			like(){
 				uni.navigateTo({
-					url:"/pages/search/search?keywork="+this.product_name+"&salse=0"
+					url:"/pages/search/searchMall?keywork="+this.title+"&salse=0"
 				})
 			}
 		},
@@ -1331,6 +1223,9 @@
 	.detail-desc{
 		background: #fff;
 		margin-top: 16upx;
+		.detailPic{
+			width:750upx;
+		}
 		.d-header{
 			display: flex;
 			justify-content: center;

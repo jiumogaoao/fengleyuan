@@ -306,7 +306,11 @@
         methods: {
 			business(){
 				if(!this.is_examine){
-					this.navTo('/pages/business/businessPay')
+					if(this.$store.state.userST.payment_status){
+						this.navTo('/pages/business/businessType')
+					}else{
+						this.navTo('/pages/business/businessPay')
+					}
 				}else if(this.is_examine == -2){
 					if(this.ispersonal){
 						this.navTo('/pages/business/self?type=1')

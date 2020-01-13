@@ -53,22 +53,11 @@
 				<image class="titlePoint img" src="/static/mallTitle1.png"></image>
 			</view>
 			<view class="goodList">
-				<view class="good" @click="goodClick">
-					<image class="goodImg"></image>
-					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in salescout" :key="v.id">
+					<image class="goodImg" :src="v.head_url"></image>
+					<view class="goodTitle">{{v.title}}</view>
 					<view class="goodBottom">
-						<view class="price"><text>￥</text>365</view>
-						<view class="vipFrame">
-							<image class="vipIcon" src="/static/d0.png"></image>
-							<view class="vipDay">送365天VIP权益</view>
-						</view>
-					</view>
-				</view>
-				<view class="good odd" @click="goodClick">
-					<image class="goodImg"></image>
-					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
-					<view class="goodBottom">
-						<view class="price"><text>￥</text>365</view>
+						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
 						<view class="vipFrame">
 							<image class="vipIcon" src="/static/d0.png"></image>
 							<view class="vipDay">送365天VIP权益</view>
@@ -82,22 +71,11 @@
 				<view class="titlePoint"></view>
 			</view>
 			<view class="goodList">
-				<view class="good" @click="goodClick">
-					<image class="goodImg"></image>
-					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in new_product" :key="v.id">
+					<image class="goodImg" :src="v.head_url"></image>
+					<view class="goodTitle">{{v.title}}</view>
 					<view class="goodBottom">
-						<view class="price"><text>￥</text>365</view>
-						<view class="vipFrame">
-							<image class="vipIcon" src="/static/d0.png"></image>
-							<view class="vipDay">送365天VIP权益</view>
-						</view>
-					</view>
-				</view>
-				<view class="good odd" @click="goodClick">
-					<image class="goodImg"></image>
-					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
-					<view class="goodBottom">
-						<view class="price"><text>￥</text>365</view>
+						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
 						<view class="vipFrame">
 							<image class="vipIcon" src="/static/d0.png"></image>
 							<view class="vipDay">送365天VIP权益</view>
@@ -111,22 +89,29 @@
 				<view class="titlePoint"></view>
 			</view>
 			<view class="goodList">
-				<view class="good" @click="goodClick">
-					<image class="goodImg"></image>
-					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in hot_buy" :key="v.id">
+					<image class="goodImg" :src="v.head_url"></image>
+					<view class="goodTitle">{{v.title}}</view>
 					<view class="goodBottom">
-						<view class="price"><text>￥</text>365</view>
+						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
 						<view class="vipFrame">
 							<image class="vipIcon" src="/static/d0.png"></image>
 							<view class="vipDay">送365天VIP权益</view>
 						</view>
 					</view>
 				</view>
-				<view class="good odd" @click="goodClick">
-					<image class="goodImg"></image>
-					<view class="goodTitle">三利 毛巾家纺纯棉吸水 提缎 面巾两条装</view>
+			</view>
+			<view class="titleFrame">
+				<view class="titlePoint"></view>
+				<view class="titleName">即将下架</view>
+				<view class="titlePoint"></view>
+			</view>
+			<view class="goodList">
+				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in lower_shelf" :key="v.id">
+					<image class="goodImg" :src="v.head_url"></image>
+					<view class="goodTitle">{{v.title}}</view>
 					<view class="goodBottom">
-						<view class="price"><text>￥</text>365</view>
+						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
 						<view class="vipFrame">
 							<image class="vipIcon" src="/static/d0.png"></image>
 							<view class="vipDay">送365天VIP权益</view>
@@ -140,7 +125,7 @@
 
 <script>
 	import allpage from '@/mixin/allPage'
-
+	import {postFetch} from '@/util/request_UT.js';
 	export default {
 		mixins:[allpage],
 		components:{
@@ -148,19 +133,29 @@
 		},
 		data() {
 			return {
-				
+				salescout:[],
+				new_product:[],
+				hot_buy:[],
+				lower_shelf:[]
 			};
 		},
 		onShow(){
 
 		},
 		onLoad() {
-			
+			let _this = this;
+			postFetch('index.php/index/indexgoods/indexgoods',{},false,function(res){
+				console.log("indexgoods",res)
+				_this.$set(_this,'salescout',res.data.salescout)
+				_this.$set(_this,'new_product',res.data.new_product)
+				_this.$set(_this,'hot_buy',res.data.hot_buy)
+				_this.$set(_this,'lower_shelf',res.data.lower_shelf)
+			})
 		},
 		methods: {
-			goodClick(){
+			goodClick(id){
 				uni.navigateTo({
-					url:'/pages/product/productMall'
+					url:'/pages/product/productMall?id='+id
 				})
 			}
 		}

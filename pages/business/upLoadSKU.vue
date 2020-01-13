@@ -178,6 +178,7 @@
 						classid:this.prePage.classid,//分类id（是int）
 						thumb_url:this.prePage.thumb_url,//封面图（数组形式）
 						img_url:this.prePage.img_url,//详情图（数组形式）
+						endtime:this.prePage.endtime,
 						guarantee:this.guarantee,
 						data:this.SKU
 					},false,function(res){

@@ -163,6 +163,7 @@
 					    orderInfo: str,
 					    success: (e) => {
 					        console.log("success", e);
+							_this.$store.dispatch('userST/setPayment',1)
 							_this.togglePop()
 							_this.togglePopSuccess()
 					    },
