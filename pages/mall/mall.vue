@@ -2,119 +2,121 @@
 	<view class="container">
 		<image src="/static/mallBG.png" class="bg"></image>
 		<view class="bigTitle">蜂巢优选</view>
-		<scroll-view class="scroll" :scroll-y="true">
-			<view class="topFrame">
-				<view class="left">
-					<image class="avatar" src="/static/missing-face.png"></image>
-					<view class="info">
-						<view class="name">普通用户小明</view>
-						<view class="typeFrame">
-							<image class="typeIcon" src="/static/d1.png"></image>
-							<view class="typeName">普通会员</view>
+		<scroll-view class="scrollMall" scroll-y="true">
+			<view class="scrollFrame">
+				<view class="topFrame">
+					<view class="left">
+						<image class="avatar" src="/static/missing-face.png"></image>
+						<view class="info">
+							<view class="name">普通用户小明</view>
+							<view class="typeFrame">
+								<image class="typeIcon" src="/static/d1.png"></image>
+								<view class="typeName">普通会员</view>
+							</view>
+						</view>
+					</view>
+					<view class="right">
+						<view class="canUseTitle">可用蜜糖</view>
+						<view class="canUseFrame">
+							<image class="mt" src="/static/productIcon02.png"></image>
+							<view class="canUse">123,123.<text>456</text></view>
 						</view>
 					</view>
 				</view>
-				<view class="right">
-					<view class="canUseTitle">可用蜜糖</view>
-					<view class="canUseFrame">
-						<image class="mt" src="/static/productIcon02.png"></image>
-						<view class="canUse">123,123.<text>456</text></view>
+				<swiper class="carousel" circular :autoplay="true" :interval="4000">
+					<swiper-item>
+						<image src="/static/mallBanner.png"/>
+					</swiper-item>
+				</swiper>
+				<view class="promoFrame">
+					<view class="promoSubFrame promoLeft">
+						<view class="title">新人专享</view>
+						<view class="dsc">蜜粉邀请必备</view>
+						<view class="red">拉新活动</view>
+						<image class="promo" src="/static/mallPromo0.png"></image>
 					</view>
-				</view>
-			</view>
-			<swiper class="carousel" circular :autoplay="true" :interval="4000">
-				<swiper-item>
-					<image src="/static/mallBanner.png"/>
-				</swiper-item>
-			</swiper>
-			<view class="promoFrame">
-				<view class="promoSubFrame promoLeft">
-					<view class="title">新人专享</view>
-					<view class="dsc">蜜粉邀请必备</view>
-					<view class="red">拉新活动</view>
-					<image class="promo" src="/static/mallPromo0.png"></image>
-				</view>
-				<view class="promoRight">
-					<view class="promoSubFrame promoTop">
-						<view class="title">蜜蜂优选</view>
-						<view class="dsc">源头精选 员工福利</view>
-						<image class="promo" src="/static/mallPromo1.png"></image>
-					</view>
-					<view class="promoSubFrame promoBottom">
-						<view class="title">红包0元购</view>
-						<view class="dsc">高效助理拉新</view>
-						<image class="promo" src="/static/mallPromo2.png"></image>
-					</view>
-				</view>
-			</view>
-			<view class="titleFrame">
-				<image class="titlePoint img" src="/static/mallTitle0.png"></image>
-				<view class="titleName">会员特惠礼包专区</view>
-				<image class="titlePoint img" src="/static/mallTitle1.png"></image>
-			</view>
-			<view class="goodList">
-				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in salescout" :key="v.id">
-					<image class="goodImg" :src="v.head_url"></image>
-					<view class="goodTitle">{{v.title}}</view>
-					<view class="goodBottom">
-						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
-						<view class="vipFrame">
-							<image class="vipIcon" src="/static/d0.png"></image>
-							<view class="vipDay">送365天VIP权益</view>
+					<view class="promoRight">
+						<view class="promoSubFrame promoTop">
+							<view class="title">蜜蜂优选</view>
+							<view class="dsc">源头精选 员工福利</view>
+							<image class="promo" src="/static/mallPromo1.png"></image>
+						</view>
+						<view class="promoSubFrame promoBottom">
+							<view class="title">红包0元购</view>
+							<view class="dsc">高效助理拉新</view>
+							<image class="promo" src="/static/mallPromo2.png"></image>
 						</view>
 					</view>
 				</view>
-			</view>
-			<view class="titleFrame">
-				<view class="titlePoint"></view>
-				<view class="titleName">新品上架</view>
-				<view class="titlePoint"></view>
-			</view>
-			<view class="goodList">
-				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in new_product" :key="v.id">
-					<image class="goodImg" :src="v.head_url"></image>
-					<view class="goodTitle">{{v.title}}</view>
-					<view class="goodBottom">
-						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
-						<view class="vipFrame">
-							<image class="vipIcon" src="/static/d0.png"></image>
-							<view class="vipDay">送365天VIP权益</view>
+				<view class="titleFrame">
+					<image class="titlePoint img" src="/static/mallTitle0.png"></image>
+					<view class="titleName">会员特惠礼包专区</view>
+					<image class="titlePoint img" src="/static/mallTitle1.png"></image>
+				</view>
+				<view class="goodList">
+					<view class="good" @click="goodClick(v.id)" v-for="(v,i) in salescout" v-if="salescout.length" :key="v.id">
+						<image class="goodImg" :src="v.head_url"></image>
+						<view class="goodTitle">{{v.title}}</view>
+						<view class="goodBottom">
+							<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
+							<view class="vipFrame">
+								<image class="vipIcon" src="/static/d0.png"></image>
+								<view class="vipDay">送365天VIP权益</view>
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			<view class="titleFrame">
-				<view class="titlePoint"></view>
-				<view class="titleName">正在热卖</view>
-				<view class="titlePoint"></view>
-			</view>
-			<view class="goodList">
-				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in hot_buy" :key="v.id">
-					<image class="goodImg" :src="v.head_url"></image>
-					<view class="goodTitle">{{v.title}}</view>
-					<view class="goodBottom">
-						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
-						<view class="vipFrame">
-							<image class="vipIcon" src="/static/d0.png"></image>
-							<view class="vipDay">送365天VIP权益</view>
+				<view class="titleFrame">
+					<view class="titlePoint"></view>
+					<view class="titleName">新品上架</view>
+					<view class="titlePoint"></view>
+				</view>
+				<view class="goodList">
+					<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in new_product" v-if="new_product.length" :key="v.id">
+						<image class="goodImg" :src="v.head_url"></image>
+						<view class="goodTitle">{{v.title}}</view>
+						<view class="goodBottom">
+							<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
+							<view class="vipFrame">
+								<image class="vipIcon" src="/static/d0.png"></image>
+								<view class="vipDay">送365天VIP权益</view>
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			<view class="titleFrame">
-				<view class="titlePoint"></view>
-				<view class="titleName">即将下架</view>
-				<view class="titlePoint"></view>
-			</view>
-			<view class="goodList">
-				<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in lower_shelf" :key="v.id">
-					<image class="goodImg" :src="v.head_url"></image>
-					<view class="goodTitle">{{v.title}}</view>
-					<view class="goodBottom">
-						<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
-						<view class="vipFrame">
-							<image class="vipIcon" src="/static/d0.png"></image>
-							<view class="vipDay">送365天VIP权益</view>
+				<view class="titleFrame">
+					<view class="titlePoint"></view>
+					<view class="titleName">正在热卖</view>
+					<view class="titlePoint"></view>
+				</view>
+				<view class="goodList">
+					<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in hot_buy" v-if="hot_buy.length" :key="v.id">
+						<image class="goodImg" :src="v.head_url"></image>
+						<view class="goodTitle">{{v.title}}</view>
+						<view class="goodBottom">
+							<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
+							<view class="vipFrame">
+								<image class="vipIcon" src="/static/d0.png"></image>
+								<view class="vipDay">送365天VIP权益</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<view class="titleFrame">
+					<view class="titlePoint"></view>
+					<view class="titleName">即将下架</view>
+					<view class="titlePoint"></view>
+				</view>
+				<view class="goodList">
+					<view class="good" :class="i%2?'odd':''" @click="goodClick(v.id)" v-for="(v,i) in lower_shelf" v-if="lower_shelf.length" :key="v.id">
+						<image class="goodImg" :src="v.head_url"></image>
+						<view class="goodTitle">{{v.title}}</view>
+						<view class="goodBottom">
+							<view class="price"><text>￥</text>{{v.zk_final_price}}</view>
+							<view class="vipFrame">
+								<image class="vipIcon" src="/static/d0.png"></image>
+								<view class="vipDay">送365天VIP权益</view>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -174,6 +176,7 @@
 		justify-content: space-between;
 		align-items: center;
 		background-color: #ececec;
+		overflow: hidden;
 		.bg{
 			width:750rpx;
 			height: 433rpx;
@@ -190,13 +193,14 @@
 			position: relative;
 			z-index: 3;
 		}
-		.scroll{
+		.scrollMall{
 			width: 750rpx;
 			position: relative;
 			z-index: 3;
-			flex-grow: 1;
-			overflow: hidden;
-			margin-top: 49rpx;
+			position: absolute;
+			top:150rpx;
+			left: 0;
+			bottom:0;
 			padding: 0 23rpx 0 27rpx;
 			.topFrame{
 				width:100%;

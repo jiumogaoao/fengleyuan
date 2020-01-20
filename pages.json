@@ -544,7 +544,12 @@
 		},{
 			"path":"pages/business/businessPay",
 			"style" : {
-				"navigationStyle":"custom"
+				"navigationStyle":"custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
 			}
 		},{
 			"path":"pages/niangmiqi/niangmiqi",

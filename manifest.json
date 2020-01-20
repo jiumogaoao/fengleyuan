@@ -189,7 +189,7 @@
             "ios" : {
                 "urltypes" : [
                     {
-                        "urlschemes" : [ "tbopen28002500" ]
+                        "urlschemes" : [ "tbopen28164312" ]
                     }
                 ],
                 "urlschemewhitelist" : "tbopen,tmall",
