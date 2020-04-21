@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="carousel">
 			<swiper indicator-dots circular=true duration="400">
@@ -358,6 +359,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

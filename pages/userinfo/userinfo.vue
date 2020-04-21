@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<view class="user-section">
 			<image class="bg" src="/static/user-bg.jpg"></image>
@@ -9,6 +10,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

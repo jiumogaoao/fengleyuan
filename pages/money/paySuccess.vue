@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<text class="success-icon yticon icon-xuanzhong2"></text>
 		<text class="tit">支付成功</text>
@@ -8,6 +9,7 @@
 			<navigator url="/pages/index/index" open-type="switchTab" class="mix-btn hollow">返回首页</navigator>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="point" @click="toggleType(0)">
 			<image class="bg" src="/static/businessType0.png"></image>
@@ -21,6 +22,7 @@
 		<view class="button" @click="submit">确认</view>
 		<view class="dsc">个人创业者无需营业执照也可上传商品</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

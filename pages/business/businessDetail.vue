@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<view class="list">
 			<view class="row b-b">
@@ -16,6 +17,7 @@
 		</view>
 		<button class="add-btn" @click="confirm">确定</button>
 	</view>
+	</pageCP>
 </template>
 
 <script>

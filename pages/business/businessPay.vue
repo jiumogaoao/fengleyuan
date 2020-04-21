@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<image class="bg" src="/static/businessPay.png" mode="widthFix"></image>
 		<view class="centerFrame">
@@ -66,6 +67,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

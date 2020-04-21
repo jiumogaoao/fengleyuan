@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="app">
 		<view class="price-box">
 			<text>支付金额</text>
@@ -43,6 +44,7 @@
 		
 		<text class="mix-btn" @click="confirm">确认支付</text>
 	</view>
+	</pageCP>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<image class="topBG" src="/static/businessBG.png"></image>
 		<view class="top">
@@ -54,6 +55,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

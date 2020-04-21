@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<view class="navbar" :style="{position:headerPosition,top:headerTop}">
 			<view class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)">
@@ -52,6 +53,7 @@
 		</view>
 		
 	</view>
+	</pageCP>
 </template>
 
 <script>

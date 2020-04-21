@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<view class="top">
 			<view class="topTop">
@@ -102,6 +103,7 @@
 			<view class="listFoot"></view>
 		</block>
 	</view>
+	</pageCP>
 </template>
 
 <script>

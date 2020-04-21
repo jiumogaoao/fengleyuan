@@ -1,7 +1,9 @@
 <template>
+	<pageCP>
 	<view class="frame">
 		<image src="/static/firstLogo.png"></image>
 	</view>
+	</pageCP>
 </template>
 
 <script>

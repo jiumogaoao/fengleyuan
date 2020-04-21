@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="frame">
 		<view class="p">用户协议</view>
 		
@@ -153,6 +154,7 @@
 		
 		<view class="p">本协议的任何条款无论因何种原因无效或不具可执行性，其余条款仍有效，对双方具有约束力。</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<swiper class="carousel" indicator-dots=true circular=true interval="3000" duration="700">
 			<swiper-item v-for="(item,index) in data.imgList" :key="index">
@@ -83,6 +84,7 @@
 			:shareList="shareList"
 		></share>
 	</view>
+	</pageCP>
 </template>
 
 <script>

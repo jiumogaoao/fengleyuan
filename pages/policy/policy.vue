@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="frame">
 		<view class="p">隐私权政策</view>
 		
@@ -344,6 +345,7 @@
 		
 		<view class="p">如果您对我们的回复不满意，特别是您认为我们的个人信息处理行为损害了您的合法权益，您还可以通过向被告住所地有管辖权的法院提起诉讼来寻求解决方案。</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

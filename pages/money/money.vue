@@ -1,7 +1,9 @@
 <template>
+	<pageCP>
 	<view>
 		
 	</view>
+	</pageCP>
 </template>
 
 <script>

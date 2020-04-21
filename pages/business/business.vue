@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<view class="readOnly" v-if="readOnly"></view>
 		<block v-if="step==0">
@@ -72,6 +73,7 @@
 			<button class="add-btn" @click="confirm" v-else>确定</button>
 		</block>
 	</view>
+	</pageCP>
 </template>
 
 <script>

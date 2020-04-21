@@ -3,6 +3,7 @@ import store from './store'
 import App from './App'
 
 import Json from './Json' //测试用数据
+import pageCP from '@/components/pageFrame_CP.vue'
 /**
  *  因工具函数属于公司资产, 所以直接在Vue实例挂载几个常用的函数
  *  所有测试用数据均存放于根目录json.js
@@ -45,7 +46,8 @@ Vue.config.productionTip = false
 Vue.prototype.$fire = new Vue();
 Vue.prototype.$store = store;
 Vue.prototype.$api = {msg, json, prePage};
-
+// Vue.use(pageCP);
+Vue.component('pageCP',pageCP)
 App.mpType = 'app'
 
 const app = new Vue({

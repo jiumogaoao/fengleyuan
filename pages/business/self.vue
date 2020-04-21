@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<view class="readOnly" v-if="readOnly"></view>
 			<view class="list">
@@ -26,6 +27,7 @@
 			</view>
 			<button class="add-btn" @click="next">提交申请</button>
 	</view>
+	</pageCP>
 </template>
 
 <script>

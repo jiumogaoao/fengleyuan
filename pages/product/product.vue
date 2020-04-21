@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="carousel">
 			<swiper indicator-dots circular=true duration="400">
@@ -236,6 +237,7 @@
 			:shareList="shareList"
 		></share>
 	</view>
+	</pageCP>
 </template>
 
 <script>

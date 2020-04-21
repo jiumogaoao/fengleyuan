@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<!-- 空白页 -->
 		<view v-if="!hasLogin || empty===true" class="empty">
@@ -60,6 +61,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

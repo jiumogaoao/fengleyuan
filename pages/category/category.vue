@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<scroll-view scroll-y class="left-aside">
 			<view v-for="(item,i) in leftList" :key="item.id" class="f-item b-b" :class="{active: i === currentId}" @click="scrollRight(i)" v-if="leftList.length">
@@ -19,6 +20,7 @@
 			</view>
 		</scroll-view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

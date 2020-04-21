@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="frame">
 		<image src="/static/vip.png" mode="widthFix" class="bg"></image>
 		<!-- <view class="iconfont" @click="back">&#xe63d;</view> -->
@@ -48,6 +49,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

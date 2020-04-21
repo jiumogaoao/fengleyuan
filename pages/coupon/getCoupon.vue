@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="title">请输入优惠券兑换码</view>
 		<input/>
@@ -12,6 +13,7 @@
 			
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

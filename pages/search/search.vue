@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<view class="historyList" v-if="!noempty && searchHistory.length">
 			<view class="historyTop">
@@ -97,6 +98,7 @@
 		</block>
 		
 	</view>
+	</pageCP>
 </template>
 
 <script>

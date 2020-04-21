@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<view class="list">
 			<view class="row b-b">
@@ -24,6 +25,7 @@
 			<view class="low">《法律条款与隐私政策》</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

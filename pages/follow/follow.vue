@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="titleNview-placing"></view>
 		
@@ -17,6 +18,7 @@
 		</view>
 
 	</view>
+	</pageCP>
 </template>
 
 <script>

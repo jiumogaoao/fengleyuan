@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<image src="/static/mallBG.png" class="bg"></image>
 		<view class="bigTitle">蜂巢优选</view>
@@ -123,6 +124,7 @@
 			</view>
 		</scroll-view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

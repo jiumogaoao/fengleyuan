@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="left-bottom-sign"></view>
 		<view class="back-btn yticon icon-zuojiantou-up" @click="navBack"></view>
@@ -46,6 +47,7 @@
 			<text @click="toRegist">马上注册</text>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

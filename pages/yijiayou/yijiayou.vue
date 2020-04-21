@@ -1,6 +1,8 @@
 <template>
+	<pageCP>
 				<!-- <web-view :src="url" :webview-styles="st" class="webview"></web-view> -->
 				<view></view>
+				</pageCP>
 </template>
 
 <script>

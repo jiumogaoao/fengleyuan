@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<tabbarCP :tab="['出售中','已下架']" :hl="tap" @change="tabChange"/>
 		<scroll-view class="sc">
@@ -24,6 +25,7 @@
 			</view>
 		</scroll-view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

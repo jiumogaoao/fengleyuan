@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<view class="top" @click="go('/pages/address/address')">
 			<view class="left">
@@ -222,6 +223,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

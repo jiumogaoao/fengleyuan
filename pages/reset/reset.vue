@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="page">
 		<view class="step" v-if="step==1" key="1">
 			<view class="inputFrame">
@@ -39,6 +40,7 @@
 		</view>
 		<image src="/static/regestBottom.png" class="regestBottom"></image>
 	</view> 
+	</pageCP>
 </template>
 
 <script>

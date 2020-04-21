@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<view class="noMessage" style="top:154rpx;" v-if="!list[tabCurrentIndex].length">
 			<image src="/static/empty.png"/>
@@ -156,6 +157,7 @@
 			</swiper-item>
 		</swiper>
 	</view>
+	</pageCP>
 </template> 
 
 <script>

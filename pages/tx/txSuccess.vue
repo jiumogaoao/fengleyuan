@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="top">
 			<view class="price">456.<text class="smallPrice">89元</text></view>
@@ -38,6 +39,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

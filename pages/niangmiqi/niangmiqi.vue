@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="top">
 			<image class="topBG" src="/static/niangmiqiBG.png"></image>
@@ -29,6 +30,7 @@
 		</view>
 		<view class="rule">酿蜜器规则</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

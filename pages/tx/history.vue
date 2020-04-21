@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="noHistory">
 			<image class="noHistoryPic" src="/static/txNoHistory.png"></image>
@@ -23,6 +24,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

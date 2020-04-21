@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="yellow">
 			已获得【全部提现】资格，剩余次数：1
@@ -46,6 +47,7 @@
 			<view class="button" @click="go('/pages/share/shareProduct')">邀请好友</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<view class="noMessage">
 			<image src="/static/empty.png"/>
@@ -53,6 +54,7 @@
 			</view>
 		</view> -->
 	</view>
+	</pageCP>
 </template>
 
 <script>

@@ -9,27 +9,16 @@
 				"backgroundColor": "#f5f6f8",
 				// #endif 
 				"app-plus": {
-							"subNVues":[{
-								"id":"catchPopup",
-								"path":"pages/subNVues/popout.nvue",
-								"type":"popup",
-								"style": {
-									"margin": "auto",
-									"width": "573upx",
-									"height": "351upx"
-								}
-							},
-							{
-								"id":"newVersionPopup",
-								"path":"pages/subNVues/newVersion.nvue",
-								"type":"popup",
-								"style": {
-									"margin": "auto",
-									"width": "451upx",
-									"height": "667upx",
-									"background": "transparent"
-								}
-							}],
+							// "subNVues":[{
+							// 	"id":"catchPopup",
+							// 	"path":"pages/subNVues/popout.nvue",
+							// 	"type":"popup",
+							// 	"style": {
+							// 		"margin": "auto",
+							// 		"width": "573upx",
+							// 		"height": "351upx"
+							// 	}
+							// }],
 					"titleNView": {
 						"type": "transparent",
 						"searchInput": {

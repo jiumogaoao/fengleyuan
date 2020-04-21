@@ -1,8 +1,10 @@
 <template>
+	<pageCP>
 	<view>
 		<view class="title">审核不通过</view>
 		<view class="botton" @click="c">再次申请成为商家</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

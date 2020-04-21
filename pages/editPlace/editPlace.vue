@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<view class="list">
 			<view class="point">
@@ -20,6 +21,7 @@
 		</view>
 		<view class="button" @click="back">保存</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

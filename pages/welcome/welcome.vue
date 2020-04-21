@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="page">
 		<swiper class="swiper" :indicator-dots="true" :autoplay="true">
 			<swiper-item class="carousel-item">
@@ -13,6 +14,7 @@
 			</swiper-item>
 		</swiper>
 	</view>
+	</pageCP>
 </template>
 
 <script>

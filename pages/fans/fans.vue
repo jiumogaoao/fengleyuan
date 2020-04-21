@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="page">
 		<view class="noMessage" style="top:524rpx;" v-if="(step==0&&!fans1.length)||(step==1&&!fans2.length)||(step==2&&!fans3.length)">
 			<image src="/static/empty.png"/>
@@ -90,6 +91,7 @@
 			</view>
 		</block>
 	</view>
+	</pageCP>
 </template>
 
 <script>

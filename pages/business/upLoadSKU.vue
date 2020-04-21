@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content">
 		<view class="list" v-if="SKU.length" v-for="(v,i) in SKU" :key="i">
 			<view class="row b-b">
@@ -30,6 +31,7 @@
 		<image class="addSKU" src="/static/uploadSKU.png" @click="pushSKU"></image>
 		<button class="add-btn" @click="confirm">{{edit?'修改商品':'上传商品'}}</button>
 	</view>
+	</pageCP>
 </template>
 
 <script>

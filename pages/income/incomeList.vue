@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<image src="/static/incomeList0.png" class="top"/>
 		<block v-if="Object.keys(list).length" v-for="(v,i) in list" :key="i">
@@ -47,6 +48,7 @@
 		</view>
 
 	</view>
+	</pageCP>
 </template>
 
 <script>

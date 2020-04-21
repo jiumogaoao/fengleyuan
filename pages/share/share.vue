@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view>
 		<canvas style="width: 574rpx; height: 1019rpx;margin: auto;" canvas-id="shareImg"></canvas>
 		<view class="buttonFrame">
@@ -12,6 +13,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

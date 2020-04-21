@@ -1,8 +1,10 @@
 <template>
+	<pageCP>
 	<view class="page">
 		<image src="/static/nonetwork.png"></image>
 		<view class="refalsh" @click="refrash">刷新</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

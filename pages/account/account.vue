@@ -1,32 +1,34 @@
 <template>
-	<view>
-		<view class="top">
-			<view class="money">￥0.00</view>
-			<view class="title">我的账户余额</view>
-		</view>
-		<view class="bar">
-			<view class="item">
-				<view class="title">提现中</view>
+	<pageCP>
+		<view>
+			<view class="top">
 				<view class="money">￥0.00</view>
+				<view class="title">我的账户余额</view>
 			</view>
-			<view class="item">
-				<view class="title">本月结算预估</view>
-				<view class="money">￥0.00</view>
+			<view class="bar">
+				<view class="item">
+					<view class="title">提现中</view>
+					<view class="money">￥0.00</view>
+				</view>
+				<view class="item">
+					<view class="title">本月结算预估</view>
+					<view class="money">￥0.00</view>
+				</view>
+				<view class="item" style="border-right: 0;">
+					<view class="title">本月付款预估</view>
+					<view class="money">￥0.00</view>
+				</view>
 			</view>
-			<view class="item" style="border-right: 0;">
-				<view class="title">本月付款预估</view>
-				<view class="money">￥0.00</view>
+			<view class="go">前往提现</view>
+			<view class="dsc">每月28号计算上月收入最低提现额度为9.00元</view>
+			<view class="recommend">为您推荐</view>
+			<view class="bottom">
+				<view class="text">今日区块币涨幅+0.0291%</view>
+				<view class="text">今日区块币价格8.91197521/个</view>
+				<view class="change">赶快去兑换吧！</view>
 			</view>
 		</view>
-		<view class="go">前往提现</view>
-		<view class="dsc">每月28号计算上月收入最低提现额度为9.00元</view>
-		<view class="recommend">为您推荐</view>
-		<view class="bottom">
-			<view class="text">今日区块币涨幅+0.0291%</view>
-			<view class="text">今日区块币价格8.91197521/个</view>
-			<view class="change">赶快去兑换吧！</view>
-		</view>
-	</view>
+	</pageCP>
 </template>
 
 <script>

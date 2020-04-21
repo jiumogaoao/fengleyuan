@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="content b-t">
 		<view class="listFrame" v-if="addressList.length">
 			<view class="list b-b" v-for="(item, index) in addressList" :key="index" @click="checkAddress(item)">
@@ -30,6 +31,7 @@
 		</view>
 		
 	</view>
+	</pageCP>
 </template>
 
 <script>

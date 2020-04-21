@@ -1,4 +1,5 @@
 <template>  
+<pageCP>
     <view class="container">  
 		<image class="topBG" src="/static/user-bg.png"></image>
 		<view class="head">
@@ -204,6 +205,7 @@
 			
 		
     </view>  
+	</pageCP>
 </template>  
 <script>  
 	import allpage from '@/mixin/allPage'

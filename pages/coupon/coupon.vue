@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<tabbarCP :tab="['可使用','已失效']" :hl="tap" @change="tabChange"/>
 		<view class="point">
@@ -20,6 +21,7 @@
 			<view class="sale">满500减100优惠券</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>

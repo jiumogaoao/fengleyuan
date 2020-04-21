@@ -1,4 +1,5 @@
 <template>
+	<pageCP>
 	<view class="container">
 		<view class="top">
 			<image class="picL" src="/static/temp/ad3.jpg"></image>
@@ -22,6 +23,7 @@
 			</view>
 		</view>
 	</view>
+	</pageCP>
 </template>
 
 <script>
